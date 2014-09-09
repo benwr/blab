@@ -15,3 +15,9 @@
 *.uvgui.*
 arm/ObjectFiles/*
 arm/t22
+arm/FreeRTOS/*
+arm/LPCUSB/*
+arm/NXPDrivers/*
+arm/RTOSDemo/*
+arm/SystemFiles/*
+arm/vtCode/*
