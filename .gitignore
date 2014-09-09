@@ -1,0 +1,17 @@
+*.axf
+*.htm
+*.Inp
+*.map
+*.tra
+*.dep
+*.__i
+*.crf
+*.d
+*.o
+*.lst
+*.lnp
+*.bak
+*.plg
+*.uvgui.*
+arm/ObjectFiles/*
+arm/t22
