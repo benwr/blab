@@ -1,0 +1,1401 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$C:\Users\alex\AppData\Local\Temp\s22s.obj
+end_init CODE 0 B6 B6 4 1
+reset_vec CODE 0 0 0 4 1
+config CONFIG 0 FFF8 FFF8 8 1
+$dist/UseXC8/production\PIC_Framework_3.X.production.obj
+intcodelo CODE 0 18 18 9E 1
+intcode CODE 0 8 8 10 1
+text51 CODE 0 18A8 18A8 6 1
+text50 CODE 0 16E4 16E4 2E 1
+text49 CODE 0 1890 1890 10 1
+text48 CODE 0 14CE 14CE 3E 1
+text47 CODE 0 1298 1298 5E 1
+text46 CODE 0 1400 1400 50 1
+text45 CODE 0 CC8 CC8 E8 1
+text44 CODE 0 16B6 16B6 2E 1
+text43 CODE 0 DB0 DB0 C6 1
+text42 CODE 0 BA BA 56C 1
+text41 CODE 0 9B6 9B6 11E 1
+text40 CODE 0 15F0 15F0 34 1
+text39 CODE 0 186E 186E 12 1
+text38 CODE 0 10A2 10A2 6E 1
+intcode_body CODE 0 FB4 FB4 7E 1
+text36 CODE 0 185C 185C 12 1
+text35 CODE 0 1450 1450 40 1
+text34 CODE 0 E76 E76 AA 1
+text33 CODE 0 17B2 17B2 24 1
+text32 CODE 0 184A 184A 12 1
+text31 CODE 0 1712 1712 2C 1
+text30 CODE 0 17F4 17F4 1E 1
+text29 CODE 0 F20 F20 94 1
+text27 CODE 0 1032 1032 70 1
+text26 CODE 0 178C 178C 26 1
+text25 CODE 0 1548 1548 3C 1
+text24 CODE 0 1352 1352 58 1
+text23 CODE 0 894 894 122 1
+text22 CODE 0 15BA 15BA 36 1
+text21 CODE 0 1584 1584 36 1
+text20 CODE 0 1812 1812 14 1
+text19 CODE 0 1656 1656 32 1
+text18 CODE 0 1880 1880 10 1
+text17 CODE 0 1490 1490 3E 1
+text16 CODE 0 150C 150C 3C 1
+text15 CODE 0 12F6 12F6 5C 1
+text14 CODE 0 18A0 18A0 8 1
+text13 CODE 0 173E 173E 28 1
+text12 CODE 0 1110 1110 66 1
+text11 CODE 0 1176 1176 64 1
+text10 CODE 0 13AA 13AA 56 1
+text9 CODE 0 1838 1838 12 1
+text8 CODE 0 17D6 17D6 1E 1
+text7 CODE 0 AD4 AD4 104 1
+text6 CODE 0 1826 1826 12 1
+text5 CODE 0 BD8 BD8 F0 1
+text4 CODE 0 1688 1688 2E 1
+text3 CODE 0 11DA 11DA 60 1
+text2 CODE 0 123A 123A 5E 1
+text1 CODE 0 1624 1624 32 1
+text0 CODE 0 626 626 26E 1
+cstackCOMRAM COMRAM 1 1 1 2E 1
+cstackBANK0 BANK0 1 60 60 37 1
+cstackBANK1 BANK1 1 1A2 1A2 53 1
+bssBANK1 BANK1 1 100 100 A2 1
+bssBANK0 BANK0 1 97 97 36 1
+bssCOMRAM COMRAM 1 31 31 2 1
+cinit CODE 0 1766 1766 26 1
+nvBANK0 BANK0 1 CD CD 2 1
+nvCOMRAM COMRAM 1 2F 2F 2 1
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+BANK0 000CF-000FF 1
+BANK1 001F5-001FF 1
+BANK10 00A00-00AFF 1
+BANK11 00B00-00BFF 1
+BANK12 00C00-00CFF 1
+BANK13 00D00-00DFF 1
+BANK14 00E00-00EBF 1
+BANK2 00200-002FF 1
+BANK3 00300-003FF 1
+BANK4 00400-004FF 1
+BANK5 00500-005FF 1
+BANK6 00600-006FF 1
+BANK7 00700-007FF 1
+BANK8 00800-008FF 1
+BANK9 00900-009FF 1
+BIGRAM 00033-0005F 1
+BIGRAM 000CF-000FF 1
+BIGRAM 001F5-00EBF 1
+CODE 00004-00007 1
+CODE 018AE-0FFF7 1
+COMRAM 00033-0005F 1
+CONST 00004-00007 1
+CONST 018AE-0FFF7 1
+MEDIUMCONST 018AE-0FFF7 1
+RAM 000CF-000FF 1
+RAM 001F5-00EBF 1
+SFR 00EC0-00FFF 1
+SMALLCONST 018AE-0FFF7 1
+STACK 001F5-009FF 1
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <file name>:<line number> <address> <psect name> <class name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$dist/UseXC8/production\PIC_Framework_3.X.production.obj
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":83 8 intcode CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c":23 8 intcode CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":122 18 intcodelo CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":169 18 intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":124 5C intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":125 60 intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":126 62 intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":130 66 intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":131 6A intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":132 6C intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":134 70 intcodelo CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":100 BA text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":102 BA text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":103 C0 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":104 C6 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":105 CC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":106 D2 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":110 D8 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":111 DC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":115 DE text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":116 F4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":117 FA text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":118 10E text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":121 124 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":122 128 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":123 12C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":126 132 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":128 13A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":131 13A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":132 13E text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":134 146 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":135 15E text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":136 164 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":141 16C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":144 16C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":147 170 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":148 184 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":149 18C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":150 190 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":151 196 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":152 198 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":153 1AC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":155 1C2 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":157 1C4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":158 1CC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":159 1E0 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":160 1E4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":161 1E8 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":163 1FE text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":169 216 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":170 22A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":171 240 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":178 256 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":179 28A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":180 2C4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":181 2D8 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":182 2DE text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":184 2E0 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":188 2E4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":191 2E4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":193 2E8 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":194 2FC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":195 304 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":196 308 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":197 33C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":200 352 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":201 366 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":202 37C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":205 394 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":207 39A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":208 39C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":209 3A4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":210 3B8 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":211 3BC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":212 3F0 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":213 404 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":214 406 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":215 40A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":216 420 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":217 426 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":219 42C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":220 432 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":222 434 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":223 434 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":127 44A text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":230 476 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":233 476 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":235 484 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":236 486 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":241 488 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":242 4A6 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":243 4BC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":244 4D0 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":247 4E6 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":248 4EE text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":249 532 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":250 564 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":251 56C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":252 584 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":253 59C text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":254 5B4 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":255 5CC text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":256 5E8 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":258 5FE text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":260 606 text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":261 61E text42 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":186 626 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":198 626 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":214 62C text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":215 630 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":225 632 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":228 646 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":231 65A text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":234 66E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":238 672 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":239 676 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":252 67A text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":259 680 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":268 68C text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":270 68E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":272 690 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":281 692 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":296 698 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":305 69A text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":314 6AC text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":324 6B0 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":325 6B4 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":344 6B6 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":351 6BA text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":352 6E4 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":361 6EC text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":362 72C text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":365 72E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":369 72E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":370 732 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":384 734 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":386 73A text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":387 740 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":388 746 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":392 748 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":393 74E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":398 752 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":399 758 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":400 75E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":404 760 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":405 768 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":406 76E text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":407 772 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":381 774 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":410 790 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":411 7A8 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":358 7AA text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":422 7C6 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":423 7F0 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":432 7F8 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":433 838 text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":438 83A text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":439 87A text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/main.c":429 87C text0 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":63 894 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":72 894 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":73 8AC text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":74 8C6 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":76 8D4 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":77 8F0 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":80 8F4 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":81 918 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":87 950 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":89 982 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":91 9A0 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":92 9AC text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":94 9B2 text23 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":63 9B6 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":72 9B6 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":73 9CE text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":74 9E8 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":76 9F6 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":77 A12 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":80 A16 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":81 A3A text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":87 A6E text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":89 AA0 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":91 ABE text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":92 ACA text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":94 AD0 text41 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":53 AD4 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":55 AD8 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":56 AF0 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":55 B58 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":58 B90 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":59 BA8 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":62 BBE text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":65 BD4 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":67 BD6 text7 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":24 BD8 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":28 BD8 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":38 BE2 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":39 BFA text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":41 C14 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":42 C22 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":46 C26 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":47 C3E text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":55 C56 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":56 C86 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":59 CB8 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":60 CC4 text5 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":24 CC8 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":28 CC8 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":38 CD2 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":39 CEA text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":41 D04 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":42 D12 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":46 D16 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":47 D2E text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":55 D46 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":56 D72 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":59 DA0 text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":60 DAC text45 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":71 DB0 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":72 DB2 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":73 DC8 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":75 DDE text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":76 DE4 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":79 DE8 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":80 DFE text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":81 E12 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":82 E28 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":83 E2A text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":84 E2E text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":85 E44 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":86 E46 text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":90 E5E text43 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":24 E76 text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":28 E76 text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":38 E7C text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":39 E8C text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":41 E9C text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":42 EAA text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":46 EAE text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":47 EBE text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":55 ECE text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":56 EEE text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":59 F10 text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":60 F1C text34 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":11 F20 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":17 F20 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":18 F24 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":25 F4A text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":27 F58 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":28 F6A text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":29 F88 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":36 F98 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":43 F9C text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":44 F9E text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":45 FA0 text29 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":83 FB4 intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":88 FE0 intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":90 FE4 intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":92 FE6 intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":96 FEA intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":97 FEE intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":99 FF0 intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":109 FF4 intcode_body CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":110 FF8 intcode_body CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":124 1032 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":126 1036 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":127 103A text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":129 103E text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":130 1042 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":132 1044 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":134 104A text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":135 104C text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":138 104E text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":139 1052 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":141 1054 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":142 105A text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":143 105E text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":144 105E text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":146 1060 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":147 1064 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":149 1066 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":150 106A text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":154 106C text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":155 1072 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":156 1076 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":157 1076 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":159 1078 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":160 107E text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":161 1082 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":162 1082 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":164 1084 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":165 1088 text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":167 109C text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":168 109E text27 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1open.c":169 10A0 text27 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":16 10A2 text38 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":25 10A2 text38 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":27 10B2 text38 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":28 10E6 text38 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":29 10F2 text38 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":268 1110 text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":269 1110 text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":270 111C text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":271 1132 text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":272 1148 text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":273 115E text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":274 1174 text12 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":14 1176 text11 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":17 1176 text11 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":18 118C text11 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":19 11A2 text11 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":20 11B2 text11 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":19 11CC text11 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":8 11DA text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":13 11DA text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":14 11E4 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":15 11EA text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":16 11EC text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":17 11F4 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":15 11F8 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":20 11FE text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":21 1212 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":22 1222 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":23 122A text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":24 1230 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":25 1230 text3 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c":26 1238 text3 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":14 123A text2 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":17 123A text2 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":20 1248 text2 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":21 127A text2 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":226 1298 text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":228 1298 text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":233 129E text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":238 12AE text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":245 12BE text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":248 12D8 text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":251 12F0 text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":252 12F4 text47 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":256 12F6 text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":257 12F6 text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":263 1306 text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":265 130A text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":266 1324 text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":272 132A text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":273 1344 text15 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":279 134A text15 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":11 1352 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":24 1352 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":25 1362 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 1372 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":27 1374 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 1394 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":32 13A6 text24 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 13A8 text24 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":194 13AA text10 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":195 13AA text10 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":196 13AE text10 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":197 13C2 text10 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":198 13D6 text10 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":199 13EA text10 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":200 13FE text10 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":11 1400 text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":24 1400 text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":25 140C text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 1418 text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":27 141A text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 143A text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":32 144C text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 144E text46 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":11 1450 text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":24 1450 text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":25 1458 text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 1460 text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":27 1462 text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 147E text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":32 148C text35 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c":26 148E text35 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":30 1490 text17 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":31 1490 text17 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":32 1494 text17 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":33 14A2 text17 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":34 14B2 text17 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":36 14C0 text17 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":30 14CE text48 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":31 14CE text48 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":32 14D2 text48 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":33 14E0 text48 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":34 14F0 text48 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":36 14FE text48 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":40 150C text16 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":41 150C text16 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":42 152C text16 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":44 153A text16 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":43 1548 text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":45 154C text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":47 1554 text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":49 1566 text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":50 156A text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":52 156E text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":54 1570 text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":55 1576 text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":56 157A text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":57 157A text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":88 157C text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":89 157E text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":91 1580 text25 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c":93 1582 text25 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":112 1584 text21 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":118 1588 text21 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":135 15BA text22 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":141 15BE text22 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":183 15F0 text40 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":189 15F2 text40 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/uart_thread.c":9 1624 text1 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/uart_thread.c":10 1624 text1 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/uart_thread.c":12 1630 text1 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/uart_thread.c":15 163C text1 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":220 1656 text19 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":221 1656 text19 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":174 1688 text4 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":180 168C text4 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":126 16B6 text44 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":132 16BA text44 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":220 16E4 text50 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":221 16E4 text50 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":36 1712 text31 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":44 1712 text31 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":45 171E text31 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":48 1730 text31 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c":49 173C text31 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":279 173E text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":288 1742 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":289 1744 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":297 1746 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":299 174A text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":300 174E text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":301 1752 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":302 1756 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":303 175A text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":318 175C text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":319 175E text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":328 1760 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":329 1762 text13 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_i2c.c":331 1764 text13 CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5453 1766 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5455 1766 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5458 1766 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5485 1766 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5486 176A cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5487 176C cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5488 176C cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5489 176E cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5490 1770 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5493 1772 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5494 1776 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5495 1778 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5496 1778 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5497 177A cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5498 177C cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5501 177E cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5502 1780 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5508 1782 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5510 1782 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5511 1784 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5512 1786 cinit CODE
+"C:\Users\alex\AppData\Local\Temp\s22s.":5513 1788 cinit CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":18 178C text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":20 1790 text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":21 1798 text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":22 179C text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":23 17A0 text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":25 17A2 text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":26 17A8 text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":27 17AC text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":28 17AC text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":30 17AE text26 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c":31 17B0 text26 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":103 17B2 text33 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":109 17B4 text33 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":49 17D6 text8 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":50 17D6 text8 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":51 17E2 text8 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c":52 17F2 text8 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":17 17F4 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":21 17F4 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":23 17F8 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":25 17FC text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":26 17FE text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":27 1800 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":28 1802 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":30 1802 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":31 1804 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":33 1806 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":34 1808 text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":36 180A text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c":38 180E text30 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\d1ktcyx.c":8 1812 text20 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\d1ktcyx.c":10 1816 text20 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\d1ktcyx.c":11 1816 text20 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\d1ktcyx.c":12 181E text20 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer0_thread.c":9 1826 text6 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer0_thread.c":12 1826 text6 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer0_thread.c":16 1836 text6 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":6 1838 text9 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":7 1838 text9 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c":8 1848 text9 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c":14 184A text32 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c":18 184A text32 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c":20 1852 text32 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c":21 1856 text32 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c":22 185A text32 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c":15 185C text36 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c":19 185C text36 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c":20 1860 text36 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c":22 1864 text36 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c":23 186C text36 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c":16 186E text39 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c":20 186E text39 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c":22 1876 text39 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c":23 187A text39 CODE
+"C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c":24 187E text39 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":22 1880 text18 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":23 1880 text18 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":22 1890 text49 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":23 1890 text49 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":14 18A0 text14 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":17 18A0 text14 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":18 18A2 text14 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":19 18A4 text14 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c":20 18A6 text14 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":202 18A8 text51 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":204 18A8 text51 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":213 18AA text51 CODE
+"C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/messages.c":216 18AC text51 CODE
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+ReadTimer1@timer 3 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_ToMainHigh_sendmsg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_XINST$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@maxlength 6C 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi1_send_msg F20 0 CODE 0 text34 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@tlength 12 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@tlength 70 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ToMainHigh_MQ 16C 0 BANK1 1 bssBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+start_i2c_slave_reply@length 95 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@tlength 74 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__S0 10000 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__S1 1F5 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__S2 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi2_send_msg DB0 0 CODE 0 text45 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_DSWDTPS$G2 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_start_i2c_slave_reply BD8 0 CODE 0 text7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hintentry 0 0 ABS 0 intentry dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lintentry 0 0 ABS 0 intentry dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainLow_recvmsg@maxlength 1B8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1memcpy@d 7 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2memcpy@d 66 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_init_i2c 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_ToMainHigh_sendmsg 16E4 0 CODE 0 text44 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_timer1_lthread 1298 0 CODE 0 text2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_init_timer1_lthread 1838 0 CODE 0 text9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_USART1_Status 32 0 COMRAM 1 bssCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer1_int_handler@result 1B 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_LATB F8A 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_LATD F8C 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_ToMainHigh_recvmsg 15F0 0 CODE 0 text22 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_FromMainHigh_recvmsg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_ToMainHigh_recvmsg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_main 626 0 CODE 0 text0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+Read1USART@data 1 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___sp 0 0 STACK 2 stack C:\Users\alex\AppData\Local\Temp\s22s.obj
+_timer0_int_handler 10A2 0 CODE 0 text38 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@overrun_error 7E 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+init_i2c@ic 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@data_written 7D 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_timer1_int_handler 1712 0 CODE 0 text31 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+start B6 0 CODE 0 init C:\Users\alex\AppData\Local\Temp\s22s.obj
+_MQ_Main_Willing_to_block 31 0 COMRAM 1 bssCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_start_i2c_slave_reply AD4 0 CODE 0 text7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1memcpy@d1 1 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2memcpy@d1 60 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_FromMainHigh_MQ 100 0 BANK1 1 bssBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_timer0_int_handler 1110 0 CODE 0 text38 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TMR0H FD7 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TMR1H FCF 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TMR0L FD6 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TMR1L FCE 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+?_in_high_int 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TRISB F93 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TRISD F95 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hirdata 0 0 CODE 0 irdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lirdata 0 0 CODE 0 irdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HRAM 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LRAM 1 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_T0CON FD5 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_T1CON FCD 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@qmsg 15 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@qmsg 73 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_configure_slave@addr 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+OpenTimer0@config 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@msgtype E 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@msgtype 6D 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@qmsg 76 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_WDTPS$32768 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hconfig 10000 0 CONFIG 0 config dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lconfig FFF8 0 CONFIG 0 config dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@msgtype 6D 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer1_lthread@retval 1BE 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+OpenTimer1@config 93 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+OpenTimer1@config1 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_RTCOSC$T1OSCREF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+?___lwmod 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+WriteTimer0@timer 62 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbigram 0 0 ABS 0 bigram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+WriteTimer0@timer0 60 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbigram 0 0 ABS 0 bigram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hrparam 0 0 ABS 0 rparam dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lrparam 0 0 ABS 0 rparam dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1memcpy@n 5 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2memcpy@n 64 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2_check_msg 16E4 0 CODE 0 text50 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_int_handler@msgtype 7E 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_enter_sleep_mode 18A8 0 CODE 0 text51 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hram 0 0 ABS 0 ram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lram 0 0 ABS 0 ram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hcomram 0 0 ABS 0 comram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lcomram 0 0 ABS 0 comram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_send_msg BD8 0 CODE 0 text5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+?_in_main 95 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hsfr 0 0 ABS 0 sfr dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lsfr 0 0 ABS 0 sfr dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbss 0 0 RAM 1 bss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_recv_msg 894 0 CODE 0 text23 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_Read1USART 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbss 0 0 RAM 1 bss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@length D 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@length 6C 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hnvrram 0 0 COMRAM 1 nvrram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lnvrram 0 0 COMRAM 1 nvrram dist/UseXC8/production\PIC_Framework_3.X.production.obj
+WriteTimer1@timer 3 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_timer1_int_handler 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+WriteTimer1@timer1 1 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_RCREG1 FAF 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_enter_sleep_mode 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_RCSTA1 FAC 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+Open1USART@config 96 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SPBRG1 FB0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TXSTA1 FAD 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi2_in_high_int 18A0 0 CODE 0 text49 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+uart_lthread@length 1A6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_PIE1bits F9D 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+init_queue@i 93 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_init_timer1_lthread 184A 0 CODE 0 text9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@msg_to_send 80 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_PIR1bits F9E 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_IPR1bits F9F 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_lthread@msgbuffer 1A8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer1_lthread@msgbuffer 1BC 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hintsave_regs 0 0 BIGRAM 1 intsave_regs dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPADD FC8 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lintsave_regs 0 0 BIGRAM 1 intsave_regs dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_RCONbits FD0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1memcpy@s 9 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2memcpy@s 68 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbigbss 0 0 BIGRAM 1 bigbss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbigbss 0 0 BIGRAM 1 bigbss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hintret 0 0 ABS 0 intret dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2_in_high_int 1890 0 CODE 0 text49 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lintret 0 0 ABS 0 intret dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hramtop F00 0 RAM 0 ramtop dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lramtop F00 0 RAM 0 ramtop dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hstruct 0 0 COMRAM 1 struct dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lstruct 0 0 COMRAM 1 struct dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbigdata 0 0 BIGRAM 1 bigdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbigdata 0 0 BIGRAM 1 bigdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hmediumconst 0 0 MEDIUMCONST 0 mediumconst dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lmediumconst 0 0 MEDIUMCONST 0 mediumconst dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hfarbss 0 0 FARRAM 0 farbss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lfarbss 0 0 FARRAM 0 farbss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@uthread_data 1CA 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2_in_low_int 14CE 0 CODE 0 text48 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_timer0_lthread 1826 0 CODE 0 text6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hintcode 18 0 CODE 0 intcode dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPBUF FC9 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lintcode 8 0 CODE 0 intcode dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_timer1_lthread 123A 0 CODE 0 text2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hfardata 0 0 FARRAM 0 fardata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lfardata 0 0 FARRAM 0 fardata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_T1GCON F9A 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_CPUDIV$OSC1 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pintcode 8 0 CODE 0 intcode dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_OSCCON FD3 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Habs1 0 0 ABS 0 abs1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Labs1 0 0 ABS 0 abs1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@msgbuffer 1BF 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@slot 1AF 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+FromMainHigh_sendmsg@data 1B3 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@slot 1AF 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1_memcpy 1450 0 CODE 0 text35 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2_memcpy 1400 0 CODE 0 text46 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HnvCOMRAM 0 0 ABS 0 nvCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LnvCOMRAM 0 0 ABS 0 nvCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pnvCOMRAM 2F 0 COMRAM 1 nvCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@msgtype 1D7 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_in_high_int 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_block_on_To_msgqueues 12F6 0 CODE 0 text15 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1memcpy@s1 3 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2memcpy@s1 62 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_Delay1KTCYx 1826 0 CODE 0 text20 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_enable_interrupts 18A8 0 CODE 0 text14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@ic 1D9 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@i2c_data 7F 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@uc 1D0 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hdata 0 0 ABS 0 data dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ldata 0 0 ABS 0 data dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@qmsg 1B0 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@qmsg 1B2 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_block_on_To_msgqueues 1352 0 CODE 0 text15 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi2_recv_msg AD4 0 CODE 0 text41 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+stackhi 9FF 0 ABS 0 - C:\Users\alex\AppData\Local\Temp\s22s.obj
+_check_msg 1656 0 CODE 0 text19 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pcstackBANK0 60 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_send_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htemp 0 0 COMRAM 1 temp dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltemp 0 0 COMRAM 1 temp dist/UseXC8/production\PIC_Framework_3.X.production.obj
+stacklo 1F5 0 ABS 0 - C:\Users\alex\AppData\Local\Temp\s22s.obj
+__Hrbit 0 0 COMRAM 1 rbit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lrbit 0 0 COMRAM 1 rbit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hinit B6 0 CODE 0 init dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Linit B6 0 CODE 0 init dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hintcodelo B6 0 CODE 0 intcodelo dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lintcodelo 18 0 CODE 0 intcodelo dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hrbss 0 0 COMRAM 1 rbss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_main 894 0 CODE 0 text0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lrbss 0 0 COMRAM 1 rbss dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pintcodelo 18 0 CODE 0 intcodelo dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ic_ptr CD 0 BANK0 1 nvBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+FromMainHigh_recvmsg@maxlength 2E 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_uc_ptr 2F 0 COMRAM 1 nvCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_check_msg 1688 0 CODE 0 text19 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext 0 0 ABS 0 text dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext 0 0 ABS 0 text dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_memcpy 1352 0 CODE 0 text24 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_Delay1KTCYx 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@qptr B 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@qptr 6A 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi1_send_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+end_of_initialization 1782 0 CODE 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainHigh_sendmsg@length 78 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+init_queue@qptr 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_uart_lthread 1624 0 CODE 0 text1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@qptr 6A 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SPBRGH1 F7F 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@qptr 1A6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@qptr 1A6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HnvBANK0 0 0 ABS 0 nvBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LnvBANK0 0 0 ABS 0 nvBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_in_low_int 14CE 0 CODE 0 text17 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pnvBANK0 CD 0 BANK0 1 nvBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi2_send_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPCON1 FC6 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPCON2 FC5 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+init_uart_recv@uc 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ToMainLow_sendmsg 17B2 0 CODE 0 text33 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_handle_start E76 0 CODE 0 text43 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_timer1_lthread 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_handle_start DB0 0 CODE 0 text43 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_OpenTimer0 178C 0 CODE 0 text26 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_i2c_int_handler 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+uart_lthread@msgtype 1A4 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+FromMainHigh_sendmsg@msgtype 1B2 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_RCSTAbits FAC 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TRISBbits F93 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_PORTBbits F81 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_T0CONbits FD5 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_T1CONbits FCD 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ReadTimer1 185C 0 CODE 0 text36 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SleepIfOkay 1298 0 CODE 0 text47 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ToMainHigh_sendmsg 16B6 0 CODE 0 text44 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_OpenTimer1 1548 0 CODE 0 text25 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_i2c_int_handler BA 0 CODE 0 text42 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_uart_recv_int_handler 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+?i2_in_high_int 60 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hibigdata 0 0 CODE 0 ibigdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Libigdata 0 0 CODE 0 ibigdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+?i2_in_low_int 62 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_InterruptHandlerLow 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_OSC$HSPLL 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@data 1AA 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hifardata 0 0 CODE 0 ifardata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lifardata 0 0 CODE 0 ifardata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@data 1AB 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank0 0 0 ABS 0 bank0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank0 0 0 ABS 0 bank0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank1 0 0 ABS 0 bank1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank1 0 0 ABS 0 bank1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_ToMainLow_sendmsg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank2 0 0 ABS 0 bank2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank2 0 0 ABS 0 bank2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_OpenTimer0 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_OpenTimer1 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank3 0 0 ABS 0 bank3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank3 0 0 ABS 0 bank3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_recv_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank4 0 0 ABS 0 bank4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank4 0 0 ABS 0 bank4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_MSSP7B_EN$MSK7 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank5 0 0 ABS 0 bank5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainLow_sendmsg@data 18 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank5 0 0 ABS 0 bank5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hpowerup B6 0 CODE 0 powerup dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPSTAT FC7 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lpowerup B6 0 CODE 0 powerup dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank6 0 0 ABS 0 bank6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank6 0 0 ABS 0 bank6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank7 0 0 ABS 0 bank7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank7 0 0 ABS 0 bank7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank8 0 0 ABS 0 bank8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_timer1_int_handler 173E 0 CODE 0 text31 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank8 0 0 ABS 0 bank8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext0 0 0 ABS 0 text0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext0 0 0 ABS 0 text0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank9 0 0 ABS 0 bank9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPCON1bits FC6 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank9 0 0 ABS 0 bank9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext1 0 0 ABS 0 text1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext1 0 0 ABS 0 text1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext0 626 0 CODE 0 text0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPCON2bits FC5 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext2 0 0 ABS 0 text2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_lthread@tptr 1A2 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext2 0 0 ABS 0 text2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext1 1624 0 CODE 0 text1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer1_lthread@tptr 1B6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext3 0 0 ABS 0 text3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext3 0 0 ABS 0 text3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext2 123A 0 CODE 0 text2 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainLow_sendmsg@msgtype 17 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainHigh_sendmsg@data 76 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext4 0 0 ABS 0 text4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext4 0 0 ABS 0 text4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext3 11DA 0 CODE 0 text3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_ToMainLow_recvmsg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext5 0 0 ABS 0 text5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_SleepIfOkay 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext5 0 0 ABS 0 text5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext4 1688 0 CODE 0 text4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext6 0 0 ABS 0 text6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext6 0 0 ABS 0 text6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext5 BD8 0 CODE 0 text5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext7 0 0 ABS 0 text7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext7 0 0 ABS 0 text7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext6 1826 0 CODE 0 text6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext8 0 0 ABS 0 text8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext8 0 0 ABS 0 text8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext7 AD4 0 CODE 0 text7 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@tlength 1AD 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pbssCOMRAM 31 0 COMRAM 1 bssCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext9 0 0 ABS 0 text9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HcstackBANK1 0 0 ABS 0 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext9 0 0 ABS 0 text9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LcstackBANK1 0 0 ABS 0 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext8 17D6 0 CODE 0 text8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@tlength 1B0 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_ReadTimer1 186E 0 CODE 0 text36 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext9 1838 0 CODE 0 text9 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pcstackBANK1 1A2 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hclrtext 0 0 ABS 0 clrtext dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lclrtext 0 0 ABS 0 clrtext dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_timer0_int_handler 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_WriteTimer0 1880 0 CODE 0 text39 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_WriteTimer1 185C 0 CODE 0 text32 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_Read1USART 17F4 0 CODE 0 text30 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+uart_lthread@msgbuffer 1A8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_WriteTimer0 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_Open1USART 1032 0 CODE 0 text27 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_WriteTimer1 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@alex_counter 1CF 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainHigh_sendmsg@msgtype 75 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+FromMainHigh_recvmsg@data 7A 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi2_in_low_int 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_ToMainLow_sendmsg 17D6 0 CODE 0 text33 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_T1DIG$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_OSCTUNEbits F9B 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_memcpy 13AA 0 CODE 0 text24 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of__initialization 1782 0 CODE 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_in_main 1548 0 CODE 0 text16 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_i2c_configure_slave 173E 0 CODE 0 text13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_ToMainLow_recvmsg 15BA 0 CODE 0 text21 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+memcpy@d 1A2 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_InterruptHandlerLow 18 0 CODE 0 intcodelo dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_SSPSTATbits FC7 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_init_queues 13AA 0 CODE 0 text10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+init_timer1_lthread@tptr 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+memcpy@n 95 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_WPCFG$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_InterruptHandlerHigh 8 0 CODE 0 intcode dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hidata 0 0 CODE 0 idata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lidata 0 0 CODE 0 idata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+memcpy@s 1A4 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hrdata 0 0 COMRAM 1 rdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lrdata 0 0 COMRAM 1 rdata dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_in_high_int 1880 0 CODE 0 text18 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainLow_recvmsg@data 1B6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hidloc 0 0 IDLOC 0 idloc dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lidloc 0 0 IDLOC 0 idloc dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_STVREN$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hstack 0 0 STACK 2 stack dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lstack 0 0 STACK 2 stack dist/UseXC8/production\PIC_Framework_3.X.production.obj
+int_func FB4 0 CODE 0 intcode_body dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@length 1A8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_init_queue 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___lwmod 11DA 0 CODE 0 text3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hparam 0 0 ABS 0 rparam dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lparam 0 0 ABS 0 rparam dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hspace_0 10000 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HcstackCOMRAM 0 0 ABS 0 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lspace_0 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1_send_msg E76 0 CODE 0 text34 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2_send_msg CC8 0 CODE 0 text45 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LcstackCOMRAM 0 0 ABS 0 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_InterruptHandlerHigh 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainLow_recvmsg@msgtype 1B4 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_IESO$ON 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pcstackCOMRAM 1 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_in_main 150C 0 CODE 0 text16 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_init_queue 1176 0 CODE 0 text11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hspace_1 1F5 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lspace_1 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hsmallconst 0 0 SMALLCONST 0 smallconst dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lsmallconst 0 0 SMALLCONST 0 smallconst dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2_recv_msg 9B6 0 CODE 0 text41 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_start_i2c_slave_reply 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hspace_2 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lspace_2 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hnvbit 0 0 COMRAM 1 nvbit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lnvbit 0 0 COMRAM 1 nvbit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hcinit 0 0 ABS 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lcinit 0 0 ABS 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pcinit 1766 0 CODE 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_DSBOREN$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@length 1D8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ramtop F00 0 RAM 0 ramtop C:\Users\alex\AppData\Local\Temp\s22s.obj
+__mediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\alex\AppData\Local\Temp\s22s.obj
+?_in_low_int 93 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_init_queues 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_main 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi2_in_low_int 150C 0 CODE 0 text48 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ToMainLow_recvmsg 1584 0 CODE 0 text21 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hconst 0 0 CODE 0 const dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lconst 0 0 CODE 0 const dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_Open1USART 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@data F 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@data 6E 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+uart_lthread@uptr 1A2 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+Open1USART@spbrg 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@data 6F 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+FromMainHigh_recvmsg@msgtype 78 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_FromMainHigh_sendmsg 16B6 0 CODE 0 text4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_DSWDTEN$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2check_msg@qptr 60 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_check_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_FromMainHigh_recvmsg 15F0 0 CODE 0 text40 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_uart_lthread 1656 0 CODE 0 text1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_in_main 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainHigh_recvmsg@maxlength 1B8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+check_msg@qptr 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_Delay1KTCYx 1812 0 CODE 0 text20 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_init_uart_recv 17D6 0 CODE 0 text8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_in_high_int 1890 0 CODE 0 text18 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_init_uart_recv 17F4 0 CODE 0 text8 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_i2c_configure_slave 1766 0 CODE 0 text13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HbssBANK0 0 0 ABS 0 bssBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LbssBANK0 0 0 ABS 0 bssBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_WPEND$PAGE_WPFP 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank10 0 0 ABS 0 bank10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pbssBANK0 97 0 BANK0 1 bssBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank10 0 0 ABS 0 bank10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_timer0_lthread 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_Read1USART 1812 0 CODE 0 text30 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_uart_recv_int_handler FB4 0 CODE 0 text29 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_lthread@msgval 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank11 0 0 ABS 0 bank11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank11 0 0 ABS 0 bank11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ToMainLow_MQ 97 0 BANK0 1 bssBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_FCMEN$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank12 0 0 ABS 0 bank12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank12 0 0 ABS 0 bank12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank13 0 0 ABS 0 bank13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank13 0 0 ABS 0 bank13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__HbssBANK1 0 0 ABS 0 bssBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__LbssBANK1 0 0 ABS 0 bssBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+handle_start@data_read 2E 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_timer0_lthread 1838 0 CODE 0 text6 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_InterruptHandlerLow B6 0 CODE 0 intcodelo dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hbank14 0 0 ABS 0 bank14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pbssBANK1 100 0 BANK1 1 bssBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lbank14 0 0 ABS 0 bank14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext10 0 0 ABS 0 text10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext10 0 0 ABS 0 text10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_OpenTimer0 17B2 0 CODE 0 text26 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_OpenTimer1 1584 0 CODE 0 text25 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_enter_sleep_mode 18AE 0 CODE 0 text51 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_uart_lthread 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext20 0 0 ABS 0 text20 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext20 0 0 ABS 0 text20 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext10 13AA 0 CODE 0 text10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext30 0 0 ABS 0 text30 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext11 0 0 ABS 0 text11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext30 0 0 ABS 0 text30 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext11 0 0 ABS 0 text11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_PLLDIV$3 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext20 1812 0 CODE 0 text20 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainHigh_recvmsg@data 1B6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext40 0 0 ABS 0 text40 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext21 0 0 ABS 0 text21 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@maxlength 1A8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext40 0 0 ABS 0 text40 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext21 0 0 ABS 0 text21 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext11 1176 0 CODE 0 text11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext30 17F4 0 CODE 0 text30 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext50 0 0 ABS 0 text50 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext31 0 0 ABS 0 text31 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext12 0 0 ABS 0 text12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext50 0 0 ABS 0 text50 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext31 0 0 ABS 0 text31 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext12 0 0 ABS 0 text12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext21 1584 0 CODE 0 text21 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext40 15F0 0 CODE 0 text40 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_uart_recv_int_handler F20 0 CODE 0 text29 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext41 0 0 ABS 0 text41 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext22 0 0 ABS 0 text22 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext41 0 0 ABS 0 text41 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext22 0 0 ABS 0 text22 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext12 1110 0 CODE 0 text12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext31 1712 0 CODE 0 text31 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext50 16E4 0 CODE 0 text50 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_IOL1WAY$ON 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext51 0 0 ABS 0 text51 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext32 0 0 ABS 0 text32 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext13 0 0 ABS 0 text13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext51 0 0 ABS 0 text51 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext32 0 0 ABS 0 text32 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext13 0 0 ABS 0 text13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext22 15BA 0 CODE 0 text22 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext41 9B6 0 CODE 0 text41 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_RCSTA1bits FAC 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext42 0 0 ABS 0 text42 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext23 0 0 ABS 0 text23 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext42 0 0 ABS 0 text42 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext23 0 0 ABS 0 text23 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext13 173E 0 CODE 0 text13 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext32 184A 0 CODE 0 text32 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext51 18A8 0 CODE 0 text51 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_TXSTA1bits FAD 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext33 0 0 ABS 0 text33 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext14 0 0 ABS 0 text14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext33 0 0 ABS 0 text33 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext14 0 0 ABS 0 text14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext23 894 0 CODE 0 text23 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext42 BA 0 CODE 0 text42 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@t0thread_data 1CC 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext43 0 0 ABS 0 text43 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext24 0 0 ABS 0 text24 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext43 0 0 ABS 0 text43 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext24 0 0 ABS 0 text24 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext14 18A0 0 CODE 0 text14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext33 17B2 0 CODE 0 text33 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@t1thread_data 1D5 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext34 0 0 ABS 0 text34 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext15 0 0 ABS 0 text15 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext34 0 0 ABS 0 text34 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext15 0 0 ABS 0 text15 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext24 1352 0 CODE 0 text24 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext43 DB0 0 CODE 0 text43 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext44 0 0 ABS 0 text44 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext25 0 0 ABS 0 text25 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_WriteTimer0 186E 0 CODE 0 text39 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext44 0 0 ABS 0 text44 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext25 0 0 ABS 0 text25 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext15 12F6 0 CODE 0 text15 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext34 E76 0 CODE 0 text34 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_FromMainLow_MQ 136 0 BANK1 1 bssBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___inthi_sp 0 0 STACK 2 stack C:\Users\alex\AppData\Local\Temp\s22s.obj
+__Htext35 0 0 ABS 0 text35 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext16 0 0 ABS 0 text16 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext35 0 0 ABS 0 text35 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext16 0 0 ABS 0 text16 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext25 1548 0 CODE 0 text25 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext44 16B6 0 CODE 0 text44 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext45 0 0 ABS 0 text45 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext26 0 0 ABS 0 text26 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext45 0 0 ABS 0 text45 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext26 0 0 ABS 0 text26 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext16 150C 0 CODE 0 text16 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext35 1450 0 CODE 0 text35 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext36 0 0 ABS 0 text36 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi2_check_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext17 0 0 ABS 0 text17 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext36 0 0 ABS 0 text36 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext17 0 0 ABS 0 text17 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext26 178C 0 CODE 0 text26 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext45 CC8 0 CODE 0 text45 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+FromMainHigh_sendmsg@length 1B5 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext46 0 0 ABS 0 text46 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext27 0 0 ABS 0 text27 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext46 0 0 ABS 0 text46 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext27 0 0 ABS 0 text27 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext17 1490 0 CODE 0 text17 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext36 185C 0 CODE 0 text36 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext18 0 0 ABS 0 text18 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of___lwmod 123A 0 CODE 0 text3 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext18 0 0 ABS 0 text18 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainHigh_recvmsg@msgtype 1B4 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext27 1032 0 CODE 0 text27 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext46 1400 0 CODE 0 text46 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___lwmod@divisor 93 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext47 0 0 ABS 0 text47 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext47 0 0 ABS 0 text47 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext18 1880 0 CODE 0 text18 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext38 0 0 ABS 0 text38 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext19 0 0 ABS 0 text19 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext38 0 0 ABS 0 text38 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext19 0 0 ABS 0 text19 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext47 1298 0 CODE 0 text47 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi1_memcpy 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_WDTEN$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext48 0 0 ABS 0 text48 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext29 0 0 ABS 0 text29 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext48 0 0 ABS 0 text48 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext29 0 0 ABS 0 text29 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext19 1656 0 CODE 0 text19 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext38 10A2 0 CODE 0 text38 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___intlo_sp 0 0 STACK 2 stack C:\Users\alex\AppData\Local\Temp\s22s.obj
+__Htext39 0 0 ABS 0 text39 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext39 0 0 ABS 0 text39 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext29 F20 0 CODE 0 text29 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext48 14CE 0 CODE 0 text48 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_lthread@msgtype 1A4 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer1_lthread@msgtype 1B8 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Htext49 0 0 ABS 0 text49 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ltext49 0 0 ABS 0 text49 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext39 186E 0 CODE 0 text39 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_T1GCONbits F9A 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_OSCCONbits FD3 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__ptext49 1890 0 CODE 0 text49 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_INTCONbits FF2 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+?_ReadTimer1 1 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_send_msg CC8 0 CODE 0 text5 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hend_init BA 0 CODE 0 end_init dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lend_init B6 0 CODE 0 end_init dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi2_memcpy 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_WriteTimer1 184A 0 CODE 0 text32 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_FromMainHigh_recvmsg 1624 0 CODE 0 text40 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_init_queue 11DA 0 CODE 0 text11 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+memcpy@d1 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_InterruptHandlerHigh 1032 0 CODE 0 intcode_body dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hjflash_buffer F800 0 CODE 0 jflash_buffer dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Ljflash_buffer F800 0 CODE 0 jflash_buffer dist/UseXC8/production\PIC_Framework_3.X.production.obj
+send_msg@msgtype 1A9 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_init_queues 1400 0 CODE 0 text10 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+recv_msg@msgtype 1A9 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_CP0$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__smallconst 0 0 SMALLCONST 0 smallconst C:\Users\alex\AppData\Local\Temp\s22s.obj
+__CFG_WPFP$PAGE_63 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@data_read 82 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hreset_vec 4 0 CODE 0 reset_vec dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lreset_vec 0 0 CODE 0 reset_vec dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_in_low_int 1490 0 CODE 0 text17 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_FromMainHigh_sendmsg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_enable_interrupts 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+memcpy@s1 93 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__accesstop 60 0 ABS 0 - C:\Users\alex\AppData\Local\Temp\s22s.obj
+__end_of_recv_msg 9B6 0 CODE 0 text23 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Hintcode_body 0 0 ABS 0 intcode_body dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__Lintcode_body 0 0 ABS 0 intcode_body dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__pintcode_body FB4 0 CODE 0 intcode_body dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_enable_interrupts 18A0 0 CODE 0 text14 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+intlevel0 0 0 CODE 0 text C:\Users\alex\AppData\Local\Temp\s22s.obj
+__size_of_block_on_To_msgqueues 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+intlevel1 0 0 CODE 0 text C:\Users\alex\AppData\Local\Temp\s22s.obj
+__CFG_WPDIS$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+intlevel2 0 0 CODE 0 text C:\Users\alex\AppData\Local\Temp\s22s.obj
+intlevel3 0 0 CODE 0 text C:\Users\alex\AppData\Local\Temp\s22s.obj
+__size_ofi2_recv_msg 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@error_buf 7A 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_DSWDTOSC$T1OSCREF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+ToMainLow_sendmsg@length 1A 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_init_uart_recv 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_ofi2_in_high_int 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of___lwmod 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i1send_msg@slot 14 0 COMRAM 1 cstackCOMRAM dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2send_msg@slot 72 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_init_timer1_lthread 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_SleepIfOkay 12F6 0 CODE 0 text47 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2recv_msg@slot 73 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_ToMainHigh_recvmsg 15BA 0 CODE 0 text22 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+start_initialization 1766 0 CODE 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_Open1USART 10A2 0 CODE 0 text27 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+i2c_int_handler@msg_ready 81 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_init_i2c 1176 0 CODE 0 text12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi1_memcpy 1490 0 CODE 0 text35 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+main@last_reg_recvd 1CE 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi2_memcpy 1450 0 CODE 0 text46 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_ReadTimer1 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_init_i2c 1110 0 CODE 0 text12 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__initialization 1766 0 CODE 0 cinit dist/UseXC8/production\PIC_Framework_3.X.production.obj
+start_i2c_slave_reply@msg 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_in_low_int 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__CFG_LPT1OSC$OFF 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_int_handler@val 80 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___lwmod@dividend 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__activetblptr 2 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_ofi2_check_msg 1712 0 CODE 0 text50 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+___lwmod@counter 95 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_int_handler@length 7C 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__end_of_i2c_int_handler 626 0 CODE 0 text42 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_i2c_configure_slave 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+_FromMainHigh_sendmsg 1688 0 CODE 0 text4 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer0_lthread@length 1A6 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+timer1_lthread@length 1BA 0 BANK1 1 cstackBANK1 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+Delay1KTCYx@unit 91 0 BANK0 1 cstackBANK0 dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_handle_start 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+__size_of_memcpy 0 0 ABS 0 - dist/UseXC8/production\PIC_Framework_3.X.production.obj
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect in on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+reset_vec 0 0 0 4 1
+intcode 0 8 8 10 1
+intcodelo 0 18 18 1896 1
+config 0 FFF8 FFF8 8 1
+cstackCOMRAM 1 1 1 32 1
+cstackBANK0 1 60 60 6F 1
+bssBANK1 1 100 100 F5 1

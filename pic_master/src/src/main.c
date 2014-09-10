@@ -16,6 +16,7 @@
 #include "uart_thread.h"
 #include "timer1_thread.h"
 #include "timer0_thread.h"
+#include "debug.h"
 
 
 
@@ -195,35 +196,45 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
+    char alex_counter = 0;
 
-#ifdef __USE18F2680
+    #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
     // We have enough room below the Max Freq to enable the PLL for this chip
     OSCTUNEbits.PLLEN = 1; // 4x the clock speed in the previous line
-#else
-#ifdef __USE18F45J10
+    #else
+    #ifdef __USE18F45J10
     OSCCON = 0x82; // see datasheeet
     OSCTUNEbits.PLLEN = 0; // Makes the clock exceed the PIC's rated speed if the PLL is on
-#else
-#ifdef __USE18F26J50
+    #else
+    #ifdef __USE18F26J50
     OSCCON = 0xE0; // see datasheeet
     OSCTUNEbits.PLLEN = 1;
-#else
-#ifdef __USE18F46J50
+    #else
+    #ifdef __USE18F46J50
     OSCCON = 0xE0; //see datasheet
+    //Alex:
+    //OSCCON : OSCILLATOR CONTROL REGISTER
+    //OSCCON[7] : IDLEN = ( 1 = Device enters Idle mode on SLEEP instruction ) or ( 0 = Device enters Sleep mode on SLEEP instruction )
+    //OSCCON[6:4] : IRCF; 111 = 8 MHz, 110 = 4 MHz(2), 101 = 2 MHz, 100 = 1 MHz, 011 = 500 kHz, 010 = 250 kHz, 001 = 125 kHz, 000 = 31 kHz
+    //OSCCON[3] : OSTS = Oscillator Start-up Time-out Status bit = ( 1 = Oscillator Start-up Timer time-out has expired; primary oscillator is running ) or ( 0 = Oscillator Start-up Timer time-out is running; primary oscillator is not ready )
+    //OSCCON[2] : ( Unimplemented: Read as ?1? ) ??????
+    //OSCCON[0:1] : SCS = System Clock Select bits
     OSCTUNEbits.PLLEN = 1;
-#else
+    #else
     Something is messed up.
     The PIC selected is not supported or the preprocessor directives are wrong.
-#endif
-#endif
-#endif
-#endif
+    #endif
+    #endif
+    #endif
+    #endif
 
     // initialize my uart recv handling code
     init_uart_recv(&uc);
 
     // initialize the i2c code
+    //Alex:
+    //Essentially just sets error and status flags to intial values ( ic is a struct )
     init_i2c(&ic);
 
     // init the timer1 lthread
@@ -232,11 +243,11 @@ void main(void) {
     // initialize message queues before enabling any interrupts
     init_queues();
 
-#ifndef __USE18F26J50
+    #ifndef __USE18F26J50
     // set direction for PORTB to output
     TRISB = 0x0;
     LATB = 0x0;
-#endif
+    #endif
 
     // how to set up PORTA for input (for the V4 board with the PIC2680)
     /*
@@ -250,16 +261,16 @@ void main(void) {
     // initialize Timers
     OpenTimer0(TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_PS_1_128);
     
-#ifdef __USE18F26J50
+    #ifdef __USE18F26J50
     // MTJ added second argument for OpenTimer1()
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,0x0);
-#else
-#ifdef __USE18F46J50
+    #else
+    #ifdef __USE18F46J50
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,0x0);
-#else
+    #else
     OpenTimer1(TIMER_INT_ON & T1_PS_1_8 & T1_16BIT_RW & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
-#endif
-#endif
+    #endif
+    #endif
 
     // Decide on the priority of the enabled peripheral interrupts
     // 0 is low, 1 is high
@@ -271,42 +282,50 @@ void main(void) {
     IPR1bits.SSPIP = 1;
 
     // configure the hardware i2c device as a slave (0x9E -> 0x4F) or (0x9A -> 0x4D)
-#if 1
+    #if 1
     // Note that the temperature sensor Address bits (A0, A1, A2) are also the
     // least significant bits of LATB -- take care when changing them
     // They *are* changed in the timer interrupt handlers if those timers are
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
     i2c_configure_slave(0x9E);
-#else
+    #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
     // temperature sensor address bits and then just stay in an infinite loop
     i2c_configure_slave(0x9A);
-#ifdef __USE18F2680
+    #ifdef __USE18F2680
     LATBbits.LATB1 = 1;
     LATBbits.LATB0 = 1;
     LATBbits.LATB2 = 1;
-#endif
+    #endif
     for (;;);
-#endif
+    #endif
 
     // must specifically enable the I2C interrupts
     PIE1bits.SSPIE = 1;
 
     // configure the hardware USART device
-#ifdef __USE18F26J50
+    #ifdef __USE18F26J50
     Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
         USART_CONT_RX & USART_BRGH_LOW, 0x19);
-#else
-#ifdef __USE18F46J50
+    #else
+    #ifdef __USE18F46J50
     Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
         USART_CONT_RX & USART_BRGH_LOW, 0x19);
-#else
+    #else
     OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
         USART_CONT_RX & USART_BRGH_LOW, 0x19);
-#endif
-#endif
+    #endif
+    #endif
+
+    // Alex: Set registers for debug output
+    #ifdef DEBUG_MODE
+    TRISD4 = 0;
+    TRISD5 = 0;
+    TRISD6 = 0;
+    TRISD7 = 0;
+    #endif
 
     // Peripheral interrupts can have their priority set to high or low
     // enable high-priority interrupts and low-priority interrupts
@@ -319,10 +338,7 @@ void main(void) {
     _endasm;
      */
 
-    // Alex cool LED
-    TRISD = 0x0;
-    LATD = 0xff;
-    //
+    
 
 
     // printf() is available, but is not advisable.  It goes to the UART pin
@@ -353,7 +369,9 @@ void main(void) {
             if (length != MSGQUEUE_EMPTY) {
                 // This case be handled by your code.
             }
-        } else {
+        } 
+        else
+        {
             switch (msgtype) {
                 case MSGT_TIMER0:
                 {
@@ -381,7 +399,8 @@ void main(void) {
                         case 0xaa:
                         {
                             length = 2;
-                            msgbuffer[0] = 0x55;
+                            //msgbuffer[0] = 0x55;
+                            msgbuffer[0] = 0x1E;
                             msgbuffer[1] = 0xAA;
                             break;
                         }
@@ -395,6 +414,16 @@ void main(void) {
                         {
                             length = 1;
                             msgbuffer[0] = 0xA3;
+                            break;
+                        }
+                        case 0xab:
+                        {
+                            alex_counter=alex_counter+1;
+                            length = 1;
+                            msgbuffer[0] = alex_counter;
+
+                            
+
                             break;
                         }
                     };

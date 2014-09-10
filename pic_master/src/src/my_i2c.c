@@ -98,6 +98,14 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
+
+#ifdef DEBUG_MODE
+
+    LATD = DEBUG_I2C_INTERRUPT;
+
+#endif
+
+
     unsigned char i2c_data;
     unsigned char data_read = 0;
     unsigned char data_written = 0;
