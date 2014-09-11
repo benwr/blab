@@ -52,6 +52,12 @@ void uart_recv_int_handler() {
         RCSTAbits.CREN = 1;
         ToMainLow_sendmsg(0, MSGT_OVERRUN, (void *) 0);
     }
+
+    #ifdef DEBUG_MODE
+    //Alex: Release Debug Output
+    LATD = DEBUG_NONE;
+
+    #endif
 }
 
 void init_uart_recv(uart_comm *uc) {
