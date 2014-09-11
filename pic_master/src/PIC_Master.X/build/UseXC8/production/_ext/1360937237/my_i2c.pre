@@ -11127,6 +11127,12 @@ if (msg_to_send) {
 ToMainHigh_sendmsg(0, 42, (void *) ic_ptr->buffer);
 msg_to_send = 0;
 }
+
+
+
+LATD = 0x00;
+
+
 }
 
 
@@ -11145,11 +11151,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 296
+# 302
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 305
+# 311
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11158,11 +11164,11 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 326
+# 332
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 336
+# 342
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 

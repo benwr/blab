@@ -2,6 +2,7 @@
 #define __my_uart_h
 
 #include "messages.h"
+#include "debug.h"
 
 #define MAXUARTBUF 4
 #if (MAXUARTBUF > MSGLEN)

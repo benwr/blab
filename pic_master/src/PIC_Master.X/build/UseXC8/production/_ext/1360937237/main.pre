@@ -10944,7 +10944,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 10 "../src/my_uart.h"
+# 11 "../src/my_uart.h"
 typedef struct __uart_comm {
 unsigned char buffer[4];
 unsigned char buflen;
@@ -11109,25 +11109,22 @@ PIE1bits.SSPIE = 1;
 Open1USART(0b01111111 & 0b11111111 & 0b11111110 & 0b11111101 &
 0b11111111 & 0b11101111, 0x19);
 
-# 323
-TRISD4 = 0;
-TRISD5 = 0;
-TRISD6 = 0;
-TRISD7 = 0;
+# 324
+TRISD = 0x00;
 
 
 
 
 enable_interrupts();
 
-# 354
+# 352
 while (1) {
 
 
 
 block_on_To_msgqueues();
 
-# 365
+# 363
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11154,7 +11151,7 @@ break;
 case 42:
 {
 
-# 397
+# 395
 switch (last_reg_recvd) {
 case 0xaa:
 {
@@ -11174,16 +11171,6 @@ case 0xa9:
 {
 length = 1;
 msgbuffer[0] = 0xA3;
-break;
-}
-case 0xab:
-{
-alex_counter=alex_counter+1;
-length = 1;
-msgbuffer[0] = alex_counter;
-
-
-
 break;
 }
 };

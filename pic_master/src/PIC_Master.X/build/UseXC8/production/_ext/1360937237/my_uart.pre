@@ -10869,7 +10869,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 10 "../src/my_uart.h"
+# 11 "../src/my_uart.h"
 typedef struct __uart_comm {
 unsigned char buffer[4];
 unsigned char buflen;
@@ -10883,11 +10883,16 @@ static uart_comm *uc_ptr;
 
 void uart_recv_int_handler() {
 
-# 17
+
+
+
+LATD = 0x20;
+
+# 25
 if ((PIR1bits.RC1IF)) {
 uc_ptr->buffer[uc_ptr->buflen] = Read1USART();
 
-# 25
+# 33
 uc_ptr->buflen++;
 
 if (uc_ptr->buflen == 4) {
@@ -10901,7 +10906,7 @@ uc_ptr->buflen = 0;
 
 if (USART1_Status.OVERRUN_ERROR == 1) {
 
-# 43
+# 51
 RCSTAbits.CREN = 0;
 RCSTAbits.CREN = 1;
 ToMainLow_sendmsg(0, 30, (void *) 0);

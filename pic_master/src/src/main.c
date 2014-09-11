@@ -321,10 +321,7 @@ void main(void) {
 
     // Alex: Set registers for debug output
     #ifdef DEBUG_MODE
-    TRISD4 = 0;
-    TRISD5 = 0;
-    TRISD6 = 0;
-    TRISD7 = 0;
+    TRISD = 0x00;
     #endif
 
     // Peripheral interrupts can have their priority set to high or low
@@ -414,16 +411,6 @@ void main(void) {
                         {
                             length = 1;
                             msgbuffer[0] = 0xA3;
-                            break;
-                        }
-                        case 0xab:
-                        {
-                            alex_counter=alex_counter+1;
-                            length = 1;
-                            msgbuffer[0] = alex_counter;
-
-                            
-
                             break;
                         }
                     };

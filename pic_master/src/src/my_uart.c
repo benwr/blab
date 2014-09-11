@@ -9,6 +9,14 @@
 static uart_comm *uc_ptr;
 
 void uart_recv_int_handler() {
+
+
+#ifdef DEBUG_MODE
+    //Alex: Set Debug output
+    LATD = DEBUG_UART_INTERRUPT;
+
+#endif
+
 #ifdef __USE18F26J50
     if (DataRdy1USART()) {
         uc_ptr->buffer[uc_ptr->buflen] = Read1USART();

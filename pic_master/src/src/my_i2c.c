@@ -100,7 +100,7 @@ void handle_start(unsigned char data_read) {
 void i2c_int_handler() {
 
 #ifdef DEBUG_MODE
-
+    //Alex: Set Debug output
     LATD = DEBUG_I2C_INTERRUPT;
 
 #endif
@@ -268,6 +268,12 @@ void i2c_int_handler() {
         ToMainHigh_sendmsg(0, MSGT_I2C_RQST, (void *) ic_ptr->buffer);
         msg_to_send = 0;
     }
+
+    #ifdef DEBUG_MODE
+    //Alex: Release Debug Output
+    LATD = DEBUG_NONE;
+
+    #endif
 }
 
 // set up the data structures for this i2c code
