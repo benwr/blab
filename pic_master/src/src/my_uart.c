@@ -13,7 +13,7 @@ void uart_recv_int_handler() {
 
 #ifdef DEBUG_MODE
     //Alex: Set Debug output
-    LATD = DEBUG_UART_INTERRUPT;
+    LATD = DEBUG_UARTREC_INTERRUPT;
 
 #endif
 

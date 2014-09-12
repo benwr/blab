@@ -14,6 +14,13 @@
 // This one does the action I wanted for this program on a timer0 interrupt
 
 void timer0_int_handler() {
+
+    #ifdef DEBUG_MODE
+    //Alex: Set Debug output
+    LATD = DEBUG_TIMER0_INTERRUPT;
+
+    #endif
+
     unsigned int val;
     int length, msgtype;
 
@@ -28,12 +35,25 @@ void timer0_int_handler() {
     if (length == sizeof (val)) {
         ToMainHigh_sendmsg(sizeof (val), MSGT_TIMER0, (void *) &val);
     }
+
+    #ifdef DEBUG_MODE
+    //Alex: Set Debug output
+    LATD = DEBUG_NONE;
+
+    #endif
 }
 
 // A function called by the interrupt handler
 // This one does the action I wanted for this program on a timer1 interrupt
 
 void timer1_int_handler() {
+
+    #ifdef DEBUG_MODE
+    //Alex: Set Debug output
+    LATD = DEBUG_TIMER1_INTERRUPT;
+
+    #endif
+
     unsigned int result;
 
     // read the timer and then send an empty message to main()
@@ -46,4 +66,10 @@ void timer1_int_handler() {
 
     // reset the timer
     WriteTimer1(0);
+
+    #ifdef DEBUG_MODE
+    //Alex: Set Debug output
+    LATD = DEBUG_NONE;
+
+    #endif
 }

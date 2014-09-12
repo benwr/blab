@@ -14,10 +14,14 @@
 
 #ifdef DEBUG_MODE
 //Alex: Interrupt Codes
-//Interrupts modify RB[3:0]
+//Interrupts modify RD
 #define DEBUG_NONE 0x00
 #define DEBUG_I2C_INTERRUPT 0x10
-#define DEBUG_UART_INTERRUPT 0x20
+#define DEBUG_UARTREC_INTERRUPT 0x20
+
+
+#define DEBUG_TIMER0_INTERRUPT 0x40
+#define DEBUG_TIMER1_INTERRUPT 0x80
 
 
 

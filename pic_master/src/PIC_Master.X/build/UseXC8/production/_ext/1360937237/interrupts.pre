@@ -10840,7 +10840,7 @@ int in_low_int(void);
 
 int in_main(void);
 
-# 10 "../src/user_interrupts.h"
+# 12 "../src/user_interrupts.h"
 void timer0_int_handler(void);
 
 void timer1_int_handler(void);

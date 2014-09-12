@@ -8446,24 +8446,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 1137 ]
 [; ;my_uart.c: 54: }
-[; ;my_uart.c: 55: }
-"55
+[; ;my_uart.c: 58: LATD = 0x00;
+"58
+[e = _LATD -> -> 0 `i `uc ]
+[; ;my_uart.c: 61: }
+"61
 [e :UE 1134 ]
 }
-"57
+"63
 [v _init_uart_recv `(v ~T0 @X0 1 ef1`*S1133 ]
 {
-[; ;my_uart.c: 57: void init_uart_recv(uart_comm *uc) {
+[; ;my_uart.c: 63: void init_uart_recv(uart_comm *uc) {
 [e :U _init_uart_recv ]
 [v _uc `*S1133 ~T0 @X0 1 r1 ]
 [f ]
-[; ;my_uart.c: 58: uc_ptr = uc;
-"58
+[; ;my_uart.c: 64: uc_ptr = uc;
+"64
 [e = _uc_ptr _uc ]
-[; ;my_uart.c: 59: uc_ptr->buflen = 0;
-"59
+[; ;my_uart.c: 65: uc_ptr->buflen = 0;
+"65
 [e = . *U _uc_ptr 1 -> -> 0 `i `uc ]
-[; ;my_uart.c: 60: }
-"60
+[; ;my_uart.c: 66: }
+"66
 [e :UE 1138 ]
 }

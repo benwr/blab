@@ -62,7 +62,7 @@ void start_i2c_slave_reply(unsigned char length, unsigned char *msg) {
     SSPBUF = ic_ptr->outbuffer[0];
     // we must be ready to go at this point, because we'll be releasing the I2C
     // peripheral which will soon trigger an interrupt
-    SSPCON1bits.CKP = 1;
+    SSPCON1bits.CKP = 1; 
 
 }
 

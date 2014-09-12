@@ -64,11 +64,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR1bits `VS609 ~T0 @X0 0 e@3998 ]
 "34 ../src/my_i2c.h
 [v _i2c_int_handler `(v ~T0 @X0 0 ef ]
-"10 ../src/user_interrupts.h
+"12 ../src/user_interrupts.h
 [v _timer0_int_handler `(v ~T0 @X0 0 ef ]
 "47 ../src/messages.h
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
-"12 ../src/user_interrupts.h
+"14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
 "17 ../src/my_uart.h
 [v _uart_recv_int_handler `(v ~T0 @X0 0 ef ]
@@ -8382,8 +8382,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.h: 16: int low_int_active(void);
 [; ;interrupts.h: 18: int in_low_int(void);
 [; ;interrupts.h: 21: int in_main(void);
-[; ;user_interrupts.h: 10: void timer0_int_handler(void);
-[; ;user_interrupts.h: 12: void timer1_int_handler(void);
+[; ;user_interrupts.h: 12: void timer0_int_handler(void);
+[; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 10: typedef struct __msg {
 [; ;messages.h: 11: unsigned char full;
 [; ;messages.h: 12: unsigned char length;

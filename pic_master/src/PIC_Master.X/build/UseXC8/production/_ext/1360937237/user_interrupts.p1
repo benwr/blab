@@ -1,4 +1,6 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"7852 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 "121 C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\timers.h
 [v _WriteTimer0 `(v ~T0 @X0 0 ef1`ui ]
 "79 ../src/messages.h
@@ -8316,8 +8318,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-[; ;user_interrupts.h: 10: void timer0_int_handler(void);
-[; ;user_interrupts.h: 12: void timer1_int_handler(void);
+[; ;user_interrupts.h: 12: void timer0_int_handler(void);
+[; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 10: typedef struct __msg {
 [; ;messages.h: 11: unsigned char full;
 [; ;messages.h: 12: unsigned char length;
@@ -8371,53 +8373,65 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user_interrupts.c: 16: void timer0_int_handler() {
 [e :U _timer0_int_handler ]
 [f ]
-"17
+[; ;user_interrupts.c: 20: LATD = 0x40;
+"20
+[e = _LATD -> -> 64 `i `uc ]
+"24
 [v _val `ui ~T0 @X0 1 a ]
-"18
+"25
 [v _length `i ~T0 @X0 1 a ]
 [v _msgtype `i ~T0 @X0 1 a ]
-[; ;user_interrupts.c: 17: unsigned int val;
-[; ;user_interrupts.c: 18: int length, msgtype;
-[; ;user_interrupts.c: 25: WriteTimer0(0);
-"25
+[; ;user_interrupts.c: 24: unsigned int val;
+[; ;user_interrupts.c: 25: int length, msgtype;
+[; ;user_interrupts.c: 32: WriteTimer0(0);
+"32
 [e ( _WriteTimer0 (1 -> -> 0 `i `ui ]
-[; ;user_interrupts.c: 27: length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
-"27
+[; ;user_interrupts.c: 34: length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
+"34
 [e = _length -> ( _FromMainHigh_recvmsg (3 , , -> -> # _val `ui `uc -> &U _msgtype `*uc -> &U _val `*v `i ]
-[; ;user_interrupts.c: 28: if (length == sizeof (val)) {
-"28
+[; ;user_interrupts.c: 35: if (length == sizeof (val)) {
+"35
 [e $ ! == -> _length `ui -> # _val `ui 1136  ]
 {
-[; ;user_interrupts.c: 29: ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
-"29
+[; ;user_interrupts.c: 36: ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
+"36
 [e ( _ToMainHigh_sendmsg (3 , , -> -> # _val `ui `uc -> -> 10 `i `uc -> &U _val `*v ]
-"30
+"37
 }
 [e :U 1136 ]
-[; ;user_interrupts.c: 30: }
-[; ;user_interrupts.c: 31: }
-"31
+[; ;user_interrupts.c: 37: }
+[; ;user_interrupts.c: 41: LATD = 0x00;
+"41
+[e = _LATD -> -> 0 `i `uc ]
+[; ;user_interrupts.c: 44: }
+"44
 [e :UE 1135 ]
 }
-"36
+"49
 [v _timer1_int_handler `(v ~T0 @X0 1 ef ]
 {
-[; ;user_interrupts.c: 36: void timer1_int_handler() {
+[; ;user_interrupts.c: 49: void timer1_int_handler() {
 [e :U _timer1_int_handler ]
 [f ]
-"37
+[; ;user_interrupts.c: 53: LATD = 0x80;
+"53
+[e = _LATD -> -> 128 `i `uc ]
+"57
 [v _result `ui ~T0 @X0 1 a ]
-[; ;user_interrupts.c: 37: unsigned int result;
-[; ;user_interrupts.c: 44: result = ReadTimer1();
-"44
+[; ;user_interrupts.c: 57: unsigned int result;
+[; ;user_interrupts.c: 64: result = ReadTimer1();
+"64
 [e = _result ( _ReadTimer1 ..  ]
-[; ;user_interrupts.c: 45: ToMainLow_sendmsg(0, 11, (void *) 0);
-"45
+[; ;user_interrupts.c: 65: ToMainLow_sendmsg(0, 11, (void *) 0);
+"65
 [e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 11 `i `uc -> -> 0 `i `*v ]
-[; ;user_interrupts.c: 48: WriteTimer1(0);
-"48
+[; ;user_interrupts.c: 68: WriteTimer1(0);
+"68
 [e ( _WriteTimer1 (1 -> -> 0 `i `ui ]
-[; ;user_interrupts.c: 49: }
-"49
+[; ;user_interrupts.c: 72: LATD = 0x00;
+"72
+[e = _LATD -> -> 0 `i `uc ]
+[; ;user_interrupts.c: 75: }
+"75
 [e :UE 1137 ]
 }

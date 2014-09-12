@@ -11192,8 +11192,11 @@ if (length < 0) {
 if (length != -4) {
 
 }
-} else {
-switch (msgtype) {
+}
+else
+{
+switch (msgtype)
+{
 case 11:
 {
 timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);

@@ -75,7 +75,7 @@
 [v _i2c_configure_slave i2c_configure_slave `(v  1 e 0 0 ]
 "11 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c
 [v _uart_recv_int_handler uart_recv_int_handler `(v  1 e 0 0 ]
-"57
+"63
 [v _init_uart_recv init_uart_recv `(v  1 e 0 0 ]
 "9 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer0_thread.c
 [v _timer0_lthread timer0_lthread `(i  1 e 2 0 ]
@@ -87,7 +87,7 @@
 [v _uart_lthread uart_lthread `(i  1 e 2 0 ]
 "16 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c
 [v _timer0_int_handler timer0_int_handler `(v  1 e 0 0 ]
-"36
+"49
 [v _timer1_int_handler timer1_int_handler `(v  1 e 0 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\abdiv.c
 [v ___abdiv __abdiv `(c  1 e 1 0 ]
@@ -331,7 +331,7 @@
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
 "8730
 [v _T1GCON T1GCON `VEuc  1 e 1 @3994 ]
-[s S1769 . 1 `uc 1 T1GSS0 1 0 :1:0 
+[s S1770 . 1 `uc 1 T1GSS0 1 0 :1:0 
 `uc 1 T1GSS1 1 0 :1:1 
 `uc 1 T1GVAL 1 0 :1:2 
 `uc 1 T1GGO_T1DONE 1 0 :1:3 
@@ -341,14 +341,14 @@
 `uc 1 TMR1GE 1 0 :1:7 
 ]
 "8755
-[s S1778 . 1 `uc 1 . 1 0 :3:0 
+[s S1779 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 T1GGO 1 0 :1:3 
 ]
-[s S1781 . 1 `uc 1 . 1 0 :3:0 
+[s S1782 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 T1DONE 1 0 :1:3 
 ]
-[u S1784 . 1 `S1769 1 . 1 0 `S1778 1 . 1 0 `S1781 1 . 1 0 ]
-[v _T1GCONbits T1GCONbits `VES1784  1 e 1 @3994 ]
+[u S1785 . 1 `S1770 1 . 1 0 `S1779 1 . 1 0 `S1782 1 . 1 0 ]
+[v _T1GCONbits T1GCONbits `VES1785  1 e 1 @3994 ]
 [s S296 . 1 `uc 1 TUN 1 0 :6:0 
 `uc 1 PLLEN 1 0 :1:6 
 `uc 1 INTSRC 1 0 :1:7 
@@ -432,7 +432,7 @@
 [v _RCSTAbits RCSTAbits `VES1513  1 e 1 @4012 ]
 "10391
 [v _TXSTA1 TXSTA1 `VEuc  1 e 1 @4013 ]
-[s S1925 . 1 `uc 1 TX9D 1 0 :1:0 
+[s S1926 . 1 `uc 1 TX9D 1 0 :1:0 
 `uc 1 TRMT 1 0 :1:1 
 `uc 1 BRGH 1 0 :1:2 
 `uc 1 SENDB 1 0 :1:3 
@@ -442,17 +442,17 @@
 `uc 1 CSRC 1 0 :1:7 
 ]
 "10436
-[s S1934 . 1 `uc 1 TXD8 1 0 :1:0 
+[s S1935 . 1 `uc 1 TXD8 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
 `uc 1 TX8_9 1 0 :1:6 
 ]
-[s S1938 . 1 `uc 1 . 1 0 :6:0 
+[s S1939 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 NOT_TX8 1 0 :1:6 
 ]
-[s S1941 . 1 `uc 1 . 1 0 :6:0 
+[s S1942 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 nTX8 1 0 :1:6 
 ]
-[s S1944 . 1 `uc 1 TX9D1 1 0 :1:0 
+[s S1945 . 1 `uc 1 TX9D1 1 0 :1:0 
 `uc 1 TRMT1 1 0 :1:1 
 `uc 1 BRGH1 1 0 :1:2 
 `uc 1 SENDB1 1 0 :1:3 
@@ -461,8 +461,8 @@
 `uc 1 TX91 1 0 :1:6 
 `uc 1 CSRC1 1 0 :1:7 
 ]
-[u S1953 . 1 `S1925 1 . 1 0 `S1934 1 . 1 0 `S1938 1 . 1 0 `S1941 1 . 1 0 `S1944 1 . 1 0 ]
-[v _TXSTA1bits TXSTA1bits `VES1953  1 e 1 @4013 ]
+[u S1954 . 1 `S1926 1 . 1 0 `S1935 1 . 1 0 `S1939 1 . 1 0 `S1942 1 . 1 0 `S1945 1 . 1 0 ]
+[v _TXSTA1bits TXSTA1bits `VES1954  1 e 1 @4013 ]
 "10715
 [v _RCREG1 RCREG1 `VEuc  1 e 1 @4015 ]
 "10752
@@ -702,7 +702,7 @@
 [v _SSPBUF SSPBUF `VEuc  1 e 1 @4041 ]
 "14737
 [v _T1CON T1CON `VEuc  1 e 1 @4045 ]
-[s S1804 . 1 `uc 1 TMR1ON 1 0 :1:0 
+[s S1805 . 1 `uc 1 TMR1ON 1 0 :1:0 
 `uc 1 RD16 1 0 :1:1 
 `uc 1 T1SYNC 1 0 :1:2 
 `uc 1 T1OSCEN 1 0 :1:3 
@@ -710,13 +710,13 @@
 `uc 1 TMR1CS 1 0 :2:6 
 ]
 "14777
-[s S1811 . 1 `uc 1 . 1 0 :4:0 
+[s S1812 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 T1CKPS0 1 0 :1:4 
 `uc 1 T1CKPS1 1 0 :1:5 
 `uc 1 TMR1CS0 1 0 :1:6 
 `uc 1 TMR1CS1 1 0 :1:7 
 ]
-[s S1817 . 1 `uc 1 . 1 0 :1:0 
+[s S1818 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RD161 1 0 :1:1 
 `uc 1 T1SYNC1 1 0 :1:2 
 `uc 1 T1OSCEN1 1 0 :1:3 
@@ -725,14 +725,14 @@
 `uc 1 TMR1CS01 1 0 :1:6 
 `uc 1 TMR1CS11 1 0 :1:7 
 ]
-[s S1826 . 1 `uc 1 . 1 0 :3:0 
+[s S1827 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SOSCEN 1 0 :1:3 
 ]
-[s S1829 . 1 `uc 1 . 1 0 :7:0 
+[s S1830 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 T1RD16 1 0 :1:7 
 ]
-[u S1832 . 1 `S1804 1 . 1 0 `S1811 1 . 1 0 `S1817 1 . 1 0 `S1826 1 . 1 0 `S1829 1 . 1 0 ]
-[v _T1CONbits T1CONbits `VES1832  1 e 1 @4045 ]
+[u S1833 . 1 `S1805 1 . 1 0 `S1812 1 . 1 0 `S1818 1 . 1 0 `S1827 1 . 1 0 `S1830 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES1833  1 e 1 @4045 ]
 "14882
 [v _TMR1L TMR1L `VEuc  1 e 1 @4046 ]
 "14901
@@ -793,7 +793,7 @@
 [v _OSCCONbits OSCCONbits `VES570  1 e 1 @4051 ]
 "15716
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
-[s S1677 . 1 `uc 1 T0PS 1 0 :3:0 
+[s S1678 . 1 `uc 1 T0PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
@@ -801,12 +801,12 @@
 `uc 1 TMR0ON 1 0 :1:7 
 ]
 "15736
-[s S1684 . 1 `uc 1 T0PS0 1 0 :1:0 
+[s S1685 . 1 `uc 1 T0PS0 1 0 :1:0 
 `uc 1 T0PS1 1 0 :1:1 
 `uc 1 T0PS2 1 0 :1:2 
 ]
-[u S1688 . 1 `S1677 1 . 1 0 `S1684 1 . 1 0 ]
-[v _T0CONbits T0CONbits `VES1688  1 e 1 @4053 ]
+[u S1689 . 1 `S1678 1 . 1 0 `S1685 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES1689  1 e 1 @4053 ]
 "15791
 [v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
 "15810
@@ -873,7 +873,7 @@
 [v main@last_reg_recvd last_reg_recvd `uc  1 a 1 45 ]
 "199
 [v main@alex_counter alex_counter `uc  1 a 1 29 ]
-"457
+"460
 } 0
 "9 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/uart_thread.c
 [v _uart_lthread uart_lthread `(i  1 e 2 0 ]
@@ -960,12 +960,12 @@
 [v start_i2c_slave_reply@length length `uc  1 a 1 53 ]
 "67
 } 0
-"57 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c
+"63 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c
 [v _init_uart_recv init_uart_recv `(v  1 e 0 0 ]
 {
 [s S275 __uart_comm 5 `[4]uc 1 buffer 4 0 `uc 1 buflen 1 4 ]
 [v init_uart_recv@uc uc `*.39S275  1 p 2 49 ]
-"60
+"66
 } 0
 "6 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/timer1_thread.c
 [v _init_timer1_lthread init_timer1_lthread `(v  1 e 0 0 ]
@@ -1137,7 +1137,7 @@
 "11 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/my_uart.c
 [v _uart_recv_int_handler uart_recv_int_handler `(v  1 e 0 0 ]
 {
-"55
+"61
 } 0
 "17 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\USART\u1read.c
 [v _Read1USART Read1USART `(uc  1 e 1 0 ]
@@ -1146,19 +1146,19 @@
 [v Read1USART@data data `uc  1 a 1 0 ]
 "39
 } 0
-"36 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c
+"49 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c
 [v _timer1_int_handler timer1_int_handler `(v  1 e 0 0 ]
 {
-"37
+"57
 [v timer1_int_handler@result result `ui  1 a 2 26 ]
-"49
+"75
 } 0
 "14 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c
 [v _WriteTimer1 WriteTimer1 `(v  1 e 0 0 ]
 {
-[u S1711 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+[u S1712 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
 "16
-[v WriteTimer1@timer timer `S1711  1 a 2 2 ]
+[v WriteTimer1@timer timer `S1712  1 a 2 2 ]
 "14
 [v WriteTimer1@timer1 timer1 `ui  1 p 2 0 ]
 "22
@@ -1201,9 +1201,9 @@
 "15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c
 [v _ReadTimer1 ReadTimer1 `(ui  1 e 2 0 ]
 {
-[u S1711 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+[u S1712 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
 "17
-[v ReadTimer1@timer timer `S1711  1 a 2 2 ]
+[v ReadTimer1@timer timer `S1712  1 a 2 2 ]
 "23
 } 0
 "83 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/interrupts.c
@@ -1214,19 +1214,19 @@
 "16 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_master\src/src/user_interrupts.c
 [v _timer0_int_handler timer0_int_handler `(v  1 e 0 0 ]
 {
-"17
+"24
 [v timer0_int_handler@val val `ui  1 a 2 32 ]
-"18
+"25
 [v timer0_int_handler@msgtype msgtype `i  1 a 2 30 ]
 [v timer0_int_handler@length length `i  1 a 2 28 ]
-"31
+"44
 } 0
 "16 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c
 [v _WriteTimer0 WriteTimer0 `(v  1 e 0 0 ]
 {
-[u S1711 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+[u S1712 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
 "18
-[v WriteTimer0@timer timer `S1711  1 a 2 2 ]
+[v WriteTimer0@timer timer `S1712  1 a 2 2 ]
 "16
 [v WriteTimer0@timer0 timer0 `ui  1 p 2 0 ]
 "24

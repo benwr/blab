@@ -8841,83 +8841,89 @@ Version 3.2 HI-TECH Software Intermediate Code
 "435
 }
 [; ;main.c: 434: }
-[; ;main.c: 435: } else {
+[; ;main.c: 435: }
 [e $U 1160  ]
+"436
 [e :U 1158 ]
-{
-[; ;main.c: 436: switch (msgtype) {
-"436
-[e $U 1162  ]
-{
-[; ;main.c: 437: case 11:
+[; ;main.c: 436: else
+[; ;main.c: 437: {
 "437
-[e :U 1163 ]
-[; ;main.c: 438: {
+{
+[; ;main.c: 438: switch (msgtype)
 "438
-{
-[; ;main.c: 439: timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
+[e $U 1162  ]
+[; ;main.c: 439: {
 "439
-[e ( _timer1_lthread (4 , , , &U _t1thread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
-[; ;main.c: 440: break;
+{
+[; ;main.c: 440: case 11:
 "440
-[e $U 1161  ]
+[e :U 1163 ]
+[; ;main.c: 441: {
 "441
-}
-[; ;main.c: 441: };
-[; ;main.c: 442: case 30:
+{
+[; ;main.c: 442: timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
 "442
-[e :U 1164 ]
+[e ( _timer1_lthread (4 , , , &U _t1thread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
+[; ;main.c: 443: break;
 "443
-[e :U 1165 ]
-[; ;main.c: 443: case 31:
-[; ;main.c: 444: {
+[e $U 1161  ]
 "444
-{
-[; ;main.c: 445: uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+}
+[; ;main.c: 444: };
+[; ;main.c: 445: case 30:
 "445
-[e ( _uart_lthread (4 , , , &U _uthread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
-[; ;main.c: 446: break;
+[e :U 1164 ]
 "446
-[e $U 1161  ]
+[e :U 1165 ]
+[; ;main.c: 446: case 31:
+[; ;main.c: 447: {
 "447
-}
-[; ;main.c: 447: };
-[; ;main.c: 448: default:
-"448
-[e :U 1166 ]
-[; ;main.c: 449: {
-"449
 {
-[; ;main.c: 451: break;
+[; ;main.c: 448: uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+"448
+[e ( _uart_lthread (4 , , , &U _uthread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
+[; ;main.c: 449: break;
+"449
+[e $U 1161  ]
+"450
+}
+[; ;main.c: 450: };
+[; ;main.c: 451: default:
 "451
-[e $U 1161  ]
+[e :U 1166 ]
+[; ;main.c: 452: {
 "452
-}
-[; ;main.c: 452: };
-"453
-}
-[; ;main.c: 453: };
+{
+[; ;main.c: 454: break;
+"454
 [e $U 1161  ]
-"436
+"455
+}
+[; ;main.c: 455: };
+"456
+}
+[; ;main.c: 456: };
+[e $U 1161  ]
+"438
 [e :U 1162 ]
 [e [\ _msgtype , $ -> -> 11 `i `uc 1163
  , $ -> -> 30 `i `uc 1164
  , $ -> -> 31 `i `uc 1165
  1166 ]
-"453
+"456
 [e :U 1161 ]
-"454
+"457
 }
 [e :U 1160 ]
-"455
+"458
 }
 [e :U 1140 ]
 "352
 [e $U 1141  ]
 [e :U 1142 ]
-[; ;main.c: 454: }
-[; ;main.c: 455: }
 [; ;main.c: 457: }
-"457
+[; ;main.c: 458: }
+[; ;main.c: 460: }
+"460
 [e :UE 1139 ]
 }

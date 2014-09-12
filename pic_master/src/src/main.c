@@ -432,8 +432,11 @@ void main(void) {
             if (length != MSGQUEUE_EMPTY) {
                 // Your code should handle this situation
             }
-        } else {
-            switch (msgtype) {
+        } 
+        else
+        {
+            switch (msgtype)
+            {
                 case MSGT_TIMER1:
                 {
                     timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);

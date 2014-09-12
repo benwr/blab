@@ -10911,6 +10911,12 @@ RCSTAbits.CREN = 0;
 RCSTAbits.CREN = 1;
 ToMainLow_sendmsg(0, 30, (void *) 0);
 }
+
+
+
+LATD = 0x00;
+
+
 }
 
 void init_uart_recv(uart_comm *uc) {

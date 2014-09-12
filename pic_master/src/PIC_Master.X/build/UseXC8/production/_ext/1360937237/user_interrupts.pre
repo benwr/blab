@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 10 "../src/user_interrupts.h"
+# 12 "../src/user_interrupts.h"
 void timer0_int_handler(void);
 
 void timer1_int_handler(void);
@@ -10908,28 +10908,54 @@ unsigned char i2c_master_recv(unsigned char);
 
 # 16 "../src/user_interrupts.c"
 void timer0_int_handler() {
+
+
+
+LATD = 0x40;
+
+
+
 unsigned int val;
 int length, msgtype;
 
-# 25
+# 32
 WriteTimer0(0);
 
 length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
 if (length == sizeof (val)) {
 ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
 }
+
+
+
+LATD = 0x00;
+
+
 }
 
 
 
 
 void timer1_int_handler() {
+
+
+
+LATD = 0x80;
+
+
+
 unsigned int result;
 
-# 44
+# 64
 result = ReadTimer1();
 ToMainLow_sendmsg(0, 11, (void *) 0);
 
 
 WriteTimer1(0);
+
+
+
+LATD = 0x00;
+
+
 }
