@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "18 ../src/my_uart.h
-[s S1134 `uc -> 4 `i `uc 1 `uc 1 ]
-[n S1134 uart_send_buffer_type buffer current_item size ]
+[s S1134 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
+[n S1134 uart_buffer_type buffer current_item last_item size ]
 "7852 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 "121 C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\timers.h
@@ -8350,18 +8350,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 13: unsigned char buffer[4];
 [; ;my_uart.h: 14: unsigned char buflen;
 [; ;my_uart.h: 15: } uart_comm;
-"23 ../src/my_uart.h
+"24 ../src/my_uart.h
 [v _uart_send_buffer `S1134 ~T0 @X0 1 e ]
-[; ;my_uart.h: 18: struct uart_send_buffer_type
+[v _uart_receive_buffer `S1134 ~T0 @X0 1 e ]
+[; ;my_uart.h: 18: struct uart_buffer_type
 [; ;my_uart.h: 19: {
 [; ;my_uart.h: 20: unsigned char buffer[4];
 [; ;my_uart.h: 21: unsigned char current_item;
-[; ;my_uart.h: 22: char size;
-[; ;my_uart.h: 23: } uart_send_buffer;
-[; ;my_uart.h: 26: void uart_configure();
-[; ;my_uart.h: 29: int uart_send_byte( char sendByte );
-[; ;my_uart.h: 32: void uart_transmit_byte();
-[; ;my_uart.h: 35: void uart_recv_int_handler(void);
+[; ;my_uart.h: 22: unsigned char last_item;
+[; ;my_uart.h: 23: char size;
+[; ;my_uart.h: 24: } uart_send_buffer, uart_receive_buffer;
+[; ;my_uart.h: 28: void uart_configure();
+[; ;my_uart.h: 31: int uart_send_byte( char sendByte );
+[; ;my_uart.h: 34: void uart_transmit_byte();
+[; ;my_uart.h: 37: unsigned char uart_get_byte();
+[; ;my_uart.h: 40: void uart_receive_byte();
+[; ;my_uart.h: 43: void uart_recv_int_handler(void);
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;

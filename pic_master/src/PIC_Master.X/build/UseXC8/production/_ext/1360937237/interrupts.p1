@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "18 ../src/my_uart.h
 [s S1134 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
-[n S1134 uart_send_buffer_type buffer current_item last_item size ]
+[n S1134 uart_buffer_type buffer current_item last_item size ]
 "14926 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S951 :1 `uc 1 ]
 [n S951 . NOT_BOR ]
@@ -73,9 +73,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
 "14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
-"36 ../src/my_uart.h
+"43 ../src/my_uart.h
 [v _uart_recv_int_handler `(v ~T0 @X0 0 ef ]
-"33
+"34
 [v _uart_transmit_byte `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -8418,17 +8418,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 15: } uart_comm;
 "24 ../src/my_uart.h
 [v _uart_send_buffer `S1134 ~T0 @X0 1 e ]
-[; ;my_uart.h: 18: struct uart_send_buffer_type
+[v _uart_receive_buffer `S1134 ~T0 @X0 1 e ]
+[; ;my_uart.h: 18: struct uart_buffer_type
 [; ;my_uart.h: 19: {
 [; ;my_uart.h: 20: unsigned char buffer[4];
 [; ;my_uart.h: 21: unsigned char current_item;
 [; ;my_uart.h: 22: unsigned char last_item;
 [; ;my_uart.h: 23: char size;
-[; ;my_uart.h: 24: } uart_send_buffer;
-[; ;my_uart.h: 27: void uart_configure();
-[; ;my_uart.h: 30: int uart_send_byte( char sendByte );
-[; ;my_uart.h: 33: void uart_transmit_byte();
-[; ;my_uart.h: 36: void uart_recv_int_handler(void);
+[; ;my_uart.h: 24: } uart_send_buffer, uart_receive_buffer;
+[; ;my_uart.h: 28: void uart_configure();
+[; ;my_uart.h: 31: int uart_send_byte( char sendByte );
+[; ;my_uart.h: 34: void uart_transmit_byte();
+[; ;my_uart.h: 37: unsigned char uart_get_byte();
+[; ;my_uart.h: 40: void uart_receive_byte();
+[; ;my_uart.h: 43: void uart_recv_int_handler(void);
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
@@ -8571,9 +8574,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "46
 [e :UE 1144 ]
 }
-[v F9142 `(v ~T0 @X0 1 tf ]
+[v F9145 `(v ~T0 @X0 1 tf ]
 "83
-[v _InterruptHandlerHigh `IF9142 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9145 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 78: interrupt
 [; ;interrupts.c: 83: void InterruptHandlerHigh() {
@@ -8614,9 +8617,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "110
 [e :UE 1147 ]
 }
-[v F9144 `(v ~T0 @X0 1 tf ]
+[v F9147 `(v ~T0 @X0 1 tf ]
 "122
-[v _InterruptHandlerLow `ILF9144 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9147 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 117: interrupt low_priority
 [; ;interrupts.c: 122: void InterruptHandlerLow() {

@@ -8,6 +8,8 @@
 
 static uart_comm *uc_ptr;
 
+#ifdef __USE18F46J50  //Alex: Begin definitions for the Mk
+
 //Alex: Configure UART for transmit
 void uart_configure()
 {   
@@ -24,21 +26,27 @@ void uart_configure()
     TXSTA1bits.SYNC = 0; //Alex: Set Asynchronous mode
     RCSTA1bits.SPEN = 1; //Alex: Enable UART module 1..or something
 
-    PIE1bits.TX1IE = 1; //Alex: Set Interrupt on
+    PIE1bits.TX1IE = 1; //Alex: Set Transmit Interrupt on
+    PIE1bits.RC1IE = 1; //Alex: Set Receive Interrupt on
 
     TXSTA1bits.TXEN = 1; //Alex: Enable Transmission
+    RCSTA1bits.CREN = 1; //Alex: Enable Reception
 
     // Alex: USART TX interrupt priority
     IPR1bits.TX1IP = 0;
 
-    //Alex: Set this for interrupts or whatever
-    //INTCONbits.GIE = 1;
-    //INTCONbits.PEIE = 1;    //Enables all peripheral interrupt sources
 
+    //Alex: Initialize send buffer
     uart_send_buffer.current_item = 0;
     uart_send_buffer.last_item = 0;
     uart_send_buffer.buffer[uart_send_buffer.current_item] = 0;
     uart_send_buffer.size = 0;
+
+    //Alex: Initialize receive buffer
+    uart_receive_buffer.current_item = 0;
+    uart_receive_buffer.last_item = 0;
+    uart_receive_buffer.buffer[uart_receive_buffer.current_item] = 0;
+    uart_receive_buffer.size = 0;
 }
 
 //Alex: Put soemthing in the uart send queue
@@ -50,7 +58,7 @@ int uart_send_byte( char sendByte )
     }
 
     uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
-    uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % 4;
+    uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % MAXUARTBUF;
     uart_send_buffer.size += 1;
 
     return 1;
@@ -64,12 +72,37 @@ void uart_transmit_byte()
         return;
     }
     TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
-    uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
+    uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % MAXUARTBUF;
     uart_send_buffer.size -= 1;
 }
 
-void uart_recv_int_handler() {
+//Alex: Remove byte from uart receive queue
+unsigned char uart_get_byte()
+{
+    if( uart_receive_buffer.size <= 0 )
+    {
+        while(1);{} //Alex: Freeze here cause something broke
+    }
+    unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
+    uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % MAXUARTBUF;
+    uart_receive_buffer.size -= 1;
+    return return_value;
+}
 
+//Alex: Receive a byte into uart receive buffer from the uart hardware recieve buffer; interrupt should call this only
+void uart_receive_byte()
+{
+    if( uart_receive_buffer.size >= MAXUARTBUF )
+    {
+        return;
+    }
+    uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
+    uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % MAXUARTBUF;
+    uart_receive_buffer.size -= 1;
+}
+#endif  //Alex: End definitions for the Mk IV
+
+void uart_recv_int_handler() {
 
 #ifdef DEBUG_MODE
     //Alex: Set Debug output

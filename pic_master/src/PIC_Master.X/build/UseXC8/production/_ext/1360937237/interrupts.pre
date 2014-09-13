@@ -10894,13 +10894,14 @@ unsigned char buflen;
 } uart_comm;
 
 
-struct uart_send_buffer_type
+struct uart_buffer_type
 {
 unsigned char buffer[4];
 unsigned char current_item;
 unsigned char last_item;
 char size;
-} uart_send_buffer;
+} uart_send_buffer, uart_receive_buffer;
+
 
 
 void uart_configure();
@@ -10910,6 +10911,12 @@ int uart_send_byte( char sendByte );
 
 
 void uart_transmit_byte();
+
+
+unsigned char uart_get_byte();
+
+
+void uart_receive_byte();
 
 
 void uart_recv_int_handler(void);
