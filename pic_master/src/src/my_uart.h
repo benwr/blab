@@ -8,12 +8,31 @@
 #if (MAXUARTBUF > MSGLEN)
 #define MAXUARTBUF MSGLEN
 #endif
-typedef struct __uart_comm {
+typedef struct __uart_comm
+{
     unsigned char buffer[MAXUARTBUF];
     unsigned char buflen;
 } uart_comm;
 
-void init_uart_recv(uart_comm *);
+//Buffer to hold uart messages waiting to be transmitted
+struct uart_send_buffer_type
+{
+    unsigned char buffer[MAXUARTBUF];
+    unsigned char current_item; //Alex: First item waiting to be sent
+    unsigned char last_item;    //Alex: Last item waiting to be sent
+    char size;
+} uart_send_buffer;
+
+//Alex: Configure UART for transmit and recieve
+void uart_configure();
+
+//Alex: Put soemthing in the uart send queue
+int uart_send_byte( char sendByte );
+
+//Alex: Remove item from uart send queue and move it into actual hardware transmit buffer; only call in interrupt
+void uart_transmit_byte();
+
+//void init_uart_recv(uart_comm *);
 void uart_recv_int_handler(void);
 
 #endif

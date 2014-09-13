@@ -10945,12 +10945,31 @@ signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
 # 11 "../src/my_uart.h"
-typedef struct __uart_comm {
+typedef struct __uart_comm
+{
 unsigned char buffer[4];
 unsigned char buflen;
 } uart_comm;
 
-void init_uart_recv(uart_comm *);
+
+struct uart_send_buffer_type
+{
+unsigned char buffer[4];
+unsigned char current_item;
+unsigned char last_item;
+char size;
+} uart_send_buffer;
+
+
+void uart_configure();
+
+
+int uart_send_byte( char sendByte );
+
+
+void uart_transmit_byte();
+
+
 void uart_recv_int_handler(void);
 
 # 8 "../src/my_i2c.h"
@@ -11067,12 +11086,7 @@ OSCCON = 0xE0;
 # 223
 OSCTUNEbits.PLLEN = 1;
 
-# 233
-init_uart_recv(&uc);
-
-
-
-
+# 238
 init_i2c(&ic);
 
 
@@ -11097,19 +11111,25 @@ IPR1bits.TMR1IP = 0;
 
 IPR1bits.RCIP = 0;
 
+
 IPR1bits.SSPIP = 1;
 
-# 291
+# 292
 i2c_configure_slave(0x9E);
 
-# 306
+# 307
 PIE1bits.SSPIE = 1;
 
-# 314
-Open1USART(0b01111111 & 0b11111111 & 0b11111110 & 0b11111101 &
-0b11111111 & 0b11101111, 0x19);
 
-# 324
+uart_configure();
+
+uart_send_byte( 0x11 );
+uart_send_byte( 0x12 );
+uart_send_byte( 0x13 );
+uart_send_byte( 0x14 );
+uart_send_byte( 0x15 );
+
+# 338
 TRISD = 0x00;
 
 
@@ -11117,14 +11137,14 @@ TRISD = 0x00;
 
 enable_interrupts();
 
-# 352
+# 366
 while (1) {
 
 
 
 block_on_To_msgqueues();
 
-# 363
+# 377
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11151,7 +11171,7 @@ break;
 case 42:
 {
 
-# 395
+# 409
 switch (last_reg_recvd) {
 case 0xaa:
 {

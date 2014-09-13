@@ -8,13 +8,72 @@
 
 static uart_comm *uc_ptr;
 
+//Alex: Configure UART for transmit
+void uart_configure()
+{   
+    TRISCbits.TRISC7 = 1;   //Alex: Enable Tx pin for output
+    TRISCbits.TRISC6 = 0;   //Alex: Enable Rx pin for input
+
+    BAUDCONbits.BRG16 = 1;  //Alex: Set the 16-bit baud rate generator
+    TXSTA1bits.BRGH = 1;   //Alex: Set the high resolution baud rate
+
+    //Alex: Set Baud rate speed generator thingys
+    SPBRGH1 = 0x00;
+    SPBRG1 = 0xCF;
+
+    TXSTA1bits.SYNC = 0; //Alex: Set Asynchronous mode
+    RCSTA1bits.SPEN = 1; //Alex: Enable UART module 1..or something
+
+    PIE1bits.TX1IE = 1; //Alex: Set Interrupt on
+
+    TXSTA1bits.TXEN = 1; //Alex: Enable Transmission
+
+    // Alex: USART TX interrupt priority
+    IPR1bits.TX1IP = 0;
+
+    //Alex: Set this for interrupts or whatever
+    //INTCONbits.GIE = 1;
+    //INTCONbits.PEIE = 1;    //Enables all peripheral interrupt sources
+
+    uart_send_buffer.current_item = 0;
+    uart_send_buffer.last_item = 0;
+    uart_send_buffer.buffer[uart_send_buffer.current_item] = 0;
+    uart_send_buffer.size = 0;
+}
+
+//Alex: Put soemthing in the uart send queue
+int uart_send_byte( char sendByte )
+{
+    if( uart_send_buffer.size >= MAXUARTBUF )
+    {
+        return 0;
+    }
+
+    uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
+    uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % 4;
+    uart_send_buffer.size += 1;
+
+    return 1;
+}
+
+//Alex: Remove item from uart send queue and move it into actual hardware transmit buffer; only call in interrupt
+void uart_transmit_byte()
+{
+    if( uart_send_buffer.size == 0 )
+    {
+        return;
+    }
+    TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
+    uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
+    uart_send_buffer.size -= 1;
+}
+
 void uart_recv_int_handler() {
 
 
 #ifdef DEBUG_MODE
     //Alex: Set Debug output
     LATD = DEBUG_UARTREC_INTERRUPT;
-
 #endif
 
 #ifdef __USE18F26J50
@@ -60,7 +119,11 @@ void uart_recv_int_handler() {
     #endif
 }
 
+/*
 void init_uart_recv(uart_comm *uc) {
     uc_ptr = uc;
     uc_ptr->buflen = 0;
 }
+*/
+
+

@@ -230,7 +230,7 @@ void main(void) {
     #endif
 
     // initialize my uart recv handling code
-    init_uart_recv(&uc);
+    //init_uart_recv(&uc);
 
     // initialize the i2c code
     //Alex:
@@ -278,8 +278,9 @@ void main(void) {
     IPR1bits.TMR1IP = 0;
     // USART RX interrupt
     IPR1bits.RCIP = 0;
+    
     // I2C interrupt
-    IPR1bits.SSPIP = 1;
+    IPR1bits.SSPIP = 1;     
 
     // configure the hardware i2c device as a slave (0x9E -> 0x4F) or (0x9A -> 0x4D)
     #if 1
@@ -305,19 +306,32 @@ void main(void) {
     // must specifically enable the I2C interrupts
     PIE1bits.SSPIE = 1;
 
+    //Alex: Configure UART for transmit and recieve
+    uart_configure();
+
+    uart_send_byte( 0x11 );
+    uart_send_byte( 0x12 );
+    uart_send_byte( 0x13 );
+    uart_send_byte( 0x14 );
+    uart_send_byte( 0x15 );
+
+    /*
     // configure the hardware USART device
     #ifdef __USE18F26J50
     Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
         USART_CONT_RX & USART_BRGH_LOW, 0x19);
     #else
     #ifdef __USE18F46J50
+
     Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
         USART_CONT_RX & USART_BRGH_LOW, 0x19);
+
     #else
     OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
         USART_CONT_RX & USART_BRGH_LOW, 0x19);
     #endif
     #endif
+    */
 
     // Alex: Set registers for debug output
     #ifdef DEBUG_MODE

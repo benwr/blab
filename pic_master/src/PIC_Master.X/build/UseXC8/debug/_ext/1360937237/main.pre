@@ -1,5 +1,5 @@
 
-# 1 "../src/user_interrupts.c"
+# 1 "../src/main.c"
 
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -10828,10 +10828,80 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 12 "../src/user_interrupts.h"
-void timer0_int_handler(void);
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdarg.h"
+typedef void * va_list[1];
 
-void timer1_int_handler(void);
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 23 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
+extern int errno;
+
+# 54
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 17 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\conio.h"
+extern int errno;
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 31
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 99 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 191
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 12 "../src/interrupts.h"
+void enable_interrupts(void);
+
+int in_high_int(void);
+
+int low_int_active(void);
+
+int in_low_int(void);
+
+
+int in_main(void);
 
 # 10 "../src/messages.h"
 typedef struct __msg {
@@ -10886,7 +10956,6 @@ struct uart_send_buffer_type
 {
 unsigned char buffer[4];
 unsigned char current_item;
-unsigned char last_item;
 char size;
 } uart_send_buffer;
 
@@ -10925,56 +10994,246 @@ void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-# 16 "../src/user_interrupts.c"
-void timer0_int_handler() {
+# 1 "../src/uart_thread.h"
+typedef struct __uart_thread_struct {
+
+int data;
+} uart_thread_struct;
+
+int uart_lthread(uart_thread_struct *,int,int,unsigned char*);
+
+# 1 "../src/timer1_thread.h"
+typedef struct __timer1_thread_struct {
+
+unsigned int msgcount;
+} timer1_thread_struct;
+
+void init_timer1_lthread(timer1_thread_struct *);
+int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
+
+# 1 "../src/timer0_thread.h"
+typedef struct __timer0_thread_struct {
+
+int data;
+} timer0_thread_struct;
+
+int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
+
+
+# 132 "../src/main.c"
+#pragma config WDTEN = OFF
+#pragma config PLLDIV = 3
+#pragma config STVREN = OFF
 
 
 
-LATD = 0x40;
+
+#pragma config XINST = OFF
 
 
 
-unsigned int val;
-int length, msgtype;
+#pragma config CPUDIV = OSC1
+#pragma config CP0 = OFF
 
-# 32
-WriteTimer0(0);
 
-length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
-if (length == sizeof (val)) {
-ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
+#pragma config OSC = HSPLL
+#pragma config T1DIG = OFF
+#pragma config LPT1OSC = OFF
+#pragma config FCMEN = OFF
+#pragma config IESO = ON
+
+
+#pragma config WDTPS = 32768
+
+
+#pragma config DSWDTOSC = T1OSCREF
+#pragma config RTCOSC = T1OSCREF
+#pragma config DSBOREN = OFF
+#pragma config DSWDTEN = OFF
+#pragma config DSWDTPS = G2
+
+
+#pragma config IOL1WAY = ON
+#pragma config MSSP7B_EN = MSK7
+
+
+#pragma config WPFP = PAGE_63
+#pragma config WPEND = PAGE_WPFP
+#pragma config WPCFG = OFF
+
+
+#pragma config WPDIS = OFF
+
+# 187
+void main(void) {
+char c;
+signed char length;
+unsigned char msgtype;
+unsigned char last_reg_recvd;
+uart_comm uc;
+i2c_comm ic;
+unsigned char msgbuffer[10 + 1];
+unsigned char i;
+uart_thread_struct uthread_data;
+timer1_thread_struct t1thread_data;
+timer0_thread_struct t0thread_data;
+char alex_counter = 0;
+
+# 215
+OSCCON = 0xE0;
+
+# 223
+OSCTUNEbits.PLLEN = 1;
+
+# 238
+init_i2c(&ic);
+
+
+init_timer1_lthread(&t1thread_data);
+
+
+init_queues();
+
+
+
+TRISB = 0x0;
+LATB = 0x0;
+
+# 262
+OpenTimer0(0b11111111 & 0b10111111 & 0b11011111 & 0b11110110);
+
+# 269
+OpenTimer1(0b11111111 & 0b10011111 & 0b11111111 & 0b11111111 & 0b11111011 & 0b11111111,0x0);
+
+# 278
+IPR1bits.TMR1IP = 0;
+
+IPR1bits.RCIP = 0;
+
+
+IPR1bits.SSPIP = 1;
+
+# 292
+i2c_configure_slave(0x9E);
+
+# 307
+PIE1bits.SSPIE = 1;
+
+
+uart_configure();
+
+uart_send_byte( 0x11 );
+uart_send_byte( 0x12 );
+uart_send_byte( 0x13 );
+uart_send_byte( 0x14 );
+uart_send_byte( 0x15 );
+
+# 338
+TRISD = 0x00;
+
+
+
+
+enable_interrupts();
+
+# 366
+while (1) {
+
+
+
+block_on_To_msgqueues();
+
+# 377
+length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
+if (length < 0) {
+
+if (length != -4) {
+
+}
+}
+else
+{
+switch (msgtype) {
+case 10:
+{
+timer0_lthread(&t0thread_data, msgtype, length, msgbuffer);
+break;
+};
+case 40:
+case 41:
+{
+
+
+last_reg_recvd = msgbuffer[0];
+break;
+};
+case 42:
+{
+
+# 409
+switch (last_reg_recvd) {
+case 0xaa:
+{
+length = 2;
+
+msgbuffer[0] = 0x1E;
+msgbuffer[1] = 0xAA;
+break;
+}
+case 0xa8:
+{
+length = 1;
+msgbuffer[0] = 0x3A;
+break;
+}
+case 0xa9:
+{
+length = 1;
+msgbuffer[0] = 0xA3;
+break;
+}
+};
+start_i2c_slave_reply(length, msgbuffer);
+break;
+};
+default:
+{
+
+break;
+};
+};
 }
 
 
+length = ToMainLow_recvmsg(10, &msgtype, (void *) msgbuffer);
+if (length < 0) {
 
-LATD = 0x00;
-
+if (length != -4) {
 
 }
+}
+else
+{
+switch (msgtype)
+{
+case 11:
+{
+timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
+break;
+};
+case 30:
+case 31:
+{
+uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+break;
+};
+default:
+{
 
-
-
-
-void timer1_int_handler() {
-
-
-
-LATD = 0x80;
-
-
-
-unsigned int result;
-
-# 64
-result = ReadTimer1();
-ToMainLow_sendmsg(0, 11, (void *) 0);
-
-
-WriteTimer1(0);
-
-
-
-LATD = 0x00;
-
+break;
+};
+};
+}
+}
 
 }

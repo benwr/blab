@@ -131,5 +131,12 @@ void InterruptHandlerLow() {
         PIR1bits.RCIF = 0; //clear interrupt flag
         uart_recv_int_handler();
     }
+
+    //Check interrupt flag for uart transmit
+    if (PIR1bits.TX1IF)
+    {
+        PIR1bits.TX1IF = 0;
+        uart_transmit_byte();
+    }
 }
 

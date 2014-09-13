@@ -1,56 +1,159 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "18 ../src/my_uart.h
-[s S1134 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
-[n S1134 uart_send_buffer_type buffer current_item last_item size ]
-"14926 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
-[s S951 :1 `uc 1 ]
-[n S951 . NOT_BOR ]
-"14929
-[s S952 :1 `uc 1 :1 `uc 1 ]
-[n S952 . . NOT_POR ]
-"14933
-[s S953 :2 `uc 1 :1 `uc 1 ]
-[n S953 . . NOT_PD ]
-"14937
-[s S954 :3 `uc 1 :1 `uc 1 ]
-[n S954 . . NOT_TO ]
-"14941
-[s S955 :4 `uc 1 :1 `uc 1 ]
-[n S955 . . NOT_RI ]
-"14945
-[s S956 :5 `uc 1 :1 `uc 1 ]
-[n S956 . . NOT_CM ]
-"14949
-[s S957 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S957 . nBOR nPOR nPD nTO nRI nCM . IPEN ]
-"14959
-[s S958 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S958 . BOR POR PD TO RI CM ]
-"14925
-[u S950 `S951 1 `S952 1 `S953 1 `S954 1 `S955 1 `S956 1 `S957 1 `S958 1 ]
-[n S950 . . . . . . . . . ]
-"14968
-[v _RCONbits `VS950 ~T0 @X0 0 e@4048 ]
-"16519
-[s S1055 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1055 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"16529
-[s S1056 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1056 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"16539
-[s S1057 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1057 . . GIEL GIEH ]
-"16544
-[s S1058 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1058 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"16554
-[s S1059 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1059 . . GIEL GIEH ]
-"16518
-[u S1054 `S1055 1 `S1056 1 `S1057 1 `S1058 1 `S1059 1 ]
-[n S1054 . . . . . . ]
-"16560
-[v _INTCONbits `VS1054 ~T0 @X0 0 e@4082 ]
+[s S1134 `uc -> 4 `i `uc 1 `uc 1 ]
+[n S1134 uart_send_buffer_type buffer current_item size ]
+"11
+[s S1133 `uc -> 4 `i `uc 1 ]
+[n S1133 __uart_comm buffer buflen ]
+"8391 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+[s S570 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S570 . TRISC0 TRISC1 TRISC2 . TRISC4 TRISC5 TRISC6 TRISC7 ]
+"8401
+[s S571 :3 `uc 1 :1 `uc 1 ]
+[n S571 . . TRISC3 ]
+"8390
+[u S569 `S570 1 `S571 1 ]
+[n S569 . . . ]
+"8406
+[v _TRISCbits `VS569 ~T0 @X0 0 e@3988 ]
+"5587
+[s S394 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S394 . ABDEN WUE . BRG16 TXCKP RXDTP RCIDL ABDOVF ]
+"5597
+[s S395 :1 `uc 1 ]
+[n S395 . ABDEN1 ]
+"5600
+[s S396 :7 `uc 1 :1 `uc 1 ]
+[n S396 . . ABDOVF1 ]
+"5604
+[s S397 :3 `uc 1 :1 `uc 1 ]
+[n S397 . . BRG161 ]
+"5608
+[s S398 :4 `uc 1 :1 `uc 1 ]
+[n S398 . . CKTXP ]
+"5612
+[s S399 :5 `uc 1 :1 `uc 1 ]
+[n S399 . . DTRXP ]
+"5616
+[s S400 :5 `uc 1 :1 `uc 1 ]
+[n S400 . . DTRXP1 ]
+"5620
+[s S401 :6 `uc 1 :1 `uc 1 ]
+[n S401 . . RCIDL1 ]
+"5624
+[s S402 :6 `uc 1 :1 `uc 1 ]
+[n S402 . . RCMT ]
+"5628
+[s S403 :6 `uc 1 :1 `uc 1 ]
+[n S403 . . RCMT1 ]
+"5632
+[s S404 :5 `uc 1 :1 `uc 1 ]
+[n S404 . . RXDTP1 ]
+"5636
+[s S405 :4 `uc 1 :1 `uc 1 ]
+[n S405 . . SCKP ]
+"5640
+[s S406 :4 `uc 1 :1 `uc 1 ]
+[n S406 . . SCKP1 ]
+"5644
+[s S407 :4 `uc 1 :1 `uc 1 ]
+[n S407 . . TXCKP1 ]
+"5648
+[s S408 :1 `uc 1 :1 `uc 1 ]
+[n S408 . . WUE1 ]
+"5652
+[s S409 :5 `uc 1 :1 `uc 1 ]
+[n S409 . . RXCKP ]
+"5656
+[s S410 :1 `uc 1 :1 `uc 1 ]
+[n S410 . . W4E ]
+"5586
+[u S393 `S394 1 `S395 1 `S396 1 `S397 1 `S398 1 `S399 1 `S400 1 `S401 1 `S402 1 `S403 1 `S404 1 `S405 1 `S406 1 `S407 1 `S408 1 `S409 1 `S410 1 ]
+[n S393 . . . . . . . . . . . . . . . . . . ]
+"5661
+[v _BAUDCONbits `VS393 ~T0 @X0 0 e@3966 ]
+"10402
+[s S678 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S678 . TX9D TRMT BRGH SENDB SYNC TXEN TX9 CSRC ]
+"10412
+[s S679 :1 `uc 1 :5 `uc 1 :1 `uc 1 ]
+[n S679 . TXD8 . TX8_9 ]
+"10417
+[s S680 :6 `uc 1 :1 `uc 1 ]
+[n S680 . . NOT_TX8 ]
+"10421
+[s S681 :6 `uc 1 :1 `uc 1 ]
+[n S681 . . nTX8 ]
+"10425
+[s S682 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S682 . TX9D1 TRMT1 BRGH1 SENDB1 SYNC1 TXEN1 TX91 CSRC1 ]
+"10401
+[u S677 `S678 1 `S679 1 `S680 1 `S681 1 `S682 1 ]
+[n S677 . . . . . . ]
+"10436
+[v _TXSTA1bits `VS677 ~T0 @X0 0 e@4013 ]
+"5972
+[v _SPBRGH1 `Vuc ~T0 @X0 0 e@3967 ]
+"10752
+[v _SPBRG1 `Vuc ~T0 @X0 0 e@4016 ]
+"10065
+[s S662 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S662 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
+"10075
+[s S663 :1 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S663 . RCD8 . ADEN . RC9 ]
+"10082
+[s S664 :6 `uc 1 :1 `uc 1 ]
+[n S664 . . NOT_RC8 ]
+"10086
+[s S665 :6 `uc 1 :1 `uc 1 ]
+[n S665 . . nRC8 ]
+"10090
+[s S666 :6 `uc 1 :1 `uc 1 ]
+[n S666 . . RC8_9 ]
+"10094
+[s S667 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S667 . RX9D1 OERR1 FERR1 ADDEN1 CREN1 SREN1 RX91 SPEN1 ]
+"10104
+[s S668 :5 `uc 1 :1 `uc 1 ]
+[n S668 . . SRENA ]
+"10064
+[u S661 `S662 1 `S663 1 `S664 1 `S665 1 `S666 1 `S667 1 `S668 1 ]
+[n S661 . . . . . . . . ]
+"10109
+[v _RCSTA1bits `VS661 ~T0 @X0 0 e@4012 ]
+"9021
+[s S606 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S606 . TMR1IE TMR2IE CCP1IE SSP1IE TX1IE RC1IE ADIE PMPIE ]
+"9031
+[s S607 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S607 . . SSPIE TXIE RCIE ]
+"9037
+[s S608 :7 `uc 1 :1 `uc 1 ]
+[n S608 . . PSPIE ]
+"9020
+[u S605 `S606 1 `S607 1 `S608 1 ]
+[n S605 . . . . ]
+"9042
+[v _PIE1bits `VS605 ~T0 @X0 0 e@3997 ]
+"9203
+[s S614 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S614 . TMR1IP TMR2IP CCP1IP SSP1IP TX1IP RC1IP ADIP PMPIP ]
+"9213
+[s S615 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S615 . . SSPIP TXIP RCIP ]
+"9219
+[s S616 :7 `uc 1 :1 `uc 1 ]
+[n S616 . . PSPIP ]
+"9202
+[u S613 `S614 1 `S615 1 `S616 1 ]
+[n S613 . . . . ]
+"9224
+[v _IPR1bits `VS613 ~T0 @X0 0 e@3999 ]
+"10678
+[v _TXREG1 `Vuc ~T0 @X0 0 e@4014 ]
+"7852
+[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 "9112
 [s S610 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S610 . TMR1IF TMR2IF CCP1IF SSP1IF TX1IF RC1IF ADIF PMPIF ]
@@ -65,18 +168,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S609 . . . . ]
 "9133
 [v _PIR1bits `VS609 ~T0 @X0 0 e@3998 ]
-"34 ../src/my_i2c.h
-[v _i2c_int_handler `(v ~T0 @X0 0 ef ]
-"12 ../src/user_interrupts.h
-[v _timer0_int_handler `(v ~T0 @X0 0 ef ]
-"47 ../src/messages.h
-[v _SleepIfOkay `(v ~T0 @X0 0 ef ]
-"14 ../src/user_interrupts.h
-[v _timer1_int_handler `(v ~T0 @X0 0 ef ]
-"36 ../src/my_uart.h
-[v _uart_recv_int_handler `(v ~T0 @X0 0 ef ]
-"33
-[v _uart_transmit_byte `(v ~T0 @X0 0 ef ]
+"244 C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\usart.h
+[v _Read1USART `(uc ~T0 @X0 0 ef ]
+"57 ../src/messages.h
+[v _ToMainLow_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
+"204 C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\usart.h
+[s S1128 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S1128 . RX_NINE TX_NINE FRAME_ERROR OVERRUN_ERROR fill ]
+"200
+[u S1127 `uc 1 `S1128 1 ]
+[n S1127 USART1 val . ]
+"212
+[v _USART1_Status `S1127 ~T0 @X0 0 e ]
+"10228 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+[s S670 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S670 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
+"10238
+[s S671 :1 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S671 . RCD8 . ADEN . RC9 ]
+"10245
+[s S672 :6 `uc 1 :1 `uc 1 ]
+[n S672 . . NOT_RC8 ]
+"10249
+[s S673 :6 `uc 1 :1 `uc 1 ]
+[n S673 . . nRC8 ]
+"10253
+[s S674 :6 `uc 1 :1 `uc 1 ]
+[n S674 . . RC8_9 ]
+"10257
+[s S675 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S675 . RX9D1 OERR1 FERR1 ADDEN1 CREN1 SREN1 RX91 SPEN1 ]
+"10267
+[s S676 :5 `uc 1 :1 `uc 1 ]
+[n S676 . . SRENA ]
+"10227
+[u S669 `S670 1 `S671 1 `S672 1 `S673 1 `S674 1 `S675 1 `S676 1 ]
+[n S669 . . . . . . . . ]
+"10272
+[v _RCSTAbits `VS669 ~T0 @X0 0 e@4012 ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f46j50.h: 47: extern volatile unsigned char RPOR0 @ 0xEC6;
@@ -8382,13 +8511,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-[; ;interrupts.h: 12: void enable_interrupts(void);
-[; ;interrupts.h: 14: int in_high_int(void);
-[; ;interrupts.h: 16: int low_int_active(void);
-[; ;interrupts.h: 18: int in_low_int(void);
-[; ;interrupts.h: 21: int in_main(void);
-[; ;user_interrupts.h: 12: void timer0_int_handler(void);
-[; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 10: typedef struct __msg {
 [; ;messages.h: 11: unsigned char full;
 [; ;messages.h: 12: unsigned char length;
@@ -8416,257 +8538,206 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 13: unsigned char buffer[4];
 [; ;my_uart.h: 14: unsigned char buflen;
 [; ;my_uart.h: 15: } uart_comm;
-"24 ../src/my_uart.h
+"23 ../src/my_uart.h
 [v _uart_send_buffer `S1134 ~T0 @X0 1 e ]
 [; ;my_uart.h: 18: struct uart_send_buffer_type
 [; ;my_uart.h: 19: {
 [; ;my_uart.h: 20: unsigned char buffer[4];
 [; ;my_uart.h: 21: unsigned char current_item;
-[; ;my_uart.h: 22: unsigned char last_item;
-[; ;my_uart.h: 23: char size;
-[; ;my_uart.h: 24: } uart_send_buffer;
-[; ;my_uart.h: 27: void uart_configure();
-[; ;my_uart.h: 30: int uart_send_byte( char sendByte );
-[; ;my_uart.h: 33: void uart_transmit_byte();
-[; ;my_uart.h: 36: void uart_recv_int_handler(void);
-[; ;my_i2c.h: 8: typedef struct __i2c_comm {
-[; ;my_i2c.h: 9: unsigned char buffer[10];
-[; ;my_i2c.h: 10: unsigned char buflen;
-[; ;my_i2c.h: 11: unsigned char event_count;
-[; ;my_i2c.h: 12: unsigned char status;
-[; ;my_i2c.h: 13: unsigned char error_code;
-[; ;my_i2c.h: 14: unsigned char error_count;
-[; ;my_i2c.h: 15: unsigned char outbuffer[10];
-[; ;my_i2c.h: 16: unsigned char outbuflen;
-[; ;my_i2c.h: 17: unsigned char outbufind;
-[; ;my_i2c.h: 18: unsigned char slave_addr;
-[; ;my_i2c.h: 19: } i2c_comm;
-[; ;my_i2c.h: 33: void init_i2c(i2c_comm *);
-[; ;my_i2c.h: 34: void i2c_int_handler(void);
-[; ;my_i2c.h: 35: void start_i2c_slave_reply(unsigned char,unsigned char *);
-[; ;my_i2c.h: 36: void i2c_configure_slave(unsigned char);
-[; ;my_i2c.h: 37: void i2c_configure_master(unsigned char);
-[; ;my_i2c.h: 38: unsigned char i2c_master_send(unsigned char,unsigned char *);
-[; ;my_i2c.h: 39: unsigned char i2c_master_recv(unsigned char);
-"14 ../src/interrupts.c
-[v _enable_interrupts `(v ~T0 @X0 1 ef ]
+[; ;my_uart.h: 22: char size;
+[; ;my_uart.h: 23: } uart_send_buffer;
+[; ;my_uart.h: 26: void uart_configure();
+[; ;my_uart.h: 29: int uart_send_byte( char sendByte );
+[; ;my_uart.h: 32: void uart_transmit_byte();
+[; ;my_uart.h: 35: void uart_recv_int_handler(void);
+"9 ../src/my_uart.c
+[v _uc_ptr `*S1133 ~T0 @X0 1 s ]
+[; ;my_uart.c: 9: static uart_comm *uc_ptr;
+"12
+[v _uart_configure `(v ~T0 @X0 1 ef ]
+"13
 {
-[; ;interrupts.c: 14: void enable_interrupts() {
-[e :U _enable_interrupts ]
+[; ;my_uart.c: 12: void uart_configure()
+[; ;my_uart.c: 13: {
+[e :U _uart_configure ]
 [f ]
-[; ;interrupts.c: 17: RCONbits.IPEN = 1;
+[; ;my_uart.c: 14: TRISCbits.TRISC7 = 1;
+"14
+[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
+[; ;my_uart.c: 15: TRISCbits.TRISC6 = 0;
+"15
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
+[; ;my_uart.c: 17: BAUDCONbits.BRG16 = 1;
 "17
-[e = . . _RCONbits 6 7 -> -> 1 `i `uc ]
-[; ;interrupts.c: 18: INTCONbits.GIEH = 1;
+[e = . . _BAUDCONbits 0 3 -> -> 1 `i `uc ]
+[; ;my_uart.c: 18: TXSTA1bits.BRGH = 1;
 "18
-[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
-[; ;interrupts.c: 19: INTCONbits.GIEL = 1;
-"19
-[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
-[; ;interrupts.c: 20: }
-"20
+[e = . . _TXSTA1bits 0 2 -> -> 1 `i `uc ]
+[; ;my_uart.c: 21: SPBRGH1 = 0x00;
+"21
+[e = _SPBRGH1 -> -> 0 `i `uc ]
+[; ;my_uart.c: 22: SPBRG1 = 0xCF;
+"22
+[e = _SPBRG1 -> -> 207 `i `uc ]
+[; ;my_uart.c: 24: TXSTA1bits.SYNC = 0;
+"24
+[e = . . _TXSTA1bits 0 4 -> -> 0 `i `uc ]
+[; ;my_uart.c: 25: RCSTA1bits.SPEN = 1;
+"25
+[e = . . _RCSTA1bits 0 7 -> -> 1 `i `uc ]
+[; ;my_uart.c: 27: PIE1bits.TX1IE = 1;
+"27
+[e = . . _PIE1bits 0 4 -> -> 1 `i `uc ]
+[; ;my_uart.c: 29: TXSTA1bits.TXEN = 1;
+"29
+[e = . . _TXSTA1bits 0 5 -> -> 1 `i `uc ]
+[; ;my_uart.c: 32: IPR1bits.TX1IP = 0;
+"32
+[e = . . _IPR1bits 0 4 -> -> 0 `i `uc ]
+[; ;my_uart.c: 38: uart_send_buffer.current_item = 0;
+"38
+[e = . _uart_send_buffer 1 -> -> 0 `i `uc ]
+[; ;my_uart.c: 39: uart_send_buffer.buffer[uart_send_buffer.current_item] = 0;
+"39
+[e = *U + &U . _uart_send_buffer 0 * -> . _uart_send_buffer 1 `ux -> -> # *U &U . _uart_send_buffer 0 `ui `ux -> -> 0 `i `uc ]
+[; ;my_uart.c: 40: uart_send_buffer.size = 0;
+"40
+[e = . _uart_send_buffer 2 -> -> 0 `i `uc ]
+[; ;my_uart.c: 41: }
+"41
+[e :UE 1135 ]
+}
+"44
+[v _uart_send_byte `(i ~T0 @X0 1 ef1`uc ]
+"45
+{
+[; ;my_uart.c: 44: int uart_send_byte( char sendByte )
+[; ;my_uart.c: 45: {
+[e :U _uart_send_byte ]
+"44
+[v _sendByte `uc ~T0 @X0 1 r1 ]
+"45
+[f ]
+[; ;my_uart.c: 46: if( uart_send_buffer.size >= 4 )
+"46
+[e $ ! >= -> . _uart_send_buffer 2 `i -> 4 `i 1137  ]
+[; ;my_uart.c: 47: {
+"47
+{
+[; ;my_uart.c: 48: return 0;
+"48
+[e ) -> 0 `i ]
+[e $UE 1136  ]
+"49
+}
+[e :U 1137 ]
+[; ;my_uart.c: 49: }
+[; ;my_uart.c: 51: uart_send_buffer.buffer[ (uart_send_buffer.current_item + 1) % 4 ] = sendByte;
+"51
+[e = *U + &U . _uart_send_buffer 0 * -> -> % + -> . _uart_send_buffer 1 `i -> 1 `i -> 4 `i `ui `ux -> -> # *U &U . _uart_send_buffer 0 `ui `ux _sendByte ]
+[; ;my_uart.c: 52: uart_send_buffer.size += 1;
+"52
+[e =+ . _uart_send_buffer 2 -> -> 1 `i `uc ]
+[; ;my_uart.c: 54: return 1;
+"54
+[e ) -> 1 `i ]
+[e $UE 1136  ]
+[; ;my_uart.c: 55: }
+"55
 [e :UE 1136 ]
 }
-"22
-[v _in_high_int `(i ~T0 @X0 1 ef ]
+"58
+[v _uart_transmit_byte `(v ~T0 @X0 1 ef ]
+"59
 {
-[; ;interrupts.c: 22: int in_high_int() {
-[e :U _in_high_int ]
+[; ;my_uart.c: 58: void uart_transmit_byte()
+[; ;my_uart.c: 59: {
+[e :U _uart_transmit_byte ]
 [f ]
-[; ;interrupts.c: 23: return (!INTCONbits.GIEH);
-"23
-[e ) -> ! != -> . . _INTCONbits 2 2 `i -> -> -> 0 `i `Vuc `i `i ]
-[e $UE 1137  ]
-[; ;interrupts.c: 24: }
-"24
-[e :UE 1137 ]
-}
-"26
-[v _low_int_active `(i ~T0 @X0 1 ef ]
+[; ;my_uart.c: 60: if( uart_send_buffer.size == 0 )
+"60
+[e $ ! == -> . _uart_send_buffer 2 `i -> 0 `i 1139  ]
+[; ;my_uart.c: 61: {
+"61
 {
-[; ;interrupts.c: 26: int low_int_active() {
-[e :U _low_int_active ]
-[f ]
-[; ;interrupts.c: 27: return (!INTCONbits.GIEL);
-"27
-[e ) -> ! != -> . . _INTCONbits 2 1 `i -> -> -> 0 `i `Vuc `i `i ]
+[; ;my_uart.c: 62: return;
+"62
 [e $UE 1138  ]
-[; ;interrupts.c: 28: }
-"28
+"63
+}
+[e :U 1139 ]
+[; ;my_uart.c: 63: }
+[; ;my_uart.c: 64: TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
+"64
+[e = _TXREG1 *U + &U . _uart_send_buffer 0 * -> . _uart_send_buffer 1 `ux -> -> # *U &U . _uart_send_buffer 0 `ui `ux ]
+[; ;my_uart.c: 65: uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
+"65
+[e = . _uart_send_buffer 1 -> % + -> . _uart_send_buffer 1 `i -> 1 `i -> 4 `i `uc ]
+[; ;my_uart.c: 66: uart_send_buffer.size -= 1;
+"66
+[e =- . _uart_send_buffer 2 -> -> 1 `i `uc ]
+[; ;my_uart.c: 67: }
+"67
 [e :UE 1138 ]
 }
-"30
-[v _in_low_int `(i ~T0 @X0 1 ef ]
+"69
+[v _uart_recv_int_handler `(v ~T0 @X0 1 ef ]
 {
-[; ;interrupts.c: 30: int in_low_int() {
-[e :U _in_low_int ]
+[; ;my_uart.c: 69: void uart_recv_int_handler() {
+[e :U _uart_recv_int_handler ]
 [f ]
-[; ;interrupts.c: 31: if (INTCONbits.GIEL == 1) {
-"31
-[e $ ! == -> . . _INTCONbits 2 1 `i -> 1 `i 1140  ]
+[; ;my_uart.c: 74: LATD = 0x20;
+"74
+[e = _LATD -> -> 32 `i `uc ]
+[; ;my_uart.c: 82: if ((PIR1bits.RC1IF)) {
+"82
+[e $ ! != -> . . _PIR1bits 0 5 `i -> -> -> 0 `i `Vuc `i 1141  ]
 {
-[; ;interrupts.c: 32: return (0);
-"32
-[e ) -> 0 `i ]
-[e $UE 1139  ]
-"33
-}
-[; ;interrupts.c: 33: } else if (in_high_int()) {
-[e $U 1141  ]
-[e :U 1140 ]
-[e $ ! != ( _in_high_int ..  -> 0 `i 1142  ]
+[; ;my_uart.c: 83: uc_ptr->buffer[uc_ptr->buflen] = Read1USART();
+"83
+[e = *U + &U . *U _uc_ptr 0 * -> . *U _uc_ptr 1 `ux -> -> # *U &U . *U _uc_ptr 0 `ui `ux ( _Read1USART ..  ]
+[; ;my_uart.c: 90: uc_ptr->buflen++;
+"90
+[e ++ . *U _uc_ptr 1 -> -> 1 `i `uc ]
+[; ;my_uart.c: 92: if (uc_ptr->buflen == 4) {
+"92
+[e $ ! == -> . *U _uc_ptr 1 `i -> 4 `i 1142  ]
 {
-[; ;interrupts.c: 34: return (0);
-"34
-[e ) -> 0 `i ]
-[e $UE 1139  ]
-"35
+[; ;my_uart.c: 93: ToMainLow_sendmsg(uc_ptr->buflen, 31, (void *) uc_ptr->buffer);
+"93
+[e ( _ToMainLow_sendmsg (3 , , . *U _uc_ptr 1 -> -> 31 `i `uc -> &U . *U _uc_ptr 0 `*v ]
+[; ;my_uart.c: 94: uc_ptr->buflen = 0;
+"94
+[e = . *U _uc_ptr 1 -> -> 0 `i `uc ]
+"95
 }
-[; ;interrupts.c: 35: } else {
-[e $U 1143  ]
 [e :U 1142 ]
+"96
+}
+[e :U 1141 ]
+[; ;my_uart.c: 95: }
+[; ;my_uart.c: 96: }
+[; ;my_uart.c: 101: if (USART1_Status.OVERRUN_ERROR == 1) {
+"101
+[e $ ! == -> . . _USART1_Status 1 3 `i -> 1 `i 1143  ]
 {
-[; ;interrupts.c: 36: return (1);
-"36
-[e ) -> 1 `i ]
-[e $UE 1139  ]
-"37
+[; ;my_uart.c: 108: RCSTAbits.CREN = 0;
+"108
+[e = . . _RCSTAbits 0 4 -> -> 0 `i `uc ]
+[; ;my_uart.c: 109: RCSTAbits.CREN = 1;
+"109
+[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
+[; ;my_uart.c: 110: ToMainLow_sendmsg(0, 30, (void *) 0);
+"110
+[e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 30 `i `uc -> -> 0 `i `*v ]
+"111
 }
 [e :U 1143 ]
-[e :U 1141 ]
-[; ;interrupts.c: 37: }
-[; ;interrupts.c: 38: }
-"38
-[e :UE 1139 ]
-}
-"40
-[v _in_main `(i ~T0 @X0 1 ef ]
-{
-[; ;interrupts.c: 40: int in_main() {
-[e :U _in_main ]
-[f ]
-[; ;interrupts.c: 41: if ((!in_low_int()) && (!in_high_int())) {
-"41
-[e $ ! && ! != ( _in_low_int ..  -> 0 `i ! != ( _in_high_int ..  -> 0 `i 1145  ]
-{
-[; ;interrupts.c: 42: return (1);
-"42
-[e ) -> 1 `i ]
-[e $UE 1144  ]
-"43
-}
-[; ;interrupts.c: 43: } else {
-[e $U 1146  ]
-[e :U 1145 ]
-{
-[; ;interrupts.c: 44: return (0);
-"44
-[e ) -> 0 `i ]
-[e $UE 1144  ]
-"45
-}
-[e :U 1146 ]
-[; ;interrupts.c: 45: }
-[; ;interrupts.c: 46: }
-"46
-[e :UE 1144 ]
-}
-[v F9142 `(v ~T0 @X0 1 tf ]
-"83
-[v _InterruptHandlerHigh `IF9142 ~T0 @X0 1 e ]
-{
-[; ;interrupts.c: 78: interrupt
-[; ;interrupts.c: 83: void InterruptHandlerHigh() {
-[e :U _InterruptHandlerHigh ]
-[f ]
-[; ;interrupts.c: 88: if (PIR1bits.SSPIF) {
-"88
-[e $ ! != -> . . _PIR1bits 1 1 `i -> -> -> 0 `i `Vuc `i 1148  ]
-{
-[; ;interrupts.c: 90: PIR1bits.SSPIF = 0;
-"90
-[e = . . _PIR1bits 1 1 -> -> 0 `i `uc ]
-[; ;interrupts.c: 92: i2c_int_handler();
-"92
-[e ( _i2c_int_handler ..  ]
-"93
-}
-[e :U 1148 ]
-[; ;interrupts.c: 93: }
-[; ;interrupts.c: 96: if (INTCONbits.TMR0IF) {
-"96
-[e $ ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 1149  ]
-{
-[; ;interrupts.c: 97: INTCONbits.TMR0IF = 0;
-"97
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;interrupts.c: 99: timer0_int_handler();
-"99
-[e ( _timer0_int_handler ..  ]
-"100
-}
-[e :U 1149 ]
-[; ;interrupts.c: 100: }
-[; ;interrupts.c: 109: SleepIfOkay();
-"109
-[e ( _SleepIfOkay ..  ]
-[; ;interrupts.c: 110: }
-"110
-[e :UE 1147 ]
-}
-[v F9144 `(v ~T0 @X0 1 tf ]
-"122
-[v _InterruptHandlerLow `ILF9144 ~T0 @X0 1 e ]
-{
-[; ;interrupts.c: 117: interrupt low_priority
-[; ;interrupts.c: 122: void InterruptHandlerLow() {
-[e :U _InterruptHandlerLow ]
-[f ]
-[; ;interrupts.c: 124: if (PIR1bits.TMR1IF) {
-"124
-[e $ ! != -> . . _PIR1bits 0 0 `i -> -> -> 0 `i `Vuc `i 1151  ]
-{
-[; ;interrupts.c: 125: PIR1bits.TMR1IF = 0;
-"125
-[e = . . _PIR1bits 0 0 -> -> 0 `i `uc ]
-[; ;interrupts.c: 126: timer1_int_handler();
-"126
-[e ( _timer1_int_handler ..  ]
-"127
-}
-[e :U 1151 ]
-[; ;interrupts.c: 127: }
-[; ;interrupts.c: 130: if (PIR1bits.RCIF) {
-"130
-[e $ ! != -> . . _PIR1bits 1 3 `i -> -> -> 0 `i `Vuc `i 1152  ]
-{
-[; ;interrupts.c: 131: PIR1bits.RCIF = 0;
-"131
-[e = . . _PIR1bits 1 3 -> -> 0 `i `uc ]
-[; ;interrupts.c: 132: uart_recv_int_handler();
-"132
-[e ( _uart_recv_int_handler ..  ]
-"133
-}
-[e :U 1152 ]
-[; ;interrupts.c: 133: }
-[; ;interrupts.c: 136: if (PIR1bits.TX1IF)
-"136
-[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 1153  ]
-[; ;interrupts.c: 137: {
-"137
-{
-[; ;interrupts.c: 138: PIR1bits.TX1IF = 0;
-"138
-[e = . . _PIR1bits 0 4 -> -> 0 `i `uc ]
-[; ;interrupts.c: 139: uart_transmit_byte();
-"139
-[e ( _uart_transmit_byte ..  ]
-"140
-}
-[e :U 1153 ]
-[; ;interrupts.c: 140: }
-[; ;interrupts.c: 141: }
-"141
-[e :UE 1150 ]
+[; ;my_uart.c: 111: }
+[; ;my_uart.c: 115: LATD = 0x00;
+"115
+[e = _LATD -> -> 0 `i `uc ]
+[; ;my_uart.c: 118: }
+"118
+[e :UE 1140 ]
 }

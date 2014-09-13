@@ -1,4 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"18 ../src/my_uart.h
+[s S1134 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
+[n S1134 uart_send_buffer_type buffer current_item last_item size ]
 "7852 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 "121 C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\timers.h
@@ -8342,12 +8345,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 72: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 [; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;my_uart.h: 11: typedef struct __uart_comm {
-[; ;my_uart.h: 12: unsigned char buffer[4];
-[; ;my_uart.h: 13: unsigned char buflen;
-[; ;my_uart.h: 14: } uart_comm;
-[; ;my_uart.h: 16: void init_uart_recv(uart_comm *);
-[; ;my_uart.h: 17: void uart_recv_int_handler(void);
+[; ;my_uart.h: 11: typedef struct __uart_comm
+[; ;my_uart.h: 12: {
+[; ;my_uart.h: 13: unsigned char buffer[4];
+[; ;my_uart.h: 14: unsigned char buflen;
+[; ;my_uart.h: 15: } uart_comm;
+"24 ../src/my_uart.h
+[v _uart_send_buffer `S1134 ~T0 @X0 1 e ]
+[; ;my_uart.h: 18: struct uart_send_buffer_type
+[; ;my_uart.h: 19: {
+[; ;my_uart.h: 20: unsigned char buffer[4];
+[; ;my_uart.h: 21: unsigned char current_item;
+[; ;my_uart.h: 22: unsigned char last_item;
+[; ;my_uart.h: 23: char size;
+[; ;my_uart.h: 24: } uart_send_buffer;
+[; ;my_uart.h: 27: void uart_configure();
+[; ;my_uart.h: 30: int uart_send_byte( char sendByte );
+[; ;my_uart.h: 33: void uart_transmit_byte();
+[; ;my_uart.h: 36: void uart_recv_int_handler(void);
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
@@ -8391,21 +8406,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _length -> ( _FromMainHigh_recvmsg (3 , , -> -> # _val `ui `uc -> &U _msgtype `*uc -> &U _val `*v `i ]
 [; ;user_interrupts.c: 35: if (length == sizeof (val)) {
 "35
-[e $ ! == -> _length `ui -> # _val `ui 1136  ]
+[e $ ! == -> _length `ui -> # _val `ui 1137  ]
 {
 [; ;user_interrupts.c: 36: ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
 "36
 [e ( _ToMainHigh_sendmsg (3 , , -> -> # _val `ui `uc -> -> 10 `i `uc -> &U _val `*v ]
 "37
 }
-[e :U 1136 ]
+[e :U 1137 ]
 [; ;user_interrupts.c: 37: }
 [; ;user_interrupts.c: 41: LATD = 0x00;
 "41
 [e = _LATD -> -> 0 `i `uc ]
 [; ;user_interrupts.c: 44: }
 "44
-[e :UE 1135 ]
+[e :UE 1136 ]
 }
 "49
 [v _timer1_int_handler `(v ~T0 @X0 1 ef ]
@@ -8433,5 +8448,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _LATD -> -> 0 `i `uc ]
 [; ;user_interrupts.c: 75: }
 "75
-[e :UE 1137 ]
+[e :UE 1138 ]
 }

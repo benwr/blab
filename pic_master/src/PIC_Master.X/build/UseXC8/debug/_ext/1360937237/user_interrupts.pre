@@ -10886,7 +10886,6 @@ struct uart_send_buffer_type
 {
 unsigned char buffer[4];
 unsigned char current_item;
-unsigned char last_item;
 char size;
 } uart_send_buffer;
 
