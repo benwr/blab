@@ -10896,6 +10896,9 @@ int uart_send_byte( char sendByte );
 void uart_transmit_byte();
 
 
+int uart_send_buffer_empty();
+
+
 unsigned char uart_get_byte();
 
 
@@ -10976,6 +10979,20 @@ uart_send_buffer.size -= 1;
 }
 
 
+int uart_send_buffer_empty()
+{
+if( uart_send_buffer.size == 0 )
+{
+return 1;
+}
+else
+{
+return 0;
+}
+
+}
+
+
 unsigned char uart_get_byte()
 {
 if( uart_receive_buffer.size <= 0 )
@@ -11007,11 +11024,11 @@ void uart_recv_int_handler() {
 
 LATD = 0x20;
 
-# 117
+# 131
 if ((PIR1bits.RC1IF)) {
 uc_ptr->buffer[uc_ptr->buflen] = Read1USART();
 
-# 125
+# 139
 uc_ptr->buflen++;
 
 if (uc_ptr->buflen == 4) {
@@ -11025,7 +11042,7 @@ uc_ptr->buflen = 0;
 
 if (USART1_Status.OVERRUN_ERROR == 1) {
 
-# 143
+# 157
 RCSTAbits.CREN = 0;
 RCSTAbits.CREN = 1;
 ToMainLow_sendmsg(0, 30, (void *) 0);

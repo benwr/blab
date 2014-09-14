@@ -8477,9 +8477,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 28: void uart_configure();
 [; ;my_uart.h: 31: int uart_send_byte( char sendByte );
 [; ;my_uart.h: 34: void uart_transmit_byte();
-[; ;my_uart.h: 37: unsigned char uart_get_byte();
-[; ;my_uart.h: 40: void uart_receive_byte();
-[; ;my_uart.h: 43: void uart_recv_int_handler(void);
+[; ;my_uart.h: 37: int uart_send_buffer_empty();
+[; ;my_uart.h: 40: unsigned char uart_get_byte();
+[; ;my_uart.h: 43: void uart_receive_byte();
+[; ;my_uart.h: 46: void uart_recv_int_handler(void);
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
@@ -8646,21 +8647,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 310: uart_configure();
 "310
 [e ( _uart_configure ..  ]
-[; ;main.c: 312: uart_send_byte( 0x11 );
+[; ;main.c: 312: uart_send_byte( 0x50 );
 "312
-[e ( _uart_send_byte (1 -> -> 17 `i `uc ]
-[; ;main.c: 313: uart_send_byte( 0x12 );
+[e ( _uart_send_byte (1 -> -> 80 `i `uc ]
+[; ;main.c: 313: uart_send_byte( 0x51 );
 "313
-[e ( _uart_send_byte (1 -> -> 18 `i `uc ]
-[; ;main.c: 314: uart_send_byte( 0x13 );
+[e ( _uart_send_byte (1 -> -> 81 `i `uc ]
+[; ;main.c: 314: uart_send_byte( 0x52 );
 "314
-[e ( _uart_send_byte (1 -> -> 19 `i `uc ]
-[; ;main.c: 315: uart_send_byte( 0x14 );
+[e ( _uart_send_byte (1 -> -> 82 `i `uc ]
+[; ;main.c: 315: uart_send_byte( 0x53 );
 "315
-[e ( _uart_send_byte (1 -> -> 20 `i `uc ]
-[; ;main.c: 316: uart_send_byte( 0x15 );
+[e ( _uart_send_byte (1 -> -> 83 `i `uc ]
+[; ;main.c: 316: uart_send_byte( 0x54 );
 "316
-[e ( _uart_send_byte (1 -> -> 21 `i `uc ]
+[e ( _uart_send_byte (1 -> -> 84 `i `uc ]
 [; ;main.c: 338: TRISD = 0x00;
 "338
 [e = _TRISD -> -> 0 `i `uc ]

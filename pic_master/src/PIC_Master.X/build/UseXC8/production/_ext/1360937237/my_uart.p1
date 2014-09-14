@@ -8553,9 +8553,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 28: void uart_configure();
 [; ;my_uart.h: 31: int uart_send_byte( char sendByte );
 [; ;my_uart.h: 34: void uart_transmit_byte();
-[; ;my_uart.h: 37: unsigned char uart_get_byte();
-[; ;my_uart.h: 40: void uart_receive_byte();
-[; ;my_uart.h: 43: void uart_recv_int_handler(void);
+[; ;my_uart.h: 37: int uart_send_buffer_empty();
+[; ;my_uart.h: 40: unsigned char uart_get_byte();
+[; ;my_uart.h: 43: void uart_receive_byte();
+[; ;my_uart.h: 46: void uart_recv_int_handler(void);
 "9 ../src/my_uart.c
 [v _uc_ptr `*S1133 ~T0 @X0 1 s ]
 [; ;my_uart.c: 9: static uart_comm *uc_ptr;
@@ -8711,141 +8712,181 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 1138 ]
 }
 "80
-[v _uart_get_byte `(uc ~T0 @X0 1 ef ]
+[v _uart_send_buffer_empty `(i ~T0 @X0 1 ef ]
 "81
 {
-[; ;my_uart.c: 80: unsigned char uart_get_byte()
+[; ;my_uart.c: 80: int uart_send_buffer_empty()
 [; ;my_uart.c: 81: {
-[e :U _uart_get_byte ]
+[e :U _uart_send_buffer_empty ]
 [f ]
-[; ;my_uart.c: 82: if( uart_receive_buffer.size <= 0 )
+[; ;my_uart.c: 82: if( uart_send_buffer.size == 0 )
 "82
-[e $ ! <= -> . _uart_receive_buffer 3 `i -> 0 `i 1141  ]
+[e $ ! == -> . _uart_send_buffer 3 `i -> 0 `i 1141  ]
 [; ;my_uart.c: 83: {
 "83
 {
-[; ;my_uart.c: 84: while(1);{}
+[; ;my_uart.c: 84: return 1;
 "84
-[e :U 1143 ]
-[e :U 1142 ]
-[e $U 1143  ]
-[e :U 1144 ]
-{
-}
+[e ) -> 1 `i ]
+[e $UE 1140  ]
 "85
 }
-[e :U 1141 ]
-"86
-[v _return_value `uc ~T0 @X0 1 a ]
 [; ;my_uart.c: 85: }
-[; ;my_uart.c: 86: unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
-[e = _return_value *U + &U . _uart_receive_buffer 0 * -> . _uart_receive_buffer 1 `ux -> -> # *U &U . _uart_receive_buffer 0 `ui `ux ]
-[; ;my_uart.c: 87: uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % 4;
+[e $U 1142  ]
+"86
+[e :U 1141 ]
+[; ;my_uart.c: 86: else
+[; ;my_uart.c: 87: {
 "87
-[e = . _uart_receive_buffer 1 -> % + -> . _uart_receive_buffer 1 `i -> 1 `i -> 4 `i `uc ]
-[; ;my_uart.c: 88: uart_receive_buffer.size -= 1;
+{
+[; ;my_uart.c: 88: return 0;
 "88
-[e =- . _uart_receive_buffer 3 -> -> 1 `i `uc ]
-[; ;my_uart.c: 89: return return_value;
-"89
-[e ) _return_value ]
+[e ) -> 0 `i ]
 [e $UE 1140  ]
-[; ;my_uart.c: 90: }
-"90
+"89
+}
+[e :U 1142 ]
+[; ;my_uart.c: 89: }
+[; ;my_uart.c: 91: }
+"91
 [e :UE 1140 ]
 }
-"93
-[v _uart_receive_byte `(v ~T0 @X0 1 ef ]
 "94
+[v _uart_get_byte `(uc ~T0 @X0 1 ef ]
+"95
 {
-[; ;my_uart.c: 93: void uart_receive_byte()
-[; ;my_uart.c: 94: {
+[; ;my_uart.c: 94: unsigned char uart_get_byte()
+[; ;my_uart.c: 95: {
+[e :U _uart_get_byte ]
+[f ]
+[; ;my_uart.c: 96: if( uart_receive_buffer.size <= 0 )
+"96
+[e $ ! <= -> . _uart_receive_buffer 3 `i -> 0 `i 1144  ]
+[; ;my_uart.c: 97: {
+"97
+{
+[; ;my_uart.c: 98: while(1);{}
+"98
+[e :U 1146 ]
+[e :U 1145 ]
+[e $U 1146  ]
+[e :U 1147 ]
+{
+}
+"99
+}
+[e :U 1144 ]
+"100
+[v _return_value `uc ~T0 @X0 1 a ]
+[; ;my_uart.c: 99: }
+[; ;my_uart.c: 100: unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
+[e = _return_value *U + &U . _uart_receive_buffer 0 * -> . _uart_receive_buffer 1 `ux -> -> # *U &U . _uart_receive_buffer 0 `ui `ux ]
+[; ;my_uart.c: 101: uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % 4;
+"101
+[e = . _uart_receive_buffer 1 -> % + -> . _uart_receive_buffer 1 `i -> 1 `i -> 4 `i `uc ]
+[; ;my_uart.c: 102: uart_receive_buffer.size -= 1;
+"102
+[e =- . _uart_receive_buffer 3 -> -> 1 `i `uc ]
+[; ;my_uart.c: 103: return return_value;
+"103
+[e ) _return_value ]
+[e $UE 1143  ]
+[; ;my_uart.c: 104: }
+"104
+[e :UE 1143 ]
+}
+"107
+[v _uart_receive_byte `(v ~T0 @X0 1 ef ]
+"108
+{
+[; ;my_uart.c: 107: void uart_receive_byte()
+[; ;my_uart.c: 108: {
 [e :U _uart_receive_byte ]
 [f ]
-[; ;my_uart.c: 95: if( uart_receive_buffer.size >= 4 )
-"95
-[e $ ! >= -> . _uart_receive_buffer 3 `i -> 4 `i 1146  ]
-[; ;my_uart.c: 96: {
-"96
-{
-[; ;my_uart.c: 97: return;
-"97
-[e $UE 1145  ]
-"98
-}
-[e :U 1146 ]
-[; ;my_uart.c: 98: }
-[; ;my_uart.c: 99: uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
-"99
-[e = *U + &U . _uart_receive_buffer 0 * -> . _uart_receive_buffer 2 `ux -> -> # *U &U . _uart_receive_buffer 0 `ui `ux _RCREG1 ]
-[; ;my_uart.c: 100: uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % 4;
-"100
-[e = . _uart_receive_buffer 2 -> % + -> . _uart_receive_buffer 2 `i -> 1 `i -> 4 `i `uc ]
-[; ;my_uart.c: 101: uart_receive_buffer.size -= 1;
-"101
-[e =- . _uart_receive_buffer 3 -> -> 1 `i `uc ]
-[; ;my_uart.c: 102: }
-"102
-[e :UE 1145 ]
-}
-"105
-[v _uart_recv_int_handler `(v ~T0 @X0 1 ef ]
-{
-[; ;my_uart.c: 105: void uart_recv_int_handler() {
-[e :U _uart_recv_int_handler ]
-[f ]
-[; ;my_uart.c: 109: LATD = 0x20;
+[; ;my_uart.c: 109: if( uart_receive_buffer.size >= 4 )
 "109
-[e = _LATD -> -> 32 `i `uc ]
-[; ;my_uart.c: 117: if ((PIR1bits.RC1IF)) {
-"117
-[e $ ! != -> . . _PIR1bits 0 5 `i -> -> -> 0 `i `Vuc `i 1148  ]
+[e $ ! >= -> . _uart_receive_buffer 3 `i -> 4 `i 1149  ]
+[; ;my_uart.c: 110: {
+"110
 {
-[; ;my_uart.c: 118: uc_ptr->buffer[uc_ptr->buflen] = Read1USART();
-"118
-[e = *U + &U . *U _uc_ptr 0 * -> . *U _uc_ptr 1 `ux -> -> # *U &U . *U _uc_ptr 0 `ui `ux ( _Read1USART ..  ]
-[; ;my_uart.c: 125: uc_ptr->buflen++;
-"125
-[e ++ . *U _uc_ptr 1 -> -> 1 `i `uc ]
-[; ;my_uart.c: 127: if (uc_ptr->buflen == 4) {
-"127
-[e $ ! == -> . *U _uc_ptr 1 `i -> 4 `i 1149  ]
-{
-[; ;my_uart.c: 128: ToMainLow_sendmsg(uc_ptr->buflen, 31, (void *) uc_ptr->buffer);
-"128
-[e ( _ToMainLow_sendmsg (3 , , . *U _uc_ptr 1 -> -> 31 `i `uc -> &U . *U _uc_ptr 0 `*v ]
-[; ;my_uart.c: 129: uc_ptr->buflen = 0;
-"129
-[e = . *U _uc_ptr 1 -> -> 0 `i `uc ]
-"130
+[; ;my_uart.c: 111: return;
+"111
+[e $UE 1148  ]
+"112
 }
 [e :U 1149 ]
-"131
+[; ;my_uart.c: 112: }
+[; ;my_uart.c: 113: uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
+"113
+[e = *U + &U . _uart_receive_buffer 0 * -> . _uart_receive_buffer 2 `ux -> -> # *U &U . _uart_receive_buffer 0 `ui `ux _RCREG1 ]
+[; ;my_uart.c: 114: uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % 4;
+"114
+[e = . _uart_receive_buffer 2 -> % + -> . _uart_receive_buffer 2 `i -> 1 `i -> 4 `i `uc ]
+[; ;my_uart.c: 115: uart_receive_buffer.size -= 1;
+"115
+[e =- . _uart_receive_buffer 3 -> -> 1 `i `uc ]
+[; ;my_uart.c: 116: }
+"116
+[e :UE 1148 ]
 }
-[e :U 1148 ]
-[; ;my_uart.c: 130: }
-[; ;my_uart.c: 131: }
-[; ;my_uart.c: 136: if (USART1_Status.OVERRUN_ERROR == 1) {
-"136
-[e $ ! == -> . . _USART1_Status 1 3 `i -> 1 `i 1150  ]
+"119
+[v _uart_recv_int_handler `(v ~T0 @X0 1 ef ]
 {
-[; ;my_uart.c: 143: RCSTAbits.CREN = 0;
+[; ;my_uart.c: 119: void uart_recv_int_handler() {
+[e :U _uart_recv_int_handler ]
+[f ]
+[; ;my_uart.c: 123: LATD = 0x20;
+"123
+[e = _LATD -> -> 32 `i `uc ]
+[; ;my_uart.c: 131: if ((PIR1bits.RC1IF)) {
+"131
+[e $ ! != -> . . _PIR1bits 0 5 `i -> -> -> 0 `i `Vuc `i 1151  ]
+{
+[; ;my_uart.c: 132: uc_ptr->buffer[uc_ptr->buflen] = Read1USART();
+"132
+[e = *U + &U . *U _uc_ptr 0 * -> . *U _uc_ptr 1 `ux -> -> # *U &U . *U _uc_ptr 0 `ui `ux ( _Read1USART ..  ]
+[; ;my_uart.c: 139: uc_ptr->buflen++;
+"139
+[e ++ . *U _uc_ptr 1 -> -> 1 `i `uc ]
+[; ;my_uart.c: 141: if (uc_ptr->buflen == 4) {
+"141
+[e $ ! == -> . *U _uc_ptr 1 `i -> 4 `i 1152  ]
+{
+[; ;my_uart.c: 142: ToMainLow_sendmsg(uc_ptr->buflen, 31, (void *) uc_ptr->buffer);
+"142
+[e ( _ToMainLow_sendmsg (3 , , . *U _uc_ptr 1 -> -> 31 `i `uc -> &U . *U _uc_ptr 0 `*v ]
+[; ;my_uart.c: 143: uc_ptr->buflen = 0;
 "143
-[e = . . _RCSTAbits 0 4 -> -> 0 `i `uc ]
-[; ;my_uart.c: 144: RCSTAbits.CREN = 1;
+[e = . *U _uc_ptr 1 -> -> 0 `i `uc ]
 "144
-[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
-[; ;my_uart.c: 145: ToMainLow_sendmsg(0, 30, (void *) 0);
-"145
-[e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 30 `i `uc -> -> 0 `i `*v ]
-"146
 }
-[e :U 1150 ]
-[; ;my_uart.c: 146: }
-[; ;my_uart.c: 150: LATD = 0x00;
+[e :U 1152 ]
+"145
+}
+[e :U 1151 ]
+[; ;my_uart.c: 144: }
+[; ;my_uart.c: 145: }
+[; ;my_uart.c: 150: if (USART1_Status.OVERRUN_ERROR == 1) {
 "150
+[e $ ! == -> . . _USART1_Status 1 3 `i -> 1 `i 1153  ]
+{
+[; ;my_uart.c: 157: RCSTAbits.CREN = 0;
+"157
+[e = . . _RCSTAbits 0 4 -> -> 0 `i `uc ]
+[; ;my_uart.c: 158: RCSTAbits.CREN = 1;
+"158
+[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
+[; ;my_uart.c: 159: ToMainLow_sendmsg(0, 30, (void *) 0);
+"159
+[e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 30 `i `uc -> -> 0 `i `*v ]
+"160
+}
+[e :U 1153 ]
+[; ;my_uart.c: 160: }
+[; ;my_uart.c: 164: LATD = 0x00;
+"164
 [e = _LATD -> -> 0 `i `uc ]
-[; ;my_uart.c: 153: }
-"153
-[e :UE 1147 ]
+[; ;my_uart.c: 167: }
+"167
+[e :UE 1150 ]
 }

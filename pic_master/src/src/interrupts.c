@@ -136,7 +136,10 @@ void InterruptHandlerLow() {
     if (PIR1bits.TX1IF)
     {
         PIR1bits.TX1IF = 0;
-        uart_transmit_byte();
+        if( !uart_send_buffer_empty() )
+        {
+            uart_transmit_byte();
+        }
     }
 }
 

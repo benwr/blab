@@ -73,8 +73,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
 "14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
-"43 ../src/my_uart.h
+"46 ../src/my_uart.h
 [v _uart_recv_int_handler `(v ~T0 @X0 0 ef ]
+"37
+[v _uart_send_buffer_empty `(i ~T0 @X0 0 ef ]
 "34
 [v _uart_transmit_byte `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
@@ -8429,9 +8431,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 28: void uart_configure();
 [; ;my_uart.h: 31: int uart_send_byte( char sendByte );
 [; ;my_uart.h: 34: void uart_transmit_byte();
-[; ;my_uart.h: 37: unsigned char uart_get_byte();
-[; ;my_uart.h: 40: void uart_receive_byte();
-[; ;my_uart.h: 43: void uart_recv_int_handler(void);
+[; ;my_uart.h: 37: int uart_send_buffer_empty();
+[; ;my_uart.h: 40: unsigned char uart_get_byte();
+[; ;my_uart.h: 43: void uart_receive_byte();
+[; ;my_uart.h: 46: void uart_recv_int_handler(void);
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
@@ -8574,9 +8577,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "46
 [e :UE 1144 ]
 }
-[v F9145 `(v ~T0 @X0 1 tf ]
+[v F9146 `(v ~T0 @X0 1 tf ]
 "83
-[v _InterruptHandlerHigh `IF9145 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9146 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 78: interrupt
 [; ;interrupts.c: 83: void InterruptHandlerHigh() {
@@ -8617,9 +8620,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "110
 [e :UE 1147 ]
 }
-[v F9147 `(v ~T0 @X0 1 tf ]
+[v F9148 `(v ~T0 @X0 1 tf ]
 "122
-[v _InterruptHandlerLow `ILF9147 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9148 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 117: interrupt low_priority
 [; ;interrupts.c: 122: void InterruptHandlerLow() {
@@ -8662,14 +8665,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 138: PIR1bits.TX1IF = 0;
 "138
 [e = . . _PIR1bits 0 4 -> -> 0 `i `uc ]
-[; ;interrupts.c: 139: uart_transmit_byte();
+[; ;interrupts.c: 139: if( !uart_send_buffer_empty() )
 "139
-[e ( _uart_transmit_byte ..  ]
+[e $ ! ! != ( _uart_send_buffer_empty ..  -> 0 `i 1154  ]
+[; ;interrupts.c: 140: {
 "140
+{
+[; ;interrupts.c: 141: uart_transmit_byte();
+"141
+[e ( _uart_transmit_byte ..  ]
+"142
+}
+[e :U 1154 ]
+"143
 }
 [e :U 1153 ]
-[; ;interrupts.c: 140: }
-[; ;interrupts.c: 141: }
-"141
+[; ;interrupts.c: 142: }
+[; ;interrupts.c: 143: }
+[; ;interrupts.c: 144: }
+"144
 [e :UE 1150 ]
 }

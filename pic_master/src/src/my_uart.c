@@ -76,6 +76,20 @@ void uart_transmit_byte()
     uart_send_buffer.size -= 1;
 }
 
+//Alex: Return 1 if UART send buffer is empty, other wise 0
+int uart_send_buffer_empty()
+{
+    if( uart_send_buffer.size == 0 )
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+
 //Alex: Remove byte from uart receive queue
 unsigned char uart_get_byte()
 {

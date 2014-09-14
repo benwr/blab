@@ -10913,6 +10913,9 @@ int uart_send_byte( char sendByte );
 void uart_transmit_byte();
 
 
+int uart_send_buffer_empty();
+
+
 unsigned char uart_get_byte();
 
 
@@ -11027,7 +11030,10 @@ uart_recv_int_handler();
 if (PIR1bits.TX1IF)
 {
 PIR1bits.TX1IF = 0;
+if( !uart_send_buffer_empty() )
+{
 uart_transmit_byte();
+}
 }
 }
 

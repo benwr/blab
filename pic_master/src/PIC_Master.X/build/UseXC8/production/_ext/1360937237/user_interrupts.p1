@@ -8363,9 +8363,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 28: void uart_configure();
 [; ;my_uart.h: 31: int uart_send_byte( char sendByte );
 [; ;my_uart.h: 34: void uart_transmit_byte();
-[; ;my_uart.h: 37: unsigned char uart_get_byte();
-[; ;my_uart.h: 40: void uart_receive_byte();
-[; ;my_uart.h: 43: void uart_recv_int_handler(void);
+[; ;my_uart.h: 37: int uart_send_buffer_empty();
+[; ;my_uart.h: 40: unsigned char uart_get_byte();
+[; ;my_uart.h: 43: void uart_receive_byte();
+[; ;my_uart.h: 46: void uart_recv_int_handler(void);
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;

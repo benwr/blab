@@ -309,11 +309,11 @@ void main(void) {
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-    uart_send_byte( 0x11 );
-    uart_send_byte( 0x12 );
-    uart_send_byte( 0x13 );
-    uart_send_byte( 0x14 );
-    uart_send_byte( 0x15 );
+    uart_send_byte( 0x50 );
+    uart_send_byte( 0x51 );
+    uart_send_byte( 0x52 );
+    uart_send_byte( 0x53 );
+    uart_send_byte( 0x54 );
 
     /*
     // configure the hardware USART device

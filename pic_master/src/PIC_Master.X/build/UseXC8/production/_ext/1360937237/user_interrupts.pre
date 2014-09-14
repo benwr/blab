@@ -10901,6 +10901,9 @@ int uart_send_byte( char sendByte );
 void uart_transmit_byte();
 
 
+int uart_send_buffer_empty();
+
+
 unsigned char uart_get_byte();
 
 

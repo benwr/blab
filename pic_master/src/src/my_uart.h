@@ -33,6 +33,9 @@ int uart_send_byte( char sendByte );
 //Alex: Remove item from uart send queue and move it into actual hardware transmit buffer; only call in interrupt
 void uart_transmit_byte();
 
+//Alex: Return 1 if UART send buffer is empty, other wise 0
+int uart_send_buffer_empty();
+
 //Alex: Remove byte from uart receive queue
 unsigned char uart_get_byte();
 
