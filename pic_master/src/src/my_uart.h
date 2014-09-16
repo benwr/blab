@@ -8,11 +8,14 @@
 #if (MAXUARTBUF > MSGLEN)
 #define MAXUARTBUF MSGLEN
 #endif
+
+/*
 typedef struct __uart_comm
 {
     unsigned char buffer[MAXUARTBUF];
     unsigned char buflen;
 } uart_comm;
+*/
 
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
 struct uart_buffer_type
@@ -42,7 +45,10 @@ unsigned char uart_get_byte();
 //Alex: Receive a byte from the uart hardware recieve buffer; interrupt should call this only
 void uart_receive_byte();
 
+//Alex: Return 1 if UART recieve buffer is empty, other wise 0
+int uart_receive_buffer_empty();
+
 //void init_uart_recv(uart_comm *);
-void uart_recv_int_handler(void);
+//void uart_recv_int_handler(void);
 
 #endif

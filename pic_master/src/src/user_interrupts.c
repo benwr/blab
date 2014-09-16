@@ -47,6 +47,7 @@ void timer0_int_handler() {
 // This one does the action I wanted for this program on a timer1 interrupt
 
 void timer1_int_handler() {
+    uart_send_byte( 0x53 );
 
     #ifdef DEBUG_MODE
     //Alex: Set Debug output

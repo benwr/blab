@@ -10869,14 +10869,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 11 "../src/my_uart.h"
-typedef struct __uart_comm
-{
-unsigned char buffer[4];
-unsigned char buflen;
-} uart_comm;
-
-
+# 21 "../src/my_uart.h"
 struct uart_buffer_type
 {
 unsigned char buffer[4];
@@ -10896,20 +10889,18 @@ int uart_send_byte( char sendByte );
 void uart_transmit_byte();
 
 
+int uart_send_buffer_empty();
+
+
 unsigned char uart_get_byte();
 
 
 void uart_receive_byte();
 
 
-void uart_recv_int_handler(void);
+int uart_receive_buffer_empty();
 
-# 9 "../src/my_uart.c"
-static uart_comm *uc_ptr;
-
-
-
-
+# 14 "../src/my_uart.c"
 void uart_configure()
 {
 TRISCbits.TRISC7 = 1;
@@ -10925,14 +10916,14 @@ SPBRG1 = 0xCF;
 TXSTA1bits.SYNC = 0;
 RCSTA1bits.SPEN = 1;
 
+
+IPR1bits.TX1IP = 0;
+
 PIE1bits.TX1IE = 1;
 PIE1bits.RC1IE = 1;
 
 TXSTA1bits.TXEN = 1;
 RCSTA1bits.CREN = 1;
-
-
-IPR1bits.TX1IP = 0;
 
 
 
@@ -10949,7 +10940,7 @@ uart_receive_buffer.size = 0;
 }
 
 
-int uart_send_byte( char sendByte )
+int uart_send_byte( unsigned char sendByte )
 {
 if( uart_send_buffer.size >= 4 )
 {
@@ -10960,19 +10951,35 @@ uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
 uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % 4;
 uart_send_buffer.size += 1;
 
+# 77
 return 1;
 }
 
 
 void uart_transmit_byte()
 {
-if( uart_send_buffer.size == 0 )
+if( uart_send_buffer.size <= 0 )
 {
 return;
 }
 TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
 uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
 uart_send_buffer.size -= 1;
+}
+
+
+int uart_send_buffer_empty()
+{
+if( uart_send_buffer.size <= 0 )
+{
+uart_send_buffer.size = 0;
+return 1;
+}
+else
+{
+return 0;
+}
+
 }
 
 
@@ -11000,41 +11007,15 @@ uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % 4;
 uart_receive_buffer.size -= 1;
 }
 
-
-void uart_recv_int_handler() {
-
-
-
-LATD = 0x20;
-
-# 117
-if ((PIR1bits.RC1IF)) {
-uc_ptr->buffer[uc_ptr->buflen] = Read1USART();
-
-# 125
-uc_ptr->buflen++;
-
-if (uc_ptr->buflen == 4) {
-ToMainLow_sendmsg(uc_ptr->buflen, 31, (void *) uc_ptr->buffer);
-uc_ptr->buflen = 0;
+int uart_receive_buffer_empty()
+{
+if( uart_receive_buffer.size == 0 )
+{
+return 1;
 }
+else
+{
+return 0;
 }
-
-
-
-
-if (USART1_Status.OVERRUN_ERROR == 1) {
-
-# 143
-RCSTAbits.CREN = 0;
-RCSTAbits.CREN = 1;
-ToMainLow_sendmsg(0, 30, (void *) 0);
-}
-
-
-
-LATD = 0x00;
-
-
 }
 

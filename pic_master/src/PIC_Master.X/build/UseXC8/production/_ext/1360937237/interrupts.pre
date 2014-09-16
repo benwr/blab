@@ -10886,14 +10886,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 11 "../src/my_uart.h"
-typedef struct __uart_comm
-{
-unsigned char buffer[4];
-unsigned char buflen;
-} uart_comm;
-
-
+# 21 "../src/my_uart.h"
 struct uart_buffer_type
 {
 unsigned char buffer[4];
@@ -10922,7 +10915,7 @@ unsigned char uart_get_byte();
 void uart_receive_byte();
 
 
-void uart_recv_int_handler(void);
+int uart_receive_buffer_empty();
 
 # 8 "../src/my_i2c.h"
 typedef struct __i2c_comm {
@@ -10953,7 +10946,10 @@ void enable_interrupts() {
 
 RCONbits.IPEN = 1;
 INTCONbits.GIEH = 1;
+
 INTCONbits.GIEL = 1;
+
+
 }
 
 int in_high_int() {
@@ -10982,10 +10978,10 @@ return (0);
 }
 }
 
-# 78
+# 81
 interrupt
 
-# 83
+# 86
 void InterruptHandlerHigh() {
 
 
@@ -11005,14 +11001,14 @@ INTCONbits.TMR0IF = 0;
 timer0_int_handler();
 }
 
-# 109
+# 112
 SleepIfOkay();
 }
 
-# 117
+# 120
 interrupt low_priority
 
-# 122
+# 125
 void InterruptHandlerLow() {
 
 if (PIR1bits.TMR1IF) {
@@ -11023,17 +11019,18 @@ timer1_int_handler();
 
 if (PIR1bits.RCIF) {
 PIR1bits.RCIF = 0;
-uart_recv_int_handler();
+uart_receive_byte();
 }
 
 
 if (PIR1bits.TX1IF)
 {
-PIR1bits.TX1IF = 0;
+
 if( !uart_send_buffer_empty() )
 {
 uart_transmit_byte();
 }
+PIR1bits.TX1IF = 0;
 }
 }
 

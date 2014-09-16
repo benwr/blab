@@ -6,9 +6,9 @@
 #endif
 #include "my_uart.h"
 
-static uart_comm *uc_ptr;
+//static uart_comm *uc_ptr;
 
-#ifdef __USE18F46J50  //Alex: Begin definitions for the Mk
+#ifdef __USE18F46J50  //Alex: Begin definitions for the Mk 4
 
 //Alex: Configure UART for transmit
 void uart_configure()
@@ -26,14 +26,14 @@ void uart_configure()
     TXSTA1bits.SYNC = 0; //Alex: Set Asynchronous mode
     RCSTA1bits.SPEN = 1; //Alex: Enable UART module 1..or something
 
-    PIE1bits.TX1IE = 1; //Alex: Set Transmit Interrupt on
+    // Alex: USART TX interrupt priority
+    IPR1bits.TX1IP = 0;
+
+    //PIE1bits.TX1IE = 1; //Alex: Set Transmit Interrupt on
     PIE1bits.RC1IE = 1; //Alex: Set Receive Interrupt on
 
     TXSTA1bits.TXEN = 1; //Alex: Enable Transmission
-    RCSTA1bits.CREN = 1; //Alex: Enable Reception
-
-    // Alex: USART TX interrupt priority
-    IPR1bits.TX1IP = 0;
+    RCSTA1bits.CREN = 1; //Alex: Enable Reception  
 
 
     //Alex: Initialize send buffer
@@ -50,7 +50,7 @@ void uart_configure()
 }
 
 //Alex: Put soemthing in the uart send queue
-int uart_send_byte( char sendByte )
+int uart_send_byte( unsigned char sendByte )
 {
     if( uart_send_buffer.size >= MAXUARTBUF )
     {
@@ -61,13 +61,26 @@ int uart_send_byte( char sendByte )
     uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % MAXUARTBUF;
     uart_send_buffer.size += 1;
 
+
+     //Alex: Need?
+    /*
+    if( uart_send_buffer.size == 1 )
+    {
+        if (!PIR1bits.TX1IF)
+        {
+            PIR1bits.TX1IF = 1;
+        }
+
+    }
+    */
+
     return 1;
 }
 
 //Alex: Remove item from uart send queue and move it into actual hardware transmit buffer; only call in interrupt
 void uart_transmit_byte()
 {
-    if( uart_send_buffer.size == 0 )
+    if( uart_send_buffer.size <= 0 )
     {
         return;
     }
@@ -79,8 +92,9 @@ void uart_transmit_byte()
 //Alex: Return 1 if UART send buffer is empty, other wise 0
 int uart_send_buffer_empty()
 {
-    if( uart_send_buffer.size == 0 )
+    if( uart_send_buffer.size <= 0 )
     {
+        uart_send_buffer.size = 0;
         return 1;
     }
     else
@@ -114,8 +128,22 @@ void uart_receive_byte()
     uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % MAXUARTBUF;
     uart_receive_buffer.size -= 1;
 }
+
+int uart_receive_buffer_empty()
+{
+    if( uart_receive_buffer.size == 0 )
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
 #endif  //Alex: End definitions for the Mk IV
 
+
+/*
 void uart_recv_int_handler() {
 
 #ifdef DEBUG_MODE
@@ -165,6 +193,7 @@ void uart_recv_int_handler() {
 
     #endif
 }
+*/
 
 /*
 void init_uart_recv(uart_comm *uc) {

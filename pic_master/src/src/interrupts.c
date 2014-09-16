@@ -16,7 +16,10 @@ void enable_interrupts() {
     // enable high-priority interrupts and low-priority interrupts
     RCONbits.IPEN = 1;
     INTCONbits.GIEH = 1;
+    //uart_send_byte( 0x51 );
     INTCONbits.GIEL = 1;
+
+    
 }
 
 int in_high_int() {
@@ -129,17 +132,18 @@ void InterruptHandlerLow() {
     // check to see if we have an interrupt on USART RX
     if (PIR1bits.RCIF) {
         PIR1bits.RCIF = 0; //clear interrupt flag
-        uart_recv_int_handler();
+        uart_receive_byte();
     }
 
     //Check interrupt flag for uart transmit
     if (PIR1bits.TX1IF)
     {
-        PIR1bits.TX1IF = 0;
+        
         if( !uart_send_buffer_empty() )
         {
             uart_transmit_byte();
         }
+        PIR1bits.TX1IF = 0;
     }
 }
 
