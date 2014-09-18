@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "22 ../src/my_uart.h
-[s S1133 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
-[n S1133 uart_buffer_type buffer current_item last_item size ]
+[s S1134 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
+[n S1134 uart_buffer_type buffer current_item last_item size ]
 "7852 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 "121 C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\timers.h
@@ -8321,6 +8321,37 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 23: extern int errno;
+[; ;stdio.h: 54: struct __prbuf
+[; ;stdio.h: 55: {
+[; ;stdio.h: 56: char * ptr;
+[; ;stdio.h: 57: void (* func)(char);
+[; ;stdio.h: 58: };
+[; ;conio.h: 17: extern int errno;
+[; ;conio.h: 20: extern void init_uart(void);
+[; ;conio.h: 22: extern char getch(void);
+[; ;conio.h: 23: extern char getche(void);
+[; ;conio.h: 24: extern void putch(char);
+[; ;conio.h: 25: extern void ungetch(char);
+[; ;conio.h: 27: extern __bit kbhit(void);
+[; ;conio.h: 31: extern char * cgets(char *);
+[; ;conio.h: 32: extern void cputs(const char *);
+[; ;stdio.h: 99: extern int cprintf(char *, ...);
+[; ;stdio.h: 104: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 194: extern char * gets(char *);
+[; ;stdio.h: 195: extern int puts(const char *);
+[; ;stdio.h: 196: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 197: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 198: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 199: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 200: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 206: extern int printf(const char *, ...);
+[; ;debug.h: 28: void blip();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 10: typedef struct __msg {
@@ -8346,8 +8377,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 "28 ../src/my_uart.h
-[v _uart_send_buffer `S1133 ~T0 @X0 1 e ]
-[v _uart_receive_buffer `S1133 ~T0 @X0 1 e ]
+[v _uart_send_buffer `S1134 ~T0 @X0 1 e ]
+[v _uart_receive_buffer `S1134 ~T0 @X0 1 e ]
 [; ;my_uart.h: 22: struct uart_buffer_type
 [; ;my_uart.h: 23: {
 [; ;my_uart.h: 24: unsigned char buffer[4];
@@ -8405,21 +8436,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _length -> ( _FromMainHigh_recvmsg (3 , , -> -> # _val `ui `uc -> &U _msgtype `*uc -> &U _val `*v `i ]
 [; ;user_interrupts.c: 35: if (length == sizeof (val)) {
 "35
-[e $ ! == -> _length `ui -> # _val `ui 1136  ]
+[e $ ! == -> _length `ui -> # _val `ui 1137  ]
 {
 [; ;user_interrupts.c: 36: ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
 "36
 [e ( _ToMainHigh_sendmsg (3 , , -> -> # _val `ui `uc -> -> 10 `i `uc -> &U _val `*v ]
 "37
 }
-[e :U 1136 ]
+[e :U 1137 ]
 [; ;user_interrupts.c: 37: }
 [; ;user_interrupts.c: 41: LATD = 0x00;
 "41
 [e = _LATD -> -> 0 `i `uc ]
 [; ;user_interrupts.c: 44: }
 "44
-[e :UE 1135 ]
+[e :UE 1136 ]
 }
 "49
 [v _timer1_int_handler `(v ~T0 @X0 1 ef ]
@@ -8447,5 +8478,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _LATD -> -> 0 `i `uc ]
 [; ;user_interrupts.c: 76: }
 "76
-[e :UE 1137 ]
+[e :UE 1138 ]
 }

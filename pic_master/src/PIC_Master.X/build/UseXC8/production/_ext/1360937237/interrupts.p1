@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "22 ../src/my_uart.h
-[s S1133 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
-[n S1133 uart_buffer_type buffer current_item last_item size ]
+[s S1134 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
+[n S1134 uart_buffer_type buffer current_item last_item size ]
 "14926 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S951 :1 `uc 1 ]
 [n S951 . NOT_BOR ]
@@ -8435,6 +8435,37 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.h: 16: int low_int_active(void);
 [; ;interrupts.h: 18: int in_low_int(void);
 [; ;interrupts.h: 21: int in_main(void);
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 23: extern int errno;
+[; ;stdio.h: 54: struct __prbuf
+[; ;stdio.h: 55: {
+[; ;stdio.h: 56: char * ptr;
+[; ;stdio.h: 57: void (* func)(char);
+[; ;stdio.h: 58: };
+[; ;conio.h: 17: extern int errno;
+[; ;conio.h: 20: extern void init_uart(void);
+[; ;conio.h: 22: extern char getch(void);
+[; ;conio.h: 23: extern char getche(void);
+[; ;conio.h: 24: extern void putch(char);
+[; ;conio.h: 25: extern void ungetch(char);
+[; ;conio.h: 27: extern __bit kbhit(void);
+[; ;conio.h: 31: extern char * cgets(char *);
+[; ;conio.h: 32: extern void cputs(const char *);
+[; ;stdio.h: 99: extern int cprintf(char *, ...);
+[; ;stdio.h: 104: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 194: extern char * gets(char *);
+[; ;stdio.h: 195: extern int puts(const char *);
+[; ;stdio.h: 196: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 197: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 198: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 199: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 200: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 206: extern int printf(const char *, ...);
+[; ;debug.h: 28: void blip();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 10: typedef struct __msg {
@@ -8460,8 +8491,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 "28 ../src/my_uart.h
-[v _uart_send_buffer `S1133 ~T0 @X0 1 e ]
-[v _uart_receive_buffer `S1133 ~T0 @X0 1 e ]
+[v _uart_send_buffer `S1134 ~T0 @X0 1 e ]
+[v _uart_receive_buffer `S1134 ~T0 @X0 1 e ]
 [; ;my_uart.h: 22: struct uart_buffer_type
 [; ;my_uart.h: 23: {
 [; ;my_uart.h: 24: unsigned char buffer[4];
@@ -8512,7 +8543,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
 [; ;interrupts.c: 23: }
 "23
-[e :UE 1135 ]
+[e :UE 1136 ]
 }
 "25
 [v _in_high_int `(i ~T0 @X0 1 ef ]
@@ -8523,10 +8554,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 26: return (!INTCONbits.GIEH);
 "26
 [e ) -> ! != -> . . _INTCONbits 2 2 `i -> -> -> 0 `i `Vuc `i `i ]
-[e $UE 1136  ]
+[e $UE 1137  ]
 [; ;interrupts.c: 27: }
 "27
-[e :UE 1136 ]
+[e :UE 1137 ]
 }
 "29
 [v _low_int_active `(i ~T0 @X0 1 ef ]
@@ -8537,10 +8568,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 30: return (!INTCONbits.GIEL);
 "30
 [e ) -> ! != -> . . _INTCONbits 2 1 `i -> -> -> 0 `i `Vuc `i `i ]
-[e $UE 1137  ]
+[e $UE 1138  ]
 [; ;interrupts.c: 31: }
 "31
-[e :UE 1137 ]
+[e :UE 1138 ]
 }
 "33
 [v _in_low_int `(i ~T0 @X0 1 ef ]
@@ -8550,41 +8581,41 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interrupts.c: 34: if (INTCONbits.GIEL == 1) {
 "34
-[e $ ! == -> . . _INTCONbits 2 1 `i -> 1 `i 1139  ]
+[e $ ! == -> . . _INTCONbits 2 1 `i -> 1 `i 1140  ]
 {
 [; ;interrupts.c: 35: return (0);
 "35
 [e ) -> 0 `i ]
-[e $UE 1138  ]
+[e $UE 1139  ]
 "36
 }
 [; ;interrupts.c: 36: } else if (in_high_int()) {
-[e $U 1140  ]
-[e :U 1139 ]
-[e $ ! != ( _in_high_int ..  -> 0 `i 1141  ]
+[e $U 1141  ]
+[e :U 1140 ]
+[e $ ! != ( _in_high_int ..  -> 0 `i 1142  ]
 {
 [; ;interrupts.c: 37: return (0);
 "37
 [e ) -> 0 `i ]
-[e $UE 1138  ]
+[e $UE 1139  ]
 "38
 }
 [; ;interrupts.c: 38: } else {
-[e $U 1142  ]
-[e :U 1141 ]
+[e $U 1143  ]
+[e :U 1142 ]
 {
 [; ;interrupts.c: 39: return (1);
 "39
 [e ) -> 1 `i ]
-[e $UE 1138  ]
+[e $UE 1139  ]
 "40
 }
-[e :U 1142 ]
-[e :U 1140 ]
+[e :U 1143 ]
+[e :U 1141 ]
 [; ;interrupts.c: 40: }
 [; ;interrupts.c: 41: }
 "41
-[e :UE 1138 ]
+[e :UE 1139 ]
 }
 "43
 [v _in_main `(i ~T0 @X0 1 ef ]
@@ -8594,33 +8625,33 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interrupts.c: 44: if ((!in_low_int()) && (!in_high_int())) {
 "44
-[e $ ! && ! != ( _in_low_int ..  -> 0 `i ! != ( _in_high_int ..  -> 0 `i 1144  ]
+[e $ ! && ! != ( _in_low_int ..  -> 0 `i ! != ( _in_high_int ..  -> 0 `i 1145  ]
 {
 [; ;interrupts.c: 45: return (1);
 "45
 [e ) -> 1 `i ]
-[e $UE 1143  ]
+[e $UE 1144  ]
 "46
 }
 [; ;interrupts.c: 46: } else {
-[e $U 1145  ]
-[e :U 1144 ]
+[e $U 1146  ]
+[e :U 1145 ]
 {
 [; ;interrupts.c: 47: return (0);
 "47
 [e ) -> 0 `i ]
-[e $UE 1143  ]
+[e $UE 1144  ]
 "48
 }
-[e :U 1145 ]
+[e :U 1146 ]
 [; ;interrupts.c: 48: }
 [; ;interrupts.c: 49: }
 "49
-[e :UE 1143 ]
+[e :UE 1144 ]
 }
-[v F9141 `(v ~T0 @X0 1 tf ]
+[v F9202 `(v ~T0 @X0 1 tf ]
 "86
-[v _InterruptHandlerHigh `IF9141 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9202 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 81: interrupt
 [; ;interrupts.c: 86: void InterruptHandlerHigh() {
@@ -8628,7 +8659,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interrupts.c: 91: if (PIR1bits.SSPIF) {
 "91
-[e $ ! != -> . . _PIR1bits 1 1 `i -> -> -> 0 `i `Vuc `i 1147  ]
+[e $ ! != -> . . _PIR1bits 1 1 `i -> -> -> 0 `i `Vuc `i 1148  ]
 {
 [; ;interrupts.c: 93: PIR1bits.SSPIF = 0;
 "93
@@ -8638,11 +8669,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _i2c_int_handler ..  ]
 "96
 }
-[e :U 1147 ]
+[e :U 1148 ]
 [; ;interrupts.c: 96: }
 [; ;interrupts.c: 99: if (INTCONbits.TMR0IF) {
 "99
-[e $ ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 1148  ]
+[e $ ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 1149  ]
 {
 [; ;interrupts.c: 100: INTCONbits.TMR0IF = 0;
 "100
@@ -8652,18 +8683,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _timer0_int_handler ..  ]
 "103
 }
-[e :U 1148 ]
+[e :U 1149 ]
 [; ;interrupts.c: 103: }
 [; ;interrupts.c: 112: SleepIfOkay();
 "112
 [e ( _SleepIfOkay ..  ]
 [; ;interrupts.c: 113: }
 "113
-[e :UE 1146 ]
+[e :UE 1147 ]
 }
-[v F9143 `(v ~T0 @X0 1 tf ]
+[v F9204 `(v ~T0 @X0 1 tf ]
 "125
-[v _InterruptHandlerLow `ILF9143 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9204 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 120: interrupt low_priority
 [; ;interrupts.c: 125: void InterruptHandlerLow() {
@@ -8671,7 +8702,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interrupts.c: 128: if (PIR1bits.TMR1IF) {
 "128
-[e $ ! != -> . . _PIR1bits 0 0 `i -> -> -> 0 `i `Vuc `i 1150  ]
+[e $ ! != -> . . _PIR1bits 0 0 `i -> -> -> 0 `i `Vuc `i 1151  ]
 {
 [; ;interrupts.c: 129: PIR1bits.TMR1IF = 0;
 "129
@@ -8681,11 +8712,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _timer1_int_handler ..  ]
 "131
 }
-[e :U 1150 ]
+[e :U 1151 ]
 [; ;interrupts.c: 131: }
 [; ;interrupts.c: 134: if (PIR1bits.RCIF) {
 "134
-[e $ ! != -> . . _PIR1bits 1 3 `i -> -> -> 0 `i `Vuc `i 1151  ]
+[e $ ! != -> . . _PIR1bits 1 3 `i -> -> -> 0 `i `Vuc `i 1152  ]
 {
 [; ;interrupts.c: 135: PIR1bits.RCIF = 0;
 "135
@@ -8695,11 +8726,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _uart_receive_byte ..  ]
 "137
 }
-[e :U 1151 ]
+[e :U 1152 ]
 [; ;interrupts.c: 137: }
 [; ;interrupts.c: 141: if (PIR1bits.TX1IF && PIE1bits.TX1IE)
 "141
-[e $ ! && != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i != -> . . _PIE1bits 0 4 `i -> -> -> 0 `i `Vuc `i 1152  ]
+[e $ ! && != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i != -> . . _PIE1bits 0 4 `i -> -> -> 0 `i `Vuc `i 1153  ]
 [; ;interrupts.c: 142: {
 "142
 {
@@ -8711,7 +8742,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _LATDbits 0 3 -> -> 0 `i `uc ]
 [; ;interrupts.c: 149: if( !uart_send_buffer_empty() )
 "149
-[e $ ! ! != ( _uart_send_buffer_empty ..  -> 0 `i 1153  ]
+[e $ ! ! != ( _uart_send_buffer_empty ..  -> 0 `i 1154  ]
 [; ;interrupts.c: 150: {
 "150
 {
@@ -8720,13 +8751,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _uart_transmit_byte ..  ]
 "152
 }
-[e :U 1153 ]
+[e :U 1154 ]
 "155
 }
-[e :U 1152 ]
+[e :U 1153 ]
 [; ;interrupts.c: 152: }
 [; ;interrupts.c: 155: }
 [; ;interrupts.c: 158: }
 "158
-[e :UE 1149 ]
+[e :UE 1150 ]
 }

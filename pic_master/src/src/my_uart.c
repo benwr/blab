@@ -132,7 +132,7 @@ void uart_receive_byte()
     }
     uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
     uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % MAXUARTBUF;
-    uart_receive_buffer.size -= 1;
+    uart_receive_buffer.size += 1;
 }
 
 int uart_receive_buffer_empty()

@@ -350,14 +350,52 @@ void main(void) {
      */
 
 
-    
+    //blip();
 
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
     
-    unsigned char myByte = 0x02;
+    unsigned char myByte1;
+    unsigned char myByte2;
+    unsigned char myByte3;
     
+    uart_send_byte( 0x55 );
+    uart_send_byte( 0x56 );
+    uart_send_byte( 0x57 );
+    while( uart_receive_buffer_empty() )
+    {
+        //debug_here();
+
+    }
+    myByte1 = uart_get_byte();
+    if(myByte1 == 0x55)
+    {
+        blip();
+    }
+    while( uart_receive_buffer_empty() )
+    {
+        //debug_here();
+
+    }
+    myByte2 = uart_get_byte();
+    if(myByte2 == 0x56)
+    {
+        blip();
+    }
+    while( uart_receive_buffer_empty() )
+    {
+        //debug_here();
+
+    }
+    myByte3 = uart_get_byte();
+    if(myByte3 == 0x57)
+    {
+        blip();
+    }
+
+    //blip();
+
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
@@ -377,10 +415,7 @@ void main(void) {
         // an idle mode)
         //block_on_To_msgqueues();
 
-        uart_send_byte( myByte );
-        myByte = uart_get_byte() + 1;
-
-        for(int i = 0;i<10000;i++);
+       
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -423,7 +458,7 @@ void main(void) {
                         case 0xaa:
                         {
                             length = 1 ;
-                            msgbuffer[0] = myByte;
+                            msgbuffer[0] = myByte1;
                             break;
                         }
                         case 0xa8:

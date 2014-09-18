@@ -4,6 +4,8 @@
  *
  * Created on September 10, 2014, 3:11 PM
  */
+#include <stdio.h>
+#include "maindefs.h"
 
 #ifndef DEBUG_H
 #define	DEBUG_H
@@ -23,9 +25,11 @@
 #define DEBUG_TIMER0_INTERRUPT 0x40
 #define DEBUG_TIMER1_INTERRUPT 0x80
 
-
+void blip();
 
 #endif
+
+
 
 #endif	/* DEBUG_H */
 
