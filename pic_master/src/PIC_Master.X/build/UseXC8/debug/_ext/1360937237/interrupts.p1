@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"21 ../src/my_uart.h
+"22 ../src/my_uart.h
 [s S1133 `uc -> 4 `i `uc 1 `uc 1 `uc 1 ]
 [n S1133 uart_buffer_type buffer current_item last_item size ]
 "14926 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
@@ -73,11 +73,57 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
 "14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
-"46 ../src/my_uart.h
+"48 ../src/my_uart.h
 [v _uart_receive_byte `(v ~T0 @X0 0 ef ]
-"40
+"9021 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+[s S606 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S606 . TMR1IE TMR2IE CCP1IE SSP1IE TX1IE RC1IE ADIE PMPIE ]
+"9031
+[s S607 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S607 . . SSPIE TXIE RCIE ]
+"9037
+[s S608 :7 `uc 1 :1 `uc 1 ]
+[n S608 . . PSPIE ]
+"9020
+[u S605 `S606 1 `S607 1 `S608 1 ]
+[n S605 . . . . ]
+"9042
+[v _PIE1bits `VS605 ~T0 @X0 0 e@3997 ]
+"7858
+[s S536 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S536 . LATD0 LATD1 LATD2 LATD3 LATD4 LATD5 LATD6 LATD7 ]
+"7868
+[s S537 :1 `uc 1 ]
+[n S537 . LD0 ]
+"7871
+[s S538 :1 `uc 1 :1 `uc 1 ]
+[n S538 . . LD1 ]
+"7875
+[s S539 :2 `uc 1 :1 `uc 1 ]
+[n S539 . . LD2 ]
+"7879
+[s S540 :3 `uc 1 :1 `uc 1 ]
+[n S540 . . LD3 ]
+"7883
+[s S541 :4 `uc 1 :1 `uc 1 ]
+[n S541 . . LD4 ]
+"7887
+[s S542 :5 `uc 1 :1 `uc 1 ]
+[n S542 . . LD5 ]
+"7891
+[s S543 :6 `uc 1 :1 `uc 1 ]
+[n S543 . . LD6 ]
+"7895
+[s S544 :7 `uc 1 :1 `uc 1 ]
+[n S544 . . LD7 ]
+"7857
+[u S535 `S536 1 `S537 1 `S538 1 `S539 1 `S540 1 `S541 1 `S542 1 `S543 1 `S544 1 ]
+[n S535 . . . . . . . . . . ]
+"7900
+[v _LATDbits `VS535 ~T0 @X0 0 e@3980 ]
+"42 ../src/my_uart.h
 [v _uart_send_buffer_empty `(i ~T0 @X0 0 ef ]
-"37
+"39
 [v _uart_transmit_byte `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -8413,23 +8459,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 72: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 [; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-"27 ../src/my_uart.h
+"28 ../src/my_uart.h
 [v _uart_send_buffer `S1133 ~T0 @X0 1 e ]
 [v _uart_receive_buffer `S1133 ~T0 @X0 1 e ]
-[; ;my_uart.h: 21: struct uart_buffer_type
-[; ;my_uart.h: 22: {
-[; ;my_uart.h: 23: unsigned char buffer[4];
-[; ;my_uart.h: 24: unsigned char current_item;
-[; ;my_uart.h: 25: unsigned char last_item;
-[; ;my_uart.h: 26: char size;
-[; ;my_uart.h: 27: } uart_send_buffer, uart_receive_buffer;
-[; ;my_uart.h: 31: void uart_configure();
-[; ;my_uart.h: 34: int uart_send_byte( char sendByte );
-[; ;my_uart.h: 37: void uart_transmit_byte();
-[; ;my_uart.h: 40: int uart_send_buffer_empty();
-[; ;my_uart.h: 43: unsigned char uart_get_byte();
-[; ;my_uart.h: 46: void uart_receive_byte();
-[; ;my_uart.h: 49: int uart_receive_buffer_empty();
+[; ;my_uart.h: 22: struct uart_buffer_type
+[; ;my_uart.h: 23: {
+[; ;my_uart.h: 24: unsigned char buffer[4];
+[; ;my_uart.h: 25: unsigned char current_item;
+[; ;my_uart.h: 26: unsigned char last_item;
+[; ;my_uart.h: 27: char size;
+[; ;my_uart.h: 28: } uart_send_buffer, uart_receive_buffer;
+[; ;my_uart.h: 33: void uart_configure();
+[; ;my_uart.h: 36: int uart_send_byte( char sendByte );
+[; ;my_uart.h: 39: void uart_transmit_byte();
+[; ;my_uart.h: 42: int uart_send_buffer_empty();
+[; ;my_uart.h: 45: unsigned char uart_get_byte();
+[; ;my_uart.h: 48: void uart_receive_byte();
+[; ;my_uart.h: 51: int uart_receive_buffer_empty();
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
@@ -8651,33 +8697,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 1151 ]
 [; ;interrupts.c: 136: }
-[; ;interrupts.c: 139: if (PIR1bits.TX1IF)
-"139
-[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 1152  ]
-[; ;interrupts.c: 140: {
+[; ;interrupts.c: 140: if (PIR1bits.TX1IF && PIE1bits.TX1IE)
 "140
+[e $ ! && != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i != -> . . _PIE1bits 0 4 `i -> -> -> 0 `i `Vuc `i 1152  ]
+[; ;interrupts.c: 141: {
+"141
 {
-[; ;interrupts.c: 142: if( !uart_send_buffer_empty() )
-"142
-[e $ ! ! != ( _uart_send_buffer_empty ..  -> 0 `i 1153  ]
-[; ;interrupts.c: 143: {
-"143
-{
-[; ;interrupts.c: 144: uart_transmit_byte();
+[; ;interrupts.c: 144: LATDbits.LATD3 = 1;
 "144
-[e ( _uart_transmit_byte ..  ]
+[e = . . _LATDbits 0 3 -> -> 1 `i `uc ]
+[; ;interrupts.c: 145: LATDbits.LATD3 = 0;
 "145
+[e = . . _LATDbits 0 3 -> -> 0 `i `uc ]
+[; ;interrupts.c: 148: if( !uart_send_buffer_empty() )
+"148
+[e $ ! ! != ( _uart_send_buffer_empty ..  -> 0 `i 1153  ]
+[; ;interrupts.c: 149: {
+"149
+{
+[; ;interrupts.c: 150: uart_transmit_byte();
+"150
+[e ( _uart_transmit_byte ..  ]
+"151
 }
 [e :U 1153 ]
-[; ;interrupts.c: 145: }
-[; ;interrupts.c: 146: PIR1bits.TX1IF = 0;
-"146
-[e = . . _PIR1bits 0 4 -> -> 0 `i `uc ]
-"147
+"154
 }
 [e :U 1152 ]
-[; ;interrupts.c: 147: }
-[; ;interrupts.c: 148: }
-"148
+[; ;interrupts.c: 151: }
+[; ;interrupts.c: 154: }
+[; ;interrupts.c: 157: }
+"157
 [e :UE 1149 ]
 }

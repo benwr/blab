@@ -354,8 +354,10 @@ void main(void) {
 
     //Alex: Configure UART for transmit and recieve
     uart_configure();
+
     
-    //uart_send_byte( 0x52 );
+    unsigned char myByte = 0x02;
+    
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
@@ -373,9 +375,12 @@ void main(void) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
-        block_on_To_msgqueues();
+        //block_on_To_msgqueues();
 
-        uart_send_byte( 0x53 );
+        uart_send_byte( myByte );
+        myByte = uart_get_byte() + 1;
+
+        for(int i = 0;i<10000;i++);
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -417,22 +422,24 @@ void main(void) {
                     switch (last_reg_recvd) {
                         case 0xaa:
                         {
-                            length = 2;
-                            msgbuffer[0] = 0x11;
-                            msgbuffer[1] = 0xAA;
+                            length = 1 ;
+                            msgbuffer[0] = myByte;
                             break;
                         }
                         case 0xa8:
                         {
+                            
                             length = 1;
                             msgbuffer[0] = 0x3A;
                             break;
+                            
                         }
                         case 0xa9:
-                        {
+                        {                           
                             length = 1;
-                            msgbuffer[0] = 0xA3;
+                            msgbuffer[0] = 0x55;
                             break;
+
                         }
                     };
                     start_i2c_slave_reply(length, msgbuffer);

@@ -1,0 +1,8 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;communication.h: 13: struct packet_type
+[; ;communication.h: 14: {
+[; ;communication.h: 15: unsigned char header;
+[; ;communication.h: 16: unsigned char data[ 4 - 1 ];
+[; ;communication.h: 17: unsigned char checksum_error;
+[; ;communication.h: 18: unsigned char count_error;
+[; ;communication.h: 19: };

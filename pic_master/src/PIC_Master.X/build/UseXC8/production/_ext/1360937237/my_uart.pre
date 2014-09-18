@@ -10869,7 +10869,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 21 "../src/my_uart.h"
+# 22 "../src/my_uart.h"
 struct uart_buffer_type
 {
 unsigned char buffer[4];
@@ -10877,6 +10877,7 @@ unsigned char current_item;
 unsigned char last_item;
 char size;
 } uart_send_buffer, uart_receive_buffer;
+
 
 
 
@@ -10919,7 +10920,7 @@ RCSTA1bits.SPEN = 1;
 
 IPR1bits.TX1IP = 0;
 
-
+PIE1bits.TX1IE = 0;
 PIE1bits.RC1IE = 1;
 
 TXSTA1bits.TXEN = 1;
@@ -10937,6 +10938,7 @@ uart_receive_buffer.current_item = 0;
 uart_receive_buffer.last_item = 0;
 uart_receive_buffer.buffer[uart_receive_buffer.current_item] = 0;
 uart_receive_buffer.size = 0;
+
 }
 
 
@@ -10946,12 +10948,14 @@ if( uart_send_buffer.size >= 4 )
 {
 return 0;
 }
-
+else
+{
 uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
 uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % 4;
 uart_send_buffer.size += 1;
+PIE1bits.TX1IE = 1;
+}
 
-# 77
 return 1;
 }
 
@@ -10965,7 +10969,13 @@ return;
 TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
 uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
 uart_send_buffer.size -= 1;
+
+if( uart_send_buffer.size <= 0 )
+{
+PIE1bits.TX1IE = 0;
 }
+}
+
 
 
 int uart_send_buffer_empty()
@@ -10987,19 +10997,28 @@ unsigned char uart_get_byte()
 {
 if( uart_receive_buffer.size <= 0 )
 {
-while(1);{}
+uart_receive_buffer.size = 0;
 }
 unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
 uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % 4;
 uart_receive_buffer.size -= 1;
+
+if( PIE1bits.RC1IE == 0 )
+{
+PIE1bits.RC1IE = 1;
+}
+
 return return_value;
 }
+
+
 
 
 void uart_receive_byte()
 {
 if( uart_receive_buffer.size >= 4 )
 {
+PIE1bits.RC1IE = 0;
 return;
 }
 uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;

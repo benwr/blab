@@ -17,6 +17,7 @@ typedef struct __uart_comm
 } uart_comm;
 */
 
+
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
 struct uart_buffer_type
 {
@@ -25,6 +26,7 @@ struct uart_buffer_type
     unsigned char last_item;    //Alex: Last item waiting to be sent
     char size;
 } uart_send_buffer, uart_receive_buffer;
+
 
 
 //Alex: Configure UART for transmit and recieve

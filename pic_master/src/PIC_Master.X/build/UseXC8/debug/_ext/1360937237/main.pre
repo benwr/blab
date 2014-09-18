@@ -10944,7 +10944,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 21 "../src/my_uart.h"
+# 22 "../src/my_uart.h"
 struct uart_buffer_type
 {
 unsigned char buffer[4];
@@ -10952,6 +10952,7 @@ unsigned char current_item;
 unsigned char last_item;
 char size;
 } uart_send_buffer, uart_receive_buffer;
+
 
 
 
@@ -11123,31 +11124,36 @@ i2c_configure_slave(0x9E);
 # 307
 PIE1bits.SSPIE = 1;
 
-
-uart_configure();
-
-# 334
+# 333
 TRISD = 0x00;
 
-
-uart_send_byte( 0x50 );
-uart_send_byte( 0x54 );
-
-# 344
+# 343
 enable_interrupts();
 
-# 375
-uart_send_byte( 0x52 );
+# 356
+uart_configure();
 
-# 388
+while(1)
+{
+
+
+LATDbits.LATD2 = 1;
+LATDbits.LATD2 = 0;
+
+uart_send_byte( 0x50 );
+uart_send_byte( 0x51 );
+uart_send_byte( 0x52 );
+uart_send_byte( 0x53 );
+
+}
+
+# 383
 while (1) {
 
+# 391
+unsigned char myByte = uart_get_byte();
 
-
-
-block_on_To_msgqueues();
-
-# 402
+# 398
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11174,26 +11180,28 @@ break;
 case 42:
 {
 
-# 434
+# 430
 switch (last_reg_recvd) {
 case 0xaa:
 {
-length = 2;
-msgbuffer[0] = 0x55;
-msgbuffer[1] = 0xAA;
+length = 1 ;
+msgbuffer[0] = myByte;
 break;
 }
 case 0xa8:
 {
+
 length = 1;
 msgbuffer[0] = 0x3A;
 break;
+
 }
 case 0xa9:
 {
 length = 1;
-msgbuffer[0] = 0xA3;
+msgbuffer[0] = 0x55;
 break;
+
 }
 };
 start_i2c_slave_reply(length, msgbuffer);

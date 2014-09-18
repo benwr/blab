@@ -123,6 +123,7 @@ interrupt low_priority
 #pragma interruptlow InterruptHandlerLow
 #endif
 void InterruptHandlerLow() {
+    
     // check to see if we have an interrupt on timer 1
     if (PIR1bits.TMR1IF) {
         PIR1bits.TMR1IF = 0; //clear interrupt flag
@@ -135,15 +136,24 @@ void InterruptHandlerLow() {
         uart_receive_byte();
     }
 
+    
     //Check interrupt flag for uart transmit
-    if (PIR1bits.TX1IF)
+    if (PIR1bits.TX1IF && PIE1bits.TX1IE)
     {
+        #ifdef DEBUG_MODE
+        //Alex: Set Debug output
+        LATDbits.LATD3 = 1;
+        LATDbits.LATD3 = 0;
+        #endif
         
         if( !uart_send_buffer_empty() )
         {
             uart_transmit_byte();
         }
-        PIR1bits.TX1IF = 0;
+        //PIR1bits.TX1IF = 0;
+      
     }
+    
+    
 }
 

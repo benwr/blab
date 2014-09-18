@@ -10886,7 +10886,7 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 21 "../src/my_uart.h"
+# 22 "../src/my_uart.h"
 struct uart_buffer_type
 {
 unsigned char buffer[4];
@@ -10894,6 +10894,7 @@ unsigned char current_item;
 unsigned char last_item;
 char size;
 } uart_send_buffer, uart_receive_buffer;
+
 
 
 
@@ -11011,6 +11012,7 @@ interrupt low_priority
 # 125
 void InterruptHandlerLow() {
 
+
 if (PIR1bits.TMR1IF) {
 PIR1bits.TMR1IF = 0;
 timer1_int_handler();
@@ -11023,14 +11025,23 @@ uart_receive_byte();
 }
 
 
-if (PIR1bits.TX1IF)
+
+if (PIR1bits.TX1IF && PIE1bits.TX1IE)
 {
+
+
+LATDbits.LATD3 = 1;
+LATDbits.LATD3 = 0;
+
 
 if( !uart_send_buffer_empty() )
 {
 uart_transmit_byte();
 }
-PIR1bits.TX1IF = 0;
+
+
 }
+
+
 }
 

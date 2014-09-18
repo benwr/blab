@@ -29,13 +29,13 @@ void uart_configure()
     // Alex: USART TX interrupt priority
     IPR1bits.TX1IP = 0;
 
-    //PIE1bits.TX1IE = 1; //Alex: Set Transmit Interrupt on
+    PIE1bits.TX1IE = 0; //Alex: Set Transmit Interrupt on
     PIE1bits.RC1IE = 1; //Alex: Set Receive Interrupt on
 
     TXSTA1bits.TXEN = 1; //Alex: Enable Transmission
     RCSTA1bits.CREN = 1; //Alex: Enable Reception  
 
-
+    
     //Alex: Initialize send buffer
     uart_send_buffer.current_item = 0;
     uart_send_buffer.last_item = 0;
@@ -47,6 +47,7 @@ void uart_configure()
     uart_receive_buffer.last_item = 0;
     uart_receive_buffer.buffer[uart_receive_buffer.current_item] = 0;
     uart_receive_buffer.size = 0;
+    
 }
 
 //Alex: Put soemthing in the uart send queue
@@ -54,25 +55,15 @@ int uart_send_byte( unsigned char sendByte )
 {
     if( uart_send_buffer.size >= MAXUARTBUF )
     {
-        return 0;
+        return 0;        
     }
-
-    uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
-    uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % MAXUARTBUF;
-    uart_send_buffer.size += 1;
-
-
-     //Alex: Need?
-    /*
-    if( uart_send_buffer.size == 1 )
+    else
     {
-        if (!PIR1bits.TX1IF)
-        {
-            PIR1bits.TX1IF = 1;
-        }
-
+        uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
+        uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % MAXUARTBUF;
+        uart_send_buffer.size += 1;
+        PIE1bits.TX1IE = 1;
     }
-    */
 
     return 1;
 }
@@ -87,7 +78,13 @@ void uart_transmit_byte()
     TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
     uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % MAXUARTBUF;
     uart_send_buffer.size -= 1;
+
+    if( uart_send_buffer.size <= 0 )
+    {
+        PIE1bits.TX1IE = 0;
+    }
 }
+
 
 //Alex: Return 1 if UART send buffer is empty, other wise 0
 int uart_send_buffer_empty()
@@ -109,19 +106,28 @@ unsigned char uart_get_byte()
 {
     if( uart_receive_buffer.size <= 0 )
     {
-        while(1);{} //Alex: Freeze here cause something broke
+        uart_receive_buffer.size = 0;
     }
     unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
     uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % MAXUARTBUF;
     uart_receive_buffer.size -= 1;
+
+    if( PIE1bits.RC1IE == 0 )   // Make sure interrupts ready to recieve
+    {
+        PIE1bits.RC1IE = 1;
+    }
+
     return return_value;
 }
+
+
 
 //Alex: Receive a byte into uart receive buffer from the uart hardware recieve buffer; interrupt should call this only
 void uart_receive_byte()
 {
     if( uart_receive_buffer.size >= MAXUARTBUF )
     {
+        PIE1bits.RC1IE = 0; // Turn off interrupts if Receive buffer is full
         return;
     }
     uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
