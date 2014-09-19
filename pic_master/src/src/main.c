@@ -355,46 +355,9 @@ void main(void) {
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-    
-    unsigned char myByte1;
-    unsigned char myByte2;
-    unsigned char myByte3;
-    
-    uart_send_byte( 0x55 );
-    uart_send_byte( 0x56 );
-    uart_send_byte( 0x57 );
-    while( uart_receive_buffer_empty() )
-    {
-        //debug_here();
+    uart_send_byte(0x55);
 
-    }
-    myByte1 = uart_get_byte();
-    if(myByte1 == 0x55)
-    {
-        blip();
-    }
-    while( uart_receive_buffer_empty() )
-    {
-        //debug_here();
-
-    }
-    myByte2 = uart_get_byte();
-    if(myByte2 == 0x56)
-    {
-        blip();
-    }
-    while( uart_receive_buffer_empty() )
-    {
-        //debug_here();
-
-    }
-    myByte3 = uart_get_byte();
-    if(myByte3 == 0x57)
-    {
-        blip();
-    }
-
-    //blip();
+    unsigned char myByte = 0x44;
 
 
     // printf() is available, but is not advisable.  It goes to the UART pin
@@ -415,7 +378,14 @@ void main(void) {
         // an idle mode)
         //block_on_To_msgqueues();
 
-       
+        if( uart_receive_buffer_empty() )
+        {
+            //myByte = 0x11;
+        }
+        else
+        {
+            myByte = uart_get_byte();
+        }
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -457,8 +427,9 @@ void main(void) {
                     switch (last_reg_recvd) {
                         case 0xaa:
                         {
-                            length = 1 ;
-                            msgbuffer[0] = myByte1;
+                            length = 2 ;
+                            msgbuffer[0] = myByte;
+                            msgbuffer[1] = myByte;
                             break;
                         }
                         case 0xa8:
