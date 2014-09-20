@@ -37,7 +37,7 @@ init_i2c@ic 1A2 0 BANK1 1
 i2c_int_handler@data_written BB 0 BANK0 1
 _timer1_int_handler 1534 0 CODE 0
 start CE 0 CODE 0
-_MQ_Main_Willing_to_block 2E 0 COMRAM 1
+_MQ_Main_Willing_to_block 37 0 COMRAM 1
 _start_i2c_slave_reply ACE 0 CODE 0
 i1memcpy@d1 1 0 COMRAM 1
 i2memcpy@d1 9D 0 BANK0 1
@@ -422,7 +422,7 @@ __end_of_in_high_int 17B8 0 CODE 0
 __end_of_i2c_configure_slave 16DA 0 CODE 0
 __HbssBANK0 0 0 ABS 0
 __LbssBANK0 0 0 ABS 0
-_uart_send_buffer 2F 0 COMRAM 1
+_uart_send_buffer 39 0 COMRAM 1
 __CFG_WPEND$PAGE_WPFP 0 0 ABS 0
 __Hbank10 0 0 ABS 0
 __pbssBANK0 60 0 BANK0 1
@@ -630,6 +630,7 @@ i2c_int_handler@error_buf B8 0 BANK0 1
 __CFG_DSWDTOSC$T1OSCREF 0 0 ABS 0
 ToMainLow_sendmsg@length 1A 0 COMRAM 1
 __size_of_uart_send_buffer_empty 0 0 ABS 0
+_uart_count 38 0 COMRAM 1
 __size_of___lwmod 0 0 ABS 0
 i1send_msg@slot 14 0 COMRAM 1
 i2send_msg@slot B0 0 BANK0 1
@@ -644,6 +645,7 @@ __end_of_uart_send_buffer_empty 1760 0 CODE 0
 __end_ofi1_memcpy 13DE 0 CODE 0
 main@last_reg_recvd 1D5 0 BANK1 1
 __end_ofi2_memcpy 135E 0 CODE 0
+_uart_current_packet 2E 0 COMRAM 1
 __size_of_uart_configure 0 0 ABS 0
 __size_of_ReadTimer1 0 0 ABS 0
 _init_i2c 107E 0 CODE 0
@@ -672,39 +674,39 @@ reset_vec 0 3 CODE 0 0
 intcode 8 17 CODE 8 0
 intcodelo 18 17D3 CODE 18 0
 config FFF8 FFFF CONFIG FFF8 0
-cstackCOMRAM 1 35 COMRAM 1 1
+cstackCOMRAM 1 3F COMRAM 1 1
 bssBANK0 60 D0 BANK0 60 1
 bssBANK1 100 1F6 BANK1 100 1
 %locals
 dist/UseXC8/production\PIC_Master.X.production.obj
 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
-C:\Users\alex\AppData\Local\Temp\s7v8.
-6011 15FE 0 CODE 0
-6013 15FE 0 CODE 0
-6016 15FE 0 CODE 0
-6046 15FE 0 CODE 0
-6047 1602 0 CODE 0
-6048 1604 0 CODE 0
-6049 1604 0 CODE 0
-6050 1606 0 CODE 0
-6051 1608 0 CODE 0
-6054 160A 0 CODE 0
-6055 160E 0 CODE 0
-6056 1610 0 CODE 0
-6057 1610 0 CODE 0
-6058 1612 0 CODE 0
-6059 1614 0 CODE 0
-6062 1616 0 CODE 0
-6063 161A 0 CODE 0
-6064 161C 0 CODE 0
-6065 161C 0 CODE 0
-6066 161E 0 CODE 0
-6067 1620 0 CODE 0
-6073 1622 0 CODE 0
-6075 1622 0 CODE 0
-6076 1624 0 CODE 0
-6077 1626 0 CODE 0
-6078 1628 0 CODE 0
+C:\Users\alex\AppData\Local\Temp\s670.
+6579 15FE 0 CODE 0
+6581 15FE 0 CODE 0
+6584 15FE 0 CODE 0
+6618 15FE 0 CODE 0
+6619 1602 0 CODE 0
+6620 1604 0 CODE 0
+6621 1604 0 CODE 0
+6622 1606 0 CODE 0
+6623 1608 0 CODE 0
+6626 160A 0 CODE 0
+6627 160E 0 CODE 0
+6628 1610 0 CODE 0
+6629 1610 0 CODE 0
+6630 1612 0 CODE 0
+6631 1614 0 CODE 0
+6634 1616 0 CODE 0
+6635 161A 0 CODE 0
+6636 161C 0 CODE 0
+6637 161C 0 CODE 0
+6638 161E 0 CODE 0
+6639 1620 0 CODE 0
+6645 1622 0 CODE 0
+6647 1622 0 CODE 0
+6648 1624 0 CODE 0
+6649 1626 0 CODE 0
+6650 1628 0 CODE 0
 ../src/main.c
 187 646 0 CODE 0
 199 646 0 CODE 0

@@ -5,7 +5,7 @@ Linker command line:
 --edf=C:\Program Files (x86)\Microchip\xc8\v1.32\dat\en_msgs.txt -cs \
   -h+dist/UseXC8/production\PIC_Master.X.production.sym \
   --cmf=dist/UseXC8/production\PIC_Master.X.production.cmf -z -Q18F46J50 \
-  -oC:\Users\alex\AppData\Local\Temp\s7v8.6 \
+  -oC:\Users\alex\AppData\Local\Temp\s670.6 \
   -Mdist/UseXC8/production/PIC_Master.X.production.map -E1 -ver=XC8 \
   -ASTACK=01F7h-09ffh -pstack=STACK -ACODE=00h-0FFF7h -ACONST=00h-0FFF7h \
   -ASMALLCONST=0F00h-0FFFhx240,0FF00h-0FFF7h -AMEDIUMCONST=0F00h-0FFF7h \
@@ -25,7 +25,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE \
-  C:\Users\alex\AppData\Local\Temp\s7v8.obj \
+  C:\Users\alex\AppData\Local\Temp\s670.obj \
   dist/UseXC8/production\PIC_Master.X.production.obj 
 
 Object code version is 3.11
@@ -38,7 +38,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\alex\AppData\Local\Temp\s7v8.obj
+C:\Users\alex\AppData\Local\Temp\s670.obj
                 end_init                             CE       CE        4        C       0
                 reset_vec                             0        0        4        0       0
                 config                             FFF8     FFF8        8     FFF8       0
@@ -98,7 +98,7 @@ dist/UseXC8/production\PIC_Master.X.production.obj
                 cstackBANK1                         1A2      1A2       55      100       1
                 bssBANK1                            100      100       A2      100       1
                 bssBANK0                             60       60       3D       60       1
-                bssCOMRAM                            2E       2E        8        1       1
+                bssCOMRAM                            2E       2E       12        1       1
                 cinit                              15FE     15FE       2E        C       0
                 nvBANK0                              CF       CF        2       60       1
 
@@ -168,7 +168,7 @@ TOTAL           Name                               Link     Load   Length     Sp
 
         CLASS   COMRAM         
                 cstackCOMRAM                          1        1       2D         1
-                bssCOMRAM                            2E       2E        8         1
+                bssCOMRAM                            2E       2E       12         1
 
         CLASS   ABS1           
 
@@ -225,7 +225,7 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
 
                 reset_vec                      000000  000004  000004         0       0  CODE    
-                cstackCOMRAM                   000001  000035  000036         1       1  COMRAM  
+                cstackCOMRAM                   000001  00003F  000040         1       1  COMRAM  
                 intcode                        000008  000010  000018         4       0  CODE    
                 intcodelo                      000018  0017BC  0017D4         C       0  CODE    
                 bssBANK0                       000060  000071  0000D1        60       1  BANK0   
@@ -251,12 +251,12 @@ UNUSED ADDRESS RANGES
         BANK7            00700-007FF             100
         BANK8            00800-008FF             100
         BANK9            00900-009FF             100
-        BIGRAM           00036-0005F              2A
+        BIGRAM           00040-0005F              20
                          000D1-000FF              2F
                          001F7-00EBF             CC9
         CODE             00004-00007               4
                          017D4-0FFF7            E824
-        COMRAM           00036-0005F              2A
+        COMRAM           00040-0005F              20
         CONST            00004-00007               4
                          017D4-0FFF7            E824
         MEDIUMCONST      017D4-0FFF7            E824
@@ -312,7 +312,7 @@ _InterruptHandlerLow                intcodelo     00018
 _LATB                               (abs)         00F8A
 _LATD                               (abs)         00F8C
 _LATDbits                           (abs)         00F8C
-_MQ_Main_Willing_to_block           bssCOMRAM     0002E
+_MQ_Main_Willing_to_block           bssCOMRAM     00037
 _OSCCON                             (abs)         00FD3
 _OSCCONbits                         (abs)         00FD3
 _OSCTUNEbits                        (abs)         00F9B
@@ -817,12 +817,14 @@ _timer0_lthread                     text10        017B8
 _timer1_int_handler                 text28        01534
 _timer1_lthread                     text6         011AC
 _uart_configure                     text5         01012
+_uart_count                         bssCOMRAM     00038
+_uart_current_packet                bssCOMRAM     0002E
 _uart_get_byte                      text4         0135E
 _uart_lthread                       text3         0159A
 _uart_receive_buffer                bssBANK0      00096
 _uart_receive_buffer_empty          text2         01700
 _uart_receive_byte                  text27        01458
-_uart_send_buffer                   bssCOMRAM     0002F
+_uart_send_buffer                   bssCOMRAM     00039
 _uart_send_buffer_empty             text26        01744
 _uart_send_byte                     text1         01568
 _uart_transmit_byte                 text25        01688
