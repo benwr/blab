@@ -422,8 +422,8 @@ void main(void) {
                 case MSGT_AD_CONVERTER_COMPLETE:
                 {
                     LATDbits.LD6 ^= 0x1;
-                    uart_send_byte(msgbuffer[0]);
                     uart_send_byte(msgbuffer[1]);
+                    uart_send_byte(msgbuffer[0]);
                 };
                 default:
                 {

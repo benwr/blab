@@ -647,7 +647,7 @@ __CFG_CP0$OFF 0 0 ABS 0
 __smallconst F00 0 SMALLCONST 0
 __CFG_WPFP$PAGE_63 0 0 ABS 0
 i2c_int_handler@data_read B9 0 BANK0 1
-__Hreset_vec 4 0 CODE 0
+__Hreset_vec 6 0 CODE 0
 __Lreset_vec 0 0 CODE 0
 _in_low_int 2286 0 CODE 0
 __size_of_FromMainHigh_sendmsg 0 0 ABS 0
@@ -715,7 +715,7 @@ Delay1KTCYx@unit C8 0 BANK0 1
 __size_of_handle_start 0 0 ABS 0
 __size_of_memcpy 0 0 ABS 0
 %segments
-reset_vec 0 3 CODE 0 0
+reset_vec 0 5 CODE 0 0
 intcode 8 17 CODE 8 0
 intcodelo 18 D1 CODE 18 0
 smallconst F00 F03 SMALLCONST F00 0
@@ -725,9 +725,9 @@ bssBANK0 60 CD BANK0 60 1
 bssBANK1 100 1F0 BANK1 100 1
 text44 F04 274D CODE F04 0
 %locals
-dist/UseXC8/production\Sensor.X.production.obj
+dist/UseXC8/debug\Sensor.X.debug.obj
 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
-C:\Users\Luke\AppData\Local\Temp\s5b8.
+C:\Users\Luke\AppData\Local\Temp\s6qg.
 6041 2546 0 CODE 0
 6043 2546 0 CODE 0
 6046 2546 0 CODE 0
