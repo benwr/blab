@@ -1,5 +1,5 @@
 
-# 1 "../src/interrupts.c"
+# 1 "../src/my_uart.c"
 
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -10828,89 +10828,6 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 12 "../src/interrupts.h"
-void enable_interrupts(void);
-
-int in_high_int(void);
-
-int low_int_active(void);
-
-int in_low_int(void);
-
-
-int in_main(void);
-
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 23 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
-extern int errno;
-
-# 54
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 17 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\conio.h"
-extern int errno;
-
-
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 31
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 99 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 191
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 28 "../src/debug.h"
-void blip();
-
-# 12 "../src/user_interrupts.h"
-void timer0_int_handler(void);
-
-void timer1_int_handler(void);
-
 # 10 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
@@ -10952,30 +10869,16 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 11 "../src/my_uart.h"
-typedef struct
+# 22 "../src/my_uart.h"
+struct uart_buffer_type
 {
 unsigned char buffer[4];
 unsigned char current_item;
 unsigned char last_item;
 char size;
-} uart_buffer_type;
-
-typedef struct
-{
-unsigned char header;
-
-unsigned char checksum;
-unsigned char data[ 4 - 2 ];
-unsigned char bytes_sent;
-bit checksum_error;
-unsigned char count_error;
-unsigned char byte_error;
-} uart_packet_type;
+} uart_send_buffer, uart_receive_buffer;
 
 
-
-void send_uart_message( unsigned char * message_ptr );
 
 
 void uart_configure();
@@ -10998,130 +10901,140 @@ void uart_receive_byte();
 
 int uart_receive_buffer_empty();
 
-# 8 "../src/my_i2c.h"
-typedef struct __i2c_comm {
-unsigned char buffer[10];
-unsigned char buflen;
-unsigned char event_count;
-unsigned char status;
-unsigned char error_code;
-unsigned char error_count;
-unsigned char outbuffer[10];
-unsigned char outbuflen;
-unsigned char outbufind;
-unsigned char slave_addr;
-} i2c_comm;
-
-# 33
-void init_i2c(i2c_comm *);
-void i2c_int_handler(void);
-void start_i2c_slave_reply(unsigned char,unsigned char *);
-void i2c_configure_slave(unsigned char);
-void i2c_configure_master(unsigned char);
-unsigned char i2c_master_send(unsigned char,unsigned char *);
-unsigned char i2c_master_recv(unsigned char);
-
-# 14 "../src/interrupts.c"
-void enable_interrupts() {
-
-
-RCONbits.IPEN = 1;
-INTCONbits.GIEH = 1;
-
-INTCONbits.GIEL = 1;
-
-
-}
-
-int in_high_int() {
-return (!INTCONbits.GIEH);
-}
-
-int low_int_active() {
-return (!INTCONbits.GIEL);
-}
-
-int in_low_int() {
-if (INTCONbits.GIEL == 1) {
-return (0);
-} else if (in_high_int()) {
-return (0);
-} else {
-return (1);
-}
-}
-
-int in_main() {
-if ((!in_low_int()) && (!in_high_int())) {
-return (1);
-} else {
-return (0);
-}
-}
-
-# 81
-interrupt
-
-# 86
-void InterruptHandlerHigh() {
-
-
-
-
-if (PIR1bits.SSPIF) {
-
-PIR1bits.SSPIF = 0;
-
-i2c_int_handler();
-}
-
-
-if (INTCONbits.TMR0IF) {
-INTCONbits.TMR0IF = 0;
-
-timer0_int_handler();
-}
-
-# 112
-SleepIfOkay();
-}
-
-# 120
-interrupt low_priority
-
-# 125
-void InterruptHandlerLow() {
-
-
-if (PIR1bits.TMR1IF) {
-PIR1bits.TMR1IF = 0;
-timer1_int_handler();
-}
-
-
-if (PIR1bits.RCIF) {
-PIR1bits.RCIF = 0;
-uart_receive_byte();
-}
-
-
-
-if (PIR1bits.TX1IF && PIE1bits.TX1IE)
+# 14 "../src/my_uart.c"
+void uart_configure()
 {
+TRISCbits.TRISC7 = 1;
+TRISCbits.TRISC6 = 0;
+
+BAUDCONbits.BRG16 = 1;
+TXSTA1bits.BRGH = 1;
 
 
-LATDbits.LATD3 = 1;
-LATDbits.LATD3 = 0;
+SPBRGH1 = 0x00;
+SPBRG1 = 0xCF;
+
+TXSTA1bits.SYNC = 0;
+RCSTA1bits.SPEN = 1;
 
 
-if( !uart_send_buffer_empty() )
+IPR1bits.TX1IP = 0;
+
+PIE1bits.TX1IE = 0;
+PIE1bits.RC1IE = 1;
+
+TXSTA1bits.TXEN = 1;
+RCSTA1bits.CREN = 1;
+
+
+
+uart_send_buffer.current_item = 0;
+uart_send_buffer.last_item = 0;
+uart_send_buffer.buffer[uart_send_buffer.current_item] = 0;
+uart_send_buffer.size = 0;
+
+
+uart_receive_buffer.current_item = 0;
+uart_receive_buffer.last_item = 0;
+uart_receive_buffer.buffer[uart_receive_buffer.current_item] = 0;
+uart_receive_buffer.size = 0;
+
+}
+
+
+int uart_send_byte( unsigned char sendByte )
 {
-uart_transmit_byte();
+if( uart_send_buffer.size >= 4 )
+{
+return 0;
+}
+else
+{
+uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
+uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % 4;
+uart_send_buffer.size += 1;
+PIE1bits.TX1IE = 1;
+}
+
+return 1;
 }
 
 
+void uart_transmit_byte()
+{
+if( uart_send_buffer.size <= 0 )
+{
+return;
+}
+TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
+uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
+uart_send_buffer.size -= 1;
+
+if( uart_send_buffer.size <= 0 )
+{
+PIE1bits.TX1IE = 0;
+}
 }
 
 
+
+int uart_send_buffer_empty()
+{
+if( uart_send_buffer.size <= 0 )
+{
+uart_send_buffer.size = 0;
+return 1;
+}
+else
+{
+return 0;
+}
+
+}
+
+
+unsigned char uart_get_byte()
+{
+if( uart_receive_buffer.size <= 0 )
+{
+uart_receive_buffer.size = 0;
+}
+unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
+uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % 4;
+uart_receive_buffer.size -= 1;
+
+if( PIE1bits.RC1IE == 0 )
+{
+PIE1bits.RC1IE = 1;
+}
+
+return return_value;
+}
+
+
+
+
+void uart_receive_byte()
+{
+if( uart_receive_buffer.size >= 4 )
+{
+PIE1bits.RC1IE = 0;
+return;
+}
+uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
+uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % 4;
+uart_receive_buffer.size += 1;
+}
+
+int uart_receive_buffer_empty()
+{
+if( uart_receive_buffer.size == 0 )
+{
+return 1;
+}
+else
+{
+return 0;
+}
 }
 

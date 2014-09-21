@@ -13,8 +13,7 @@
       <itemPath>../src/timer1_thread.h</itemPath>
       <itemPath>../src/uart_thread.h</itemPath>
       <itemPath>../src/user_interrupts.h</itemPath>
-      <itemPath>../src/debug.h</itemPath>
-      <itemPath>../src/communication.h</itemPath>
+      <itemPath>../src/ad.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -32,8 +31,7 @@
       <itemPath>../src/timer1_thread.c</itemPath>
       <itemPath>../src/uart_thread.c</itemPath>
       <itemPath>../src/user_interrupts.c</itemPath>
-      <itemPath>../src/communcation.c</itemPath>
-      <itemPath>../src/debug.c</itemPath>
+      <itemPath>../src/ad.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -90,8 +88,6 @@
         <property key="optimization-assembler-files" value="false"/>
         <property key="optimization-debug" value="false"/>
         <property key="optimization-global" value="true"/>
-        <property key="optimization-invariant-enable" value="false"/>
-        <property key="optimization-invariant-value" value="16"/>
         <property key="optimization-level" value="9"/>
         <property key="optimization-set" value="none"/>
         <property key="optimization-speed" value="true"/>
@@ -144,45 +140,9 @@
         <property key="program-the-device-with-default-config-words" value="true"/>
       </HI-TECH-LINK>
       <PICkit3PlatformTool>
-        <property key="AutoSelectMemRanges" value="auto"/>
-        <property key="Freeze Peripherals" value="true"/>
-        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
-        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
-        <property key="hwtoolclock.frcindebug" value="false"/>
-        <property key="memories.aux" value="false"/>
-        <property key="memories.bootflash" value="true"/>
-        <property key="memories.configurationmemory" value="true"/>
-        <property key="memories.dataflash" value="true"/>
-        <property key="memories.eeprom" value="true"/>
-        <property key="memories.flashdata" value="true"/>
-        <property key="memories.id" value="true"/>
-        <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.end" value="0xfff7"/>
-        <property key="memories.programmemory.start" value="0x0"/>
-        <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmertogo.imagename" value=""/>
-        <property key="programoptions.donoteraseauxmem" value="false"/>
-        <property key="programoptions.eraseb4program" value="true"/>
-        <property key="programoptions.pgmspeed" value="2"/>
-        <property key="programoptions.preserveeeprom" value="false"/>
-        <property key="programoptions.preserveprogramrange" value="false"/>
-        <property key="programoptions.preserveprogramrange.end" value="0xfff7"/>
-        <property key="programoptions.preserveprogramrange.start" value="0x0"/>
-        <property key="programoptions.preserveuserid" value="false"/>
-        <property key="programoptions.testmodeentrymethod" value="VPPFirst"/>
-        <property key="programoptions.usehighvoltageonmclr" value="false"/>
-        <property key="programoptions.uselvpprogramming" value="false"/>
-        <property key="voltagevalue" value="2.125"/>
       </PICkit3PlatformTool>
       <XC8-config-global>
-        <property key="advanced-elf" value="true"/>
         <property key="output-file-format" value="-mcof,+elf"/>
-        <property key="stack-size-high" value="auto"/>
-        <property key="stack-size-low" value="auto"/>
-        <property key="stack-size-main" value="auto"/>
-        <property key="stack-type" value="compiled"/>
       </XC8-config-global>
     </conf>
     <conf name="UseC18" type="2">
@@ -222,7 +182,7 @@
         <property key="code-model" value="ms"/>
         <property key="data-model" value="oa-"/>
         <property key="default-char-unsigned" value="false"/>
-        <property key="enable-all-optimizations" value="false"/>
+        <property key="enable-all-optimizations" value="true"/>
         <property key="enable-int-promotion" value="false"/>
         <property key="enable-multi-bank-stack-model" value="false"/>
         <property key="enable-ob" value="false"/>
@@ -260,12 +220,12 @@
       </C18-LD>
       <C18LanguageToolchain>
         <property key="extended-mode" value="true"/>
-        <property key="extended-mode-mcc18" value="false"/>
-        <property key="extended-mode-mpasm" value="false"/>
-        <property key="extended-mode-mplink" value="false"/>
+        <property key="extended-mode-mcc18" value="true"/>
+        <property key="extended-mode-mpasm" value="true"/>
+        <property key="extended-mode-mplink" value="true"/>
         <property key="stack-analysis" value="true"/>
-        <property key="stack-analysis-mcc18" value="false"/>
-        <property key="stack-analysis-mplink" value="false"/>
+        <property key="stack-analysis-mcc18" value="true"/>
+        <property key="stack-analysis-mplink" value="true"/>
       </C18LanguageToolchain>
       <PICkit2PlatformTool>
         <property key="pk2settings.3state" value="false"/>

@@ -189,7 +189,7 @@ void main(void) {
     signed char length;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
-    uart_comm uc;
+    //uart_comm uc;
     i2c_comm ic;
     unsigned char msgbuffer[MSGLEN + 1];
     unsigned char i;
@@ -221,8 +221,7 @@ void main(void) {
 #endif
 #endif
 
-    // initialize my uart recv handling code
-    init_uart_recv(&uc);
+    
 
     // initialize the i2c code
     init_i2c(&ic);
@@ -297,23 +296,21 @@ void main(void) {
 
     // configure the hardware USART device
 #ifdef __USE18F26J50
-    Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
-        USART_CONT_RX & USART_BRGH_LOW, 0x19);
+    //Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT & USART_CONT_RX & USART_BRGH_LOW, 0x19);
 #else
 #ifdef __USE18F46J50
-    Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
-        USART_CONT_RX & USART_BRGH_LOW, 0x19);
+    //Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT & USART_CONT_RX & USART_BRGH_LOW, 0x19);
+    
     
 #else
-    OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
-        USART_CONT_RX & USART_BRGH_LOW, 0x19);
+    //OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT & USART_CONT_RX & USART_BRGH_LOW, 0x19);
 #endif
 #endif
 
     // Peripheral interrupts can have their priority set to high or low
     // enable high-priority interrupts and low-priority interrupts
     enable_interrupts();
-
+    uart_configure();
 
     /* Junk to force an I2C interrupt in the simulator (if you wanted to)
     PIR1bits.SSPIF = 1;
@@ -356,7 +353,7 @@ void main(void) {
     // that should get them.  Although the subroutines are not threads, but
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
-    unsigned short current_distance = 0x0000;
+    //unsigned short current_distance = 0x0000;
     while (1) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
@@ -425,10 +422,9 @@ void main(void) {
                 case MSGT_AD_CONVERTER_COMPLETE:
                 {
                     LATDbits.LD6 ^= 0x1;
-                    current_distance = msgbuffer[0];
-                    current_distance |= (msgbuffer[1]<<8);
+                    uart_send_byte(msgbuffer[0]);
+                    uart_send_byte(msgbuffer[1]);
                 };
-                //Luke says we need to add another case called MSGT_AD_CONVERTER_COMPLETE to read the sensor Q.
                 default:
                 {
                     // Your code should handle this error

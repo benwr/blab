@@ -17,6 +17,7 @@
 #include "timer1_thread.h"
 #include "timer0_thread.h"
 #include "debug.h"
+#include "communication.h"
 
 
 
@@ -358,7 +359,6 @@ void main(void) {
     uart_send_byte(0x55);
 
     unsigned char myByte = 0x44;
-
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.

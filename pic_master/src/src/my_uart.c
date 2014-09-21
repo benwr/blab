@@ -9,6 +9,65 @@
 //static uart_comm *uc_ptr;
 
 #ifdef __USE18F46J50  //Alex: Begin definitions for the Mk 4
+static uart_buffer_type uart_send_buffer;
+static uart_buffer_type uart_receive_buffer;
+
+//static unsigned char uart_sent_count;
+static unsigned char sent_counter;
+static unsigned char receive_counter;
+
+//Send a UART Packet
+void send_uart_message( unsigned char * message_ptr )
+{
+    //Send header as counter value
+    uart_send_byte( sent_counter )
+    sent_counter++;
+
+    //Send data and calculate checksum
+    unsigned char checksum = 0x00;
+    int i;
+    for(i=0;i<(MESSAGE_LENGTH - 2);i++)
+    {
+        uart_send_byte( message_ptr[i] );
+        checksum = checksum ^ message_ptr[i];
+    }
+
+    //Send checksum as footer
+    uart_send_byte( checksum );
+}
+
+//Receive a UART Packet
+unsigned char receive_uart_message( unsigned char * message_ptr )
+{
+    static uart_packet_type uart_recv_packet;
+
+    if( uart_recv_packet.bytes_received == 0 )
+    {
+        if( uart_receive_buffer_empty() )
+        {
+            return 0;
+        }
+        else
+        {
+            uart_recv_packet.header = uart_get_byte();
+            uart_recv_packet.bytes_received += 1;
+        }
+    }
+    else if( uart_recv_packet.bytes_received < (MESSAGE_LENGTH - 1) )
+    {
+        if( uart_receive_buffer_empty() )
+        {
+            return 0;
+        }
+        else
+        {
+            uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ]
+            uart_recv_packet.bytes_received += 1;
+        }
+    }
+
+
+}
 
 //Alex: Configure UART for transmit
 void uart_configure()
@@ -47,6 +106,9 @@ void uart_configure()
     uart_receive_buffer.last_item = 0;
     uart_receive_buffer.buffer[uart_receive_buffer.current_item] = 0;
     uart_receive_buffer.size = 0;
+
+    sent_counter = 0;
+    receive_counter = 0;
     
 }
 

@@ -5,29 +5,35 @@
 #include "debug.h"
 
 #define MAXUARTBUF 4
-#if (MAXUARTBUF > MSGLEN)
-#define MAXUARTBUF MSGLEN
-#endif
-
-/*
-typedef struct __uart_comm
-{
-    unsigned char buffer[MAXUARTBUF];
-    unsigned char buflen;
-} uart_comm;
-*/
-
+#define MESSAGE_LENGTH 4
 
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
-struct uart_buffer_type
+typedef struct
 {
     unsigned char buffer[MAXUARTBUF];
     unsigned char current_item; //Alex: First item waiting to be sent
     unsigned char last_item;    //Alex: Last item waiting to be sent
     char size;
-} uart_send_buffer, uart_receive_buffer;
+} uart_buffer_type;
+
+typedef struct
+{
+    unsigned char header;
+    unsigned char checksum;
+    unsigned char data[ MESSAGE_LENGTH - 2 ];
+    //const unsigned char data_length = MESSAGE_LENGTH - 2;
+    unsigned char bytes_received;
+    unsigned char checksum_error;
+    unsigned char count_error;
+    unsigned char byte_error;
+} uart_packet_type;
 
 
+//Send a UART Packet
+void send_uart_message( unsigned char * message_ptr );
+
+//Receive a UART Packet
+unsigned char receive_uart_message( unsigned char * message_ptr );
 
 //Alex: Configure UART for transmit and recieve
 void uart_configure();

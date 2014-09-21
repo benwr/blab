@@ -11,10 +11,8 @@
 
 void init_registers(void);
 //void a_to_d_converter_handler(void);
+void a_to_d_converter_handler(void);
 
 #endif	/* ADCONFIG_H */
-#ifndef __user_interrupts
-#define __user_interrupts
-    void a_to_d_converter_handler(void);
-#endif
+
 

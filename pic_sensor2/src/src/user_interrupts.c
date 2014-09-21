@@ -10,7 +10,7 @@
 #include "user_interrupts.h"
 #include "messages.h"
 
-const int MSGSIZE = 16;
+//const int MSGSIZE = 16;
 
 // A function called by the interrupt handler
 // This one does the action I wanted for this program on a timer0 interrupt
