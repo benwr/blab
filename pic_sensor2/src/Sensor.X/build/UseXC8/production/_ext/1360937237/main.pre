@@ -11030,7 +11030,7 @@ void init_registers(void);
 void a_to_d_converter_handler(void);
 
 
-# 133 "../src/main.c"
+# 132 "../src/main.c"
 #pragma config WDTEN = OFF
 #pragma config PLLDIV = 3
 #pragma config STVREN = OFF
@@ -11074,7 +11074,7 @@ void a_to_d_converter_handler(void);
 
 #pragma config WPDIS = OFF
 
-# 188
+# 187
 void main(void) {
 char c;
 signed char length;
@@ -11088,11 +11088,11 @@ uart_thread_struct uthread_data;
 timer1_thread_struct t1thread_data;
 timer0_thread_struct t0thread_data;
 
-# 215
+# 214
 OSCCON = 0xE0;
 OSCTUNEbits.PLLEN = 1;
 
-# 228
+# 227
 init_i2c(&ic);
 
 
@@ -11106,42 +11106,40 @@ init_queues();
 TRISB = 0x0;
 LATB = 0x0;
 
-# 252
+# 251
 OpenTimer0(0b11111111 & 0b10111111 & 0b11011111 & 0b11110110);
 
-# 259
-OpenTimer1(0b11111111 & 0b10011111 & 0b11111111 & 0b11111111 & 0b11111011 & 0b11111111,0x0);
+# 258
+OpenTimer1(0b11111111 & 0b10011111 & 0b11111111 & 0b11111111 & 0b11111011 & 0b11111111,50000);
 
-# 268
+# 267
 IPR1bits.TMR1IP = 0;
 
 IPR1bits.RCIP = 0;
 
 IPR1bits.SSPIP = 1;
 
-# 281
+# 280
 i2c_configure_slave(0x9E);
 
-# 296
+# 295
 PIE1bits.SSPIE = 1;
 
-# 304
+# 312
+enable_interrupts();
 uart_configure();
 
-# 313
-enable_interrupts();
-
-# 324
+# 323
 init_registers();
 
-# 358
+# 357
 while (1) {
 
 
 
 block_on_To_msgqueues();
 
-# 369
+# 368
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11166,7 +11164,7 @@ break;
 case 42:
 {
 
-# 399
+# 398
 switch (last_reg_recvd) {
 case 0xaa:
 {
