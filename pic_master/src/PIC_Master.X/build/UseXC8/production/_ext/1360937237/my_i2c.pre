@@ -1,5 +1,5 @@
 
-# 1 "../src/interrupts.c"
+# 1 "../src/my_i2c.c"
 
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -10828,17 +10828,46 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 12 "../src/interrupts.h"
-void enable_interrupts(void);
+# 10 "../src/messages.h"
+typedef struct __msg {
+unsigned char full;
+unsigned char length;
+unsigned char msgtype;
+unsigned char data[10];
+} msg;
 
-int in_high_int(void);
+typedef struct __msg_queue {
+msg queue[4];
+unsigned char cur_write_ind;
+unsigned char cur_read_ind;
+} msg_queue;
 
-int low_int_active(void);
+# 43
+void init_queues(void);
 
-int in_low_int(void);
 
 
-int in_main(void);
+void SleepIfOkay(void);
+
+
+
+void block_on_To_msgqueues(void);
+
+# 57
+signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+
+# 64
+signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+
+# 71
+signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+
+# 78
+signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
 # 7 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdarg.h"
 typedef void * va_list[1];
@@ -10906,104 +10935,6 @@ extern int printf(const char *, ...);
 # 28 "../src/debug.h"
 void blip();
 
-# 12 "../src/user_interrupts.h"
-void timer0_int_handler(void);
-
-void timer1_int_handler(void);
-
-# 10 "../src/messages.h"
-typedef struct __msg {
-unsigned char full;
-unsigned char length;
-unsigned char msgtype;
-unsigned char data[10];
-} msg;
-
-typedef struct __msg_queue {
-msg queue[4];
-unsigned char cur_write_ind;
-unsigned char cur_read_ind;
-} msg_queue;
-
-# 43
-void init_queues(void);
-
-
-
-void SleepIfOkay(void);
-
-
-
-void block_on_To_msgqueues(void);
-
-# 57
-signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-
-# 64
-signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-
-# 71
-signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-
-# 78
-signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-
-# 11 "../src/my_uart.h"
-typedef struct
-{
-unsigned char buffer[4];
-unsigned char current_item;
-unsigned char last_item;
-char size;
-} uart_buffer_type;
-
-typedef struct
-{
-unsigned char header;
-unsigned char checksum;
-unsigned char data[ 4 - 2 ];
-
-unsigned char bytes_received;
-unsigned char checksum_error;
-unsigned char count_error;
-unsigned char byte_error;
-} uart_packet_type;
-
-
-
-void send_uart_message( unsigned char * message_ptr );
-
-
-unsigned char receive_uart_message( unsigned char * message_ptr );
-
-
-void uart_configure();
-
-
-int uart_send_byte( char sendByte );
-
-
-void uart_transmit_byte();
-
-
-int uart_send_buffer_empty();
-
-
-unsigned char uart_get_byte();
-
-
-void uart_receive_byte();
-
-
-int uart_receive_buffer_empty();
-
-
-unsigned char uart_num_bytes_in_recv_buffer();
-
 # 8 "../src/my_i2c.h"
 typedef struct __i2c_comm {
 unsigned char buffer[10];
@@ -11027,107 +10958,284 @@ void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-# 14 "../src/interrupts.c"
-void enable_interrupts() {
+# 9 "../src/my_i2c.c"
+static i2c_comm *ic_ptr;
 
 
-RCONbits.IPEN = 1;
-INTCONbits.GIEH = 1;
 
-INTCONbits.GIEL = 1;
 
+void i2c_configure_master(unsigned char slave_addr) {
 
 }
 
-int in_high_int() {
-return (!INTCONbits.GIEH);
+# 30
+unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
+
+return(0);
 }
 
-int low_int_active() {
-return (!INTCONbits.GIEL);
+# 48
+unsigned char i2c_master_recv(unsigned char length) {
+
+return(0);
 }
 
-int in_low_int() {
-if (INTCONbits.GIEL == 1) {
-return (0);
-} else if (in_high_int()) {
-return (0);
+void start_i2c_slave_reply(unsigned char length, unsigned char *msg) {
+
+for (ic_ptr->outbuflen = 0; ic_ptr->outbuflen < length; ic_ptr->outbuflen++) {
+ic_ptr->outbuffer[ic_ptr->outbuflen] = msg[ic_ptr->outbuflen];
+}
+ic_ptr->outbuflen = length;
+ic_ptr->outbufind = 1;
+
+
+SSPBUF = ic_ptr->outbuffer[0];
+
+
+SSPCON1bits.CKP = 1;
+
+}
+
+
+
+void handle_start(unsigned char data_read) {
+ic_ptr->event_count = 1;
+ic_ptr->buflen = 0;
+
+if (data_read) {
+if (SSPSTATbits.D_A == 1) {
+
+
+ic_ptr->status = 0x5;
+ic_ptr->error_count++;
+ic_ptr->error_code = 0x5;
 } else {
-return (1);
-}
-}
-
-int in_main() {
-if ((!in_low_int()) && (!in_high_int())) {
-return (1);
+if (SSPSTATbits.R_W == 1) {
+ic_ptr->status = 0x8;
 } else {
-return (0);
+ic_ptr->status = 0x7;
+}
+}
+} else {
+ic_ptr->status = 0x6;
 }
 }
 
-# 81
-interrupt
-
-# 86
-void InterruptHandlerHigh() {
+# 100
+void i2c_int_handler() {
 
 
 
+LATD = 0x10;
 
-if (PIR1bits.SSPIF) {
 
-PIR1bits.SSPIF = 0;
 
-i2c_int_handler();
+
+unsigned char i2c_data;
+unsigned char data_read = 0;
+unsigned char data_written = 0;
+unsigned char msg_ready = 0;
+unsigned char msg_to_send = 0;
+unsigned char overrun_error = 0;
+unsigned char error_buf[3];
+
+
+if (SSPCON1bits.SSPOV == 1) {
+SSPCON1bits.SSPOV = 0;
+
+
+
+ic_ptr->status = 0x5;
+overrun_error = 1;
+ic_ptr->error_count++;
+ic_ptr->error_code = 0x4;
 }
 
-
-if (INTCONbits.TMR0IF) {
-INTCONbits.TMR0IF = 0;
-
-timer0_int_handler();
+if (SSPSTATbits.BF == 1) {
+i2c_data = SSPBUF;
+data_read = 1;
 }
 
-# 112
-SleepIfOkay();
-}
-
-# 120
-interrupt low_priority
-
-# 125
-void InterruptHandlerLow() {
-
-
-if (PIR1bits.TMR1IF) {
-PIR1bits.TMR1IF = 0;
-timer1_int_handler();
-}
-
-
-if (PIR1bits.RCIF) {
-PIR1bits.RCIF = 0;
-uart_receive_byte();
-}
-
-
-
-if (PIR1bits.TX1IF && PIE1bits.TX1IE)
+if (!overrun_error) {
+switch (ic_ptr->status) {
+case 0x5:
 {
 
+if (SSPSTATbits.S == 1) {
+handle_start(data_read);
 
-LATDbits.LATD3 = 1;
-LATDbits.LATD3 = 0;
-
-
-if( !uart_send_buffer_empty() )
+if (ic_ptr->status == 0x8) {
+data_read = 0;
+msg_to_send = 1;
+}
+}
+break;
+}
+case 0x6:
 {
-uart_transmit_byte();
+
+if (SSPSTATbits.P == 1) {
+
+
+ic_ptr->event_count++;
+if (data_read) {
+if (SSPSTATbits.D_A == 0) {
+msg_ready = 1;
+} else {
+ic_ptr->error_count++;
+ic_ptr->error_code = 0x6;
+}
+}
+ic_ptr->status = 0x5;
+} else if (data_read) {
+ic_ptr->event_count++;
+if (SSPSTATbits.D_A == 0) {
+if (SSPSTATbits.R_W == 0) {
+ic_ptr->status = 0x7;
+} else {
+ic_ptr->status = 0x8;
+msg_to_send = 1;
+
+data_read = 0;
+}
+} else {
+ic_ptr->error_count++;
+ic_ptr->status = 0x5;
+ic_ptr->error_code = 0x6;
+}
+}
+break;
+}
+case 0x8:
+{
+if (ic_ptr->outbufind < ic_ptr->outbuflen) {
+SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
+ic_ptr->outbufind++;
+data_written = 1;
+} else {
+
+ic_ptr->status = 0x5;
+}
+break;
+}
+case 0x7:
+{
+
+if (SSPSTATbits.P == 1) {
+
+ic_ptr->event_count++;
+if (data_read) {
+if (SSPSTATbits.D_A == 1) {
+ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
+ic_ptr->buflen++;
+msg_ready = 1;
+} else {
+ic_ptr->error_count++;
+ic_ptr->error_code = 0x6;
+ic_ptr->status = 0x5;
+}
+} else {
+msg_ready = 1;
+}
+ic_ptr->status = 0x5;
+} else if (data_read) {
+ic_ptr->event_count++;
+if (SSPSTATbits.D_A == 1) {
+ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
+ic_ptr->buflen++;
+} else {
+if (SSPSTATbits.R_W == 1) {
+ic_ptr->status = 0x8;
+msg_ready = 1;
+msg_to_send = 1;
+
+data_read = 0;
+} else {
+ic_ptr->error_count++;
+ic_ptr->error_code = 0x6;
+ic_ptr->status = 0x5;
+}
+}
+}
+break;
+}
+}
 }
 
 
+if (data_read || data_written) {
+
+if (SSPCON1bits.CKP == 0) {
+SSPCON1bits.CKP = 1;
+}
 }
 
 
+if ((ic_ptr->buflen > 10 - 2) && (!msg_ready)) {
+ic_ptr->status = 0x5;
+ic_ptr->error_count++;
+ic_ptr->error_code = 0x7;
 }
 
+if (msg_ready) {
+ic_ptr->buffer[ic_ptr->buflen] = ic_ptr->event_count;
+ToMainHigh_sendmsg(ic_ptr->buflen + 1, 40, (void *) ic_ptr->buffer);
+ic_ptr->buflen = 0;
+} else if (ic_ptr->error_count >= 1) {
+error_buf[0] = ic_ptr->error_count;
+error_buf[1] = ic_ptr->error_code;
+error_buf[2] = ic_ptr->event_count;
+ToMainHigh_sendmsg(sizeof (unsigned char) *3, 41, (void *) error_buf);
+ic_ptr->error_count = 0;
+}
+if (msg_to_send) {
+
+ToMainHigh_sendmsg(0, 42, (void *) ic_ptr->buffer);
+msg_to_send = 0;
+}
+
+
+
+LATD = 0x00;
+
+
+}
+
+
+
+
+void init_i2c(i2c_comm *ic) {
+ic_ptr = ic;
+ic_ptr->buflen = 0;
+ic_ptr->event_count = 0;
+ic_ptr->status = 0x5;
+ic_ptr->error_count = 0;
+}
+
+
+
+
+void i2c_configure_slave(unsigned char addr) {
+
+# 302
+TRISBbits.TRISB4 = 1;
+TRISBbits.TRISB5 = 1;
+
+# 311
+SSPADD = addr;
+
+SSPSTAT = 0x0;
+SSPCON1 = 0x0;
+SSPCON2 = 0x0;
+SSPCON1 |= 0x0E;
+SSPSTAT |= 0b10000000;
+
+# 332
+PORTBbits.SCL1 = 1;
+PORTBbits.SDA1 = 1;
+
+# 342
+SSPCON2bits.SEN = 1;
+SSPCON1 |= 0b00100000;
+
+}

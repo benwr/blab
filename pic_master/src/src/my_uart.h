@@ -56,6 +56,9 @@ void uart_receive_byte();
 //Alex: Return 1 if UART recieve buffer is empty, other wise 0
 int uart_receive_buffer_empty();
 
+//return number of bytes in receive buffer
+unsigned char uart_num_bytes_in_recv_buffer();
+
 //void init_uart_recv(uart_comm *);
 //void uart_recv_int_handler(void);
 

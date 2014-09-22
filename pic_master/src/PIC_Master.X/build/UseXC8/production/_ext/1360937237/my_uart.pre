@@ -1,5 +1,5 @@
 
-# 1 "../src/interrupts.c"
+# 1 "../src/my_uart.c"
 
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -10828,17 +10828,46 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 12 "../src/interrupts.h"
-void enable_interrupts(void);
+# 10 "../src/messages.h"
+typedef struct __msg {
+unsigned char full;
+unsigned char length;
+unsigned char msgtype;
+unsigned char data[10];
+} msg;
 
-int in_high_int(void);
+typedef struct __msg_queue {
+msg queue[4];
+unsigned char cur_write_ind;
+unsigned char cur_read_ind;
+} msg_queue;
 
-int low_int_active(void);
+# 43
+void init_queues(void);
 
-int in_low_int(void);
 
 
-int in_main(void);
+void SleepIfOkay(void);
+
+
+
+void block_on_To_msgqueues(void);
+
+# 57
+signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+
+# 64
+signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+
+# 71
+signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+
+# 78
+signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
 # 7 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdarg.h"
 typedef void * va_list[1];
@@ -10906,52 +10935,6 @@ extern int printf(const char *, ...);
 # 28 "../src/debug.h"
 void blip();
 
-# 12 "../src/user_interrupts.h"
-void timer0_int_handler(void);
-
-void timer1_int_handler(void);
-
-# 10 "../src/messages.h"
-typedef struct __msg {
-unsigned char full;
-unsigned char length;
-unsigned char msgtype;
-unsigned char data[10];
-} msg;
-
-typedef struct __msg_queue {
-msg queue[4];
-unsigned char cur_write_ind;
-unsigned char cur_read_ind;
-} msg_queue;
-
-# 43
-void init_queues(void);
-
-
-
-void SleepIfOkay(void);
-
-
-
-void block_on_To_msgqueues(void);
-
-# 57
-signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-
-# 64
-signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-
-# 71
-signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-
-# 78
-signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-
 # 11 "../src/my_uart.h"
 typedef struct
 {
@@ -11004,130 +10987,209 @@ int uart_receive_buffer_empty();
 
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 8 "../src/my_i2c.h"
-typedef struct __i2c_comm {
-unsigned char buffer[10];
-unsigned char buflen;
-unsigned char event_count;
-unsigned char status;
-unsigned char error_code;
-unsigned char error_count;
-unsigned char outbuffer[10];
-unsigned char outbuflen;
-unsigned char outbufind;
-unsigned char slave_addr;
-} i2c_comm;
-
-# 33
-void init_i2c(i2c_comm *);
-void i2c_int_handler(void);
-void start_i2c_slave_reply(unsigned char,unsigned char *);
-void i2c_configure_slave(unsigned char);
-void i2c_configure_master(unsigned char);
-unsigned char i2c_master_send(unsigned char,unsigned char *);
-unsigned char i2c_master_recv(unsigned char);
-
-# 14 "../src/interrupts.c"
-void enable_interrupts() {
+# 12 "../src/my_uart.c"
+static uart_buffer_type uart_send_buffer;
+static uart_buffer_type uart_receive_buffer;
 
 
-RCONbits.IPEN = 1;
-INTCONbits.GIEH = 1;
-
-INTCONbits.GIEL = 1;
+static unsigned char sent_counter;
+static unsigned char receive_counter;
 
 
-}
-
-int in_high_int() {
-return (!INTCONbits.GIEH);
-}
-
-int low_int_active() {
-return (!INTCONbits.GIEL);
-}
-
-int in_low_int() {
-if (INTCONbits.GIEL == 1) {
-return (0);
-} else if (in_high_int()) {
-return (0);
-} else {
-return (1);
-}
-}
-
-int in_main() {
-if ((!in_low_int()) && (!in_high_int())) {
-return (1);
-} else {
-return (0);
-}
-}
-
-# 81
-interrupt
-
-# 86
-void InterruptHandlerHigh() {
-
-
-
-
-if (PIR1bits.SSPIF) {
-
-PIR1bits.SSPIF = 0;
-
-i2c_int_handler();
-}
-
-
-if (INTCONbits.TMR0IF) {
-INTCONbits.TMR0IF = 0;
-
-timer0_int_handler();
-}
-
-# 112
-SleepIfOkay();
-}
-
-# 120
-interrupt low_priority
-
-# 125
-void InterruptHandlerLow() {
-
-
-if (PIR1bits.TMR1IF) {
-PIR1bits.TMR1IF = 0;
-timer1_int_handler();
-}
-
-
-if (PIR1bits.RCIF) {
-PIR1bits.RCIF = 0;
-uart_receive_byte();
-}
-
-
-
-if (PIR1bits.TX1IF && PIE1bits.TX1IE)
+void send_uart_message( unsigned char * message_ptr )
 {
 
+uart_send_byte( sent_counter );
+sent_counter++;
 
-LATDbits.LATD3 = 1;
-LATDbits.LATD3 = 0;
 
-
-if( !uart_send_buffer_empty() )
+unsigned char checksum = 0x00;
+int i;
+for(i=0;i<(4 - 2);i++)
 {
-uart_transmit_byte();
+uart_send_byte( message_ptr[i] );
+checksum = checksum ^ message_ptr[i];
 }
 
 
+uart_send_byte( checksum );
 }
 
 
+unsigned char receive_uart_message( unsigned char * message_ptr )
+{
+static uart_packet_type uart_recv_packet;
+
+if( uart_recv_packet.bytes_received == 0 )
+{
+if( uart_receive_buffer_empty() )
+{
+return 0;
+}
+else
+{
+uart_recv_packet.header = uart_get_byte();
+uart_recv_packet.bytes_received += 1;
+}
+}
+else if( uart_recv_packet.bytes_received < (4 - 1) )
+{
+if( uart_receive_buffer_empty() )
+{
+return 0;
+}
+else
+{
+uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
+uart_recv_packet.bytes_received += 1;
+}
+}
+
+return 0x00;
+}
+
+
+void uart_configure()
+{
+TRISCbits.TRISC7 = 1;
+TRISCbits.TRISC6 = 0;
+
+BAUDCONbits.BRG16 = 1;
+TXSTA1bits.BRGH = 1;
+
+
+SPBRGH1 = 0x00;
+SPBRG1 = 0xCF;
+
+TXSTA1bits.SYNC = 0;
+RCSTA1bits.SPEN = 1;
+
+
+IPR1bits.TX1IP = 0;
+
+PIE1bits.TX1IE = 0;
+PIE1bits.RC1IE = 1;
+
+TXSTA1bits.TXEN = 1;
+RCSTA1bits.CREN = 1;
+
+
+
+uart_send_buffer.current_item = 0;
+uart_send_buffer.last_item = 0;
+uart_send_buffer.buffer[uart_send_buffer.current_item] = 0;
+uart_send_buffer.size = 0;
+
+
+uart_receive_buffer.current_item = 0;
+uart_receive_buffer.last_item = 0;
+uart_receive_buffer.buffer[uart_receive_buffer.current_item] = 0;
+uart_receive_buffer.size = 0;
+
+sent_counter = 0;
+receive_counter = 0;
+
+}
+
+
+int uart_send_byte( unsigned char sendByte )
+{
+if( uart_send_buffer.size >= 4 )
+{
+return 0;
+}
+else
+{
+uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
+uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % 4;
+uart_send_buffer.size += 1;
+PIE1bits.TX1IE = 1;
+}
+
+return 1;
+}
+
+
+void uart_transmit_byte()
+{
+if( uart_send_buffer.size <= 0 )
+{
+return;
+}
+TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
+uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % 4;
+uart_send_buffer.size -= 1;
+
+if( uart_send_buffer.size <= 0 )
+{
+PIE1bits.TX1IE = 0;
+}
+}
+
+
+
+int uart_send_buffer_empty()
+{
+if( uart_send_buffer.size <= 0 )
+{
+uart_send_buffer.size = 0;
+return 1;
+}
+else
+{
+return 0;
+}
+
+}
+
+
+unsigned char uart_get_byte()
+{
+if( uart_receive_buffer.size <= 0 )
+{
+uart_receive_buffer.size = 0;
+}
+unsigned char return_value = uart_receive_buffer.buffer[uart_receive_buffer.current_item];
+uart_receive_buffer.current_item = ( uart_receive_buffer.current_item + 1 ) % 4;
+uart_receive_buffer.size -= 1;
+
+if( PIE1bits.RC1IE == 0 )
+{
+PIE1bits.RC1IE = 1;
+}
+
+return return_value;
+}
+
+
+
+
+void uart_receive_byte()
+{
+if( uart_receive_buffer.size >= 4 )
+{
+PIE1bits.RC1IE = 0;
+return;
+}
+uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
+uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % 4;
+uart_receive_buffer.size += 1;
+}
+
+int uart_receive_buffer_empty()
+{
+if( uart_receive_buffer.size == 0 )
+{
+return 1;
+}
+else
+{
+return 0;
+}
+}
+
+unsigned char uart_num_bytes_in_recv_buffer()
+{
+return uart_receive_buffer.size;
 }
 
