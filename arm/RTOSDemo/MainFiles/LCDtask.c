@@ -29,7 +29,7 @@
 
 // definitions and data structures that are private to this file
 // Length of the queue to this task
-#define vtLCDQLen 10 
+#define vtLCDQLen 30 
 // a timer message -- not to be printed
 //#define LCDMsgTypeTimer 1
 // a message to be printed

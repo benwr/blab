@@ -253,7 +253,7 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
                 uint8_t lcdValue[1] = {value};
 				if (lcdData != NULL) {
 					if (SendLCDPrintMsg(lcdData,strnlen(lcdBuffer,vtLCDMaxLen),lcdBuffer,portMAX_DELAY) != pdTRUE) {
-						VT_HANDLE_FATAL_ERROR(0);
+						//VT_HANDLE_FATAL_ERROR(0);
 					}
 
                     if (SendLCDPointMsg(lcdData, 1, lcdValue, portMAX_DELAY) != pdTRUE) {
