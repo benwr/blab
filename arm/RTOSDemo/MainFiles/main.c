@@ -76,6 +76,9 @@
  */
 
 /* Scheduler includes. */
+#define BLAB_DEBUG
+#include "debug.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
 #include "system_LPC17xx.h"
@@ -83,7 +86,7 @@
 #ifndef   PCONP_PCTIM0
 /* MTJ_NOTE: This will not compile properly if you do not delete the old version of */
 /*       system_LPC17xx.h from the Keil compiler installation */
-You should read the note above.
+//You should read the note above.
 #endif
 
 /* Define whether or not to start the standard FreeRTOS demo tasks (the code is still included in the project
@@ -210,9 +213,10 @@ int main( void )
 	/* MTJ: initialize syscalls -- *must* be first */
 	// syscalls.c contains the files upon which the standard (and portable) C libraries rely 
 	init_syscalls();
-
 	// Set up the LED ports and turn them off
 	vtInitLED();
+
+    
 
 	/* Configure the hardware for use by this demo. */
 	prvSetupHardware();
@@ -357,11 +361,18 @@ void prvSetupHardware( void )
 	/* Disable TPIU. */
 	PINCON->PINSEL10 = 0;
 
+
 	/*  Setup the peripheral bus to be the same as the PLL output (64 MHz). */
 	SC->PCLKSEL0 = 0x05555555;
 
 	/* Configure the LEDs. */
 	vParTestInitialise();
+
+    /* Set Debug Pins as output, and set all to low */
+#ifdef BLAB_DEBUG
+    GPIO_SetDir(0, 0x78000,1);
+    GPIO_ClearValue(0,0x78000);
+#endif
 }
 /*-----------------------------------------------------------*/
 

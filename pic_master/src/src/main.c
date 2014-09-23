@@ -197,7 +197,6 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
-    char alex_counter = 0;
 
     #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -383,6 +382,10 @@ void main(void) {
         {
              myByte1 = uart_get_byte();
              myByte2 = uart_get_byte();
+             myByte1 <<= 6;
+             myByte1 |= myByte2 >> 2;
+             //myByte1 = (unsigned char) (((unsigned short) topByte << 6) + (bottomByte >> 2));
+             //myByte2 = 0xff;
             //myByte = 0x11;
             //blip();
         }

@@ -11,7 +11,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _uart_receive_buffer_empty `(i ~T0 @X0 0 ef ]
 "51
 [v _uart_get_byte `(uc ~T0 @X0 0 ef ]
-"8391 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+"8391 /Applications/microchip/xc8/v1.33/include/pic18f46j50.h
 [s S570 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S570 . TRISC0 TRISC1 TRISC2 . TRISC4 TRISC5 TRISC6 TRISC7 ]
 "8401
@@ -163,7 +163,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f46j50.h: 47: extern volatile unsigned char RPOR0 @ 0xEC6;
-"49 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+"49 /Applications/microchip/xc8/v1.33/include/pic18f46j50.h
 [; ;pic18f46j50.h: 49: asm("RPOR0 equ 0EC6h");
 [; <" RPOR0 equ 0EC6h ;# ">
 [; ;pic18f46j50.h: 53: extern volatile unsigned char RPOR1 @ 0xEC7;

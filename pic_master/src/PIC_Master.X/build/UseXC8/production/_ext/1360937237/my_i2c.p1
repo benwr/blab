@@ -2,7 +2,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "8 ../src/my_i2c.h
 [s S1134 `uc -> 10 `i `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc -> 10 `i `uc 1 `uc 1 `uc 1 ]
 [n S1134 __i2c_comm buffer buflen event_count status error_code error_count outbuffer outbuflen outbufind slave_addr ]
-"14491 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+"14491 /Applications/microchip/xc8/v1.33/include/pic18f46j50.h
 [v _SSPBUF `Vuc ~T0 @X0 0 e@4041 ]
 "13127
 [s S836 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -129,7 +129,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 "64 ../src/messages.h
 [v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
-"8330 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+"8330 /Applications/microchip/xc8/v1.33/include/pic18f46j50.h
 [s S568 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S568 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
 "8329
@@ -227,7 +227,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f46j50.h: 47: extern volatile unsigned char RPOR0 @ 0xEC6;
-"49 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
+"49 /Applications/microchip/xc8/v1.33/include/pic18f46j50.h
 [; ;pic18f46j50.h: 49: asm("RPOR0 equ 0EC6h");
 [; <" RPOR0 equ 0EC6h ;# ">
 [; ;pic18f46j50.h: 53: extern volatile unsigned char RPOR1 @ 0xEC7;

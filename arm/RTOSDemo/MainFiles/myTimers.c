@@ -18,7 +18,7 @@
 //
 // how often the timer that sends messages to the LCD task should run
 // Set the task up to run every 100 ms
-#define lcdWRITE_RATE_BASE	( ( portTickType ) 100 / portTICK_RATE_MS)
+#define lcdWRITE_RATE_BASE	( ( portTickType ) 500 / portTICK_RATE_MS)
 
 // Callback function that is called by the LCDTimer
 //   Sends a message to the queue that is read by the LCD Task
@@ -45,7 +45,8 @@ void startTimerForLCD(vtLCDStruct *vtLCDdata) {
 	if (sizeof(long) != sizeof(vtLCDStruct *)) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-	xTimerHandle LCDTimerHandle = xTimerCreate((const signed char *)"LCD Timer",lcdWRITE_RATE_BASE,pdTRUE,(void *) vtLCDdata,LCDTimerCallback);
+	xTimerHandle LCDTimerHandle = xTimerCreate((const signed char *)"LCD Timer",
+            lcdWRITE_RATE_BASE,pdTRUE,(void *) vtLCDdata,LCDTimerCallback);
 	if (LCDTimerHandle == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
