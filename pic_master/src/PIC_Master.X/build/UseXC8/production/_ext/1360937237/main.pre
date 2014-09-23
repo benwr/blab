@@ -11184,7 +11184,7 @@ while (1) {
 if( uart_num_bytes_in_recv_buffer() == 2 )
 {
 myByte1 = uart_get_byte();
-myByte2 = uart_get_byte();
+
 
 
 }
@@ -11222,7 +11222,7 @@ case 0xaa:
 {
 length = 2 ;
 msgbuffer[0] = myByte1;
-msgbuffer[1] = myByte2;
+msgbuffer[1] = 0;
 break;
 }
 case 0xa8:

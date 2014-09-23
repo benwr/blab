@@ -8834,30 +8834,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 424: LATDbits.LD6 ^= 0x1;
 "424
 [e =^ . . _LATDbits 7 1 -> -> 1 `i `uc ]
-[; ;main.c: 425: uart_send_byte(msgbuffer[0]);
-"425
-[e ( _uart_send_byte (1 *U + &U _msgbuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux ]
-[; ;main.c: 426: uart_send_byte(msgbuffer[1]);
 "426
-[e ( _uart_send_byte (1 *U + &U _msgbuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux ]
+[v _sensor_value `us ~T0 @X0 1 a ]
+[; ;main.c: 426: unsigned short sensor_value = msgbuffer[1];
+[e = _sensor_value -> *U + &U _msgbuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux `us ]
+[; ;main.c: 427: sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
 "427
-}
-[; ;main.c: 427: };
-[; ;main.c: 428: default:
-"428
-[e :U 1158 ]
-[; ;main.c: 429: {
+[e = _sensor_value -> | << -> _sensor_value `ui -> 8 `i -> *U + &U _msgbuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux `ui `us ]
 "429
-{
-[; ;main.c: 431: break;
+[v _distance `uc ~T0 @X0 1 a ]
+[; ;main.c: 429: unsigned char distance = (9462/( sensor_value - 17 ))*2;
+[e = _distance -> * / -> -> 9462 `i `ui - -> _sensor_value `ui -> -> 17 `i `ui -> -> 2 `i `ui `uc ]
+[; ;main.c: 431: uart_send_byte(distance);
 "431
-[e $U 1146  ]
+[e ( _uart_send_byte (1 _distance ]
 "432
 }
 [; ;main.c: 432: };
+[; ;main.c: 433: default:
 "433
+[e :U 1158 ]
+[; ;main.c: 434: {
+"434
+{
+[; ;main.c: 436: break;
+"436
+[e $U 1146  ]
+"437
 }
-[; ;main.c: 433: };
+[; ;main.c: 437: };
+"438
+}
+[; ;main.c: 438: };
 [e $U 1146  ]
 "375
 [e :U 1147 ]
@@ -8867,106 +8875,106 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -> -> 42 `i `uc 1151
  , $ -> -> 50 `i `uc 1157
  1158 ]
-"433
+"438
 [e :U 1146 ]
-"434
+"439
 }
 [e :U 1145 ]
-[; ;main.c: 434: }
-[; ;main.c: 437: length = ToMainLow_recvmsg(10, &msgtype, (void *) msgbuffer);
-"437
+[; ;main.c: 439: }
+[; ;main.c: 442: length = ToMainLow_recvmsg(10, &msgtype, (void *) msgbuffer);
+"442
 [e = _length ( _ToMainLow_recvmsg (3 , , -> -> 10 `i `uc &U _msgtype -> &U _msgbuffer `*v ]
-[; ;main.c: 438: if (length < 0) {
-"438
+[; ;main.c: 443: if (length < 0) {
+"443
 [e $ ! < -> _length `i -> 0 `i 1159  ]
 {
-[; ;main.c: 440: if (length != -4) {
-"440
+[; ;main.c: 445: if (length != -4) {
+"445
 [e $ ! != -> _length `i -U -> 4 `i 1160  ]
 {
-"442
+"447
 }
 [e :U 1160 ]
-"443
+"448
 }
-[; ;main.c: 442: }
-[; ;main.c: 443: } else {
+[; ;main.c: 447: }
+[; ;main.c: 448: } else {
 [e $U 1161  ]
 [e :U 1159 ]
 {
-[; ;main.c: 444: switch (msgtype) {
-"444
+[; ;main.c: 449: switch (msgtype) {
+"449
 [e $U 1163  ]
 {
-[; ;main.c: 445: case 11:
-"445
-[e :U 1164 ]
-[; ;main.c: 446: {
-"446
-{
-[; ;main.c: 447: timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
-"447
-[e ( _timer1_lthread (4 , , , &U _t1thread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
-[; ;main.c: 448: break;
-"448
-[e $U 1162  ]
-"449
-}
-[; ;main.c: 449: };
-[; ;main.c: 450: case 30:
+[; ;main.c: 450: case 11:
 "450
-[e :U 1165 ]
+[e :U 1164 ]
+[; ;main.c: 451: {
 "451
-[e :U 1166 ]
-[; ;main.c: 451: case 31:
-[; ;main.c: 452: {
-"452
 {
-[; ;main.c: 453: uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+[; ;main.c: 452: timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
+"452
+[e ( _timer1_lthread (4 , , , &U _t1thread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
+[; ;main.c: 453: break;
 "453
-[e ( _uart_lthread (4 , , , &U _uthread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
-[; ;main.c: 454: break;
-"454
 [e $U 1162  ]
-"455
+"454
 }
-[; ;main.c: 455: };
-[; ;main.c: 456: default:
+[; ;main.c: 454: };
+[; ;main.c: 455: case 30:
+"455
+[e :U 1165 ]
 "456
-[e :U 1167 ]
+[e :U 1166 ]
+[; ;main.c: 456: case 31:
 [; ;main.c: 457: {
 "457
 {
+[; ;main.c: 458: uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+"458
+[e ( _uart_lthread (4 , , , &U _uthread_data -> _msgtype `i -> _length `i &U _msgbuffer ]
 [; ;main.c: 459: break;
 "459
 [e $U 1162  ]
 "460
 }
 [; ;main.c: 460: };
+[; ;main.c: 461: default:
 "461
-}
-[; ;main.c: 461: };
+[e :U 1167 ]
+[; ;main.c: 462: {
+"462
+{
+[; ;main.c: 464: break;
+"464
 [e $U 1162  ]
-"444
+"465
+}
+[; ;main.c: 465: };
+"466
+}
+[; ;main.c: 466: };
+[e $U 1162  ]
+"449
 [e :U 1163 ]
 [e [\ _msgtype , $ -> -> 11 `i `uc 1164
  , $ -> -> 30 `i `uc 1165
  , $ -> -> 31 `i `uc 1166
  1167 ]
-"461
+"466
 [e :U 1162 ]
-"462
+"467
 }
 [e :U 1161 ]
-"463
+"468
 }
 [e :U 1140 ]
 "357
 [e $U 1141  ]
 [e :U 1142 ]
-[; ;main.c: 462: }
-[; ;main.c: 463: }
-[; ;main.c: 465: }
-"465
+[; ;main.c: 467: }
+[; ;main.c: 468: }
+[; ;main.c: 470: }
+"470
 [e :UE 1139 ]
 }

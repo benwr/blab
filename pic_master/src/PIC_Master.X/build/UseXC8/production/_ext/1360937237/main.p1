@@ -8687,9 +8687,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 384: myByte1 = uart_get_byte();
 "384
 [e = _myByte1 ( _uart_get_byte ..  ]
-[; ;main.c: 385: myByte2 = uart_get_byte();
-"385
-[e = _myByte2 ( _uart_get_byte ..  ]
 "388
 }
 [e :U 1145 ]
@@ -8778,9 +8775,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 435: msgbuffer[0] = myByte1;
 "435
 [e = *U + &U _msgbuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux _myByte1 ]
-[; ;main.c: 436: msgbuffer[1] = myByte2;
+[; ;main.c: 436: msgbuffer[1] = 0;
 "436
-[e = *U + &U _msgbuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux _myByte2 ]
+[e = *U + &U _msgbuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux -> -> 0 `i `uc ]
 [; ;main.c: 437: break;
 "437
 [e $U 1155  ]
