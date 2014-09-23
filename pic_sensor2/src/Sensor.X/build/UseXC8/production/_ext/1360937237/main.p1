@@ -8834,12 +8834,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 424: LATDbits.LD6 ^= 0x1;
 "424
 [e =^ . . _LATDbits 7 1 -> -> 1 `i `uc ]
-[; ;main.c: 425: uart_send_byte(msgbuffer[0]);
+[; ;main.c: 425: uart_send_byte(msgbuffer[1]);
 "425
-[e ( _uart_send_byte (1 *U + &U _msgbuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux ]
-[; ;main.c: 426: uart_send_byte(msgbuffer[1]);
-"426
 [e ( _uart_send_byte (1 *U + &U _msgbuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux ]
+[; ;main.c: 426: uart_send_byte(msgbuffer[0]);
+"426
+[e ( _uart_send_byte (1 *U + &U _msgbuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _msgbuffer `ui `ux ]
 "427
 }
 [; ;main.c: 427: };
