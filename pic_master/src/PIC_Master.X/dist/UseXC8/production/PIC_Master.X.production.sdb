@@ -970,26 +970,26 @@
 "194
 [v main@ic ic `S413  1 a 28 58 ]
 "195
-[v main@msgbuffer msgbuffer `[11]uc  1 a 11 37 ]
+[v main@msgbuffer msgbuffer `[11]uc  1 a 11 36 ]
 [s S426 __timer1_thread_struct 2 `ui 1 msgcount 2 0 ]
 "198
 [v main@t1thread_data t1thread_data `S426  1 a 2 54 ]
 [s S428 __timer0_thread_struct 2 `i 1 data 2 0 ]
 "199
-[v main@t0thread_data t0thread_data `S428  1 a 2 50 ]
+[v main@t0thread_data t0thread_data `S428  1 a 2 49 ]
 [s S424 __uart_thread_struct 2 `i 1 data 2 0 ]
 "197
-[v main@uthread_data uthread_data `S424  1 a 2 48 ]
+[v main@uthread_data uthread_data `S424  1 a 2 47 ]
 "190
 [v main@length length `c  1 a 1 57 ]
 "191
 [v main@msgtype msgtype `uc  1 a 1 56 ]
-"361
-[v main@myByte1 myByte1 `uc  1 a 1 53 ]
-"192
-[v main@last_reg_recvd last_reg_recvd `uc  1 a 1 52 ]
 "362
-[v main@myByte2 myByte2 `uc  1 a 1 36 ]
+[v main@myByte2 myByte2 `uc  1 a 1 53 ]
+"361
+[v main@myByte1 myByte1 `uc  1 a 1 52 ]
+"192
+[v main@last_reg_recvd last_reg_recvd `uc  1 a 1 51 ]
 "200
 [v main@alex_counter alex_counter `uc  1 a 1 35 ]
 "498

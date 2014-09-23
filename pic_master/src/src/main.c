@@ -382,7 +382,7 @@ void main(void) {
         if( uart_num_bytes_in_recv_buffer() == 2 )
         {
              myByte1 = uart_get_byte();
-             //myByte2 = uart_get_byte();
+             myByte2 = uart_get_byte();
             //myByte = 0x11;
             //blip();
         }
@@ -433,7 +433,7 @@ void main(void) {
                         {
                             length = 2 ;
                             msgbuffer[0] = myByte1;
-                            msgbuffer[1] = 0;//myByte2;
+                            msgbuffer[1] = myByte2;
                             break;
                         }
                         case 0xa8:

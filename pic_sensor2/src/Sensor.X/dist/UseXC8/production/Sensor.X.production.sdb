@@ -1049,7 +1049,7 @@
 [v main@msgtype msgtype `uc  1 a 1 52 ]
 "191
 [v main@last_reg_recvd last_reg_recvd `uc  1 a 1 46 ]
-"470
+"471
 } 0
 "54 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_sensor2\src/src/my_uart.c
 [v _uart_send_byte uart_send_byte `(i  1 e 2 0 ]
