@@ -382,8 +382,6 @@ void main(void) {
         {
              myByte1 = uart_get_byte();
              myByte2 = uart_get_byte();
-             myByte1 <<= 6;
-             myByte1 |= myByte2 >> 2;
              //myByte1 = (unsigned char) (((unsigned short) topByte << 6) + (bottomByte >> 2));
              //myByte2 = 0xff;
             //myByte = 0x11;
