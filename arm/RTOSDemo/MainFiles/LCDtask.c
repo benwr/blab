@@ -1,3 +1,6 @@
+#define BLAB_DEBUG
+#include "debug.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -28,12 +31,21 @@
 // Length of the queue to this task
 #define vtLCDQLen 10 
 // a timer message -- not to be printed
-#define LCDMsgTypeTimer 1
+//#define LCDMsgTypeTimer 1
 // a message to be printed
-#define LCDMsgTypePrint 2
+//#define LCDMsgTypePrint 2
 // actual data structure that is sent in a message
+
+#define lcdNUM_SMALL_LINES 30
+
+typedef enum __LCDMsgType {
+    LCDMsgTypeTimer,
+    LCDMsgTypePrint,
+    LCDMsgTypePoint
+} LCDMsgType;
+
 typedef struct __vtLCDMsg {
-	uint8_t msgType;
+	LCDMsgType msgType;
 	uint8_t	length;	 // Length of the message to be printed
 	uint8_t buf[vtLCDMaxLen+1]; // On the way in, message to be sent, on the way out, message received (if any)
 } vtLCDMsg;
@@ -55,8 +67,15 @@ void StartLCDTask(vtLCDStruct *ptr, unsigned portBASE_TYPE uxPriority)
 		VT_HANDLE_FATAL_ERROR(0);
 	}
 	/* Start the task */
-	portBASE_TYPE retval;
-	if ((retval = xTaskCreate( vLCDUpdateTask, ( signed char * ) "LCD", lcdSTACK_SIZE, (void*)ptr, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
+	portBASE_TYPE retval = xTaskCreate(
+            vLCDUpdateTask,
+            (signed char *) "LCD",
+            lcdSTACK_SIZE,
+            (void *) ptr,
+            uxPriority,
+            (xTaskHandle *) NULL);
+
+	if (retval != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
 }
@@ -90,6 +109,23 @@ portBASE_TYPE SendLCDPrintMsg(vtLCDStruct *lcdData,int length,char *pString,port
 	}
 	lcdBuffer.length = strnlen(pString,vtLCDMaxLen);
 	lcdBuffer.msgType = LCDMsgTypePrint;
+	strncpy((unsigned char *)lcdBuffer.buf,pString,vtLCDMaxLen);
+	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
+}
+
+portBASE_TYPE SendLCDPointMsg(vtLCDStruct *lcdData,int length,uint8_t *pString,portTickType ticksToBlock)
+{
+	if (lcdData == NULL) {
+		VT_HANDLE_FATAL_ERROR(0);
+	}
+	vtLCDMsg lcdBuffer;
+
+	if (length > vtLCDMaxLen) {
+		// no room for this message
+		VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
+	}
+	lcdBuffer.length = strnlen(pString,vtLCDMaxLen);
+	lcdBuffer.msgType = LCDMsgTypePoint;
 	strncpy((char *)lcdBuffer.buf,pString,vtLCDMaxLen);
 	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
 }
@@ -102,6 +138,12 @@ portTickType unpackTimerMsg(vtLCDMsg *lcdBuffer)
 	return(*ptr);
 }
 
+uint8_t getMsgPoint(vtLCDMsg *lcdBuffer)
+{
+    return lcdBuffer->buf[0];
+}
+
+
 int getMsgType(vtLCDMsg *lcdBuffer)
 {
 	return(lcdBuffer->msgType);
@@ -109,7 +151,7 @@ int getMsgType(vtLCDMsg *lcdBuffer)
 
 int getMsgLength(vtLCDMsg *lcdBuffer)
 {
-	return(lcdBuffer->msgType);
+	return(lcdBuffer->length);
 }
 
 void copyMsgString(char *target,vtLCDMsg *lcdBuffer,int targetMaxLen)
@@ -149,10 +191,8 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 	unsigned int x, y;
 	int i;
 	float hue=0, sat=0.2, light=0.2;
-	#elif LCD_EXAMPLE_OP==1
+	#else // if LCD_EXAMPLE_OP==1
 	unsigned char picIndex = 0;
-	#else
-	Bad definition
 	#endif
 	vtLCDMsg msgBuffer;
 	vtLCDStruct *lcdPtr = (vtLCDStruct *) pvParameters;
@@ -179,13 +219,35 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 	}
 	#endif
 
+    // Graph initialization
+    const unsigned graphXoff = 30;
+    const unsigned graphYoff = 10;
+    const unsigned graphWidth = 260;
+    const unsigned graphHeight = 160;
+    uint8_t graphVals[graphWidth];
+    for (i = 0; i < graphWidth; i++) {
+        graphVals[i] = 0;
+    }
+    uint8_t graphStart = 0;
+
 	/* Initialize the LCD and set the initial colors */
 	GLCD_Init();
-	tscr = Green; // may be reset in the LCDMsgTypeTimer code below
-	screenColor = Red; // may be reset in the LCDMsgTypeTimer code below
+	tscr = White; // may be reset in the LCDMsgTypeTimer code below
+	screenColor = Black; // may be reset in the LCDMsgTypeTimer code below
 	GLCD_SetTextColor(tscr);
 	GLCD_SetBackColor(screenColor);
 	GLCD_Clear(screenColor);
+    GLCD_ClearWindow(graphXoff - 1, graphYoff - 1, 1, graphHeight + 1, Blue);
+    GLCD_ClearWindow(graphXoff - 1, graphYoff + graphHeight + 1, graphWidth + 1, 1, Blue);
+    GLCD_DisplayString(22, 47, 0, (unsigned char*) "0min");
+    GLCD_DisplayString(22, 37, 0, (unsigned char*) "-1min");
+    GLCD_DisplayString(22, 27, 0, (unsigned char*) "-2min");
+    GLCD_DisplayString(22, 17, 0, (unsigned char*) "-3min");
+    GLCD_DisplayString(22, 7, 0, (unsigned char*) "-4min");
+    GLCD_DisplayString(22, 0, 0, (unsigned char*) "0.0m");
+    GLCD_DisplayString(14, 0, 0, (unsigned char*) "0.5m");
+    GLCD_DisplayString(8, 0, 0, (unsigned char*) "1.0m");
+    GLCD_DisplayString(2, 0, 0, (unsigned char*) "1.5m");
 
 	// Note that srand() & rand() require the use of malloc() and should not be used unless you are using
 	//   MALLOC_VERSION==1
@@ -193,7 +255,7 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 	srand((unsigned) 55); // initialize the random number generator to the same seed for repeatability
 	#endif
 
-	curLine = 5;
+	curLine = lcdNUM_SMALL_LINES - 1 ;
 	// This task should never exit
 	for(;;)
 	{	
@@ -226,23 +288,28 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 			// clear the line
 			GLCD_ClearLn(curLine,1);
 			// show the text
-			GLCD_DisplayString(curLine,0,1,(unsigned char *)lineBuffer);
+			GLCD_DisplayString(curLine,0,0,(unsigned char *)lineBuffer);
 			curLine++;
-			if (curLine == lcdNUM_LINES) {
-				curLine = 5;
+			if (curLine == lcdNUM_SMALL_LINES) {
+				curLine = lcdNUM_SMALL_LINES - 1;
 			}
 			break;
 		}
+        case LCDMsgTypePoint: {
+            graphVals[graphStart] =  getMsgPoint(&msgBuffer);
+            break;
+        }
 		case LCDMsgTypeTimer: {
 			// Note: if I cared how long the timer update was I would call my routine
 			//    unpackTimerMsg() which would unpack the message and get that value
 			// Each timer update will cause a circle to be drawn on the top half of the screen
 			//   as explained below
 			
-			if (timerCount == 0) {
+			if (timerCount % 2 == 0) {
 				/* ************************************************** */
 				// Find a new color for the screen by randomly (within limits) selecting HSL values
 				// This can be ignored unless you care about the color map
+                /*
 				#if MALLOC_VERSION==1
 				hue = rand() % 360;
 				sat = (rand() % 1024) / 1023.0; sat = sat * 0.5; sat += 0.5;
@@ -253,6 +320,7 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 				light+=0.03; if (light > 1.0) light = 0.20;
 				#endif
 				screenColor = hsl2rgb(hue,sat,light);
+                
 				// Now choose a complementary value for the text color
 				hue += 180;
 				if (hue >= 360) hue -= 360;
@@ -265,12 +333,14 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 				for(i = BUF_LEN; i--;) {
 					tbuffer[i] = screenColor;
 				}
+                */
 				// End of playing around with figuring out a random color
 				/* ************************************************** */
 
 				// clear the top half of the screen
-				GLCD_ClearWindow(0,0,320,120,screenColor); 
+				//GLCD_ClearWindow(0,0,320,120,screenColor); 
 
+                /*
 				// Now we are going to draw a circle in the buffer
 				// count is how many pixels are in the circle
 				int	count = 50;
@@ -296,15 +366,33 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 						if (y > ymax) ymax = y;
 						if (x < xmin) xmin = x;
 						if (y < ymin) ymin = y;
-						tbuffer[(y*((MAX_RADIUS*2)+1)) + x] = circleColor;
+						//tbuffer[(y*((MAX_RADIUS*2)+1)) + x] = circleColor;
 					}
 					val += inc;
 				}
-			} else {
+                */
+                //GLCD_ClearWindow(graphXoff, graphYoff, graphWidth, graphHeight, screenColor);
+                graphStart = (graphStart + 1) % graphWidth;
+
+                DEBUG_OUT(0xf);
+                for (i = 0; i < graphWidth; i++)
+                {
+                    unsigned index = (i + graphStart) % graphWidth;
+                    unsigned y = graphHeight - graphVals[index] + graphYoff;
+                    unsigned x = i + graphXoff;
+                    GLCD_ClearWindow(x, graphYoff, 1, graphHeight, screenColor);
+                    GLCD_PutPixel(x, y);
+                }
+                DEBUG_OUT(0x0);
+
+
+			}// else {
+                
 				// We are going to write out the buffer
 				//   back onto the screen at a new location
 				// This is *very* fast
 
+                /*
 				// First, clear out where we were
 				GLCD_ClearWindow(xoffset,yoffset,xmax+1-xmin,ymax+1-ymin,screenColor);
 				// Pick the new location
@@ -317,10 +405,13 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 				#endif
 				// Draw the bitmap
 				GLCD_Bitmap(xoffset,yoffset,xmax+1-xmin,ymax-1-ymin,(unsigned char *)buffer);
-			}
+                */
+
+
+			//}
 			
 			timerCount++;
-			if (timerCount >= 40) {	  
+			if (timerCount >= 100) {	  
 				// every so often, we reset timer count and start again
 				// This isn't for any important reason, it is just to for this example code to do "stuff"
 				timerCount = 0;

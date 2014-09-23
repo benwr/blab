@@ -7,7 +7,7 @@ static uart_packet_type uart_current_packet;
 static unsigned char sent_counter;
 
 
-
+/*
 void send_uart_message( unsigned char * message_ptr )
 {
     //Set header equal to counter value
@@ -24,3 +24,4 @@ void send_uart_message( unsigned char * message_ptr )
 
 }
 
+*/

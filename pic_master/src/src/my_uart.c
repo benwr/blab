@@ -20,7 +20,7 @@ static unsigned char receive_counter;
 void send_uart_message( unsigned char * message_ptr )
 {
     //Send header as counter value
-    uart_send_byte( sent_counter )
+    uart_send_byte( sent_counter );
     sent_counter++;
 
     //Send data and calculate checksum
@@ -61,12 +61,12 @@ unsigned char receive_uart_message( unsigned char * message_ptr )
         }
         else
         {
-            uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ]
+            uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
             uart_recv_packet.bytes_received += 1;
         }
     }
 
-
+    return 0x00; //change this
 }
 
 //Alex: Configure UART for transmit
@@ -208,6 +208,13 @@ int uart_receive_buffer_empty()
         return 0;
     }
 }
+
+unsigned char uart_num_bytes_in_recv_buffer()
+{
+    return uart_receive_buffer.size;
+}
+
+
 #endif  //Alex: End definitions for the Mk IV
 
 

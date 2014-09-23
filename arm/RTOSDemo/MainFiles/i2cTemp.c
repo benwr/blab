@@ -104,11 +104,19 @@ uint8_t getValue(vtTempMsg *Buffer)
 	return(*ptr);
 }
 
+uint16_t getShortValue(vtTempMsg *Buffer)
+{
+    uint16_t val = ((uint16_t) Buffer->buf[0]) << 8;
+    val += Buffer->buf[1];
+    return val;
+}
+
+
 // I2C commands for the temperature sensor
 	const uint8_t i2cCmdInit[]= {0xAC,0x00};
 	const uint8_t i2cCmdStartConvert[]= {0xEE};
 	const uint8_t i2cCmdStopConvert[]= {0x22};
-	const uint8_t i2cCmdReadVals[]= {0xAB};
+	const uint8_t i2cCmdReadVals[]= {0xAA};
 	const uint8_t i2cCmdReadCnt[]= {0xA8};
 	const uint8_t i2cCmdReadSlope[]= {0xA9};
 // end of I2C command definitions
@@ -122,8 +130,9 @@ const uint8_t fsmStateTempRead3 = 4;
 // This is the actual task that is run
 static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 {
-	float temperature = 0.0;
-	float countPerC = 100.0, countRemain=0.0;
+	//float temperature = 0.0;
+    uint8_t value = 0x66;
+	//float countPerC = 100.0, countRemain=0.0;
 	// Get the parameters
 	vtTempStruct *param = (vtTempStruct *) pvParameters;
 	// Get the I2C device pointer
@@ -199,7 +208,7 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		case vtI2CMsgTypeTempRead1: {
 			if (currentState == fsmStateTempRead1) {
 				currentState = fsmStateTempRead2;
-				temperature = getValue(&msgBuffer);
+				value = getValue(&msgBuffer);
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
@@ -209,7 +218,7 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		case vtI2CMsgTypeTempRead2: {
 			if (currentState == fsmStateTempRead2) {
 				currentState = fsmStateTempRead3;
-				countRemain = getValue(&msgBuffer);
+				// something =  getValue(&msgBuffer);
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
@@ -219,25 +228,37 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		case vtI2CMsgTypeTempRead3: {
 			if (currentState == fsmStateTempRead3) {
 				currentState = fsmStateTempRead1;
-				countPerC = getValue(&msgBuffer);
 
 				// Now have all of the values, so compute the temperature and send to the LCD Task
 				// Do the accurate temperature calculation
-				temperature += -0.25 + ((countPerC-countRemain)/countPerC);
 
-				#if PRINTF_VERSION == 1
-				printf("Temp %f F (%f C)\n",(32.0 + ((9.0/5.0)*temperature)), (temperature));
-				sprintf(lcdBuffer,"T=%6.2fF (%6.2fC)",(32.0 + ((9.0/5.0)*temperature)),temperature);
-				#else
+                if (value < 20 || value > 150)
+                {
+                    printf("out of bounds");
+                    sprintf(lcdBuffer, "out of bounds");
+                    value = 0xff;
+                } else {
+                    printf("%03u cm       ", (unsigned int) value);
+                    sprintf(lcdBuffer,"%03u cm        ", (unsigned int) value);
+                }
+
+				//#if PRINTF_VERSION == 1
+				//#else
 				// we do not have full printf (so no %f) and therefore need to print out integers
-				printf("Temp %d F (%d C)\n",lrint(32.0 + ((9.0/5.0)*temperature)), lrint(temperature));
-				sprintf(lcdBuffer,"T=%d F (%d C)",lrint(32.0 + ((9.0/5.0)*temperature)),lrint(temperature));
+				//printf("Temp %d F (%d C)\n",lrint(32.0 + ((9.0/5.0)*temperature)), lrint(temperature));
+				//sprintf(lcdBuffer,"T=%d F (%d C)",lrint(32.0 + ((9.0/5.0)*temperature)),lrint(temperature));
 				//sprintf(lcdBuffer, "Count: %d", lrint(temperature));
-				#endif
+				//#endif
+                
+                uint8_t lcdValue[1] = {value};
 				if (lcdData != NULL) {
 					if (SendLCDPrintMsg(lcdData,strnlen(lcdBuffer,vtLCDMaxLen),lcdBuffer,portMAX_DELAY) != pdTRUE) {
 						VT_HANDLE_FATAL_ERROR(0);
 					}
+
+                    if (SendLCDPointMsg(lcdData, 1, lcdValue, portMAX_DELAY) != pdTRUE) {
+                        VT_HANDLE_FATAL_ERROR(0);
+                    }
 				}
 			} else {
 				// unexpectedly received this message

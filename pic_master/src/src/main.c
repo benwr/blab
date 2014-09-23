@@ -197,7 +197,6 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
-    char alex_counter = 0;
 
     #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -358,7 +357,8 @@ void main(void) {
 
     uart_send_byte(0x55);
 
-    unsigned char myByte = 0x44;
+    unsigned char myByte1 = 0x44;
+    unsigned char myByte2 = 0x44;
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
@@ -378,14 +378,19 @@ void main(void) {
         // an idle mode)
         //block_on_To_msgqueues();
 
-        if( uart_receive_buffer_empty() )
+        if( uart_num_bytes_in_recv_buffer() == 2 )
         {
+             myByte1 = uart_get_byte();
+             myByte2 = uart_get_byte();
+             //myByte1 = (unsigned char) (((unsigned short) topByte << 6) + (bottomByte >> 2));
+             //myByte2 = 0xff;
             //myByte = 0x11;
+            //blip();
         }
-        else
-        {
-            myByte = uart_get_byte();
-        }
+        
+
+        
+
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -428,8 +433,8 @@ void main(void) {
                         case 0xaa:
                         {
                             length = 2 ;
-                            msgbuffer[0] = myByte;
-                            msgbuffer[1] = myByte;
+                            msgbuffer[0] = myByte1;
+                            msgbuffer[1] = myByte2;
                             break;
                         }
                         case 0xa8:
