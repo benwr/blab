@@ -422,8 +422,14 @@ void main(void) {
                 case MSGT_AD_CONVERTER_COMPLETE:
                 {
                     LATDbits.LD6 ^= 0x1;
-                    uart_send_byte(msgbuffer[1]);
-                    uart_send_byte(msgbuffer[0]);
+
+                    unsigned short sensor_value = msgbuffer[1];
+                    sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
+
+                    unsigned char distance = (18924/( sensor_value - 17 ));
+
+                    uart_send_byte(distance);
+                    uart_send_byte(0x41);
                 };
                 default:
                 {
