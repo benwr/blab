@@ -17,7 +17,6 @@
 #include "timer1_thread.h"
 #include "timer0_thread.h"
 #include "debug.h"
-#include "communication.h"
 
 
 
@@ -190,7 +189,6 @@ void main(void) {
     signed char length;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
-    //uart_comm uc;
     i2c_comm ic;
     unsigned char msgbuffer[MSGLEN + 1];
     unsigned char i;
@@ -289,7 +287,8 @@ void main(void) {
     // They *are* changed in the timer interrupt handlers if those timers are
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
-    i2c_configure_slave(0x9E);
+    //i2c_configure_slave(0x9E);
+    i2c_configure_master(0x66);
     #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
@@ -330,7 +329,7 @@ void main(void) {
 
     // Alex: Set registers for debug output
     #ifdef DEBUG_MODE
-    TRISD = 0x00;
+    debug_configure();
     #endif
 
     //uart_send_byte( 0x50 );
@@ -347,18 +346,38 @@ void main(void) {
     _asm
     goto 0x08
     _endasm;
-     */
-
-
-    //blip();
+     */    
 
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-    uart_send_byte(0x55);
+    unsigned char msg[3] = {0x55,0xea,0x29};
 
-    unsigned char myByte1 = 0x44;
-    unsigned char myByte2 = 0x44;
+    if ( send_uart_message( 2, msg ) == SEND_UART_MESSAGE_Q_FULL )
+    {
+        //blip();
+    }
+    unsigned char msg2[3] = {0x11,0xaa,0x29};
+    send_uart_message( 2, msg2 );
+    unsigned char msg3[3] = {0x22,0xbb,0x29};
+    send_uart_message( 2, msg3 );
+    unsigned char msg4[3] = {0x33,0xcc,0x29};
+    send_uart_message( 2, msg4 );
+    
+
+    while(1)
+    {
+        
+        i2c_master_send(3, msg2);
+        i2c_master_send(3, msg3);
+        i2c_master_send(3, msg4);
+
+    }
+    
+    
+
+    unsigned char myByte1 = 0x54;
+    unsigned char myByte2 = 0x45;
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
@@ -378,16 +397,7 @@ void main(void) {
         // an idle mode)
         //block_on_To_msgqueues();
 
-        if( uart_num_bytes_in_recv_buffer() == 2 )
-        {
-             myByte1 = uart_get_byte();
-             myByte2 = uart_get_byte();
-             //myByte1 = (unsigned char) (((unsigned short) topByte << 6) + (bottomByte >> 2));
-             //myByte2 = 0xff;
-            //myByte = 0x11;
-            //blip();
-        }
-        
+                
 
         
 
@@ -453,7 +463,7 @@ void main(void) {
 
                         }
                     };
-                    start_i2c_slave_reply(length, msgbuffer);
+                    //start_i2c_slave_reply(length, msgbuffer);
                     break;
                 };
                 default:

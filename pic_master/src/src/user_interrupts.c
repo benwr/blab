@@ -15,11 +15,7 @@
 
 void timer0_int_handler() {
 
-    #ifdef DEBUG_MODE
-    //Alex: Set Debug output
-    LATD = DEBUG_TIMER0_INTERRUPT;
-
-    #endif
+    
 
     unsigned int val;
     int length, msgtype;
@@ -36,11 +32,7 @@ void timer0_int_handler() {
         ToMainHigh_sendmsg(sizeof (val), MSGT_TIMER0, (void *) &val);
     }
 
-    #ifdef DEBUG_MODE
-    //Alex: Set Debug output
-    LATD = DEBUG_NONE;
-
-    #endif
+    
 }
 
 // A function called by the interrupt handler
@@ -48,12 +40,6 @@ void timer0_int_handler() {
 
 void timer1_int_handler() {
     //uart_send_byte( 0x53 );
-
-    #ifdef DEBUG_MODE
-    //Alex: Set Debug output
-    LATD = DEBUG_TIMER1_INTERRUPT;
-
-    #endif
 
     unsigned int result;
 
@@ -68,9 +54,4 @@ void timer1_int_handler() {
     // reset the timer
     WriteTimer1(0);
 
-    #ifdef DEBUG_MODE
-    //Alex: Set Debug output
-    LATD = DEBUG_NONE;
-
-    #endif
 }
