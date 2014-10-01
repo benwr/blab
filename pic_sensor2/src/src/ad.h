@@ -8,9 +8,11 @@
 #ifndef ADCONFIG_H
 #define	ADCONFIG_H
 
+/*
 typedef struct {
     unsigned char distance1;
 } SensorData;
+*/
 
 void init_registers(void);
 //void a_to_d_converter_handler(void);
@@ -20,6 +22,7 @@ char rndSense(unsigned int index);
 #endif	/* ADCONFIG_H */
 
 
-#define SIDE_CMD 0xa
-#define FRONT_CMD 0xb
-#define VENTRIL_CMD 0xc
+#define SIDE_CMD 0xa5
+#define FRONT_CMD 0xb5
+#define VENTRIL_CMD 0xc5
+#define SENS_CMD_SIZE 6

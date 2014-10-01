@@ -321,8 +321,10 @@ void main(void) {
 
     
     init_registers();//Luke's code
-    //SensorData myData;
-    unsigned char mymsgbuf [10]= {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    //[0] is the cmd/id, [1] is a recerved byte, [2-5] are sensor data values
+    unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
+    unsigned char bckmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
+    unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
    
 
     // printf() is available, but is not advisable.  It goes to the UART pin
@@ -384,9 +386,7 @@ void main(void) {
                             length = 4;
                             msgbuffer[0] = 0x55;
                             msgbuffer[1] = 0xAA;
-                            //msgbuffer[2] = rndSense(cntr);
-                            //msgbuffer[3] = rndSense(cntr + 3);
-                            //cntr++;
+
 
                             break;
                         }
@@ -425,18 +425,33 @@ void main(void) {
 
                     unsigned char distance = (18924/( sensor_value - 17 ));
                     ///myData.distance1 = (18924/( sensor_value - 17 ));
-                    mymsgbuf[0] = SIDE_CMD;
-                    mymsgbuf[1] = 0x00;
-                    mymsgbuf[2] = distance;
-                    mymsgbuf[3] = distance;
-                    mymsgbuf[4] = distance;
-                    mymsgbuf[5] = distance;
+                    fntmsgbuf[0] = SIDE_CMD;
+                    fntmsgbuf[1] = 0x00;
+                    fntmsgbuf[2] = distance;
+                    fntmsgbuf[3] = distance;
+                    fntmsgbuf[4] = distance;
+                    fntmsgbuf[5] = distance;
+
+                    //signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
+
+                    bckmsgbuf[0] = FRONT_CMD;
+                    bckmsgbuf[1] = 0x00;
+                    bckmsgbuf[2] = distance;
+                    bckmsgbuf[3] = distance;
+                    bckmsgbuf[4] = 0x00;
+                    bckmsgbuf[5] = 0x00;
+
+                    //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
+
+                    vntmsgbuf[0] != VENTRIL_CMD;
+                    vntmsgbuf[1] = 0x00;
+                    vntmsgbuf[2] = distance;
+                    vntmsgbuf[3] = distance;
+                    vntmsgbuf[4] = distance;
+                    vntmsgbuf[5] = 0x00;
 
 
-                    signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
-
-                    //uart_send_byte(distance);
-                    //uart_send_byte(0x41);
+                    //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
                 };
                 default:
                 {
