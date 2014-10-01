@@ -19,3 +19,17 @@ arm/FreeRTOS/*
 arm/LPCUSB/*
 arm/NXPDrivers/*
 arm/SystemFiles/*
+
+pic_master/src/PIC_Master.X/nbproject/configurations.xml
+
+pic_master/src/PIC_Master.X/nbproject/Makefile-genesis.properties
+
+pic_master/src/PIC_Master.X/nbproject/Makefile-local-UseXC8.mk
+
+*.mk
+
+pic_master/src/PIC_Master.X/nbproject/Makefile-UseXC8.mk
+
+pic_master/src/PIC_Master.X/nbproject/private/configurations.xml
+
+pic_master/src/PIC_Master.X/nbproject/project.xml
