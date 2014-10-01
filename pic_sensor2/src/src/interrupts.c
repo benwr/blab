@@ -89,6 +89,8 @@ void InterruptHandlerHigh() {
     if (PIR1bits.SSPIF) {
         // clear the interrupt flag
         PIR1bits.SSPIF = 0;
+
+        LATBbits.LB5 ^= 0x1;
         // call the handler
         i2c_int_handler();
     }
@@ -136,24 +138,26 @@ void InterruptHandlerLow() {
     // check to see if we have an interrupt on USART RX
     if (PIR1bits.RCIF) {
         PIR1bits.RCIF = 0; //clear interrupt flag
-        uart_receive_byte();
+        //uart_receive_byte();
     }
 
     //Check interrupt flag for uart transmit
     if (PIR1bits.TX1IF && PIE1bits.TX1IE)
     {
+        /*
         #ifdef DEBUG_MODE
         //Alex: Set Debug output
         LATDbits.LATD3 = 1;
         LATDbits.LATD3 = 0;
         #endif
 
+
         if( !uart_send_buffer_empty() )
         {
             uart_transmit_byte();
         }
         //PIR1bits.TX1IF = 0;
-
+        */
     }
 }
 

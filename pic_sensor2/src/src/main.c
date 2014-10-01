@@ -11,7 +11,7 @@
 #endif
 #include "interrupts.h"
 #include "messages.h"
-#include "my_uart.h"
+//#include "my_uart.h"
 #include "my_i2c.h"
 #include "uart_thread.h"
 #include "timer1_thread.h"
@@ -257,7 +257,7 @@ void main(void) {
 #ifdef __USE18F46J50
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,50000);
 #else
-    OpenTimer1(TIMER_INT_ON & T1_PS_1_8 & T1_16BIT_RW & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
+    OpenTimer1(TIMER_INT_ON & T1_PS_1_2 & T1_16BIT_RW & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
 #endif
 #endif
 
@@ -310,7 +310,7 @@ void main(void) {
     // Peripheral interrupts can have their priority set to high or low
     // enable high-priority interrupts and low-priority interrupts
     enable_interrupts();
-    uart_configure();
+    //uart_configure();
 
     /* Junk to force an I2C interrupt in the simulator (if you wanted to)
     PIR1bits.SSPIF = 1;
@@ -321,26 +321,9 @@ void main(void) {
 
     
     init_registers();//Luke's code
-    /*
-    //Configuring the A/D converter
-    TRISAbits.TRISA0 =0x0;//Output on PIN RA0
-
-    ADCON0bits.VCFG1 = 0x0;
-    ADCON0bits.VCFG0 = 0x0;
-    ADCON0bits.CHS = 0xa;
-    ADCON0bits.GO_NOT_DONE = 0x0;
-
-    ADCON1bits.ADFM = 0x1;//Right justified
-    ADCON1bits.ADCAL = 0x0;//Normal A/D Converter operation
-    ADCON1bits.ACQT = 0x7;//20 TAD
-    ADCON1bits.ADCS = 0x6;//Fosc/64
-
-    ADCON0bits.ADON = 0x1;//Activate
-
-    PIR1bits.ADIF = 0x0;
-    PIE1bits.ADIE = 0x1;//Enables the A/D interrupt
-    INTCONbits.GIE = 0x1;//Enables all unmasked interrupts
-    */
+    //SensorData myData;
+    unsigned char mymsgbuf [10]= {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+   
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
@@ -398,9 +381,13 @@ void main(void) {
                     switch (last_reg_recvd) {
                         case 0xaa:
                         {
-                            length = 2;
+                            length = 4;
                             msgbuffer[0] = 0x55;
                             msgbuffer[1] = 0xAA;
+                            //msgbuffer[2] = rndSense(cntr);
+                            //msgbuffer[3] = rndSense(cntr + 3);
+                            //cntr++;
+
                             break;
                         }
                         case 0xa8:
@@ -421,15 +408,35 @@ void main(void) {
                 };
                 case MSGT_AD_CONVERTER_COMPLETE:
                 {
+                #ifdef __USE18F26J50
+                #ifdef DEBUG
                     LATDbits.LD6 ^= 0x1;
+                #endif
+                #endif
+
+                #ifdef __USE18F45J10
+                //#ifdef DEBUG
+                    LATBbits.LB6 ^= 0x1;
+                //#endif
+                #endif
 
                     unsigned short sensor_value = msgbuffer[1];
                     sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
 
                     unsigned char distance = (18924/( sensor_value - 17 ));
+                    ///myData.distance1 = (18924/( sensor_value - 17 ));
+                    mymsgbuf[0] = SIDE_CMD;
+                    mymsgbuf[1] = 0x00;
+                    mymsgbuf[2] = distance;
+                    mymsgbuf[3] = distance;
+                    mymsgbuf[4] = distance;
+                    mymsgbuf[5] = distance;
 
-                    uart_send_byte(distance);
-                    uart_send_byte(0x41);
+
+                    signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
+
+                    //uart_send_byte(distance);
+                    //uart_send_byte(0x41);
                 };
                 default:
                 {

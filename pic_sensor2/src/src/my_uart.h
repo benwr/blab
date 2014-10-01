@@ -45,7 +45,7 @@ int uart_send_buffer_empty();
 unsigned char uart_get_byte();
 
 //Alex: Receive a byte from the uart hardware recieve buffer; interrupt should call this only
-void uart_receive_byte();
+//void uart_receive_byte();
 
 //Alex: Return 1 if UART recieve buffer is empty, other wise 0
 int uart_receive_buffer_empty();

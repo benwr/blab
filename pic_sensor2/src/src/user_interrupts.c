@@ -23,6 +23,9 @@ void timer0_int_handler() {
 #ifdef __USE18F2680
     LATBbits.LATB0 = !LATBbits.LATB0;
 #endif
+    #ifdef __USE18F45J10
+    LATBbits.LB7 ^= 0x1;
+    #endif
     // reset the timer
     WriteTimer0(0);
     // try to receive a message and, if we get one, echo it back
@@ -38,8 +41,11 @@ void timer0_int_handler() {
 void timer1_int_handler() {
     unsigned int result;
 
-
+    #ifdef __USE18F26J50
+        #ifdef DEBUG
     LATAbits.LA0 ^= 0x1;//Test to see if the handler works.
+        #endif
+    #endif
 
     ADCON0bits.GO_NOT_DONE = 1;////////////////////////////////////Needed to activate the A/D converter interupt
 
