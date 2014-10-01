@@ -67,7 +67,7 @@ void a_to_d_converter_handler(void) {
     #endif
 #endif
 #ifdef __USE18F45J10
-     LATBbits.LB5 ^= 0x1;
+     //LATBbits.LB5 ^= 0x1;
 #endif
     //mybytes = mybytes | (ADRESH<<8);
     //mybytes = mybytes | ADRESL;

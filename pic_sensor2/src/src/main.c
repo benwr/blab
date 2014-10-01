@@ -323,7 +323,7 @@ void main(void) {
     init_registers();//Luke's code
     //[0] is the cmd/id, [1] is a recerved byte, [2-5] are sensor data values
     unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
-    unsigned char bckmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
+    unsigned char sidmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
     unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
    
 
@@ -373,15 +373,17 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
-                    if( MsgQ_BStatus == MSGSEND_OKAY){
-                        MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, bckmsgbuf);
-
+                    if(msgbuffer[0] == 0xff){
+                        //LATBbits.LB6 ^= 0x1;
+                        signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, sidmsgbuf);
                         if( MsgQ_BStatus == MSGSEND_OKAY){
-                            MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, bckmsgbuf);
+                            MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
+
+                            if( MsgQ_BStatus == MSGSEND_OKAY){
+                                MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, vntmsgbuf);
+                            }
                         }
                     }
-
                     /*
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
                     // I recommend that you handle it completely inside the i2c interrupt handler
@@ -427,7 +429,7 @@ void main(void) {
 
                 #ifdef __USE18F45J10
                 //#ifdef DEBUG
-                    LATBbits.LB6 ^= 0x1;
+                    //LATBbits.LB6 ^= 0x1;
                 //#endif
                 #endif
 
@@ -440,17 +442,17 @@ void main(void) {
                     fntmsgbuf[1] = 0x00;
                     fntmsgbuf[2] = distance;
                     fntmsgbuf[3] = distance;
-                    fntmsgbuf[4] = distance;
-                    fntmsgbuf[5] = distance;
+                    fntmsgbuf[4] = 0x00;
+                    fntmsgbuf[5] = 0x00;
 
                     //signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
 
-                    bckmsgbuf[0] = FRONT_CMD;
-                    bckmsgbuf[1] = 0x00;
-                    bckmsgbuf[2] = distance;
-                    bckmsgbuf[3] = distance;
-                    bckmsgbuf[4] = 0x00;
-                    bckmsgbuf[5] = 0x00;
+                    sidmsgbuf[0] = FRONT_CMD;
+                    sidmsgbuf[1] = 0x00;
+                    sidmsgbuf[2] = distance;
+                    sidmsgbuf[3] = distance;
+                    sidmsgbuf[4] = distance;
+                    sidmsgbuf[5] = distance;
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
 

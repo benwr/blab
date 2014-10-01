@@ -24,7 +24,7 @@ void timer0_int_handler() {
     LATBbits.LATB0 = !LATBbits.LATB0;
 #endif
     #ifdef __USE18F45J10
-    LATBbits.LB7 ^= 0x1;
+    //.LB7 ^= 0x1;
     #endif
     // reset the timer
     WriteTimer0(0);

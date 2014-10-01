@@ -232,7 +232,7 @@ void i2c_int_handler() {
                         ic_ptr->buflen++;
                     } else /* a restart */ {
                         if (SSPSTATbits.R_W == 1) {
-																																	blip();
+				LATBbits.LB6 ^= 0x1;/////////////////////////////////////////////////////////////////////////////////////
                             ic_ptr->status = I2C_SLAVE_SEND;
 							ic_ptr->outbuffer[0] = 0x55;
 							ic_ptr->outbuffer[1] = 0x56;
@@ -247,8 +247,9 @@ void i2c_int_handler() {
                             // don't let the clock stretching bit be let go
                             data_read = 0;
 							ic_ptr->outbufind = 0;
-							SSPBUF = ic_ptr->outbuffer[0];
-							SSPCON1bits.CKP = 1; 
+							SSP1BUF = ic_ptr->outbuffer[0];
+                                                        ic_ptr->outbufind++;
+							SSP1CON1bits.CKP = 1;
                         } else { /* bad to recv an address again, we aren't ready */
                             ic_ptr->error_count++;
                             ic_ptr->error_code = I2C_ERR_NODATA;
@@ -374,38 +375,38 @@ void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * 
 	unsigned char * msgtype;
 	
 	int i;
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_1 );
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_side );
 	if( length < 6 )
     { 
-		sensor_bank_1[1] == 0x00;
+		sensor_bank_side[1] == 0x00;
        
     }
     else 
     {
-		sensor_bank_1[1] == 0xff;
+		sensor_bank_side[1] == 0xff;
     }
 	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_2 );
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_front );
 	if( length < 6 )
     { 
-		sensor_bank_2[1] == 0x00;
+		sensor_bank_front[1] == 0x00;
     }
     else 
     {
-		sensor_bank_2[1] == 0xff;
+		sensor_bank_front[1] == 0xff;
     }
 	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_3 );
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_ventril );
 	if( length < 6 )
     { 
-		sensor_bank_2[1] == 0x00;
+		sensor_bank_ventril[1] == 0x00;
     }
     else 
     {
-		sensor_bank_2[1] == 0xff;
+		sensor_bank_ventril[1] == 0xff;
     }
 	
 	unsigned char need_data = 0xff;
-	signed char status =  ToMainHigh_sendmsg(1,MSGT_I2C_RQST,(void *) need_data);
+	signed char status =  ToMainHigh_sendmsg(1,MSGT_I2C_RQST,(void *) &need_data);
 	
 }
