@@ -4,8 +4,9 @@
 #include "messages.h"
 #include "debug.h"
 
-#define MAXUARTBUF 4
+
 #define UART_MESSAGE_LENGTH 6
+#define MAXUARTBUF UART_MESSAGE_LENGTH+2
 
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
 typedef struct

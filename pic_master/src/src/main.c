@@ -385,6 +385,12 @@ void main(void) {
     // Here is how it looks: printf("Hello\r\n");
 
 
+    unsigned char sensor_bank_side[UART_MESSAGE_LENGTH];
+    unsigned char sensor_bank_front[UART_MESSAGE_LENGTH];
+    unsigned char sensor_bank_ventril[UART_MESSAGE_LENGTH];
+
+
+
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
     // that should get them.  Although the subroutines are not threads, but
@@ -495,6 +501,37 @@ void main(void) {
                 case MSGT_UART_DATA:
                 {
                     uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+
+                    switch( msgbuffer[0] )
+                    {
+                        
+                        case COMMAND_SIDE_DATA:
+                        {
+                            //Copy msgbuffer over
+                            
+                            break;
+                        }
+                        case COMMAND_FRONT_DATA:
+                        {
+                            //Copy msgbuffer over
+                            
+                            break;
+                        }
+                        case COMMAND_VENTRIL_DATA:
+                        {
+                            //Copy msgbuffer over
+                            
+                            break;
+                        }
+                        default:
+                        {
+
+                            break;
+                        }
+
+
+                    }
+
                     break;
                 };
                 default:

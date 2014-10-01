@@ -116,8 +116,56 @@ void uart_receive_interrupt_handler()
     //static unsigned char done = 1;
     static unsigned char * data;
     static unsigned char index = 0;
+    static unsigned char new = 1;
+    static unsigned char received_counter = 0;
 
-    ToMainLow_sendmsg(UART_MESSAGE_LENGTH,MSGT_UART_DATA,(void *) data );
+
+    if( index < MAXUARTBUF )
+    {
+        data[index] = RCREG1;
+        index++;
+        new = 0;
+    }
+    else
+    {
+        received_counter++;
+        if( received_counter != data[0] )
+        {
+            return;
+            //error handle this!
+        }
+
+        if( (data[1] ^ data[2] ^ data[3] ^ data[4] ^ data[5] ^ data[6]) != data[7]  )
+        {
+            return;
+            //error handle this!
+        }
+
+        //send ack?
+
+        //Fill data for sending to main
+        unsigned char gooey_uart_center[UART_MESSAGE_LENGTH];
+
+        int i;
+        for(i = 0; i < UART_MESSAGE_LENGTH; i++)
+        {
+            gooey_uart_center[i] = data[i+1];
+        }
+
+        unsigned char status = ToMainLow_sendmsg(UART_MESSAGE_LENGTH,MSGT_UART_DATA,(void *) gooey_uart_center );
+        if( status == MSGQUEUE_FULL )
+        {
+            //Oh shit
+        }
+        else
+        {
+            new = 1;
+            index = 0;
+        }
+    }
+
+
+    
    
 
 }

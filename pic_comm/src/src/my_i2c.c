@@ -102,6 +102,9 @@ void handle_start(unsigned char data_read) {
 void i2c_int_handler() {
 	blip1();
 
+	static unsigned char sensor_bank_side[I2C_DATA_SIZE];
+	static unsigned char sensor_bank_front[I2C_DATA_SIZE];
+	static unsigned char sensor_bank_ventril[I2C_DATA_SIZE];
 
     unsigned char i2c_data;
     unsigned char data_read = 0;
@@ -292,6 +295,8 @@ void i2c_int_handler() {
         msg_to_send = 0;
     }
 
+	retrieve_sensor_values( sensor_bank_side , sensor_bank_front , sensor_bank_ventril );
+
  
 }
 
@@ -361,4 +366,51 @@ void i2c_configure_slave(unsigned char addr) {
     SSPCON2bits.SEN = 1;
     SSPCON1 |= SSPENB;
     // end of i2c configure
+}
+
+
+void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * sensor_bank_front , unsigned char * sensor_bank_ventril )
+{
+	unsigned char * msgtype;
+	
+	int i;
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_1 );
+	if( length < 6 )
+    { 
+		sensor_bank_1[1] == 0x00;
+        break;
+    }
+    else 
+    {
+		sensor_bank_1[1] == 0xff;
+        break;
+    }
+	
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_2 );
+	if( length < 6 )
+    { 
+		sensor_bank_2[1] == 0x00;
+        break;
+    }
+    else 
+    {
+		sensor_bank_2[1] == 0xff;
+        break;
+    }
+	
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_3 );
+	if( length < 6 )
+    { 
+		sensor_bank_2[1] == 0x00;
+        break;
+    }
+    else 
+    {
+		sensor_bank_2[1] == 0xff;
+        break;
+    }
+	
+	unsigned char need_data = 0xff;
+	signed char status =  ToMainHigh_sendmsg(1,MSGT_I2C_RQST,(void *) need_data);
+	
 }
