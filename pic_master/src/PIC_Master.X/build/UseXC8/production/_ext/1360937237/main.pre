@@ -1,13 +1,13 @@
 
 # 1 "../src/main.c"
 
-# 21 "/Applications/microchip/xc8/v1.33/include/htc.h"
+# 21 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 47 "/Applications/microchip/xc8/v1.33/include/pic18f46j50.h"
+# 47 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h"
 extern volatile unsigned char RPOR0 @ 0xEC6;
 
 asm("RPOR0 equ 0EC6h");
@@ -9555,7 +9555,7 @@ extern volatile __bit nWRITE1 @ (((unsigned) &SSP1STAT)*8) + 2;
 
 extern volatile __bit nWRITE2 @ (((unsigned) &SSP2STAT)*8) + 2;
 
-# 2008 "/Applications/microchip/xc8/v1.33/include/plib/adc.h"
+# 2008 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\adc.h"
 union ADCResult
 {
 int lr;
@@ -9582,13 +9582,13 @@ void SetChanADC(unsigned char );
 # 2100
 void SelChanConvADC( unsigned char );
 
-# 202 "/Applications/microchip/xc8/v1.33/include/plib/ancomp.h"
+# 202 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\ancomp.h"
 void Close_ancomp1( void );
 void Open_ancomp1(unsigned char config);
 void Close_ancomp2( void );
 void Open_ancomp2(unsigned char config);
 
-# 236 "/Applications/microchip/xc8/v1.33/include/plib/spi.h"
+# 236 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\spi.h"
 void OpenSPI1( unsigned char sync_mode,
 unsigned char bus_mode,
 unsigned char smp_phase );
@@ -9614,7 +9614,7 @@ void putsSPI2( unsigned char *wrptr );
 
 unsigned char ReadSPI2( void );
 
-# 414 "/Applications/microchip/xc8/v1.33/include/plib/can2510.h"
+# 414 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\can2510.h"
 void CAN2510Initialize(  unsigned int configuration,
  unsigned char brp,
  unsigned char interruptFlags,
@@ -9721,7 +9721,7 @@ unsigned char CAN2510DataRead(  unsigned char bufferNum,
  unsigned char *numBytes,
  unsigned char *data );
 
-# 64 "/Applications/microchip/xc8/v1.33/include/plib/capture.h"
+# 64 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\capture.h"
 union capstatus
 {
 
@@ -9760,7 +9760,7 @@ void OpenCapture2 ( unsigned char config);
 unsigned int ReadCapture2 (void);
 void CloseCapture2 (void);
 
-# 385 "/Applications/microchip/xc8/v1.33/include/plib/compare.h"
+# 385 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\compare.h"
 void OpenCompare1(unsigned char config,unsigned int period);
 void CloseCompare1(void);
 
@@ -9768,14 +9768,14 @@ void CloseCompare1(void);
 void OpenCompare2(unsigned char config, unsigned int period);
 void CloseCompare2(void);
 
-# 374 "/Applications/microchip/xc8/v1.33/include/plib/ctmu.h"
+# 374 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\ctmu.h"
 void OpenCTMU(unsigned char config1,unsigned char config2,unsigned char config3);
 
 # 379
 void CurrentControlCTMU(unsigned char config);
 void CloseCTMU(void);
 
-# 49 "/Applications/microchip/xc8/v1.33/include/plib/dpslp.h"
+# 49 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\dpslp.h"
 typedef union
 {
 struct
@@ -9811,7 +9811,7 @@ extern void ReadDSGPR( CONTEXT* ptr );
 
 extern void ULPWakeUpEnable( void );
 
-# 2 "/Applications/microchip/xc8/v1.33/include/stddef.h"
+# 2 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stddef.h"
 typedef int ptrdiff_t;
 typedef unsigned size_t;
 typedef unsigned short wchar_t;
@@ -9819,7 +9819,7 @@ typedef unsigned short wchar_t;
 # 13
 extern int errno;
 
-# 65 "/Applications/microchip/xc8/v1.33/include/GenericTypeDefs.h"
+# 65 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\GenericTypeDefs.h"
 typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
 
 
@@ -10254,7 +10254,7 @@ struct
 } bits;
 } QWORD_VAL;
 
-# 113 "/Applications/microchip/xc8/v1.33/include/plib/flash.h"
+# 113 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\flash.h"
 extern void ReadFlash(unsigned long startaddr, unsigned int num_bytes, unsigned char *flash_array);
 
 # 120
@@ -10267,7 +10267,7 @@ extern void WriteBytesFlash(unsigned long startaddr, unsigned int num_bytes, uns
 
 extern void WriteWordFlash(unsigned long startaddr, unsigned int data);
 
-# 244 "/Applications/microchip/xc8/v1.33/include/plib/i2c.h"
+# 244 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\i2c.h"
 void OpenI2C1( unsigned char sync_mode, unsigned char slew );
 
 # 264
@@ -10341,7 +10341,7 @@ unsigned char address,
 unsigned char *rdptr,
 unsigned char length );
 
-# 200 "/Applications/microchip/xc8/v1.33/include/plib/mwire.h"
+# 200 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\mwire.h"
 void OpenMwire1( unsigned char sync_mode );
 
 
@@ -10366,7 +10366,7 @@ signed char WriteMwire2( unsigned char data_out );
 # 286
 void getsMwire2( unsigned char *rdptr, unsigned char length );
 
-# 46 "/Applications/microchip/xc8/v1.33/include/plib/pmp.h"
+# 46 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\pmp.h"
 typedef enum
 {
 buffer0,
@@ -10398,7 +10398,7 @@ extern BOOL PMPSlaveWriteBuffers(BYTE* ref) ;
 
 extern BOOL PMPSlaveWriteBufferN(BUFFER buf, BYTE value) ;
 
-# 126 "/Applications/microchip/xc8/v1.33/include/plib/portb.h"
+# 126 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\portb.h"
 void OpenPORTB( unsigned char config);
 
 # 176
@@ -10413,7 +10413,7 @@ void OpenRB2INT( unsigned char config);
 # 230
 void OpenRB3INT( unsigned char config);
 
-# 85 "/Applications/microchip/xc8/v1.33/include/plib/pwm.h"
+# 85 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\pwm.h"
 union PWMDC
 {
 unsigned int lpwm;
@@ -10437,7 +10437,7 @@ void SetDCPWM2( unsigned int duty_cycle);
 # 492
 void ClosePWM2 (void);
 
-# 16 "/Applications/microchip/xc8/v1.33/include/plib/reset.h"
+# 16 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\reset.h"
 char isMCLR(void);
 void StatusReset(void);
 char isPOR(void);
@@ -10455,7 +10455,7 @@ char isWDTWU(void);
 
 char isLVD(void);
 
-# 43 "/Applications/microchip/xc8/v1.33/include/plib/rtcc.h"
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\rtcc.h"
 typedef union _WORD_VAL
 {
 unsigned int Val;
@@ -10631,7 +10631,7 @@ void Open_RTCC(void);
 void Close_RTCC(void);
 unsigned char update_RTCC(void);
 
-# 97 "/Applications/microchip/xc8/v1.33/include/plib/sw_i2c.h"
+# 97 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\sw_i2c.h"
 void SWStopI2C ( void );
 void SWStartI2C ( void );
 void SWRestartI2C ( void );
@@ -10644,7 +10644,7 @@ signed char SWWriteI2C(  unsigned char data_out );
 signed char SWGetsI2C(  unsigned char *rdptr,  unsigned char length );
 signed char SWPutsI2C(  unsigned char *wrptr );
 
-# 84 "/Applications/microchip/xc8/v1.33/include/plib/sw_spi.h"
+# 84 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\sw_spi.h"
 void OpenSWSPI(void);
 
 
@@ -10656,7 +10656,7 @@ void SetCSSWSPI(void);
 
 void ClearCSSWSPI(void);
 
-# 47 "/Applications/microchip/xc8/v1.33/include/plib/sw_uart.h"
+# 47 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\sw_uart.h"
 void OpenUART(void);
 
 unsigned char ReadUART(void);
@@ -10672,7 +10672,7 @@ extern void DelayRXBitUART (void);
 extern void DelayRXHalfBitUART(void);
 extern void DelayTXBitUART (void);
 
-# 36 "/Applications/microchip/xc8/v1.33/include/plib/timers.h"
+# 36 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\timers.h"
 union Timers
 {
 unsigned int lt;
@@ -10708,7 +10708,7 @@ void CloseTimer4 (void);
 # 1179
 void SetTmrCCPSrc( unsigned char );
 
-# 200 "/Applications/microchip/xc8/v1.33/include/plib/usart.h"
+# 200 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\usart.h"
 union USART1
 {
 unsigned char val;
@@ -10761,7 +10761,7 @@ void baud1USART ( unsigned char baudconfig);
 # 665
 void baud2USART ( unsigned char baudconfig);
 
-# 87 "/Applications/microchip/xc8/v1.33/include/plib/xlcd.h"
+# 87 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\xlcd.h"
 void OpenXLCD( unsigned char);
 
 # 92
@@ -10796,7 +10796,7 @@ extern void DelayFor18TCY(void);
 extern void DelayPORXLCD(void);
 extern void DelayXLCD(void);
 
-# 13 "/Applications/microchip/xc8/v1.33/include/plib/delays.h"
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\plib\delays.h"
 void Delay1TCYx(unsigned char);
 
 # 19
@@ -10811,7 +10811,7 @@ void Delay1KTCYx(unsigned char);
 # 37
 void Delay10KTCYx(unsigned char);
 
-# 18 "/Applications/microchip/xc8/v1.33/include/pic18.h"
+# 18 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18.h"
 __attribute__((__unsupported__("The flash_write routine is no longer supported. Please use the peripheral library functions: WriteBytesFlash, WriteBlockFlash or WriteWordFlash"))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 
 
@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 7 "/Applications/microchip/xc8/v1.33/include/stdarg.h"
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -10837,7 +10837,7 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 23 "/Applications/microchip/xc8/v1.33/include/stdio.h"
+# 23 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
 extern int errno;
 
 # 54
@@ -10847,7 +10847,7 @@ char * ptr;
 void (* func)(char);
 };
 
-# 17 "/Applications/microchip/xc8/v1.33/include/conio.h"
+# 17 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\conio.h"
 extern int errno;
 
 
@@ -10864,7 +10864,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 99 "/Applications/microchip/xc8/v1.33/include/stdio.h"
+# 99 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -10903,7 +10903,7 @@ int in_low_int(void);
 
 int in_main(void);
 
-# 10 "../src/messages.h"
+# 15 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10917,7 +10917,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 48
 void init_queues(void);
 
 
@@ -10928,92 +10928,92 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 62
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 69
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 76
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 83
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 28 "../src/debug.h"
+# 35 "../src/debug.h"
+void debug_configure();
 void blip();
+void blip1();
+void blip2();
+void blip3();
+void blip4();
 
 # 11 "../src/my_uart.h"
 typedef struct
 {
-unsigned char buffer[4];
-unsigned char current_item;
-unsigned char last_item;
-char size;
+unsigned char data[4];
+
+
+unsigned char index;
+unsigned char size;
+unsigned char done;
 } uart_buffer_type;
 
 typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 4 - 2 ];
+unsigned char data[ 6 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
 unsigned char count_error;
 unsigned char byte_error;
+unsigned char acked;
 } uart_packet_type;
 
+# 40
+unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
 
 
-void send_uart_message( unsigned char * message_ptr );
+unsigned char receive_uart_message();
 
 
-unsigned char receive_uart_message( unsigned char * message_ptr );
+void uart_configure( );
 
 
-void uart_configure();
+void uart_receive_interrupt_handler();
 
 
-int uart_send_byte( char sendByte );
+void uart_transmit_interrupt_handler();
 
-
-void uart_transmit_byte();
-
-
-int uart_send_buffer_empty();
-
-
+# 58
 unsigned char uart_get_byte();
 
-
-void uart_receive_byte();
-
-
-int uart_receive_buffer_empty();
-
-
+# 67
 unsigned char uart_num_bytes_in_recv_buffer();
 
 # 8 "../src/my_i2c.h"
 typedef struct __i2c_comm {
 unsigned char buffer[10];
 unsigned char buflen;
+unsigned char bufind;
+unsigned char outbuffer[10];
+unsigned char outbufind;
+unsigned char outbuflen;
 unsigned char event_count;
 unsigned char status;
 unsigned char error_code;
 unsigned char error_count;
-unsigned char outbuffer[10];
-unsigned char outbuflen;
-unsigned char outbufind;
+unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 33
+# 46
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
@@ -11047,24 +11047,8 @@ int data;
 
 int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
 
-# 15 "../src/communication.h"
-typedef struct
-{
-unsigned char header;
-unsigned char checksum;
-unsigned char data[ 4 - 2 ];
-unsigned char bytes_sent;
-unsigned char checksum_error;
-unsigned char count_error;
-unsigned char byte_error;
-} uart_packet_type;
 
-
-
-void send_uart_message( unsigned char * message_ptr );
-
-
-# 133 "../src/main.c"
+# 132 "../src/main.c"
 #pragma config WDTEN = OFF
 #pragma config PLLDIV = 3
 #pragma config STVREN = OFF
@@ -11108,13 +11092,12 @@ void send_uart_message( unsigned char * message_ptr );
 
 #pragma config WPDIS = OFF
 
-# 188
+# 187
 void main(void) {
 char c;
 signed char length;
 unsigned char msgtype;
 unsigned char last_reg_recvd;
-
 i2c_comm ic;
 unsigned char msgbuffer[10 + 1];
 unsigned char i;
@@ -11122,13 +11105,13 @@ uart_thread_struct uthread_data;
 timer1_thread_struct t1thread_data;
 timer0_thread_struct t0thread_data;
 
-# 215
+# 213
 OSCCON = 0xE0;
 
-# 223
+# 221
 OSCTUNEbits.PLLEN = 1;
 
-# 238
+# 236
 init_i2c(&ic);
 
 
@@ -11142,13 +11125,13 @@ init_queues();
 TRISB = 0x0;
 LATB = 0x0;
 
-# 262
+# 260
 OpenTimer0(0b11111111 & 0b10111111 & 0b11011111 & 0b11110110);
 
-# 269
+# 267
 OpenTimer1(0b11111111 & 0b10011111 & 0b11111111 & 0b11111111 & 0b11111011 & 0b11111111,0x0);
 
-# 278
+# 276
 IPR1bits.TMR1IP = 0;
 
 IPR1bits.RCIP = 0;
@@ -11156,43 +11139,53 @@ IPR1bits.RCIP = 0;
 
 IPR1bits.SSPIP = 1;
 
-# 292
-i2c_configure_slave(0x9E);
+# 291
+i2c_configure_master(0x4f);
 
-# 307
+# 306
 PIE1bits.SSPIE = 1;
 
-# 333
-TRISD = 0x00;
+# 332
+debug_configure();
 
-# 343
+# 342
 enable_interrupts();
 
-# 356
+# 352
 uart_configure();
 
-uart_send_byte(0x55);
+unsigned char msg[3] = {0x55,0xea,0x29};
 
-unsigned char myByte1 = 0x44;
-unsigned char myByte2 = 0x44;
-
-# 374
-while (1) {
-
-# 381
-if( uart_num_bytes_in_recv_buffer() == 2 )
+if ( send_uart_message( 2, msg ) == 0x02 )
 {
-myByte1 = uart_get_byte();
-myByte2 = uart_get_byte();
-myByte1 <<= 6;
-myByte1 |= myByte2 >> 2;
-
-
-
 
 }
+unsigned char msg2[6] = {0x10,0xaa,0xaa,0xaa,0xaa,0xaa};
 
-# 402
+unsigned char msg3[6] = {0x00,0xa8,0xa8,0xa8,0xa8,0xa8};
+
+unsigned char msg4[6] = {0x20,0xa9,0xa9,0xa9,0xa9,0xa9};
+
+
+
+
+i2c_master_send(6, msg2);
+send_uart_message( 2, msg2 );
+i2c_master_send(6, msg3);
+send_uart_message( 2, msg3 );
+i2c_master_send(6, msg4);
+send_uart_message( 2, msg4 );
+i2c_master_send(6, msg4);
+
+
+
+unsigned char myByte1 = 0x54;
+unsigned char myByte2 = 0x45;
+
+# 393
+while (1) {
+
+# 410
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11219,7 +11212,7 @@ break;
 case 42:
 {
 
-# 434
+# 442
 switch (last_reg_recvd) {
 case 0xaa:
 {
@@ -11244,7 +11237,7 @@ break;
 
 }
 };
-start_i2c_slave_reply(length, msgbuffer);
+
 break;
 };
 default:
