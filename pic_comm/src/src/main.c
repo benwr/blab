@@ -412,7 +412,7 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    if( msg
+                    
 					
                     break;
                 };

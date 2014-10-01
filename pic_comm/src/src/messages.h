@@ -7,10 +7,14 @@
 // The maximum number of messages in a single queue
 #define MSGQUEUELEN 4
 
-//Communication Definitions
+//Command Definitions
 #define COMMAND_MOVE        0x1
 #define COMMAND_SENSORRQST  0x2
+#define COMMAND_SIDE_DATA       0xa5
+#define COMMAND_FRONT_DATA      0xb5
+#define COMMAND_VENTRIL_DATA    0xc5
 //=========================
+
 
 typedef struct __msg {
     unsigned char full;

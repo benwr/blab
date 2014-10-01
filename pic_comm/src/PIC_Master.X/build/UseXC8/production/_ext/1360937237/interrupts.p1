@@ -66,7 +66,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _i2c_int_handler `(v ~T0 @X0 0 ef ]
 "12 ../src/user_interrupts.h
 [v _timer0_int_handler `(v ~T0 @X0 0 ef ]
-"52 ../src/messages.h
+"56 ../src/messages.h
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
 "14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
@@ -8436,28 +8436,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 40: void blip4();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
-[; ;messages.h: 15: typedef struct __msg {
-[; ;messages.h: 16: unsigned char full;
-[; ;messages.h: 17: unsigned char length;
-[; ;messages.h: 18: unsigned char msgtype;
-[; ;messages.h: 19: unsigned char data[10];
-[; ;messages.h: 20: } msg;
-[; ;messages.h: 22: typedef struct __msg_queue {
-[; ;messages.h: 23: msg queue[4];
-[; ;messages.h: 24: unsigned char cur_write_ind;
-[; ;messages.h: 25: unsigned char cur_read_ind;
-[; ;messages.h: 26: } msg_queue;
-[; ;messages.h: 48: void init_queues(void);
-[; ;messages.h: 52: void SleepIfOkay(void);
-[; ;messages.h: 56: void block_on_To_msgqueues(void);
-[; ;messages.h: 62: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 63: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 69: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 70: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 76: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 77: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 83: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 84: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 19: typedef struct __msg {
+[; ;messages.h: 20: unsigned char full;
+[; ;messages.h: 21: unsigned char length;
+[; ;messages.h: 22: unsigned char msgtype;
+[; ;messages.h: 23: unsigned char data[10];
+[; ;messages.h: 24: } msg;
+[; ;messages.h: 26: typedef struct __msg_queue {
+[; ;messages.h: 27: msg queue[4];
+[; ;messages.h: 28: unsigned char cur_write_ind;
+[; ;messages.h: 29: unsigned char cur_read_ind;
+[; ;messages.h: 30: } msg_queue;
+[; ;messages.h: 52: void init_queues(void);
+[; ;messages.h: 56: void SleepIfOkay(void);
+[; ;messages.h: 60: void block_on_To_msgqueues(void);
+[; ;messages.h: 66: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 67: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 73: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 74: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 80: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 81: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 87: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 88: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;my_uart.h: 11: typedef struct
 [; ;my_uart.h: 12: {
 [; ;my_uart.h: 13: unsigned char data[4];
@@ -8504,6 +8504,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_i2c.h: 50: void i2c_configure_master(unsigned char);
 [; ;my_i2c.h: 51: unsigned char i2c_master_send(unsigned char,unsigned char *);
 [; ;my_i2c.h: 52: unsigned char i2c_master_recv(unsigned char);
+[; ;my_i2c.h: 54: void retrieve_sensor_values( unsigned char * sensor_bank_1 , unsigned char * sensor_bank_2 , unsigned char * sensor_bank_3 );
 "14 ../src/interrupts.c
 [v _enable_interrupts `(v ~T0 @X0 1 ef ]
 {
@@ -8627,9 +8628,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "49
 [e :UE 1145 ]
 }
-[v F9220 `(v ~T0 @X0 1 tf ]
+[v F9224 `(v ~T0 @X0 1 tf ]
 "86
-[v _InterruptHandlerHigh `IF9220 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9224 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 81: interrupt
 [; ;interrupts.c: 86: void InterruptHandlerHigh() {
@@ -8670,9 +8671,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "119
 [e :UE 1148 ]
 }
-[v F9222 `(v ~T0 @X0 1 tf ]
+[v F9226 `(v ~T0 @X0 1 tf ]
 "131
-[v _InterruptHandlerLow `ILF9222 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9226 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 126: interrupt low_priority
 [; ;interrupts.c: 131: void InterruptHandlerLow() {

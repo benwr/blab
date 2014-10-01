@@ -10903,7 +10903,7 @@ int in_low_int(void);
 
 int in_main(void);
 
-# 15 "../src/messages.h"
+# 19 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10917,7 +10917,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 48
+# 52
 void init_queues(void);
 
 
@@ -10928,19 +10928,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 62
+# 66
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 69
+# 73
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 76
+# 80
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 83
+# 87
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -11021,6 +11021,8 @@ void i2c_configure_slave(unsigned char);
 void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
+
+void retrieve_sensor_values( unsigned char * sensor_bank_1 , unsigned char * sensor_bank_2 , unsigned char * sensor_bank_3 );
 
 # 1 "../src/uart_thread.h"
 typedef struct __uart_thread_struct {
@@ -11191,7 +11193,7 @@ break;
 case 42:
 {
 
-# 449
+
 break;
 };
 default:
@@ -11223,6 +11225,37 @@ case 30:
 case 31:
 {
 send_uart_message( length , msgbuffer );
+
+switch( msgbuffer[0] )
+{
+
+case 0xa5:
+{
+
+
+break;
+}
+case 0xb5:
+{
+
+
+break;
+}
+case 0xc5:
+{
+
+
+break;
+}
+default:
+{
+
+break;
+}
+
+
+}
+
 break;
 };
 default:
