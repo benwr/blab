@@ -373,6 +373,16 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
+                    signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
+                    if( MsgQ_BStatus == MSGSEND_OKAY){
+                        MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, bckmsgbuf);
+
+                        if( MsgQ_BStatus == MSGSEND_OKAY){
+                            MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, bckmsgbuf);
+                        }
+                    }
+
+                    /*
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
                     // I recommend that you handle it completely inside the i2c interrupt handler
                     // by reading the data from a queue (i.e., you would not send a message, as is done
@@ -404,6 +414,7 @@ void main(void) {
                         }
                     };
                     start_i2c_slave_reply(length, msgbuffer);
+                    */
                     break;
                 };
                 case MSGT_AD_CONVERTER_COMPLETE:
