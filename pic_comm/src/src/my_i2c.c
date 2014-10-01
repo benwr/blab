@@ -224,14 +224,19 @@ void i2c_int_handler() {
                         msg_ready = 1;
                     }
                     ic_ptr->status = I2C_IDLE;
-                } else if (data_read) {
+                } 
+				else if (data_read) 
+				{
 																																	//here
                     ic_ptr->event_count++;
-                    if (SSPSTATbits.D_A == 1) {
+                    if (SSP1STATbits.D_A == 1) {
                         ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
                         ic_ptr->buflen++;
-                    } else /* a restart */ {
-                        if (SSPSTATbits.R_W == 1) {
+                    } 
+					else /* a restart */ 
+					{
+                        if (SSPSTATbits.R_W == 1) 
+						{
 																																	blip();
                             ic_ptr->status = I2C_SLAVE_SEND;
 							
@@ -263,12 +268,12 @@ void i2c_int_handler() {
 								default:
 								{
 									//Oh shit
-									ic_ptr->outbuffer[0] = 0x55;
-									ic_ptr->outbuffer[1] = 0x56;
-									ic_ptr->outbuffer[2] = 0x57;
-									ic_ptr->outbuffer[3] = 0x58;
-									ic_ptr->outbuffer[4] = 0x59;
-									ic_ptr->outbuffer[5] = 0x5a;
+									ic_ptr->outbuffer[0] = ic_ptr->buffer[0];
+									ic_ptr->outbuffer[1] = ic_ptr->buffer[1];
+									ic_ptr->outbuffer[2] = ic_ptr->buffer[2];
+									ic_ptr->outbuffer[3] = ic_ptr->buffer[3];
+									ic_ptr->outbuffer[4] = ic_ptr->buffer[4];
+									ic_ptr->outbuffer[5] = ic_ptr->buffer[5];
 								}
 							}
 							
@@ -282,7 +287,9 @@ void i2c_int_handler() {
 							SSPBUF = ic_ptr->outbuffer[0];
 							ic_ptr->outbufind++;
 							SSPCON1bits.CKP = 1; 
-                        } else { /* bad to recv an address again, we aren't ready */
+                        } 
+						else 
+						{ /* bad to recv an address again, we aren't ready */
                             ic_ptr->error_count++;
                             ic_ptr->error_code = I2C_ERR_NODATA;
                             ic_ptr->status = I2C_IDLE;

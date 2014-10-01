@@ -8674,7 +8674,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [i F9255
 :U ..
 "360
--> -> 16 `i `uc
+-> -> 42 `i `uc
 -> -> 170 `i `uc
 -> -> 170 `i `uc
 -> -> 170 `i `uc
@@ -8684,13 +8684,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _msg2 `uc ~T0 @X0 -> 6 `i a ]
 [; ;main.c: 359: }
-[; ;main.c: 360: unsigned char msg2[6] = {0x10,0xaa,0xaa,0xaa,0xaa,0xaa};
+[; ;main.c: 360: unsigned char msg2[6] = {0x2a,0xaa,0xaa,0xaa,0xaa,0xaa};
 [e = _msg2 F9255 ]
 [v F9257 `uc ~T0 @X0 -> 6 `i s ]
 [i F9257
 :U ..
 "362
--> -> 0 `i `uc
+-> -> 43 `i `uc
 -> -> 168 `i `uc
 -> -> 168 `i `uc
 -> -> 168 `i `uc
@@ -8699,13 +8699,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg3 `uc ~T0 @X0 -> 6 `i a ]
-[; ;main.c: 362: unsigned char msg3[6] = {0x00,0xa8,0xa8,0xa8,0xa8,0xa8};
+[; ;main.c: 362: unsigned char msg3[6] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8};
 [e = _msg3 F9257 ]
 [v F9259 `uc ~T0 @X0 -> 6 `i s ]
 [i F9259
 :U ..
 "364
--> -> 32 `i `uc
+-> -> 44 `i `uc
 -> -> 169 `i `uc
 -> -> 169 `i `uc
 -> -> 169 `i `uc
@@ -8714,7 +8714,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg4 `uc ~T0 @X0 -> 6 `i a ]
-[; ;main.c: 364: unsigned char msg4[6] = {0x20,0xa9,0xa9,0xa9,0xa9,0xa9};
+[; ;main.c: 364: unsigned char msg4[6] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9};
 [e = _msg4 F9259 ]
 [; ;main.c: 369: i2c_master_send(6, msg2);
 "369
