@@ -4,13 +4,17 @@
 #include "lcdTask.h"
 // Structure used to pass parameters to the task
 // Do not touch...
-typedef struct __TempStruct {
-	vtI2CStruct *dev;
-	vtLCDStruct *lcdData;
-	xQueueHandle inQ;
+typedef struct __TempStruct
+{
+  vtI2CStruct *dev;
+  vtLCDStruct *lcdData;
+  xQueueHandle inQ;
 } vtTempStruct;
+
+
 // Maximum length of a message that can be received by this task
-#define vtTempMaxLen   (sizeof(portTickType))
+#define vtTempMaxLen 8
+
 
 // Public API
 //
@@ -20,16 +24,22 @@ typedef struct __TempStruct {
 //   uxPriority -- the priority you want this task to be run at
 //   i2c: pointer to the data structure for an i2c task
 //   lcd: pointer to the data structure for an LCD task (may be NULL)
-void vStarti2cTempTask(vtTempStruct *tempData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtLCDStruct *lcd);
+void vStarti2cTempTask(vtTempStruct *tempData,
+                       unsigned portBASE_TYPE uxPriority,
+                       vtI2CStruct *i2c,
+                       vtLCDStruct *lcd);
 //
 // Send a timer message to the Temperature task
 // Args:
 //   tempData -- a pointer to a variable of type vtLCDStruct
-//   ticksElapsed -- number of ticks since the last message (this will be sent in the message)
+//   ticksElapsed -- number of ticks since the last message (this will be sent
+// in the message)
 //   ticksToBlock -- how long the routine should wait if the queue is full
 // Return:
 //   Result of the call to xQueueSend()
-portBASE_TYPE SendTempTimerMsg(vtTempStruct *tempData,portTickType ticksElapsed,portTickType ticksToBlock);
+portBASE_TYPE SendTempTimerMsg(vtTempStruct *tempData,
+                               portTickType ticksElapsed,
+                               portTickType ticksToBlock);
 //
 // Send a value message to the Temperature task
 // Args:
@@ -39,5 +49,8 @@ portBASE_TYPE SendTempTimerMsg(vtTempStruct *tempData,portTickType ticksElapsed,
 //   ticksToBlock -- how long the routine should wait if the queue is full
 // Return:
 //   Result of the call to xQueueSend()
-portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,uint8_t msgType,uint8_t value,portTickType ticksToBlock);
+portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,
+                               uint8_t msgType,
+                               uint8_t value,
+                               portTickType ticksToBlock);
 #endif
