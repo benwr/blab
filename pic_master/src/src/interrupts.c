@@ -145,7 +145,7 @@ void InterruptHandlerLow() {
 
         
 
-        uart_receive_byte();
+        uart_receive_interrupt_handler();
     }
 
     

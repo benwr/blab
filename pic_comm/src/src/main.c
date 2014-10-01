@@ -17,7 +17,7 @@
 #include "timer1_thread.h"
 #include "timer0_thread.h"
 #include "debug.h"
-#include "communication.h"
+
 
 
 
@@ -328,10 +328,12 @@ void main(void) {
     */
 
     // Alex: Set registers for debug output
-    #ifdef DEBUG_MODE
-    TRISD = 0x00;
-    #endif
-
+    debug_configure();
+	blip();
+	blip1();
+	blip2();
+	blip3();
+	
     //uart_send_byte( 0x50 );
     //uart_send_byte( 0x54 );
     
@@ -353,8 +355,6 @@ void main(void) {
 
     //Alex: Configure UART for transmit and recieve
     uart_configure();
-
-    uart_send_byte(0x55);
 
     unsigned char myByte1 = 0x44;
     unsigned char myByte2 = 0x44;
@@ -419,6 +419,7 @@ void main(void) {
                     //
                     // The last byte received is the "register" that is trying to be read
                     // The response is dependent on the register.
+					/*
                     switch (last_reg_recvd) {
                         case 0xaa:
                         {
@@ -442,8 +443,9 @@ void main(void) {
                             break;
 
                         }
-                    };
-                    start_i2c_slave_reply(length, msgbuffer);
+						
+                    };*/
+                    //start_i2c_slave_reply(length, msgbuffer);
                     break;
                 };
                 default:
@@ -474,7 +476,7 @@ void main(void) {
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
-                    uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+                    send_uart_message( length , msgbuffer );
                     break;
                 };
                 default:

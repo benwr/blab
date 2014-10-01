@@ -10903,7 +10903,7 @@ int in_low_int(void);
 
 int in_main(void);
 
-# 10 "../src/messages.h"
+# 15 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10917,7 +10917,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 48
 void init_queues(void);
 
 
@@ -10928,32 +10928,39 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 62
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 69
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 76
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 83
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 28 "../src/debug.h"
+# 35 "../src/debug.h"
+void debug_configure();
 void blip();
+void blip1();
+void blip2();
+void blip3();
+void blip4();
 
 # 11 "../src/my_uart.h"
 typedef struct
 {
-unsigned char buffer[4];
-unsigned char current_item;
-unsigned char last_item;
-char size;
+unsigned char data[4];
+
+
+unsigned char index;
+unsigned char size;
+unsigned char done;
 } uart_buffer_type;
 
 typedef struct
@@ -10966,11 +10973,11 @@ unsigned char bytes_received;
 unsigned char checksum_error;
 unsigned char count_error;
 unsigned char byte_error;
+unsigned char acked;
 } uart_packet_type;
 
-
-
-void send_uart_message( unsigned char * message_ptr );
+# 40
+unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
 
 
 unsigned char receive_uart_message( unsigned char * message_ptr );
@@ -10979,36 +10986,35 @@ unsigned char receive_uart_message( unsigned char * message_ptr );
 void uart_configure( );
 
 
-int uart_send_byte( char sendByte );
+void uart_transmit_interrupt_handler();
 
-
-void uart_transmit_byte();
-
-# 51
+# 55
 unsigned char uart_get_byte();
 
 
 void uart_receive_byte();
 
-# 60
+# 64
 unsigned char uart_num_bytes_in_recv_buffer();
 
 # 8 "../src/my_i2c.h"
 typedef struct __i2c_comm {
 unsigned char buffer[10];
 unsigned char buflen;
+unsigned char bufind;
+unsigned char outbuffer[10];
+unsigned char outbufind;
+unsigned char outbuflen;
 unsigned char event_count;
 unsigned char status;
 unsigned char error_code;
 unsigned char error_count;
-unsigned char outbuffer[10];
-unsigned char outbuflen;
-unsigned char outbufind;
+unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 33
-void init_i2c(i2c_comm *);
+# 46
+void init_i2c(i2c_comm *ic);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
 void i2c_configure_slave(unsigned char);
@@ -11040,22 +11046,6 @@ int data;
 } timer0_thread_struct;
 
 int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
-
-# 15 "../src/communication.h"
-typedef struct
-{
-unsigned char header;
-unsigned char checksum;
-unsigned char data[ 4 - 2 ];
-unsigned char bytes_sent;
-unsigned char checksum_error;
-unsigned char count_error;
-unsigned char byte_error;
-} uart_packet_type;
-
-
-
-void send_uart_message( unsigned char * message_ptr );
 
 
 # 133 "../src/main.c"
@@ -11155,16 +11145,18 @@ i2c_configure_slave(0x9E);
 # 306
 PIE1bits.SSPIE = 1;
 
-# 332
-TRISD = 0x00;
+# 331
+debug_configure();
+blip();
+blip1();
+blip2();
+blip3();
 
-# 342
+# 344
 enable_interrupts();
 
-# 355
+# 357
 uart_configure();
-
-uart_send_byte(0x55);
 
 unsigned char myByte1 = 0x44;
 unsigned char myByte2 = 0x44;
@@ -11199,32 +11191,7 @@ break;
 case 42:
 {
 
-# 422
-switch (last_reg_recvd) {
-case 0xaa:
-{
-length = 2 ;
-msgbuffer[0] = myByte1;
-msgbuffer[1] = myByte2;
-break;
-}
-case 0xa8:
-{
-
-length = 1;
-msgbuffer[0] = 0x3A;
-break;
-
-}
-case 0xa9:
-{
-length = 1;
-msgbuffer[0] = 0x55;
-break;
-
-}
-};
-start_i2c_slave_reply(length, msgbuffer);
+# 449
 break;
 };
 default:
@@ -11255,7 +11222,7 @@ break;
 case 30:
 case 31:
 {
-uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+send_uart_message( length , msgbuffer );
 break;
 };
 default:

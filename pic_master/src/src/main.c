@@ -288,7 +288,7 @@ void main(void) {
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
     //i2c_configure_slave(0x9E);
-    i2c_configure_master(0x66);
+    i2c_configure_master(0x4f);
     #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
@@ -357,23 +357,23 @@ void main(void) {
     {
         //blip();
     }
-    unsigned char msg2[3] = {0x11,0xaa,0x29};
+    unsigned char msg2[6] = {0x10,0xaa,0xaa,0xaa,0xaa,0xaa};
+    
+    unsigned char msg3[6] = {0x00,0xa8,0xa8,0xa8,0xa8,0xa8};
+    
+    unsigned char msg4[6] = {0x20,0xa9,0xa9,0xa9,0xa9,0xa9};
+    
+    
+
+    
+    i2c_master_send(6, msg2);
     send_uart_message( 2, msg2 );
-    unsigned char msg3[3] = {0x22,0xbb,0x29};
+    i2c_master_send(6, msg3);
     send_uart_message( 2, msg3 );
-    unsigned char msg4[3] = {0x33,0xcc,0x29};
+    i2c_master_send(6, msg4);
     send_uart_message( 2, msg4 );
-    
+    i2c_master_send(6, msg4);
 
-    while(1)
-    {
-        
-        i2c_master_send(3, msg2);
-        i2c_master_send(3, msg3);
-        i2c_master_send(3, msg4);
-
-    }
-    
     
 
     unsigned char myByte1 = 0x54;

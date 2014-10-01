@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "8 ../src/my_i2c.h
-[s S1134 `uc -> 10 `i `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc -> 10 `i `uc 1 `uc 1 `uc 1 ]
-[n S1134 __i2c_comm buffer buflen event_count status error_code error_count outbuffer outbuflen outbufind slave_addr ]
+[s S1134 `uc -> 10 `i `uc 1 `uc 1 `uc -> 10 `i `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S1134 __i2c_comm buffer buflen bufind outbuffer outbufind outbuflen event_count status error_code error_count initiated slave_addr ]
 "14491 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _SSPBUF `Vuc ~T0 @X0 0 e@4041 ]
 "13127
@@ -125,9 +125,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S874 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ]
 "13925
 [v _SSPSTATbits `VS874 ~T0 @X0 0 e@4039 ]
-"7852
-[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
-"64 ../src/messages.h
+"37 ../src/debug.h
+[v _blip1 `(v ~T0 @X0 0 ef ]
+"39
+[v _blip3 `(v ~T0 @X0 0 ef ]
+"40
+[v _blip4 `(v ~T0 @X0 0 ef ]
+"38
+[v _blip2 `(v ~T0 @X0 0 ef ]
+"36
+[v _blip `(v ~T0 @X0 0 ef ]
+"69 ../src/messages.h
 [v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 "8330 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S568 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -8529,28 +8537,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-[; ;messages.h: 10: typedef struct __msg {
-[; ;messages.h: 11: unsigned char full;
-[; ;messages.h: 12: unsigned char length;
-[; ;messages.h: 13: unsigned char msgtype;
-[; ;messages.h: 14: unsigned char data[10];
-[; ;messages.h: 15: } msg;
-[; ;messages.h: 17: typedef struct __msg_queue {
-[; ;messages.h: 18: msg queue[4];
-[; ;messages.h: 19: unsigned char cur_write_ind;
-[; ;messages.h: 20: unsigned char cur_read_ind;
-[; ;messages.h: 21: } msg_queue;
-[; ;messages.h: 43: void init_queues(void);
-[; ;messages.h: 47: void SleepIfOkay(void);
-[; ;messages.h: 51: void block_on_To_msgqueues(void);
-[; ;messages.h: 57: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 58: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 64: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 65: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 71: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 72: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 15: typedef struct __msg {
+[; ;messages.h: 16: unsigned char full;
+[; ;messages.h: 17: unsigned char length;
+[; ;messages.h: 18: unsigned char msgtype;
+[; ;messages.h: 19: unsigned char data[10];
+[; ;messages.h: 20: } msg;
+[; ;messages.h: 22: typedef struct __msg_queue {
+[; ;messages.h: 23: msg queue[4];
+[; ;messages.h: 24: unsigned char cur_write_ind;
+[; ;messages.h: 25: unsigned char cur_read_ind;
+[; ;messages.h: 26: } msg_queue;
+[; ;messages.h: 48: void init_queues(void);
+[; ;messages.h: 52: void SleepIfOkay(void);
+[; ;messages.h: 56: void block_on_To_msgqueues(void);
+[; ;messages.h: 62: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 63: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 69: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 70: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 76: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 77: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 83: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 84: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
 [; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
@@ -8581,26 +8589,33 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 206: extern int printf(const char *, ...);
-[; ;debug.h: 28: void blip();
+[; ;debug.h: 35: void debug_configure();
+[; ;debug.h: 36: void blip();
+[; ;debug.h: 37: void blip1();
+[; ;debug.h: 38: void blip2();
+[; ;debug.h: 39: void blip3();
+[; ;debug.h: 40: void blip4();
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
-[; ;my_i2c.h: 11: unsigned char event_count;
-[; ;my_i2c.h: 12: unsigned char status;
-[; ;my_i2c.h: 13: unsigned char error_code;
-[; ;my_i2c.h: 14: unsigned char error_count;
-[; ;my_i2c.h: 15: unsigned char outbuffer[10];
-[; ;my_i2c.h: 16: unsigned char outbuflen;
-[; ;my_i2c.h: 17: unsigned char outbufind;
-[; ;my_i2c.h: 18: unsigned char slave_addr;
-[; ;my_i2c.h: 19: } i2c_comm;
-[; ;my_i2c.h: 33: void init_i2c(i2c_comm *);
-[; ;my_i2c.h: 34: void i2c_int_handler(void);
-[; ;my_i2c.h: 35: void start_i2c_slave_reply(unsigned char,unsigned char *);
-[; ;my_i2c.h: 36: void i2c_configure_slave(unsigned char);
-[; ;my_i2c.h: 37: void i2c_configure_master(unsigned char);
-[; ;my_i2c.h: 38: unsigned char i2c_master_send(unsigned char,unsigned char *);
-[; ;my_i2c.h: 39: unsigned char i2c_master_recv(unsigned char);
+[; ;my_i2c.h: 11: unsigned char bufind;
+[; ;my_i2c.h: 12: unsigned char outbuffer[10];
+[; ;my_i2c.h: 13: unsigned char outbufind;
+[; ;my_i2c.h: 14: unsigned char outbuflen;
+[; ;my_i2c.h: 15: unsigned char event_count;
+[; ;my_i2c.h: 16: unsigned char status;
+[; ;my_i2c.h: 17: unsigned char error_code;
+[; ;my_i2c.h: 18: unsigned char error_count;
+[; ;my_i2c.h: 19: unsigned char initiated;
+[; ;my_i2c.h: 20: unsigned char slave_addr;
+[; ;my_i2c.h: 21: } i2c_comm;
+[; ;my_i2c.h: 46: void init_i2c(i2c_comm *ic);
+[; ;my_i2c.h: 47: void i2c_int_handler(void);
+[; ;my_i2c.h: 48: void start_i2c_slave_reply(unsigned char,unsigned char *);
+[; ;my_i2c.h: 49: void i2c_configure_slave(unsigned char);
+[; ;my_i2c.h: 50: void i2c_configure_master(unsigned char);
+[; ;my_i2c.h: 51: unsigned char i2c_master_send(unsigned char,unsigned char *);
+[; ;my_i2c.h: 52: unsigned char i2c_master_recv(unsigned char);
 "9 ../src/my_i2c.c
 [v _ic_ptr `*S1134 ~T0 @X0 1 s ]
 [; ;my_i2c.c: 9: static i2c_comm *ic_ptr;
@@ -8657,32 +8672,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_i2c.c: 55: for (ic_ptr->outbuflen = 0; ic_ptr->outbuflen < length; ic_ptr->outbuflen++) {
 "55
 {
-[e = . *U _ic_ptr 7 -> -> 0 `i `uc ]
+[e = . *U _ic_ptr 5 -> -> 0 `i `uc ]
 [e $U 1142  ]
 [e :U 1139 ]
 {
 [; ;my_i2c.c: 56: ic_ptr->outbuffer[ic_ptr->outbuflen] = msg[ic_ptr->outbuflen];
 "56
-[e = *U + &U . *U _ic_ptr 6 * -> . *U _ic_ptr 7 `ux -> -> # *U &U . *U _ic_ptr 6 `ui `ux *U + _msg * -> . *U _ic_ptr 7 `ux -> -> # *U _msg `ui `ux ]
+[e = *U + &U . *U _ic_ptr 3 * -> . *U _ic_ptr 5 `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux *U + _msg * -> . *U _ic_ptr 5 `ux -> -> # *U _msg `ui `ux ]
 "57
 }
 "55
-[e ++ . *U _ic_ptr 7 -> -> 1 `i `uc ]
+[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
 [e :U 1142 ]
-[e $ < -> . *U _ic_ptr 7 `i -> _length `i 1139  ]
+[e $ < -> . *U _ic_ptr 5 `i -> _length `i 1139  ]
 [e :U 1140 ]
 "57
 }
 [; ;my_i2c.c: 57: }
 [; ;my_i2c.c: 58: ic_ptr->outbuflen = length;
 "58
-[e = . *U _ic_ptr 7 _length ]
+[e = . *U _ic_ptr 5 _length ]
 [; ;my_i2c.c: 59: ic_ptr->outbufind = 1;
 "59
-[e = . *U _ic_ptr 8 -> -> 1 `i `uc ]
+[e = . *U _ic_ptr 4 -> -> 1 `i `uc ]
 [; ;my_i2c.c: 62: SSPBUF = ic_ptr->outbuffer[0];
 "62
-[e = _SSPBUF *U + &U . *U _ic_ptr 6 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _ic_ptr 6 `ui `ux ]
+[e = _SSPBUF *U + &U . *U _ic_ptr 3 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux ]
 [; ;my_i2c.c: 65: SSPCON1bits.CKP = 1;
 "65
 [e = . . _SSPCON1bits 0 1 -> -> 1 `i `uc ]
@@ -8699,7 +8714,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;my_i2c.c: 72: ic_ptr->event_count = 1;
 "72
-[e = . *U _ic_ptr 2 -> -> 1 `i `uc ]
+[e = . *U _ic_ptr 6 -> -> 1 `i `uc ]
 [; ;my_i2c.c: 73: ic_ptr->buflen = 0;
 "73
 [e = . *U _ic_ptr 1 -> -> 0 `i `uc ]
@@ -8713,13 +8728,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;my_i2c.c: 79: ic_ptr->status = 0x5;
 "79
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
 [; ;my_i2c.c: 80: ic_ptr->error_count++;
 "80
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
 [; ;my_i2c.c: 81: ic_ptr->error_code = 0x5;
 "81
-[e = . *U _ic_ptr 4 -> -> 5 `i `uc ]
+[e = . *U _ic_ptr 8 -> -> 5 `i `uc ]
 "82
 }
 [; ;my_i2c.c: 82: } else {
@@ -8732,638 +8747,695 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;my_i2c.c: 84: ic_ptr->status = 0x8;
 "84
-[e = . *U _ic_ptr 3 -> -> 8 `i `uc ]
-"85
+[e = . *U _ic_ptr 7 -> -> 8 `i `uc ]
+"86
 }
-[; ;my_i2c.c: 85: } else {
+[; ;my_i2c.c: 86: } else {
 [e $U 1148  ]
 [e :U 1147 ]
 {
-[; ;my_i2c.c: 86: ic_ptr->status = 0x7;
-"86
-[e = . *U _ic_ptr 3 -> -> 7 `i `uc ]
+[; ;my_i2c.c: 87: ic_ptr->status = 0x7;
 "87
-}
-[e :U 1148 ]
-"88
-}
-[e :U 1146 ]
+[e = . *U _ic_ptr 7 -> -> 7 `i `uc ]
 "89
 }
-[; ;my_i2c.c: 87: }
-[; ;my_i2c.c: 88: }
-[; ;my_i2c.c: 89: } else {
+[e :U 1148 ]
+"90
+}
+[e :U 1146 ]
+"91
+}
+[; ;my_i2c.c: 89: }
+[; ;my_i2c.c: 90: }
+[; ;my_i2c.c: 91: } else {
 [e $U 1149  ]
 [e :U 1144 ]
 {
-[; ;my_i2c.c: 90: ic_ptr->status = 0x6;
-"90
-[e = . *U _ic_ptr 3 -> -> 6 `i `uc ]
-"91
+[; ;my_i2c.c: 92: ic_ptr->status = 0x6;
+"92
+[e = . *U _ic_ptr 7 -> -> 6 `i `uc ]
+"93
 }
 [e :U 1149 ]
-[; ;my_i2c.c: 91: }
-[; ;my_i2c.c: 92: }
-"92
+[; ;my_i2c.c: 93: }
+[; ;my_i2c.c: 94: }
+"94
 [e :UE 1143 ]
 }
-"100
+"102
 [v _i2c_int_handler `(v ~T0 @X0 1 ef ]
 {
-[; ;my_i2c.c: 100: void i2c_int_handler() {
+[; ;my_i2c.c: 102: void i2c_int_handler() {
 [e :U _i2c_int_handler ]
 [f ]
-[; ;my_i2c.c: 104: LATD = 0x10;
-"104
-[e = _LATD -> -> 16 `i `uc ]
-"109
+[; ;my_i2c.c: 103: blip1();
+"103
+[e ( _blip1 ..  ]
+"106
 [v _i2c_data `uc ~T0 @X0 1 a ]
-"110
+"107
 [v _data_read `uc ~T0 @X0 1 a ]
-[; ;my_i2c.c: 109: unsigned char i2c_data;
-[; ;my_i2c.c: 110: unsigned char data_read = 0;
+[; ;my_i2c.c: 106: unsigned char i2c_data;
+[; ;my_i2c.c: 107: unsigned char data_read = 0;
 [e = _data_read -> -> 0 `i `uc ]
-"111
+"108
 [v _data_written `uc ~T0 @X0 1 a ]
-[; ;my_i2c.c: 111: unsigned char data_written = 0;
+[; ;my_i2c.c: 108: unsigned char data_written = 0;
 [e = _data_written -> -> 0 `i `uc ]
-"112
+"109
 [v _msg_ready `uc ~T0 @X0 1 a ]
-[; ;my_i2c.c: 112: unsigned char msg_ready = 0;
+[; ;my_i2c.c: 109: unsigned char msg_ready = 0;
 [e = _msg_ready -> -> 0 `i `uc ]
-"113
+"110
 [v _msg_to_send `uc ~T0 @X0 1 a ]
-[; ;my_i2c.c: 113: unsigned char msg_to_send = 0;
+[; ;my_i2c.c: 110: unsigned char msg_to_send = 0;
 [e = _msg_to_send -> -> 0 `i `uc ]
-"114
+"111
 [v _overrun_error `uc ~T0 @X0 1 a ]
-[; ;my_i2c.c: 114: unsigned char overrun_error = 0;
+[; ;my_i2c.c: 111: unsigned char overrun_error = 0;
 [e = _overrun_error -> -> 0 `i `uc ]
-"115
+"112
 [v _error_buf `uc ~T0 @X0 -> 3 `i a ]
-[; ;my_i2c.c: 115: unsigned char error_buf[3];
-[; ;my_i2c.c: 118: if (SSPCON1bits.SSPOV == 1) {
-"118
+[; ;my_i2c.c: 112: unsigned char error_buf[3];
+[; ;my_i2c.c: 115: if (SSPCON1bits.SSPOV == 1) {
+"115
 [e $ ! == -> . . _SSPCON1bits 0 3 `i -> 1 `i 1151  ]
 {
-[; ;my_i2c.c: 119: SSPCON1bits.SSPOV = 0;
-"119
+[; ;my_i2c.c: 116: SSPCON1bits.SSPOV = 0;
+"116
 [e = . . _SSPCON1bits 0 3 -> -> 0 `i `uc ]
-[; ;my_i2c.c: 123: ic_ptr->status = 0x5;
-"123
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-[; ;my_i2c.c: 124: overrun_error = 1;
-"124
+[; ;my_i2c.c: 120: ic_ptr->status = 0x5;
+"120
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+[; ;my_i2c.c: 121: overrun_error = 1;
+"121
 [e = _overrun_error -> -> 1 `i `uc ]
-[; ;my_i2c.c: 125: ic_ptr->error_count++;
-"125
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 126: ic_ptr->error_code = 0x4;
-"126
-[e = . *U _ic_ptr 4 -> -> 4 `i `uc ]
-"127
+[; ;my_i2c.c: 122: ic_ptr->error_count++;
+"122
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 123: ic_ptr->error_code = 0x4;
+"123
+[e = . *U _ic_ptr 8 -> -> 4 `i `uc ]
+"124
 }
 [e :U 1151 ]
-[; ;my_i2c.c: 127: }
-[; ;my_i2c.c: 129: if (SSPSTATbits.BF == 1) {
-"129
+[; ;my_i2c.c: 124: }
+[; ;my_i2c.c: 126: if (SSPSTATbits.BF == 1) {
+"126
 [e $ ! == -> . . _SSPSTATbits 2 0 `i -> 1 `i 1152  ]
 {
-[; ;my_i2c.c: 130: i2c_data = SSPBUF;
-"130
+[; ;my_i2c.c: 127: i2c_data = SSPBUF;
+"127
 [e = _i2c_data _SSPBUF ]
-[; ;my_i2c.c: 131: data_read = 1;
-"131
+[; ;my_i2c.c: 128: data_read = 1;
+"128
 [e = _data_read -> -> 1 `i `uc ]
-"132
+"129
 }
 [e :U 1152 ]
-[; ;my_i2c.c: 132: }
-[; ;my_i2c.c: 134: if (!overrun_error) {
-"134
+[; ;my_i2c.c: 129: }
+[; ;my_i2c.c: 131: if (!overrun_error) {
+"131
 [e $ ! ! != -> _overrun_error `i -> -> -> 0 `i `uc `i 1153  ]
 {
-[; ;my_i2c.c: 135: switch (ic_ptr->status) {
-"135
+[; ;my_i2c.c: 132: switch (ic_ptr->status) {
+"132
 [e $U 1155  ]
 {
-[; ;my_i2c.c: 136: case 0x5:
-"136
+[; ;my_i2c.c: 133: case 0x5:
+"133
 [e :U 1156 ]
-[; ;my_i2c.c: 137: {
-"137
+[; ;my_i2c.c: 134: {
+"134
 {
-[; ;my_i2c.c: 139: if (SSPSTATbits.S == 1) {
-"139
+[; ;my_i2c.c: 136: if (SSPSTATbits.S == 1) {
+"136
 [e $ ! == -> . . _SSPSTATbits 2 3 `i -> 1 `i 1157  ]
 {
-[; ;my_i2c.c: 140: handle_start(data_read);
-"140
+[; ;my_i2c.c: 137: handle_start(data_read);
+"137
 [e ( _handle_start (1 _data_read ]
-[; ;my_i2c.c: 142: if (ic_ptr->status == 0x8) {
-"142
-[e $ ! == -> . *U _ic_ptr 3 `i -> 8 `i 1158  ]
+[; ;my_i2c.c: 139: if (ic_ptr->status == 0x8) {
+"139
+[e $ ! == -> . *U _ic_ptr 7 `i -> 8 `i 1158  ]
 {
-[; ;my_i2c.c: 143: data_read = 0;
-"143
+[; ;my_i2c.c: 140: data_read = 0;
+"140
 [e = _data_read -> -> 0 `i `uc ]
-[; ;my_i2c.c: 144: msg_to_send = 1;
-"144
+[; ;my_i2c.c: 141: msg_to_send = 1;
+"141
 [e = _msg_to_send -> -> 1 `i `uc ]
-"145
+"142
 }
 [e :U 1158 ]
-"146
+"143
 }
 [e :U 1157 ]
-[; ;my_i2c.c: 145: }
-[; ;my_i2c.c: 146: }
-[; ;my_i2c.c: 147: break;
-"147
+[; ;my_i2c.c: 142: }
+[; ;my_i2c.c: 143: }
+[; ;my_i2c.c: 144: break;
+"144
 [e $U 1154  ]
-"148
+"145
 }
-[; ;my_i2c.c: 148: }
-[; ;my_i2c.c: 149: case 0x6:
-"149
+[; ;my_i2c.c: 145: }
+[; ;my_i2c.c: 146: case 0x6:
+"146
 [e :U 1159 ]
-[; ;my_i2c.c: 150: {
-"150
+[; ;my_i2c.c: 147: {
+"147
 {
-[; ;my_i2c.c: 152: if (SSPSTATbits.P == 1) {
-"152
+[; ;my_i2c.c: 150: if (SSPSTATbits.P == 1) {
+"150
 [e $ ! == -> . . _SSPSTATbits 2 4 `i -> 1 `i 1160  ]
 {
-[; ;my_i2c.c: 155: ic_ptr->event_count++;
-"155
-[e ++ . *U _ic_ptr 2 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 156: if (data_read) {
-"156
+[; ;my_i2c.c: 153: ic_ptr->event_count++;
+"153
+[e ++ . *U _ic_ptr 6 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 154: if (data_read) {
+"154
 [e $ ! != -> _data_read `i -> -> -> 0 `i `uc `i 1161  ]
 {
-[; ;my_i2c.c: 157: if (SSPSTATbits.D_A == 0) {
-"157
+[; ;my_i2c.c: 155: if (SSPSTATbits.D_A == 0) {
+"155
 [e $ ! == -> . . _SSPSTATbits 4 3 `i -> 0 `i 1162  ]
 {
-[; ;my_i2c.c: 158: msg_ready = 1;
-"158
+[; ;my_i2c.c: 156: msg_ready = 1;
+"156
 [e = _msg_ready -> -> 1 `i `uc ]
-"159
+"157
 }
-[; ;my_i2c.c: 159: } else {
+[; ;my_i2c.c: 157: } else {
 [e $U 1163  ]
 [e :U 1162 ]
 {
-[; ;my_i2c.c: 160: ic_ptr->error_count++;
+[; ;my_i2c.c: 158: ic_ptr->error_count++;
+"158
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 159: ic_ptr->error_code = 0x6;
+"159
+[e = . *U _ic_ptr 8 -> -> 6 `i `uc ]
 "160
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 161: ic_ptr->error_code = 0x6;
-"161
-[e = . *U _ic_ptr 4 -> -> 6 `i `uc ]
-"162
 }
 [e :U 1163 ]
-"163
+"161
 }
 [e :U 1161 ]
-[; ;my_i2c.c: 162: }
-[; ;my_i2c.c: 163: }
-[; ;my_i2c.c: 164: ic_ptr->status = 0x5;
-"164
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-"165
+[; ;my_i2c.c: 160: }
+[; ;my_i2c.c: 161: }
+[; ;my_i2c.c: 162: ic_ptr->status = 0x5;
+"162
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+"163
 }
-[; ;my_i2c.c: 165: } else if (data_read) {
+[; ;my_i2c.c: 163: } else if (data_read) {
 [e $U 1164  ]
 [e :U 1160 ]
 [e $ ! != -> _data_read `i -> -> -> 0 `i `uc `i 1165  ]
 {
-[; ;my_i2c.c: 166: ic_ptr->event_count++;
-"166
-[e ++ . *U _ic_ptr 2 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 167: if (SSPSTATbits.D_A == 0) {
-"167
+[; ;my_i2c.c: 164: ic_ptr->event_count++;
+"164
+[e ++ . *U _ic_ptr 6 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 165: if (SSPSTATbits.D_A == 0) {
+"165
 [e $ ! == -> . . _SSPSTATbits 4 3 `i -> 0 `i 1166  ]
 {
-[; ;my_i2c.c: 168: if (SSPSTATbits.R_W == 0) {
-"168
+[; ;my_i2c.c: 166: if (SSPSTATbits.R_W == 0) {
+"166
 [e $ ! == -> . . _SSPSTATbits 4 1 `i -> 0 `i 1167  ]
 {
-[; ;my_i2c.c: 169: ic_ptr->status = 0x7;
-"169
-[e = . *U _ic_ptr 3 -> -> 7 `i `uc ]
-"170
+[; ;my_i2c.c: 167: ic_ptr->status = 0x7;
+"167
+[e = . *U _ic_ptr 7 -> -> 7 `i `uc ]
+"168
 }
-[; ;my_i2c.c: 170: } else {
+[; ;my_i2c.c: 168: } else {
 [e $U 1168  ]
 [e :U 1167 ]
 {
-[; ;my_i2c.c: 171: ic_ptr->status = 0x8;
+[; ;my_i2c.c: 169: blip3();
+"169
+[e ( _blip3 ..  ]
+[; ;my_i2c.c: 170: ic_ptr->status = 0x8;
+"170
+[e = . *U _ic_ptr 7 -> -> 8 `i `uc ]
+[; ;my_i2c.c: 171: msg_to_send = 1;
 "171
-[e = . *U _ic_ptr 3 -> -> 8 `i `uc ]
-[; ;my_i2c.c: 172: msg_to_send = 1;
-"172
 [e = _msg_to_send -> -> 1 `i `uc ]
-[; ;my_i2c.c: 174: data_read = 0;
-"174
+[; ;my_i2c.c: 173: data_read = 0;
+"173
 [e = _data_read -> -> 0 `i `uc ]
+[; ;my_i2c.c: 174: ic_ptr->outbufind = 0;
+"174
+[e = . *U _ic_ptr 4 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 175: goto l;
 "175
-}
-[e :U 1168 ]
+[e $U 1169  ]
 "176
 }
-[; ;my_i2c.c: 175: }
-[; ;my_i2c.c: 176: } else {
-[e $U 1169  ]
+[e :U 1168 ]
+"177
+}
+[; ;my_i2c.c: 176: }
+[; ;my_i2c.c: 177: } else {
+[e $U 1170  ]
 [e :U 1166 ]
 {
-[; ;my_i2c.c: 177: ic_ptr->error_count++;
-"177
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 178: ic_ptr->status = 0x5;
+[; ;my_i2c.c: 178: ic_ptr->error_count++;
 "178
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-[; ;my_i2c.c: 179: ic_ptr->error_code = 0x6;
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 179: ic_ptr->status = 0x5;
 "179
-[e = . *U _ic_ptr 4 -> -> 6 `i `uc ]
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+[; ;my_i2c.c: 180: ic_ptr->error_code = 0x6;
 "180
-}
-[e :U 1169 ]
+[e = . *U _ic_ptr 8 -> -> 6 `i `uc ]
 "181
 }
-[e :U 1165 ]
-"182
-[e :U 1164 ]
-[; ;my_i2c.c: 180: }
-[; ;my_i2c.c: 181: }
-[; ;my_i2c.c: 182: break;
-[e $U 1154  ]
-"183
-}
-[; ;my_i2c.c: 183: }
-[; ;my_i2c.c: 184: case 0x8:
-"184
 [e :U 1170 ]
-[; ;my_i2c.c: 185: {
-"185
-{
-[; ;my_i2c.c: 186: if (ic_ptr->outbufind < ic_ptr->outbuflen) {
-"186
-[e $ ! < -> . *U _ic_ptr 8 `i -> . *U _ic_ptr 7 `i 1171  ]
-{
-[; ;my_i2c.c: 187: SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
-"187
-[e = _SSPBUF *U + &U . *U _ic_ptr 6 * -> . *U _ic_ptr 8 `ux -> -> # *U &U . *U _ic_ptr 6 `ui `ux ]
-[; ;my_i2c.c: 188: ic_ptr->outbufind++;
-"188
-[e ++ . *U _ic_ptr 8 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 189: data_written = 1;
-"189
-[e = _data_written -> -> 1 `i `uc ]
-"190
+"182
 }
-[; ;my_i2c.c: 190: } else {
-[e $U 1172  ]
-[e :U 1171 ]
-{
-[; ;my_i2c.c: 192: ic_ptr->status = 0x5;
-"192
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-"193
-}
-[e :U 1172 ]
-[; ;my_i2c.c: 193: }
-[; ;my_i2c.c: 194: break;
-"194
+[e :U 1165 ]
+"183
+[e :U 1164 ]
+[; ;my_i2c.c: 181: }
+[; ;my_i2c.c: 182: }
+[; ;my_i2c.c: 183: break;
 [e $U 1154  ]
+[; ;my_i2c.c: 184: l:;
+"184
+[e :U 1169 ]
+"185
+}
+[; ;my_i2c.c: 185: }
+[; ;my_i2c.c: 186: case 0x8:
+"186
+[e :U 1171 ]
+[; ;my_i2c.c: 187: {
+"187
+{
+[; ;my_i2c.c: 188: blip4();
+"188
+[e ( _blip4 ..  ]
+[; ;my_i2c.c: 190: if (ic_ptr->outbufind < 6) {
+"190
+[e $ ! < -> . *U _ic_ptr 4 `i -> 6 `i 1172  ]
+{
+[; ;my_i2c.c: 191: blip4();
+"191
+[e ( _blip4 ..  ]
+[; ;my_i2c.c: 192: SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
+"192
+[e = _SSPBUF *U + &U . *U _ic_ptr 3 * -> . *U _ic_ptr 4 `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux ]
+[; ;my_i2c.c: 193: ic_ptr->outbufind++;
+"193
+[e ++ . *U _ic_ptr 4 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 194: data_written = 1;
+"194
+[e = _data_written -> -> 1 `i `uc ]
 "195
 }
-[; ;my_i2c.c: 195: }
-[; ;my_i2c.c: 196: case 0x7:
+[; ;my_i2c.c: 195: } else {
+[e $U 1173  ]
+[e :U 1172 ]
+{
+[; ;my_i2c.c: 196: blip3();
 "196
-[e :U 1173 ]
-[; ;my_i2c.c: 197: {
-"197
-{
-[; ;my_i2c.c: 199: if (SSPSTATbits.P == 1) {
+[e ( _blip3 ..  ]
+[; ;my_i2c.c: 198: ic_ptr->status = 0x5;
+"198
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
 "199
-[e $ ! == -> . . _SSPSTATbits 2 4 `i -> 1 `i 1174  ]
-{
-[; ;my_i2c.c: 201: ic_ptr->event_count++;
+}
+[e :U 1173 ]
+[; ;my_i2c.c: 199: }
+[; ;my_i2c.c: 200: break;
+"200
+[e $U 1154  ]
 "201
-[e ++ . *U _ic_ptr 2 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 202: if (data_read) {
+}
+[; ;my_i2c.c: 201: }
+[; ;my_i2c.c: 202: case 0x7:
 "202
-[e $ ! != -> _data_read `i -> -> -> 0 `i `uc `i 1175  ]
-{
-[; ;my_i2c.c: 203: if (SSPSTATbits.D_A == 1) {
+[e :U 1174 ]
+[; ;my_i2c.c: 203: {
 "203
-[e $ ! == -> . . _SSPSTATbits 4 3 `i -> 1 `i 1176  ]
 {
-[; ;my_i2c.c: 204: ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
+[; ;my_i2c.c: 204: blip2();
 "204
-[e = *U + &U . *U _ic_ptr 0 * -> . *U _ic_ptr 1 `ux -> -> # *U &U . *U _ic_ptr 0 `ui `ux _i2c_data ]
-[; ;my_i2c.c: 205: ic_ptr->buflen++;
-"205
-[e ++ . *U _ic_ptr 1 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 206: msg_ready = 1;
+[e ( _blip2 ..  ]
+[; ;my_i2c.c: 206: if (SSPSTATbits.P == 1) {
 "206
-[e = _msg_ready -> -> 1 `i `uc ]
-"207
-}
-[; ;my_i2c.c: 207: } else {
-[e $U 1177  ]
-[e :U 1176 ]
+[e $ ! == -> . . _SSPSTATbits 2 4 `i -> 1 `i 1175  ]
 {
-[; ;my_i2c.c: 208: ic_ptr->error_count++;
-"208
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 209: ic_ptr->error_code = 0x6;
+[; ;my_i2c.c: 209: ic_ptr->event_count++;
 "209
-[e = . *U _ic_ptr 4 -> -> 6 `i `uc ]
-[; ;my_i2c.c: 210: ic_ptr->status = 0x5;
+[e ++ . *U _ic_ptr 6 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 210: if (data_read) {
 "210
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-"211
-}
-[e :U 1177 ]
-"212
-}
-[; ;my_i2c.c: 211: }
-[; ;my_i2c.c: 212: } else {
-[e $U 1178  ]
-[e :U 1175 ]
+[e $ ! != -> _data_read `i -> -> -> 0 `i `uc `i 1176  ]
 {
-[; ;my_i2c.c: 213: msg_ready = 1;
+[; ;my_i2c.c: 211: if (SSPSTATbits.D_A == 1) {
+"211
+[e $ ! == -> . . _SSPSTATbits 4 3 `i -> 1 `i 1177  ]
+{
+[; ;my_i2c.c: 212: ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
+"212
+[e = *U + &U . *U _ic_ptr 0 * -> . *U _ic_ptr 1 `ux -> -> # *U &U . *U _ic_ptr 0 `ui `ux _i2c_data ]
+[; ;my_i2c.c: 213: ic_ptr->buflen++;
 "213
-[e = _msg_ready -> -> 1 `i `uc ]
+[e ++ . *U _ic_ptr 1 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 214: msg_ready = 1;
 "214
+[e = _msg_ready -> -> 1 `i `uc ]
+"215
+}
+[; ;my_i2c.c: 215: } else {
+[e $U 1178  ]
+[e :U 1177 ]
+{
+[; ;my_i2c.c: 216: ic_ptr->error_count++;
+"216
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 217: ic_ptr->error_code = 0x6;
+"217
+[e = . *U _ic_ptr 8 -> -> 6 `i `uc ]
+[; ;my_i2c.c: 218: ic_ptr->status = 0x5;
+"218
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+"219
 }
 [e :U 1178 ]
-[; ;my_i2c.c: 214: }
-[; ;my_i2c.c: 215: ic_ptr->status = 0x5;
-"215
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-"216
-}
-[; ;my_i2c.c: 216: } else if (data_read) {
-[e $U 1179  ]
-[e :U 1174 ]
-[e $ ! != -> _data_read `i -> -> -> 0 `i `uc `i 1180  ]
-{
-[; ;my_i2c.c: 217: ic_ptr->event_count++;
-"217
-[e ++ . *U _ic_ptr 2 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 218: if (SSPSTATbits.D_A == 1) {
-"218
-[e $ ! == -> . . _SSPSTATbits 4 3 `i -> 1 `i 1181  ]
-{
-[; ;my_i2c.c: 219: ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
-"219
-[e = *U + &U . *U _ic_ptr 0 * -> . *U _ic_ptr 1 `ux -> -> # *U &U . *U _ic_ptr 0 `ui `ux _i2c_data ]
-[; ;my_i2c.c: 220: ic_ptr->buflen++;
 "220
-[e ++ . *U _ic_ptr 1 -> -> 1 `i `uc ]
+}
+[; ;my_i2c.c: 219: }
+[; ;my_i2c.c: 220: } else {
+[e $U 1179  ]
+[e :U 1176 ]
+{
+[; ;my_i2c.c: 221: msg_ready = 1;
 "221
-}
-[; ;my_i2c.c: 221: } else {
-[e $U 1182  ]
-[e :U 1181 ]
-{
-[; ;my_i2c.c: 222: if (SSPSTATbits.R_W == 1) {
-"222
-[e $ ! == -> . . _SSPSTATbits 4 1 `i -> 1 `i 1183  ]
-{
-[; ;my_i2c.c: 223: ic_ptr->status = 0x8;
-"223
-[e = . *U _ic_ptr 3 -> -> 8 `i `uc ]
-[; ;my_i2c.c: 224: msg_ready = 1;
-"224
 [e = _msg_ready -> -> 1 `i `uc ]
-[; ;my_i2c.c: 225: msg_to_send = 1;
-"225
-[e = _msg_to_send -> -> 1 `i `uc ]
-[; ;my_i2c.c: 227: data_read = 0;
-"227
-[e = _data_read -> -> 0 `i `uc ]
-"228
+"222
 }
-[; ;my_i2c.c: 228: } else {
-[e $U 1184  ]
-[e :U 1183 ]
-{
-[; ;my_i2c.c: 229: ic_ptr->error_count++;
-"229
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 230: ic_ptr->error_code = 0x6;
-"230
-[e = . *U _ic_ptr 4 -> -> 6 `i `uc ]
-[; ;my_i2c.c: 231: ic_ptr->status = 0x5;
-"231
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-"232
-}
-[e :U 1184 ]
-"233
-}
-[e :U 1182 ]
-"234
-}
-[e :U 1180 ]
-"235
 [e :U 1179 ]
-[; ;my_i2c.c: 232: }
-[; ;my_i2c.c: 233: }
-[; ;my_i2c.c: 234: }
-[; ;my_i2c.c: 235: break;
-[e $U 1154  ]
+[; ;my_i2c.c: 222: }
+[; ;my_i2c.c: 223: ic_ptr->status = 0x5;
+"223
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+"224
+}
+[; ;my_i2c.c: 224: } else if (data_read) {
+[e $U 1180  ]
+[e :U 1175 ]
+[e $ ! != -> _data_read `i -> -> -> 0 `i `uc `i 1181  ]
+{
+[; ;my_i2c.c: 226: ic_ptr->event_count++;
+"226
+[e ++ . *U _ic_ptr 6 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 227: if (SSPSTATbits.D_A == 1) {
+"227
+[e $ ! == -> . . _SSPSTATbits 4 3 `i -> 1 `i 1182  ]
+{
+[; ;my_i2c.c: 228: ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
+"228
+[e = *U + &U . *U _ic_ptr 0 * -> . *U _ic_ptr 1 `ux -> -> # *U &U . *U _ic_ptr 0 `ui `ux _i2c_data ]
+[; ;my_i2c.c: 229: ic_ptr->buflen++;
+"229
+[e ++ . *U _ic_ptr 1 -> -> 1 `i `uc ]
+"230
+}
+[; ;my_i2c.c: 230: } else {
+[e $U 1183  ]
+[e :U 1182 ]
+{
+[; ;my_i2c.c: 231: if (SSPSTATbits.R_W == 1) {
+"231
+[e $ ! == -> . . _SSPSTATbits 4 1 `i -> 1 `i 1184  ]
+{
+[; ;my_i2c.c: 232: blip();
+"232
+[e ( _blip ..  ]
+[; ;my_i2c.c: 233: ic_ptr->status = 0x8;
+"233
+[e = . *U _ic_ptr 7 -> -> 8 `i `uc ]
+[; ;my_i2c.c: 234: ic_ptr->outbuffer[0] = 0x55;
+"234
+[e = *U + &U . *U _ic_ptr 3 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux -> -> 85 `i `uc ]
+[; ;my_i2c.c: 235: ic_ptr->outbuffer[1] = 0x56;
+"235
+[e = *U + &U . *U _ic_ptr 3 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux -> -> 86 `i `uc ]
+[; ;my_i2c.c: 236: ic_ptr->outbuffer[2] = 0x57;
 "236
-}
+[e = *U + &U . *U _ic_ptr 3 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux -> -> 87 `i `uc ]
+[; ;my_i2c.c: 237: ic_ptr->outbuffer[3] = 0x58;
 "237
-}
-[; ;my_i2c.c: 236: }
-[; ;my_i2c.c: 237: }
-[e $U 1154  ]
-"135
-[e :U 1155 ]
-[e [\ . *U _ic_ptr 3 , $ -> -> 5 `i `uc 1156
- , $ -> -> 6 `i `uc 1159
- , $ -> -> 8 `i `uc 1170
- , $ -> -> 7 `i `uc 1173
- 1154 ]
-"237
-[e :U 1154 ]
+[e = *U + &U . *U _ic_ptr 3 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux -> -> 88 `i `uc ]
+[; ;my_i2c.c: 238: ic_ptr->outbuffer[4] = 0x59;
 "238
-}
-[e :U 1153 ]
-[; ;my_i2c.c: 238: }
-[; ;my_i2c.c: 241: if (data_read || data_written) {
+[e = *U + &U . *U _ic_ptr 3 * -> -> -> 4 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux -> -> 89 `i `uc ]
+[; ;my_i2c.c: 239: ic_ptr->outbuffer[5] = 0x5a;
+"239
+[e = *U + &U . *U _ic_ptr 3 * -> -> -> 5 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux -> -> 90 `i `uc ]
+[; ;my_i2c.c: 240: ic_ptr->outbuflen = 6;
+"240
+[e = . *U _ic_ptr 5 -> -> 6 `i `uc ]
+[; ;my_i2c.c: 241: ic_ptr->outbufind = 0;
 "241
-[e $ ! || != -> _data_read `i -> -> -> 0 `i `uc `i != -> _data_written `i -> -> -> 0 `i `uc `i 1185  ]
-{
-[; ;my_i2c.c: 243: if (SSPCON1bits.CKP == 0) {
+[e = . *U _ic_ptr 4 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 242: msg_ready = 1;
+"242
+[e = _msg_ready -> -> 1 `i `uc ]
+[; ;my_i2c.c: 243: msg_to_send = 1;
 "243
-[e $ ! == -> . . _SSPCON1bits 0 1 `i -> 0 `i 1186  ]
-{
-[; ;my_i2c.c: 244: SSPCON1bits.CKP = 1;
-"244
-[e = . . _SSPCON1bits 0 1 -> -> 1 `i `uc ]
+[e = _msg_to_send -> -> 1 `i `uc ]
+[; ;my_i2c.c: 245: data_read = 0;
 "245
-}
-[e :U 1186 ]
+[e = _data_read -> -> 0 `i `uc ]
+[; ;my_i2c.c: 246: ic_ptr->outbufind = 0;
 "246
-}
-[e :U 1185 ]
-[; ;my_i2c.c: 245: }
-[; ;my_i2c.c: 246: }
-[; ;my_i2c.c: 249: if ((ic_ptr->buflen > 10 - 2) && (!msg_ready)) {
+[e = . *U _ic_ptr 4 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 247: SSPBUF = ic_ptr->outbuffer[0];
+"247
+[e = _SSPBUF *U + &U . *U _ic_ptr 3 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux ]
+[; ;my_i2c.c: 248: SSPCON1bits.CKP = 1;
+"248
+[e = . . _SSPCON1bits 0 1 -> -> 1 `i `uc ]
 "249
-[e $ ! && > -> . *U _ic_ptr 1 `i - -> 10 `i -> 2 `i ! != -> _msg_ready `i -> -> -> 0 `i `uc `i 1187  ]
+}
+[; ;my_i2c.c: 249: } else {
+[e $U 1185  ]
+[e :U 1184 ]
 {
-[; ;my_i2c.c: 250: ic_ptr->status = 0x5;
+[; ;my_i2c.c: 250: ic_ptr->error_count++;
 "250
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-[; ;my_i2c.c: 251: ic_ptr->error_count++;
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 251: ic_ptr->error_code = 0x6;
 "251
-[e ++ . *U _ic_ptr 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 252: ic_ptr->error_code = 0x7;
+[e = . *U _ic_ptr 8 -> -> 6 `i `uc ]
+[; ;my_i2c.c: 252: ic_ptr->status = 0x5;
 "252
-[e = . *U _ic_ptr 4 -> -> 7 `i `uc ]
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
 "253
 }
-[e :U 1187 ]
-[; ;my_i2c.c: 253: }
-[; ;my_i2c.c: 255: if (msg_ready) {
+[e :U 1185 ]
+"254
+}
+[e :U 1183 ]
 "255
-[e $ ! != -> _msg_ready `i -> -> -> 0 `i `uc `i 1188  ]
-{
-[; ;my_i2c.c: 256: ic_ptr->buffer[ic_ptr->buflen] = ic_ptr->event_count;
+}
+[e :U 1181 ]
 "256
-[e = *U + &U . *U _ic_ptr 0 * -> . *U _ic_ptr 1 `ux -> -> # *U &U . *U _ic_ptr 0 `ui `ux . *U _ic_ptr 2 ]
-[; ;my_i2c.c: 257: ToMainHigh_sendmsg(ic_ptr->buflen + 1, 40, (void *) ic_ptr->buffer);
+[e :U 1180 ]
+[; ;my_i2c.c: 253: }
+[; ;my_i2c.c: 254: }
+[; ;my_i2c.c: 255: }
+[; ;my_i2c.c: 256: break;
+[e $U 1154  ]
 "257
-[e ( _ToMainHigh_sendmsg (3 , , -> + -> . *U _ic_ptr 1 `i -> 1 `i `uc -> -> 40 `i `uc -> &U . *U _ic_ptr 0 `*v ]
-[; ;my_i2c.c: 258: ic_ptr->buflen = 0;
+}
 "258
-[e = . *U _ic_ptr 1 -> -> 0 `i `uc ]
+}
+[; ;my_i2c.c: 257: }
+[; ;my_i2c.c: 258: }
+[e $U 1154  ]
+"132
+[e :U 1155 ]
+[e [\ . *U _ic_ptr 7 , $ -> -> 5 `i `uc 1156
+ , $ -> -> 6 `i `uc 1159
+ , $ -> -> 8 `i `uc 1171
+ , $ -> -> 7 `i `uc 1174
+ 1154 ]
+"258
+[e :U 1154 ]
 "259
 }
-[; ;my_i2c.c: 259: } else if (ic_ptr->error_count >= 1) {
-[e $U 1189  ]
-[e :U 1188 ]
-[e $ ! >= -> . *U _ic_ptr 5 `i -> 1 `i 1190  ]
-{
-[; ;my_i2c.c: 260: error_buf[0] = ic_ptr->error_count;
-"260
-[e = *U + &U _error_buf * -> -> -> 0 `i `ui `ux -> -> # *U &U _error_buf `ui `ux . *U _ic_ptr 5 ]
-[; ;my_i2c.c: 261: error_buf[1] = ic_ptr->error_code;
-"261
-[e = *U + &U _error_buf * -> -> -> 1 `i `ui `ux -> -> # *U &U _error_buf `ui `ux . *U _ic_ptr 4 ]
-[; ;my_i2c.c: 262: error_buf[2] = ic_ptr->event_count;
+[e :U 1153 ]
+[; ;my_i2c.c: 259: }
+[; ;my_i2c.c: 262: if (data_read || data_written) {
 "262
-[e = *U + &U _error_buf * -> -> -> 2 `i `ui `ux -> -> # *U &U _error_buf `ui `ux . *U _ic_ptr 2 ]
-[; ;my_i2c.c: 263: ToMainHigh_sendmsg(sizeof (unsigned char) *3, 41, (void *) error_buf);
-"263
-[e ( _ToMainHigh_sendmsg (3 , , -> * -> # `uc `ui -> -> 3 `i `ui `uc -> -> 41 `i `uc -> &U _error_buf `*v ]
-[; ;my_i2c.c: 264: ic_ptr->error_count = 0;
-"264
-[e = . *U _ic_ptr 5 -> -> 0 `i `uc ]
-"265
-}
-[e :U 1190 ]
-"266
-[e :U 1189 ]
-[; ;my_i2c.c: 265: }
-[; ;my_i2c.c: 266: if (msg_to_send) {
-[e $ ! != -> _msg_to_send `i -> -> -> 0 `i `uc `i 1191  ]
+[e $ ! || != -> _data_read `i -> -> -> 0 `i `uc `i != -> _data_written `i -> -> -> 0 `i `uc `i 1186  ]
 {
-[; ;my_i2c.c: 268: ToMainHigh_sendmsg(0, 42, (void *) ic_ptr->buffer);
-"268
-[e ( _ToMainHigh_sendmsg (3 , , -> -> 0 `i `uc -> -> 42 `i `uc -> &U . *U _ic_ptr 0 `*v ]
-[; ;my_i2c.c: 269: msg_to_send = 0;
-"269
-[e = _msg_to_send -> -> 0 `i `uc ]
-"270
+[; ;my_i2c.c: 264: if (SSPCON1bits.CKP == 0) {
+"264
+[e $ ! == -> . . _SSPCON1bits 0 1 `i -> 0 `i 1187  ]
+{
+[; ;my_i2c.c: 265: SSPCON1bits.CKP = 1;
+"265
+[e = . . _SSPCON1bits 0 1 -> -> 1 `i `uc ]
+"266
+}
+[e :U 1187 ]
+"267
+}
+[e :U 1186 ]
+[; ;my_i2c.c: 266: }
+[; ;my_i2c.c: 267: }
+[; ;my_i2c.c: 272: if ((ic_ptr->buflen > 10 - 2) && (!msg_ready)) {
+"272
+[e $ ! && > -> . *U _ic_ptr 1 `i - -> 10 `i -> 2 `i ! != -> _msg_ready `i -> -> -> 0 `i `uc `i 1188  ]
+{
+[; ;my_i2c.c: 273: ic_ptr->status = 0x5;
+"273
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+[; ;my_i2c.c: 274: ic_ptr->error_count++;
+"274
+[e ++ . *U _ic_ptr 9 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 275: ic_ptr->error_code = 0x7;
+"275
+[e = . *U _ic_ptr 8 -> -> 7 `i `uc ]
+"276
+}
+[e :U 1188 ]
+[; ;my_i2c.c: 276: }
+[; ;my_i2c.c: 278: if (msg_ready) {
+"278
+[e $ ! != -> _msg_ready `i -> -> -> 0 `i `uc `i 1189  ]
+{
+[; ;my_i2c.c: 279: ic_ptr->buffer[ic_ptr->buflen] = ic_ptr->event_count;
+"279
+[e = *U + &U . *U _ic_ptr 0 * -> . *U _ic_ptr 1 `ux -> -> # *U &U . *U _ic_ptr 0 `ui `ux . *U _ic_ptr 6 ]
+[; ;my_i2c.c: 280: ToMainHigh_sendmsg(ic_ptr->buflen + 1, 40, (void *) ic_ptr->buffer);
+"280
+[e ( _ToMainHigh_sendmsg (3 , , -> + -> . *U _ic_ptr 1 `i -> 1 `i `uc -> -> 40 `i `uc -> &U . *U _ic_ptr 0 `*v ]
+[; ;my_i2c.c: 281: ic_ptr->buflen = 0;
+"281
+[e = . *U _ic_ptr 1 -> -> 0 `i `uc ]
+"282
+}
+[; ;my_i2c.c: 282: } else if (ic_ptr->error_count >= 1) {
+[e $U 1190  ]
+[e :U 1189 ]
+[e $ ! >= -> . *U _ic_ptr 9 `i -> 1 `i 1191  ]
+{
+[; ;my_i2c.c: 283: error_buf[0] = ic_ptr->error_count;
+"283
+[e = *U + &U _error_buf * -> -> -> 0 `i `ui `ux -> -> # *U &U _error_buf `ui `ux . *U _ic_ptr 9 ]
+[; ;my_i2c.c: 284: error_buf[1] = ic_ptr->error_code;
+"284
+[e = *U + &U _error_buf * -> -> -> 1 `i `ui `ux -> -> # *U &U _error_buf `ui `ux . *U _ic_ptr 8 ]
+[; ;my_i2c.c: 285: error_buf[2] = ic_ptr->event_count;
+"285
+[e = *U + &U _error_buf * -> -> -> 2 `i `ui `ux -> -> # *U &U _error_buf `ui `ux . *U _ic_ptr 6 ]
+[; ;my_i2c.c: 286: ToMainHigh_sendmsg(sizeof (unsigned char) *3, 41, (void *) error_buf);
+"286
+[e ( _ToMainHigh_sendmsg (3 , , -> * -> # `uc `ui -> -> 3 `i `ui `uc -> -> 41 `i `uc -> &U _error_buf `*v ]
+[; ;my_i2c.c: 287: ic_ptr->error_count = 0;
+"287
+[e = . *U _ic_ptr 9 -> -> 0 `i `uc ]
+"288
 }
 [e :U 1191 ]
-[; ;my_i2c.c: 270: }
-[; ;my_i2c.c: 274: LATD = 0x00;
-"274
-[e = _LATD -> -> 0 `i `uc ]
-[; ;my_i2c.c: 277: }
-"277
+"289
+[e :U 1190 ]
+[; ;my_i2c.c: 288: }
+[; ;my_i2c.c: 289: if (msg_to_send) {
+[e $ ! != -> _msg_to_send `i -> -> -> 0 `i `uc `i 1192  ]
+{
+[; ;my_i2c.c: 291: ToMainHigh_sendmsg(0, 42, (void *) ic_ptr->buffer);
+"291
+[e ( _ToMainHigh_sendmsg (3 , , -> -> 0 `i `uc -> -> 42 `i `uc -> &U . *U _ic_ptr 0 `*v ]
+[; ;my_i2c.c: 292: msg_to_send = 0;
+"292
+[e = _msg_to_send -> -> 0 `i `uc ]
+"293
+}
+[e :U 1192 ]
+[; ;my_i2c.c: 293: }
+[; ;my_i2c.c: 296: }
+"296
 [e :UE 1150 ]
 }
-"282
+"301
 [v _init_i2c `(v ~T0 @X0 1 ef1`*S1134 ]
 {
-[; ;my_i2c.c: 282: void init_i2c(i2c_comm *ic) {
+[; ;my_i2c.c: 301: void init_i2c(i2c_comm *ic) {
 [e :U _init_i2c ]
 [v _ic `*S1134 ~T0 @X0 1 r1 ]
 [f ]
-[; ;my_i2c.c: 283: ic_ptr = ic;
-"283
+[; ;my_i2c.c: 302: ic_ptr = ic;
+"302
 [e = _ic_ptr _ic ]
-[; ;my_i2c.c: 284: ic_ptr->buflen = 0;
-"284
+[; ;my_i2c.c: 303: ic_ptr->buflen = 0;
+"303
 [e = . *U _ic_ptr 1 -> -> 0 `i `uc ]
-[; ;my_i2c.c: 285: ic_ptr->event_count = 0;
-"285
-[e = . *U _ic_ptr 2 -> -> 0 `i `uc ]
-[; ;my_i2c.c: 286: ic_ptr->status = 0x5;
-"286
-[e = . *U _ic_ptr 3 -> -> 5 `i `uc ]
-[; ;my_i2c.c: 287: ic_ptr->error_count = 0;
-"287
-[e = . *U _ic_ptr 5 -> -> 0 `i `uc ]
-[; ;my_i2c.c: 288: }
-"288
-[e :UE 1192 ]
+[; ;my_i2c.c: 304: ic_ptr->event_count = 0;
+"304
+[e = . *U _ic_ptr 6 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 305: ic_ptr->status = 0x5;
+"305
+[e = . *U _ic_ptr 7 -> -> 5 `i `uc ]
+[; ;my_i2c.c: 306: ic_ptr->error_count = 0;
+"306
+[e = . *U _ic_ptr 9 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 307: }
+"307
+[e :UE 1193 ]
 }
-"293
+"312
 [v _i2c_configure_slave `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;my_i2c.c: 293: void i2c_configure_slave(unsigned char addr) {
+[; ;my_i2c.c: 312: void i2c_configure_slave(unsigned char addr) {
 [e :U _i2c_configure_slave ]
 [v _addr `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;my_i2c.c: 302: TRISBbits.TRISB4 = 1;
-"302
+[; ;my_i2c.c: 321: TRISBbits.TRISB4 = 1;
+"321
 [e = . . _TRISBbits 0 4 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 303: TRISBbits.TRISB5 = 1;
-"303
+[; ;my_i2c.c: 322: TRISBbits.TRISB5 = 1;
+"322
 [e = . . _TRISBbits 0 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 311: SSPADD = addr;
-"311
+[; ;my_i2c.c: 330: SSPADD = addr;
+"330
 [e = _SSPADD _addr ]
-[; ;my_i2c.c: 313: SSPSTAT = 0x0;
-"313
-[e = _SSPSTAT -> -> 0 `i `uc ]
-[; ;my_i2c.c: 314: SSPCON1 = 0x0;
-"314
-[e = _SSPCON1 -> -> 0 `i `uc ]
-[; ;my_i2c.c: 315: SSPCON2 = 0x0;
-"315
-[e = _SSPCON2 -> -> 0 `i `uc ]
-[; ;my_i2c.c: 316: SSPCON1 |= 0x0E;
-"316
-[e =| _SSPCON1 -> -> 14 `i `uc ]
-[; ;my_i2c.c: 317: SSPSTAT |= 0b10000000;
-"317
-[e =| _SSPSTAT -> -> 128 `i `uc ]
-[; ;my_i2c.c: 332: PORTBbits.SCL1 = 1;
+[; ;my_i2c.c: 332: SSPSTAT = 0x0;
 "332
-[e = . . _PORTBbits 4 4 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 333: PORTBbits.SDA1 = 1;
+[e = _SSPSTAT -> -> 0 `i `uc ]
+[; ;my_i2c.c: 333: SSPCON1 = 0x0;
 "333
+[e = _SSPCON1 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 334: SSPCON2 = 0x0;
+"334
+[e = _SSPCON2 -> -> 0 `i `uc ]
+[; ;my_i2c.c: 335: SSPCON1 |= 0x0E;
+"335
+[e =| _SSPCON1 -> -> 14 `i `uc ]
+[; ;my_i2c.c: 336: SSPSTAT |= 0b10000000;
+"336
+[e =| _SSPSTAT -> -> 128 `i `uc ]
+[; ;my_i2c.c: 351: PORTBbits.SCL1 = 1;
+"351
+[e = . . _PORTBbits 4 4 -> -> 1 `i `uc ]
+[; ;my_i2c.c: 352: PORTBbits.SDA1 = 1;
+"352
 [e = . . _PORTBbits 4 5 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 342: SSPCON2bits.SEN = 1;
-"342
+[; ;my_i2c.c: 361: SSPCON2bits.SEN = 1;
+"361
 [e = . . _SSPCON2bits 0 0 -> -> 1 `i `uc ]
-[; ;my_i2c.c: 343: SSPCON1 |= 0b00100000;
-"343
+[; ;my_i2c.c: 362: SSPCON1 |= 0b00100000;
+"362
 [e =| _SSPCON1 -> -> 32 `i `uc ]
-[; ;my_i2c.c: 345: }
-"345
-[e :UE 1193 ]
+[; ;my_i2c.c: 364: }
+"364
+[e :UE 1194 ]
 }

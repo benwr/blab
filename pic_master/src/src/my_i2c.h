@@ -8,6 +8,7 @@
 typedef struct __i2c_comm {
     unsigned char buffer[MAXI2CBUF];
     unsigned char buflen;
+    unsigned char bufind;
     unsigned char outbuffer[MAXI2CBUF];
     unsigned char outbufind;
     unsigned char outbuflen;    
@@ -19,7 +20,7 @@ typedef struct __i2c_comm {
     unsigned char slave_addr;
 } i2c_comm;
 
-#define I2C_DATA_SIZE 0x4
+#define I2C_DATA_SIZE 6
 
 #define I2C_IDLE 0x5
 #define I2C_STARTED 0x6
@@ -28,6 +29,9 @@ typedef struct __i2c_comm {
 #define I2C_MASTER_ADDRESS_SEND 0x9
 #define I2C_MASTER_DATA_SEND 0xa
 #define I2C_MASTER_DATA_STOP 0xb
+#define I2C_MASTER_RESTART 0xc
+#define I2C_MASTER_ADDRESS_RESEND 0xd
+#define I2C_MASTER_RECEIVE 0xe
 
 
 #define I2C_ERR_THRESHOLD 1

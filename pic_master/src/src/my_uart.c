@@ -60,19 +60,21 @@ unsigned char send_uart_message( unsigned char length , unsigned char * message_
 }
 
 //Receive a UART Packet
-unsigned char receive_uart_message( unsigned char * message_ptr )
+unsigned char receive_uart_message(  )
 {
     static uart_packet_type uart_recv_packet;
 
-    if( uart_recv_packet.bytes_received == 0 )
-    {
-        uart_recv_packet.header = uart_get_byte();
-        uart_recv_packet.bytes_received += 1;
-    }
-    else if( uart_recv_packet.bytes_received < (UART_MESSAGE_LENGTH - 1) )
+    unsigned char gotten_byte = RCREG1;
+
+    if( uart_recv_packet.bytes_received < (UART_MESSAGE_LENGTH) )
     {
         uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
         uart_recv_packet.bytes_received += 1;
+    }
+    else
+    {
+        //signed char err =  ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+
     }
 
     return 0x00; //change this
@@ -102,52 +104,23 @@ void uart_configure()
 
     TXSTA1bits.TXEN = 1; //Alex: Enable Transmission
     RCSTA1bits.CREN = 1; //Alex: Enable Reception  
-
-    /*
-    //Alex: Initialize send buffer
-    uart_send_buffer->current_item = 0;
-    uart_send_buffer->last_item = 0;
-    uart_send_buffer->buffer[uart_send_buffer.current_item] = 0;
-    uart_send_buffer->size = 0;
-
-    m_uart_send_buffer = uart_send_buffer;
-
-    //Alex: Initialize receive buffer
-    uart_receive_buffer->current_item = 0;
-    uart_receive_buffer->last_item = 0;
-    uart_receive_buffer->buffer[uart_receive_buffer.current_item] = 0;
-    uart_receive_buffer->size = 0;
-
-    m_uart_receive_buffer = uart_receive_buffer;
-
-     *  * */
-    
-     
-    
+   
     
 }
 
 
 #endif  //Alex: End definitions for the Mk IV
-
-/*
-//Alex: Put soemthing in the uart send queue
-int uart_send_byte( unsigned char sendByte )
+//Handle receive interrupt
+void uart_receive_interrupt_handler()
 {
+    //static unsigned char done = 1;
+    static unsigned char * data;
+    static unsigned char index = 0;
 
-    if( FromMainLow_sendmsg(1,MSGT_UART_DATA,(void *) &sendByte ) == MSGSEND_OKAY )
-    {
-        #ifdef DEBUG_MODE
-        //Alex: Set Debug output
-        LATD = DEBUG_UART_MSGQ_SEND_TO_TX;
-        #endif
-        PIE1bits.TX1IE = 1;
-        return 1;
-    }
+    ToMainLow_sendmsg(UART_MESSAGE_LENGTH,MSGT_UART_DATA,(void *) data );
+   
 
-    return 0;
 }
- * */
 
 //Handle uart transmit handler
 void uart_transmit_interrupt_handler()
@@ -233,9 +206,10 @@ unsigned char uart_get_byte()
 
 
 //Alex: Receive a byte into uart receive buffer from the uart hardware recieve buffer; interrupt should call this only
+/*
 void uart_receive_byte()
 {
-    unsigned char gotten_byte = RCREG1;
+    
     signed char message_status = ToMainLow_sendmsg(1,MSGT_UART_DATA,(void *) &gotten_byte );
 
     
@@ -248,8 +222,9 @@ void uart_receive_byte()
     uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
     uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % MAXUARTBUF;
     uart_receive_buffer.size += 1;
-     * */
+     
 }
+*/
 
 /*
 int uart_receive_buffer_empty()

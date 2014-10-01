@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 10 "../src/messages.h"
+# 15 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10842,7 +10842,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 48
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 62
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 69
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 76
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 83
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -10944,6 +10944,7 @@ void blip4();
 typedef struct __i2c_comm {
 unsigned char buffer[10];
 unsigned char buflen;
+unsigned char bufind;
 unsigned char outbuffer[10];
 unsigned char outbufind;
 unsigned char outbuflen;
@@ -10955,7 +10956,7 @@ unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 42
+# 46
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
@@ -10984,7 +10985,7 @@ TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
 ic_ptr->slave_addr = slave_addr;
-ic_ptr->outbuflen = 0x4;
+ic_ptr->outbuflen = 6;
 ic_ptr->status = 0x5;
 
 SSP1CON1bits.SSPEN = 1;
@@ -11066,7 +11067,7 @@ unsigned char i2c_data;
 unsigned char msg_to_send = 40;
 
 
-unsigned char write_bit = 0;
+unsigned char read_bit = 1;
 
 
 
@@ -11074,7 +11075,8 @@ switch(ic_ptr->status)
 {
 case 0x5:
 {
-signed char len = FromMainHigh_recvmsg(ic_ptr->outbuflen, &msg_to_send, (void*)ic_ptr->outbuffer);
+
+signed char len = FromMainHigh_recvmsg(6, &msg_to_send, (void*)ic_ptr->outbuffer);
 if( len == -4 )
 {
 
@@ -11085,6 +11087,7 @@ break;
 }
 else if( len == -3 )
 {
+blip();
 break;
 }
 else
@@ -11109,11 +11112,13 @@ case 0x6:
 {
 blip2();
 
-# 192
-SSP1BUF = ((ic_ptr->slave_addr) << 1)|write_bit;
+# 194
+SSP1BUF = ((ic_ptr->slave_addr) << 1);
+
 
 ic_ptr->status = 0xa;
 ic_ptr->outbufind = 0;
+
 break;
 }
 case 0xa:
@@ -11122,16 +11127,90 @@ blip3();
 SSP1BUF = ic_ptr->outbuffer[ic_ptr->outbufind];
 ic_ptr->outbufind++;
 
-if( ic_ptr->outbufind >= ic_ptr->outbuflen )
+if( ic_ptr->outbufind >= 6 )
+{
+unsigned char command_nibble = ic_ptr->outbuffer[0] >> 4;
+
+switch(command_nibble)
+{
+case 0x2:
+{
+read_bit = 1;
+break;
+}
+default:
+{
+read_bit = 0;
+break;
+}
+}
+
+if( read_bit )
+{
+ic_ptr->status = 0xc;
+ic_ptr->bufind = 0;
+}
+else
 {
 ic_ptr->status = 0xb;
 }
+}
 break;
 }
+case 0xc:
+{
+
+SSP1CON2bits.RSEN = 1;
+
+ic_ptr->status = 0xd;
+break;
+}
+case 0xd:
+{
+SSP1BUF = ((ic_ptr->slave_addr) << 1)|1;
+
+ic_ptr->status = 0xe;
+break;
+}
+case 0xe:
+{
+blip4();
+
+SSP1CON2bits.RCEN = 1;
+
+ic_ptr->outbufind = 0;
+ic_ptr->status = 0x8;
+break;
+}
+case 0x8:
+{
+ic_ptr->buffer[ic_ptr->bufind] = SSP1BUF;
+ic_ptr->bufind++;
+
+
+if( ic_ptr->bufind >= 6 )
+{
+signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, 40 , ic_ptr->buffer);
+ic_ptr->status = 0xb;
+}
+else if(SSP1STATbits.P)
+{
+signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, 40 , ic_ptr->buffer);
+ic_ptr->status = 0xb;
+}
+else
+{
+SSP1CON2bits.ACKEN = 1;
+ic_ptr->status = 0xe;
+break;
+}
+}
+
 case 0xb:
 {
 blip4();
 SSP1CON2bits.PEN = 1;
+ic_ptr->outbufind = 0;
 ic_ptr->outbufind = 0;
 ic_ptr->status = 0x5;
 
@@ -11139,7 +11218,6 @@ ic_ptr->status = 0x5;
 }
 }
 
-# 378
 }
 
 
@@ -11159,11 +11237,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 404
+# 325
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 413
+# 334
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11172,11 +11250,11 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 434
+# 355
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 444
+# 365
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 

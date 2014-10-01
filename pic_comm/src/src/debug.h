@@ -17,15 +17,28 @@
 #ifdef DEBUG_MODE
 //Alex: Interrupt Codes
 //Interrupts modify RD
-#define DEBUG_NONE 0x00
-#define DEBUG_I2C_INTERRUPT 0x10
-#define DEBUG_UARTREC_INTERRUPT 0x20
+#define DEBUG_NONE                      0x00
+#define DEBUG_I2C_INTERRUPT             0x01
+#define DEBUG_I2C_IDLE                  0x02
 
 
-#define DEBUG_TIMER0_INTERRUPT 0x40
-#define DEBUG_TIMER1_INTERRUPT 0x80
+#define DEBUG_UART_RECEIVE_INTERRUPT    0x04
 
+#define DEBUG_UART_SEND_INTERRUPT       0x05
+#define DEBUG_UART_MSGQ_SEND_TO_TX      0x06
+#define DEBUG_UART_MSGQ_RECV_FROM_MAIN  0x07
+
+#define DEBUG_TIMER0_INTERRUPT          0x08
+#define DEBUG_TIMER1_INTERRUPT          0x09
+
+
+void debug_configure();
 void blip();
+void blip1();
+void blip2();
+void blip3();
+void blip4();
+
 
 #endif
 

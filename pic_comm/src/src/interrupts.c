@@ -19,7 +19,7 @@ void enable_interrupts() {
     //uart_send_byte( 0x51 );
     INTCONbits.GIEL = 1;
 
-    
+
 }
 
 int in_high_int() {
@@ -92,6 +92,9 @@ void InterruptHandlerHigh() {
         // clear the interrupt flag
         PIR1bits.SSPIF = 0;
         // call the handler
+
+
+
         i2c_int_handler();
     }
 
@@ -99,6 +102,9 @@ void InterruptHandlerHigh() {
     if (INTCONbits.TMR0IF) {
         INTCONbits.TMR0IF = 0; // clear this interrupt flag
         // call whatever handler you want (this is "user" defined)
+
+
+
         timer0_int_handler();
     }
 
@@ -123,36 +129,38 @@ interrupt low_priority
 #pragma interruptlow InterruptHandlerLow
 #endif
 void InterruptHandlerLow() {
-    
+
     // check to see if we have an interrupt on timer 1
     if (PIR1bits.TMR1IF) {
         PIR1bits.TMR1IF = 0; //clear interrupt flag
+
+
+
         timer1_int_handler();
     }
 
     // check to see if we have an interrupt on USART RX
     if (PIR1bits.RCIF) {
         PIR1bits.RCIF = 0; //clear interrupt flag
+
+
+
         uart_receive_byte();
     }
 
-    
+
     //Check interrupt flag for uart transmit
     if (PIR1bits.TX1IF && PIE1bits.TX1IE)
     {
-        #ifdef DEBUG_MODE
-        //Alex: Set Debug output
-        LATDbits.LATD3 = 1;
-        LATDbits.LATD3 = 0;
-        #endif
-        
-        
-        uart_transmit_byte();
-        
+
+
+
+        uart_transmit_interrupt_handler();
+
         //PIR1bits.TX1IF = 0;
-      
+
     }
-    
-    
+
+
 }
 

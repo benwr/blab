@@ -5,7 +5,7 @@
 #include "debug.h"
 
 #define MAXUARTBUF 4
-#define UART_MESSAGE_LENGTH 4
+#define UART_MESSAGE_LENGTH 6
 
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
 typedef struct
@@ -40,10 +40,13 @@ typedef struct
 unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
 
 //Receive a UART Packet
-unsigned char receive_uart_message( unsigned char * message_ptr );
+unsigned char receive_uart_message();
 
 //Alex: Configure UART for transmit and recieve
 void uart_configure( );
+
+//Handle receive interrupt
+void uart_receive_interrupt_handler();
 
 //Handle uart transmit handler
 void uart_transmit_interrupt_handler();
@@ -55,7 +58,7 @@ void uart_transmit_interrupt_handler();
 unsigned char uart_get_byte();
 
 //Alex: Receive a byte from the uart hardware recieve buffer; interrupt should call this only
-void uart_receive_byte();
+//void uart_receive_byte();
 
 //Alex: Return 1 if UART recieve buffer is empty, other wise 0
 //int uart_receive_buffer_empty();

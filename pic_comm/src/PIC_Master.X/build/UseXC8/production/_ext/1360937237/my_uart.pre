@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 10 "../src/messages.h"
+# 15 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10842,7 +10842,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 48
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 62
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 69
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 76
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 83
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -10932,16 +10932,23 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 28 "../src/debug.h"
+# 35 "../src/debug.h"
+void debug_configure();
 void blip();
+void blip1();
+void blip2();
+void blip3();
+void blip4();
 
 # 11 "../src/my_uart.h"
 typedef struct
 {
-unsigned char buffer[4];
-unsigned char current_item;
-unsigned char last_item;
-char size;
+unsigned char data[4];
+
+
+unsigned char index;
+unsigned char size;
+unsigned char done;
 } uart_buffer_type;
 
 typedef struct
@@ -10954,11 +10961,11 @@ unsigned char bytes_received;
 unsigned char checksum_error;
 unsigned char count_error;
 unsigned char byte_error;
+unsigned char acked;
 } uart_packet_type;
 
-
-
-void send_uart_message( unsigned char * message_ptr );
+# 40
+unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
 
 
 unsigned char receive_uart_message( unsigned char * message_ptr );
@@ -10967,43 +10974,57 @@ unsigned char receive_uart_message( unsigned char * message_ptr );
 void uart_configure( );
 
 
-int uart_send_byte( char sendByte );
+void uart_transmit_interrupt_handler();
 
-
-void uart_transmit_byte();
-
-# 51
+# 55
 unsigned char uart_get_byte();
 
 
 void uart_receive_byte();
 
-# 60
+# 64
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 16 "../src/my_uart.c"
-static unsigned char uart_sent_count;
-static unsigned char sent_counter;
-
-
-
-void send_uart_message( unsigned char * message_ptr )
+# 21 "../src/my_uart.c"
+unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr )
 {
+static unsigned char sent_counter = 0;
 
-uart_send_byte( sent_counter );
-sent_counter++;
+if( (length + 2) > 4 )
+{
+return 0x01;
+}
+
+unsigned char uart_message[4];
+
+
+uart_message[0] = sent_counter++;
 
 
 unsigned char checksum = 0x00;
 int i;
-for(i=0;i<(4 - 2);i++)
+for(i=0;i<(length);i++)
 {
-uart_send_byte( message_ptr[i] );
+uart_message[i+1] = message_ptr[i];
 checksum = checksum ^ message_ptr[i];
+}
+i++;
+
+
+uart_message[i] = checksum;
+
+unsigned char message_q_code = FromMainLow_sendmsg((length+2),31,(void *) uart_message );
+
+if( message_q_code == -1)
+{
+return 0x02;
 }
 
 
-uart_send_byte( checksum );
+
+
+PIE1bits.TX1IE = 1;
+return 0x00;
 }
 
 
@@ -11050,41 +11071,64 @@ PIE1bits.RC1IE = 1;
 TXSTA1bits.TXEN = 1;
 RCSTA1bits.CREN = 1;
 
-# 105
+# 128
 }
 
-# 111
-int uart_send_byte( unsigned char sendByte )
+# 153
+void uart_transmit_interrupt_handler()
 {
+static unsigned char done = 1;
+static unsigned char * data;
+static unsigned char index = 0;
 
-if( FromMainLow_sendmsg(1,31,(void *) &sendByte ) == 1 )
+unsigned char msgtype;;
+if( done )
 {
-PIE1bits.TX1IE = 1;
-return 1;
-}
-
-return 0;
-}
-
-# 145
-void uart_transmit_byte()
-{
-unsigned char gotten_byte;
-unsigned char msgtype = 31;
-signed char message_status = FromMainLow_recvmsg(1,&msgtype, (void*)&gotten_byte );
+signed char message_status = FromMainLow_recvmsg(4,&msgtype, (void*)data );
 if( message_status == -4)
 {
 PIE1bits.TX1IE = 0;
 }
 else if( message_status > 0 )
 {
-TXREG1 = gotten_byte;
+index = 0;
+done = 0;
+
+TXREG1 = data[index];
+index++;
+if( index >= 4 )
+{
+done = 1;
+}
+}
+else if( message_status == -1)
+{
+
+}
+else if( message_status == -2 )
+{
+
+}
+else if( message_status == -3 )
+{
+
+}
+}
+else
+{
+TXREG1 = data[index];
+index++;
+if( index >= 4 )
+{
+done = 1;
+}
 }
 
-# 173
+
 }
 
-# 193
+
+
 unsigned char uart_get_byte()
 {
 unsigned char gotten_byte = 0;
@@ -11093,7 +11137,7 @@ signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte 
 
 return gotten_byte;
 
-# 217
+# 231
 }
 
 
@@ -11104,6 +11148,6 @@ void uart_receive_byte()
 unsigned char gotten_byte = RCREG1;
 signed char message_status = ToMainLow_sendmsg(1,31,(void *) &gotten_byte );
 
-# 238
+# 252
 }
 

@@ -10,31 +10,53 @@
 //static uart_comm *uc_ptr;
 
 #ifdef __USE18F46J50  //Alex: Begin definitions for the Mk 4
-//static uart_buffer_type * m_uart_send_buffer;
+//static uart_packet_type * m_uart_send_buffer;
 //static uart_buffer_type * m_uart_receive_buffer;
 
-static unsigned char uart_sent_count;
-static unsigned char sent_counter;
-//unsigned char receive_counter;
+//static unsigned char uart_sent_count;
+
+//static unsigned char receive_counter;
 
 //Send a UART Packet
-void send_uart_message( unsigned char * message_ptr )
+unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr )
 {
-    //Send header as counter value
-    uart_send_byte( sent_counter );
-    sent_counter++;
+    static unsigned char sent_counter = 0;
+
+    if( (length + 2) > UART_MESSAGE_LENGTH )
+    {
+        return SEND_UART_MESSAGE_BAD_LENGTH;
+    }
+
+    unsigned char uart_message[UART_MESSAGE_LENGTH];
+
+    //Send header as counter value and increment counter
+    uart_message[0] = sent_counter++;
 
     //Send data and calculate checksum
     unsigned char checksum = 0x00;
     int i;
-    for(i=0;i<(MESSAGE_LENGTH - 2);i++)
+    for(i=0;i<(length);i++)
     {
-        uart_send_byte( message_ptr[i] );
+        uart_message[i+1] = message_ptr[i];
         checksum = checksum ^ message_ptr[i];
     }
+    i++;
 
     //Send checksum as footer
-    uart_send_byte( checksum );
+    uart_message[i] = checksum;
+
+    unsigned char message_q_code = FromMainLow_sendmsg((length+2),MSGT_UART_DATA,(void *) uart_message );
+
+    if( message_q_code == MSGQUEUE_FULL)
+    {
+        return SEND_UART_MESSAGE_Q_FULL;
+    }
+
+
+    
+
+    PIE1bits.TX1IE = 1;
+    return SEND_UART_MESSAGE_ALL_GOOD;
 }
 
 //Receive a UART Packet
@@ -47,7 +69,7 @@ unsigned char receive_uart_message( unsigned char * message_ptr )
         uart_recv_packet.header = uart_get_byte();
         uart_recv_packet.bytes_received += 1;
     }
-    else if( uart_recv_packet.bytes_received < (MESSAGE_LENGTH - 1) )
+    else if( uart_recv_packet.bytes_received < (UART_MESSAGE_LENGTH - 1) )
     {
         uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
         uart_recv_packet.bytes_received += 1;
@@ -98,96 +120,88 @@ void uart_configure()
 
     m_uart_receive_buffer = uart_receive_buffer;
 
-    //sent_counter = 0;
-    //receive_counter = 0;
-     * */
+     *  * */
+    
+     
+    
     
 }
 
 
 #endif  //Alex: End definitions for the Mk IV
 
+/*
 //Alex: Put soemthing in the uart send queue
 int uart_send_byte( unsigned char sendByte )
 {
 
     if( FromMainLow_sendmsg(1,MSGT_UART_DATA,(void *) &sendByte ) == MSGSEND_OKAY )
     {
+        #ifdef DEBUG_MODE
+        //Alex: Set Debug output
+        LATD = DEBUG_UART_MSGQ_SEND_TO_TX;
+        #endif
         PIE1bits.TX1IE = 1;
         return 1;
     }
 
     return 0;
 }
-    /*
-    if( uart_send_buffer.size >= MAXUARTBUF )
-    {
-        return 0;        
-    }
-    else
-    {
-        uart_send_buffer.buffer[ uart_send_buffer.last_item ] = sendByte;
-        uart_send_buffer.last_item = (uart_send_buffer.last_item + 1) % MAXUARTBUF;
-        uart_send_buffer.size += 1;
-        PIE1bits.TX1IE = 1;
-    }
-
-    
-    return 1;
-    */
-
-    
-
-
-
-
-//Alex: Remove item from uart send queue and move it into actual hardware transmit buffer; only call in interrupt
-void uart_transmit_byte()
-{
-    unsigned char gotten_byte;
-    unsigned char msgtype = MSGT_UART_DATA;
-    signed char message_status =  FromMainLow_recvmsg(1,&msgtype, (void*)&gotten_byte );
-    if( message_status == MSGQUEUE_EMPTY)
-    {
-        PIE1bits.TX1IE = 0;
-    }
-    else if( message_status > 0 )
-    {
-       TXREG1 = gotten_byte;
-    }    
-
-    /*
-    if( uart_send_buffer.size <= 0 )
-    {
-        return;
-    }
-    TXREG1 = uart_send_buffer.buffer[uart_send_buffer.current_item];
-    uart_send_buffer.current_item = (uart_send_buffer.current_item + 1) % MAXUARTBUF;
-    uart_send_buffer.size -= 1;
-
-    if( uart_send_buffer.size <= 0 )
-    {
-        PIE1bits.TX1IE = 0;
-    }
-     * */
-}
-
-/*
-//Alex: Return 1 if UART send buffer is empty, other wise 0
-int uart_send_buffer_empty()
-{
-    if( uart_send_buffer.size <= 0 )
-    {
-        uart_send_buffer.size = 0;
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-
-}
  * */
+
+//Handle uart transmit handler
+void uart_transmit_interrupt_handler()
+{
+    static unsigned char done = 1;
+    static unsigned char * data;
+    static unsigned char index = 0;
+
+    unsigned char msgtype;;
+    if( done )
+    {        
+        signed char message_status =  FromMainLow_recvmsg(4,&msgtype, (void*)data );
+        if( message_status == MSGQUEUE_EMPTY)
+        {            
+            PIE1bits.TX1IE = 0;
+        }
+        else if( message_status > 0 )
+        {
+            index = 0;
+            done = 0;  
+            
+            TXREG1 = data[index];
+            index++;
+            if( index >= UART_MESSAGE_LENGTH )
+            {
+                done = 1;
+            }            
+        }
+        else if( message_status == MSGQUEUE_FULL)
+        {
+            //blip();
+        }
+        else if( message_status == MSGBAD_LEN )
+        {
+            //blip();
+        }
+        else if( message_status == MSGBUFFER_TOOSMALL )
+        {
+            //blip();
+        }
+    }
+    else
+    {
+        TXREG1 = data[index];
+        index++;
+        if( index >= UART_MESSAGE_LENGTH )
+        {
+            done = 1;
+        }
+    }
+    
+
+}
+
 
 //Alex: Remove byte from uart receive queue
 unsigned char uart_get_byte()
