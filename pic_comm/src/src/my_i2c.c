@@ -374,35 +374,35 @@ void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * 
 	unsigned char * msgtype;
 	
 	int i;
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_1 );
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_side );
 	if( length < 6 )
     { 
-		sensor_bank_1[1] == 0x00;
+		sensor_bank_side[1] == 0x00;
        
     }
     else 
     {
-		sensor_bank_1[1] == 0xff;
+		sensor_bank_side1] == 0xff;
     }
 	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_2 );
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_front );
 	if( length < 6 )
     { 
-		sensor_bank_2[1] == 0x00;
+		sensor_bank_front[1] == 0x00;
     }
     else 
     {
-		sensor_bank_2[1] == 0xff;
+		sensor_bank_front[1] == 0xff;
     }
 	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_3 );
+	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_ventril );
 	if( length < 6 )
     { 
-		sensor_bank_2[1] == 0x00;
+		sensor_bank_ventril[1] == 0x00;
     }
     else 
     {
-		sensor_bank_2[1] == 0xff;
+		sensor_bank_ventril[1] == 0xff;
     }
 	
 	unsigned char need_data = 0xff;

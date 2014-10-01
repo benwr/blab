@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"76 ../src/messages.h
+"82 ../src/messages.h
 [v _FromMainLow_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 "9021 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S606 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -15,7 +15,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S605 . . . . ]
 "9042
 [v _PIE1bits `VS605 ~T0 @X0 0 e@3997 ]
-"22 ../src/my_uart.h
+"23 ../src/my_uart.h
 [s S1135 `uc 1 `uc 1 `uc - -> 6 `i -> 2 `i `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
 [n S1135 . header checksum data bytes_received checksum_error count_error byte_error acked ]
 "10715 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
@@ -151,13 +151,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S613 . . . . ]
 "9224
 [v _IPR1bits `VS613 ~T0 @X0 0 e@3999 ]
-"62 ../src/messages.h
+"68 ../src/messages.h
 [v _ToMainLow_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
-"77
+"83
 [v _FromMainLow_recvmsg `(c ~T0 @X0 0 ef3`uc`*uc`*v ]
 "10678 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _TXREG1 `Vuc ~T0 @X0 0 e@4014 ]
-"63 ../src/messages.h
+"69 ../src/messages.h
 [v _ToMainLow_recvmsg `(c ~T0 @X0 0 ef3`uc`*uc`*v ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -8464,28 +8464,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-[; ;messages.h: 15: typedef struct __msg {
-[; ;messages.h: 16: unsigned char full;
-[; ;messages.h: 17: unsigned char length;
-[; ;messages.h: 18: unsigned char msgtype;
-[; ;messages.h: 19: unsigned char data[10];
-[; ;messages.h: 20: } msg;
-[; ;messages.h: 22: typedef struct __msg_queue {
-[; ;messages.h: 23: msg queue[4];
-[; ;messages.h: 24: unsigned char cur_write_ind;
-[; ;messages.h: 25: unsigned char cur_read_ind;
-[; ;messages.h: 26: } msg_queue;
-[; ;messages.h: 48: void init_queues(void);
-[; ;messages.h: 52: void SleepIfOkay(void);
-[; ;messages.h: 56: void block_on_To_msgqueues(void);
-[; ;messages.h: 62: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 63: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 69: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 70: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 76: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 77: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 83: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 84: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 21: typedef struct __msg {
+[; ;messages.h: 22: unsigned char full;
+[; ;messages.h: 23: unsigned char length;
+[; ;messages.h: 24: unsigned char msgtype;
+[; ;messages.h: 25: unsigned char data[10];
+[; ;messages.h: 26: } msg;
+[; ;messages.h: 28: typedef struct __msg_queue {
+[; ;messages.h: 29: msg queue[4];
+[; ;messages.h: 30: unsigned char cur_write_ind;
+[; ;messages.h: 31: unsigned char cur_read_ind;
+[; ;messages.h: 32: } msg_queue;
+[; ;messages.h: 54: void init_queues(void);
+[; ;messages.h: 58: void SleepIfOkay(void);
+[; ;messages.h: 62: void block_on_To_msgqueues(void);
+[; ;messages.h: 68: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 69: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 75: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 76: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 82: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
 [; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
@@ -8522,31 +8522,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
-[; ;my_uart.h: 11: typedef struct
-[; ;my_uart.h: 12: {
-[; ;my_uart.h: 13: unsigned char data[4];
-[; ;my_uart.h: 16: unsigned char index;
-[; ;my_uart.h: 17: unsigned char size;
-[; ;my_uart.h: 18: unsigned char done;
-[; ;my_uart.h: 19: } uart_buffer_type;
-[; ;my_uart.h: 21: typedef struct
-[; ;my_uart.h: 22: {
-[; ;my_uart.h: 23: unsigned char header;
-[; ;my_uart.h: 24: unsigned char checksum;
-[; ;my_uart.h: 25: unsigned char data[ 6 - 2 ];
-[; ;my_uart.h: 27: unsigned char bytes_received;
-[; ;my_uart.h: 28: unsigned char checksum_error;
-[; ;my_uart.h: 29: unsigned char count_error;
-[; ;my_uart.h: 30: unsigned char byte_error;
-[; ;my_uart.h: 31: unsigned char acked;
-[; ;my_uart.h: 32: } uart_packet_type;
-[; ;my_uart.h: 40: unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
-[; ;my_uart.h: 43: unsigned char receive_uart_message();
-[; ;my_uart.h: 46: void uart_configure( );
-[; ;my_uart.h: 49: void uart_receive_interrupt_handler();
-[; ;my_uart.h: 52: void uart_transmit_interrupt_handler();
-[; ;my_uart.h: 58: unsigned char uart_get_byte();
-[; ;my_uart.h: 67: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;my_uart.h: 12: typedef struct
+[; ;my_uart.h: 13: {
+[; ;my_uart.h: 14: unsigned char data[6+2];
+[; ;my_uart.h: 17: unsigned char index;
+[; ;my_uart.h: 18: unsigned char size;
+[; ;my_uart.h: 19: unsigned char done;
+[; ;my_uart.h: 20: } uart_buffer_type;
+[; ;my_uart.h: 22: typedef struct
+[; ;my_uart.h: 23: {
+[; ;my_uart.h: 24: unsigned char header;
+[; ;my_uart.h: 25: unsigned char checksum;
+[; ;my_uart.h: 26: unsigned char data[ 6 - 2 ];
+[; ;my_uart.h: 28: unsigned char bytes_received;
+[; ;my_uart.h: 29: unsigned char checksum_error;
+[; ;my_uart.h: 30: unsigned char count_error;
+[; ;my_uart.h: 31: unsigned char byte_error;
+[; ;my_uart.h: 32: unsigned char acked;
+[; ;my_uart.h: 33: } uart_packet_type;
+[; ;my_uart.h: 41: unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+[; ;my_uart.h: 44: unsigned char receive_uart_message();
+[; ;my_uart.h: 47: void uart_configure( );
+[; ;my_uart.h: 50: void uart_receive_interrupt_handler();
+[; ;my_uart.h: 53: void uart_transmit_interrupt_handler();
+[; ;my_uart.h: 59: unsigned char uart_get_byte();
+[; ;my_uart.h: 68: unsigned char uart_num_bytes_in_recv_buffer();
 "21 ../src/my_uart.c
 [v _send_uart_message `(uc ~T0 @X0 1 ef2`uc`*uc ]
 "22
@@ -8767,199 +8767,324 @@ Version 3.2 HI-TECH Software Intermediate Code
 [i F9185
 -> -> 0 `i `uc
 ]
-[; ;my_uart.c: 117: static unsigned char * data;
-[; ;my_uart.c: 118: static unsigned char index = 0;
-[; ;my_uart.c: 120: ToMainLow_sendmsg(6,31,(void *) data );
-"120
-[e ( _ToMainLow_sendmsg (3 , , -> -> 6 `i `uc -> -> 31 `i `uc -> F9184 `*v ]
-[; ;my_uart.c: 123: }
-"123
-[e :UE 1147 ]
-}
-"126
-[v _uart_transmit_interrupt_handler `(v ~T0 @X0 1 ef ]
-"127
-{
-[; ;my_uart.c: 126: void uart_transmit_interrupt_handler()
-[; ;my_uart.c: 127: {
-[e :U _uart_transmit_interrupt_handler ]
-[f ]
-"128
-[v F9187 `uc ~T0 @X0 1 s done ]
-[i F9187
+"119
+[v F9186 `uc ~T0 @X0 1 s new ]
+[i F9186
 -> -> 1 `i `uc
 ]
-"129
-[v F9188 `*uc ~T0 @X0 1 s data ]
-"130
-[v F9189 `uc ~T0 @X0 1 s index ]
-[i F9189
+"120
+[v F9187 `uc ~T0 @X0 1 s received_counter ]
+[i F9187
 -> -> 0 `i `uc
 ]
+[; ;my_uart.c: 117: static unsigned char * data;
+[; ;my_uart.c: 118: static unsigned char index = 0;
+[; ;my_uart.c: 119: static unsigned char new = 1;
+[; ;my_uart.c: 120: static unsigned char received_counter = 0;
+[; ;my_uart.c: 123: if( index < 6+2 )
+"123
+[e $ ! < -> F9185 `i + -> 6 `i -> 2 `i 1148  ]
+[; ;my_uart.c: 124: {
+"124
+{
+[; ;my_uart.c: 125: data[index] = RCREG1;
+"125
+[e = *U + F9184 * -> F9185 `ux -> -> # *U F9184 `ui `ux _RCREG1 ]
+[; ;my_uart.c: 126: index++;
+"126
+[e ++ F9185 -> -> 1 `i `uc ]
+[; ;my_uart.c: 127: new = 0;
+"127
+[e = F9186 -> -> 0 `i `uc ]
+"128
+}
+[; ;my_uart.c: 128: }
+[e $U 1149  ]
+"129
+[e :U 1148 ]
+[; ;my_uart.c: 129: else
+[; ;my_uart.c: 130: {
+"130
+{
+[; ;my_uart.c: 131: received_counter++;
+"131
+[e ++ F9187 -> -> 1 `i `uc ]
+[; ;my_uart.c: 132: if( received_counter != data[0] )
 "132
-[v _msgtype `uc ~T0 @X0 1 a ]
-[; ;my_uart.c: 128: static unsigned char done = 1;
-[; ;my_uart.c: 129: static unsigned char * data;
-[; ;my_uart.c: 130: static unsigned char index = 0;
-[; ;my_uart.c: 132: unsigned char msgtype;;
-[; ;my_uart.c: 133: if( done )
+[e $ ! != -> F9187 `i -> *U + F9184 * -> -> 0 `i `x -> -> # *U F9184 `i `x `i 1150  ]
+[; ;my_uart.c: 133: {
 "133
-[e $ ! != -> F9187 `i -> -> -> 0 `i `uc `i 1149  ]
-[; ;my_uart.c: 134: {
+{
+[; ;my_uart.c: 134: return;
 "134
-{
-"135
-[v _message_status `c ~T0 @X0 1 a ]
-[; ;my_uart.c: 135: signed char message_status = FromMainLow_recvmsg(4,&msgtype, (void*)data );
-[e = _message_status ( _FromMainLow_recvmsg (3 , , -> -> 4 `i `uc &U _msgtype -> F9188 `*v ]
-[; ;my_uart.c: 136: if( message_status == -4)
+[e $UE 1147  ]
 "136
-[e $ ! == -> _message_status `i -U -> 4 `i 1150  ]
-[; ;my_uart.c: 137: {
-"137
-{
-[; ;my_uart.c: 138: PIE1bits.TX1IE = 0;
-"138
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-"139
 }
-[; ;my_uart.c: 139: }
-[e $U 1151  ]
-"140
 [e :U 1150 ]
-[; ;my_uart.c: 140: else if( message_status > 0 )
-[e $ ! > -> _message_status `i -> 0 `i 1152  ]
-[; ;my_uart.c: 141: {
-"141
+[; ;my_uart.c: 136: }
+[; ;my_uart.c: 138: if( (data[1] ^ data[2] ^ data[3] ^ data[4] ^ data[5] ^ data[6]) != data[7] )
+"138
+[e $ ! != ^ ^ ^ ^ ^ -> *U + F9184 * -> -> 1 `i `x -> -> # *U F9184 `i `x `i -> *U + F9184 * -> -> 2 `i `x -> -> # *U F9184 `i `x `i -> *U + F9184 * -> -> 3 `i `x -> -> # *U F9184 `i `x `i -> *U + F9184 * -> -> 4 `i `x -> -> # *U F9184 `i `x `i -> *U + F9184 * -> -> 5 `i `x -> -> # *U F9184 `i `x `i -> *U + F9184 * -> -> 6 `i `x -> -> # *U F9184 `i `x `i -> *U + F9184 * -> -> 7 `i `x -> -> # *U F9184 `i `x `i 1151  ]
+[; ;my_uart.c: 139: {
+"139
 {
-[; ;my_uart.c: 142: index = 0;
+[; ;my_uart.c: 140: return;
+"140
+[e $UE 1147  ]
 "142
-[e = F9189 -> -> 0 `i `uc ]
-[; ;my_uart.c: 143: done = 0;
-"143
-[e = F9187 -> -> 0 `i `uc ]
-[; ;my_uart.c: 145: TXREG1 = data[index];
-"145
-[e = _TXREG1 *U + F9188 * -> F9189 `ux -> -> # *U F9188 `ui `ux ]
-[; ;my_uart.c: 146: index++;
-"146
-[e ++ F9189 -> -> 1 `i `uc ]
-[; ;my_uart.c: 147: if( index >= 6 )
+}
+[e :U 1151 ]
 "147
-[e $ ! >= -> F9189 `i -> 6 `i 1153  ]
-[; ;my_uart.c: 148: {
-"148
-{
-[; ;my_uart.c: 149: done = 1;
+[v _gooey_uart_center `uc ~T0 @X0 -> 6 `i a ]
 "149
-[e = F9187 -> -> 1 `i `uc ]
+[v _i `i ~T0 @X0 1 a ]
+[; ;my_uart.c: 142: }
+[; ;my_uart.c: 147: unsigned char gooey_uart_center[6];
+[; ;my_uart.c: 149: int i;
+[; ;my_uart.c: 150: for(i = 0; i < 6; i++)
 "150
-}
-[e :U 1153 ]
-"151
-}
-[; ;my_uart.c: 150: }
-[; ;my_uart.c: 151: }
-[e $U 1154  ]
-"152
-[e :U 1152 ]
-[; ;my_uart.c: 152: else if( message_status == -1)
-[e $ ! == -> _message_status `i -U -> 1 `i 1155  ]
-[; ;my_uart.c: 153: {
-"153
 {
-"155
+[e = _i -> 0 `i ]
+[e $ < _i -> 6 `i 1152  ]
+[e $U 1153  ]
+"151
+[e :U 1152 ]
+[; ;my_uart.c: 151: {
+{
+[; ;my_uart.c: 152: gooey_uart_center[i] = data[i+1];
+"152
+[e = *U + &U _gooey_uart_center * -> -> _i `ui `ux -> -> # *U &U _gooey_uart_center `ui `ux *U + F9184 * -> + _i -> 1 `i `x -> -> # *U F9184 `i `x ]
+"153
 }
-[; ;my_uart.c: 155: }
-[e $U 1156  ]
+"150
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 6 `i 1152  ]
+[e :U 1153 ]
+"153
+}
+"155
+[v _status `uc ~T0 @X0 1 a ]
+[; ;my_uart.c: 153: }
+[; ;my_uart.c: 155: unsigned char status = ToMainLow_sendmsg(6,31,(void *) gooey_uart_center );
+[e = _status -> ( _ToMainLow_sendmsg (3 , , -> -> 6 `i `uc -> -> 31 `i `uc -> &U _gooey_uart_center `*v `uc ]
+[; ;my_uart.c: 156: if( status == -1 )
 "156
-[e :U 1155 ]
-[; ;my_uart.c: 156: else if( message_status == -2 )
-[e $ ! == -> _message_status `i -U -> 2 `i 1157  ]
+[e $ ! == -> _status `i -U -> 1 `i 1155  ]
 [; ;my_uart.c: 157: {
 "157
 {
 "159
 }
 [; ;my_uart.c: 159: }
-[e $U 1158  ]
+[e $U 1156  ]
 "160
-[e :U 1157 ]
-[; ;my_uart.c: 160: else if( message_status == -3 )
-[e $ ! == -> _message_status `i -U -> 3 `i 1159  ]
+[e :U 1155 ]
+[; ;my_uart.c: 160: else
 [; ;my_uart.c: 161: {
 "161
 {
+[; ;my_uart.c: 162: new = 1;
+"162
+[e = F9186 -> -> 1 `i `uc ]
+[; ;my_uart.c: 163: index = 0;
 "163
-}
-[e :U 1159 ]
+[e = F9185 -> -> 0 `i `uc ]
 "164
-[e :U 1158 ]
+}
 [e :U 1156 ]
-[e :U 1154 ]
-[e :U 1151 ]
-}
-[; ;my_uart.c: 163: }
-[; ;my_uart.c: 164: }
-[e $U 1160  ]
 "165
+}
 [e :U 1149 ]
-[; ;my_uart.c: 165: else
-[; ;my_uart.c: 166: {
-"166
-{
-[; ;my_uart.c: 167: TXREG1 = data[index];
-"167
-[e = _TXREG1 *U + F9188 * -> F9189 `ux -> -> # *U F9188 `ui `ux ]
-[; ;my_uart.c: 168: index++;
-"168
-[e ++ F9189 -> -> 1 `i `uc ]
-[; ;my_uart.c: 169: if( index >= 6 )
-"169
-[e $ ! >= -> F9189 `i -> 6 `i 1161  ]
-[; ;my_uart.c: 170: {
-"170
-{
-[; ;my_uart.c: 171: done = 1;
+[; ;my_uart.c: 164: }
+[; ;my_uart.c: 165: }
+[; ;my_uart.c: 171: }
 "171
-[e = F9187 -> -> 1 `i `uc ]
-"172
+[e :UE 1147 ]
 }
-[e :U 1161 ]
-"173
-}
-[e :U 1160 ]
-[; ;my_uart.c: 172: }
-[; ;my_uart.c: 173: }
-[; ;my_uart.c: 176: }
-"176
-[e :UE 1148 ]
-}
-"180
-[v _uart_get_byte `(uc ~T0 @X0 1 ef ]
-"181
+"174
+[v _uart_transmit_interrupt_handler `(v ~T0 @X0 1 ef ]
+"175
 {
-[; ;my_uart.c: 180: unsigned char uart_get_byte()
-[; ;my_uart.c: 181: {
+[; ;my_uart.c: 174: void uart_transmit_interrupt_handler()
+[; ;my_uart.c: 175: {
+[e :U _uart_transmit_interrupt_handler ]
+[f ]
+"176
+[v F9192 `uc ~T0 @X0 1 s done ]
+[i F9192
+-> -> 1 `i `uc
+]
+"177
+[v F9193 `*uc ~T0 @X0 1 s data ]
+"178
+[v F9194 `uc ~T0 @X0 1 s index ]
+[i F9194
+-> -> 0 `i `uc
+]
+"180
+[v _msgtype `uc ~T0 @X0 1 a ]
+[; ;my_uart.c: 176: static unsigned char done = 1;
+[; ;my_uart.c: 177: static unsigned char * data;
+[; ;my_uart.c: 178: static unsigned char index = 0;
+[; ;my_uart.c: 180: unsigned char msgtype;;
+[; ;my_uart.c: 181: if( done )
+"181
+[e $ ! != -> F9192 `i -> -> -> 0 `i `uc `i 1158  ]
+[; ;my_uart.c: 182: {
+"182
+{
+"183
+[v _message_status `c ~T0 @X0 1 a ]
+[; ;my_uart.c: 183: signed char message_status = FromMainLow_recvmsg(4,&msgtype, (void*)data );
+[e = _message_status ( _FromMainLow_recvmsg (3 , , -> -> 4 `i `uc &U _msgtype -> F9193 `*v ]
+[; ;my_uart.c: 184: if( message_status == -4)
+"184
+[e $ ! == -> _message_status `i -U -> 4 `i 1159  ]
+[; ;my_uart.c: 185: {
+"185
+{
+[; ;my_uart.c: 186: PIE1bits.TX1IE = 0;
+"186
+[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
+"187
+}
+[; ;my_uart.c: 187: }
+[e $U 1160  ]
+"188
+[e :U 1159 ]
+[; ;my_uart.c: 188: else if( message_status > 0 )
+[e $ ! > -> _message_status `i -> 0 `i 1161  ]
+[; ;my_uart.c: 189: {
+"189
+{
+[; ;my_uart.c: 190: index = 0;
+"190
+[e = F9194 -> -> 0 `i `uc ]
+[; ;my_uart.c: 191: done = 0;
+"191
+[e = F9192 -> -> 0 `i `uc ]
+[; ;my_uart.c: 193: TXREG1 = data[index];
+"193
+[e = _TXREG1 *U + F9193 * -> F9194 `ux -> -> # *U F9193 `ui `ux ]
+[; ;my_uart.c: 194: index++;
+"194
+[e ++ F9194 -> -> 1 `i `uc ]
+[; ;my_uart.c: 195: if( index >= 6 )
+"195
+[e $ ! >= -> F9194 `i -> 6 `i 1162  ]
+[; ;my_uart.c: 196: {
+"196
+{
+[; ;my_uart.c: 197: done = 1;
+"197
+[e = F9192 -> -> 1 `i `uc ]
+"198
+}
+[e :U 1162 ]
+"199
+}
+[; ;my_uart.c: 198: }
+[; ;my_uart.c: 199: }
+[e $U 1163  ]
+"200
+[e :U 1161 ]
+[; ;my_uart.c: 200: else if( message_status == -1)
+[e $ ! == -> _message_status `i -U -> 1 `i 1164  ]
+[; ;my_uart.c: 201: {
+"201
+{
+"203
+}
+[; ;my_uart.c: 203: }
+[e $U 1165  ]
+"204
+[e :U 1164 ]
+[; ;my_uart.c: 204: else if( message_status == -2 )
+[e $ ! == -> _message_status `i -U -> 2 `i 1166  ]
+[; ;my_uart.c: 205: {
+"205
+{
+"207
+}
+[; ;my_uart.c: 207: }
+[e $U 1167  ]
+"208
+[e :U 1166 ]
+[; ;my_uart.c: 208: else if( message_status == -3 )
+[e $ ! == -> _message_status `i -U -> 3 `i 1168  ]
+[; ;my_uart.c: 209: {
+"209
+{
+"211
+}
+[e :U 1168 ]
+"212
+[e :U 1167 ]
+[e :U 1165 ]
+[e :U 1163 ]
+[e :U 1160 ]
+}
+[; ;my_uart.c: 211: }
+[; ;my_uart.c: 212: }
+[e $U 1169  ]
+"213
+[e :U 1158 ]
+[; ;my_uart.c: 213: else
+[; ;my_uart.c: 214: {
+"214
+{
+[; ;my_uart.c: 215: TXREG1 = data[index];
+"215
+[e = _TXREG1 *U + F9193 * -> F9194 `ux -> -> # *U F9193 `ui `ux ]
+[; ;my_uart.c: 216: index++;
+"216
+[e ++ F9194 -> -> 1 `i `uc ]
+[; ;my_uart.c: 217: if( index >= 6 )
+"217
+[e $ ! >= -> F9194 `i -> 6 `i 1170  ]
+[; ;my_uart.c: 218: {
+"218
+{
+[; ;my_uart.c: 219: done = 1;
+"219
+[e = F9192 -> -> 1 `i `uc ]
+"220
+}
+[e :U 1170 ]
+"221
+}
+[e :U 1169 ]
+[; ;my_uart.c: 220: }
+[; ;my_uart.c: 221: }
+[; ;my_uart.c: 224: }
+"224
+[e :UE 1157 ]
+}
+"228
+[v _uart_get_byte `(uc ~T0 @X0 1 ef ]
+"229
+{
+[; ;my_uart.c: 228: unsigned char uart_get_byte()
+[; ;my_uart.c: 229: {
 [e :U _uart_get_byte ]
 [f ]
-"182
+"230
 [v _gotten_byte `uc ~T0 @X0 1 a ]
-[; ;my_uart.c: 182: unsigned char gotten_byte = 0;
+[; ;my_uart.c: 230: unsigned char gotten_byte = 0;
 [e = _gotten_byte -> -> 0 `i `uc ]
-"183
+"231
 [v _msgtype `uc ~T0 @X0 1 a ]
-[; ;my_uart.c: 183: char msgtype = 31;
+[; ;my_uart.c: 231: char msgtype = 31;
 [e = _msgtype -> -> 31 `i `uc ]
-"184
+"232
 [v _message_status `c ~T0 @X0 1 a ]
-[; ;my_uart.c: 184: signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte );
+[; ;my_uart.c: 232: signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte );
 [e = _message_status ( _ToMainLow_recvmsg (3 , , -> -> 1 `i `uc &U _msgtype -> &U _gotten_byte `*v ]
-[; ;my_uart.c: 186: return gotten_byte;
-"186
+[; ;my_uart.c: 234: return gotten_byte;
+"234
 [e ) _gotten_byte ]
-[e $UE 1162  ]
-[; ;my_uart.c: 204: }
-"204
-[e :UE 1162 ]
+[e $UE 1171  ]
+[; ;my_uart.c: 252: }
+"252
+[e :UE 1171 ]
 }

@@ -10916,7 +10916,7 @@ void timer0_int_handler(void);
 
 void timer1_int_handler(void);
 
-# 15 "../src/messages.h"
+# 21 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10930,7 +10930,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 48
+# 54
 void init_queues(void);
 
 
@@ -10941,26 +10941,26 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 62
+# 68
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 69
+# 75
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 76
+# 82
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 83
+# 89
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 11 "../src/my_uart.h"
+# 12 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[4];
+unsigned char data[6+2];
 
 
 unsigned char index;
@@ -10981,7 +10981,7 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 40
+# 41
 unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
 
 
@@ -10996,10 +10996,10 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 58
+# 59
 unsigned char uart_get_byte();
 
-# 67
+# 68
 unsigned char uart_num_bytes_in_recv_buffer();
 
 # 8 "../src/my_i2c.h"

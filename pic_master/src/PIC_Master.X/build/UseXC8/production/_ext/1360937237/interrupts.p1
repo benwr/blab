@@ -66,11 +66,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _i2c_int_handler `(v ~T0 @X0 0 ef ]
 "12 ../src/user_interrupts.h
 [v _timer0_int_handler `(v ~T0 @X0 0 ef ]
-"52 ../src/messages.h
+"58 ../src/messages.h
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
 "14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
-"49 ../src/my_uart.h
+"50 ../src/my_uart.h
 [v _uart_receive_interrupt_handler `(v ~T0 @X0 0 ef ]
 "9021 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S606 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -86,7 +86,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S605 . . . . ]
 "9042
 [v _PIE1bits `VS605 ~T0 @X0 0 e@3997 ]
-"52 ../src/my_uart.h
+"53 ../src/my_uart.h
 [v _uart_transmit_interrupt_handler `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -8436,53 +8436,53 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 40: void blip4();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
-[; ;messages.h: 15: typedef struct __msg {
-[; ;messages.h: 16: unsigned char full;
-[; ;messages.h: 17: unsigned char length;
-[; ;messages.h: 18: unsigned char msgtype;
-[; ;messages.h: 19: unsigned char data[10];
-[; ;messages.h: 20: } msg;
-[; ;messages.h: 22: typedef struct __msg_queue {
-[; ;messages.h: 23: msg queue[4];
-[; ;messages.h: 24: unsigned char cur_write_ind;
-[; ;messages.h: 25: unsigned char cur_read_ind;
-[; ;messages.h: 26: } msg_queue;
-[; ;messages.h: 48: void init_queues(void);
-[; ;messages.h: 52: void SleepIfOkay(void);
-[; ;messages.h: 56: void block_on_To_msgqueues(void);
-[; ;messages.h: 62: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 63: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 69: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 70: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 76: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 77: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 83: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 84: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;my_uart.h: 11: typedef struct
-[; ;my_uart.h: 12: {
-[; ;my_uart.h: 13: unsigned char data[4];
-[; ;my_uart.h: 16: unsigned char index;
-[; ;my_uart.h: 17: unsigned char size;
-[; ;my_uart.h: 18: unsigned char done;
-[; ;my_uart.h: 19: } uart_buffer_type;
-[; ;my_uart.h: 21: typedef struct
-[; ;my_uart.h: 22: {
-[; ;my_uart.h: 23: unsigned char header;
-[; ;my_uart.h: 24: unsigned char checksum;
-[; ;my_uart.h: 25: unsigned char data[ 6 - 2 ];
-[; ;my_uart.h: 27: unsigned char bytes_received;
-[; ;my_uart.h: 28: unsigned char checksum_error;
-[; ;my_uart.h: 29: unsigned char count_error;
-[; ;my_uart.h: 30: unsigned char byte_error;
-[; ;my_uart.h: 31: unsigned char acked;
-[; ;my_uart.h: 32: } uart_packet_type;
-[; ;my_uart.h: 40: unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
-[; ;my_uart.h: 43: unsigned char receive_uart_message();
-[; ;my_uart.h: 46: void uart_configure( );
-[; ;my_uart.h: 49: void uart_receive_interrupt_handler();
-[; ;my_uart.h: 52: void uart_transmit_interrupt_handler();
-[; ;my_uart.h: 58: unsigned char uart_get_byte();
-[; ;my_uart.h: 67: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;messages.h: 21: typedef struct __msg {
+[; ;messages.h: 22: unsigned char full;
+[; ;messages.h: 23: unsigned char length;
+[; ;messages.h: 24: unsigned char msgtype;
+[; ;messages.h: 25: unsigned char data[10];
+[; ;messages.h: 26: } msg;
+[; ;messages.h: 28: typedef struct __msg_queue {
+[; ;messages.h: 29: msg queue[4];
+[; ;messages.h: 30: unsigned char cur_write_ind;
+[; ;messages.h: 31: unsigned char cur_read_ind;
+[; ;messages.h: 32: } msg_queue;
+[; ;messages.h: 54: void init_queues(void);
+[; ;messages.h: 58: void SleepIfOkay(void);
+[; ;messages.h: 62: void block_on_To_msgqueues(void);
+[; ;messages.h: 68: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 69: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 75: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 76: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 82: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;my_uart.h: 12: typedef struct
+[; ;my_uart.h: 13: {
+[; ;my_uart.h: 14: unsigned char data[6+2];
+[; ;my_uart.h: 17: unsigned char index;
+[; ;my_uart.h: 18: unsigned char size;
+[; ;my_uart.h: 19: unsigned char done;
+[; ;my_uart.h: 20: } uart_buffer_type;
+[; ;my_uart.h: 22: typedef struct
+[; ;my_uart.h: 23: {
+[; ;my_uart.h: 24: unsigned char header;
+[; ;my_uart.h: 25: unsigned char checksum;
+[; ;my_uart.h: 26: unsigned char data[ 6 - 2 ];
+[; ;my_uart.h: 28: unsigned char bytes_received;
+[; ;my_uart.h: 29: unsigned char checksum_error;
+[; ;my_uart.h: 30: unsigned char count_error;
+[; ;my_uart.h: 31: unsigned char byte_error;
+[; ;my_uart.h: 32: unsigned char acked;
+[; ;my_uart.h: 33: } uart_packet_type;
+[; ;my_uart.h: 41: unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+[; ;my_uart.h: 44: unsigned char receive_uart_message();
+[; ;my_uart.h: 47: void uart_configure( );
+[; ;my_uart.h: 50: void uart_receive_interrupt_handler();
+[; ;my_uart.h: 53: void uart_transmit_interrupt_handler();
+[; ;my_uart.h: 59: unsigned char uart_get_byte();
+[; ;my_uart.h: 68: unsigned char uart_num_bytes_in_recv_buffer();
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;

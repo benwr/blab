@@ -412,40 +412,8 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    // Generally, this is *NOT* how I recommend you handle an I2C slave request
-                    // I recommend that you handle it completely inside the i2c interrupt handler
-                    // by reading the data from a queue (i.e., you would not send a message, as is done
-                    // now, from the i2c interrupt handler to main to ask for data).
-                    //
-                    // The last byte received is the "register" that is trying to be read
-                    // The response is dependent on the register.
-					/*
-                    switch (last_reg_recvd) {
-                        case 0xaa:
-                        {
-                            length = 2 ;
-                            msgbuffer[0] = myByte1;
-                            msgbuffer[1] = myByte2;
-                            break;
-                        }
-                        case 0xa8:
-                        {
-                            
-                            length = 1;
-                            msgbuffer[0] = 0x3A;
-                            break;
-                            
-                        }
-                        case 0xa9:
-                        {                           
-                            length = 1;
-                            msgbuffer[0] = 0x55;
-                            break;
-
-                        }
-						
-                    };*/
-                    //start_i2c_slave_reply(length, msgbuffer);
+                    if( msg
+					
                     break;
                 };
                 default:
