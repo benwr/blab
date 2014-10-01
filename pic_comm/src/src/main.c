@@ -477,6 +477,37 @@ void main(void) {
                 case MSGT_UART_DATA:
                 {
                     send_uart_message( length , msgbuffer );
+					
+					switch( msgbuffer[0] )
+                    {
+                        
+                        case COMMAND_SIDE_DATA:
+                        {
+                            //Copy msgbuffer over
+                            
+                            break;
+                        }
+                        case COMMAND_FRONT_DATA:
+                        {
+                            //Copy msgbuffer over
+                            
+                            break;
+                        }
+                        case COMMAND_VENTRIL_DATA:
+                        {
+                            //Copy msgbuffer over
+                            
+                            break;
+                        }
+                        default:
+                        {
+
+                            break;
+                        }
+
+
+                    }
+					
                     break;
                 };
                 default:
