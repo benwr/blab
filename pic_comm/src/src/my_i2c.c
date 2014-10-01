@@ -234,12 +234,44 @@ void i2c_int_handler() {
                         if (SSPSTATbits.R_W == 1) {
 																																	blip();
                             ic_ptr->status = I2C_SLAVE_SEND;
-							ic_ptr->outbuffer[0] = 0x55;
-							ic_ptr->outbuffer[1] = 0x56;
-							ic_ptr->outbuffer[2] = 0x57;
-							ic_ptr->outbuffer[3] = 0x58;
-							ic_ptr->outbuffer[4] = 0x59;
-							ic_ptr->outbuffer[5] = 0x5a;
+							
+							switch( ic_ptr->buffer[0] )
+							{
+								int l;
+								case COMMAND_SENSORRQST_SIDE:
+								{
+									for(l = 0;l<I2C_DATA_SIZE;l++)
+									{
+										ic_ptr->outbuffer[l] = sensor_bank_side[l];									
+									}
+								
+								}
+								case COMMAND_SENSORRQST_FRONT:
+								{
+									for(l = 0;l<I2C_DATA_SIZE;l++)
+									{
+										ic_ptr->outbuffer[l] = sensor_bank_front[l];									
+									}								
+								}
+								case COMMAND_SENSORRQST_VENTRIL:
+								{
+									for(l = 0;l<I2C_DATA_SIZE;l++)
+									{
+										ic_ptr->outbuffer[l] = sensor_bank_ventril[l];									
+									}								
+								}
+								default:
+								{
+									//Oh shit
+									ic_ptr->outbuffer[0] = 0x55;
+									ic_ptr->outbuffer[1] = 0x56;
+									ic_ptr->outbuffer[2] = 0x57;
+									ic_ptr->outbuffer[3] = 0x58;
+									ic_ptr->outbuffer[4] = 0x59;
+									ic_ptr->outbuffer[5] = 0x5a;
+								}
+							}
+							
 							ic_ptr->outbuflen = 6;
 							ic_ptr->outbufind = 0;
                             msg_ready = 1;
@@ -248,6 +280,7 @@ void i2c_int_handler() {
                             data_read = 0;
 							ic_ptr->outbufind = 0;
 							SSPBUF = ic_ptr->outbuffer[0];
+							ic_ptr->outbufind++;
 							SSPCON1bits.CKP = 1; 
                         } else { /* bad to recv an address again, we aren't ready */
                             ic_ptr->error_count++;
@@ -406,6 +439,6 @@ void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * 
     }
 	
 	unsigned char need_data = 0xff;
-	signed char status =  ToMainHigh_sendmsg(1,MSGT_I2C_RQST,(void *) need_data);
+	signed char status =  ToMainHigh_sendmsg(1,MSGT_I2C_RQST,(void *) &need_data);
 	
 }

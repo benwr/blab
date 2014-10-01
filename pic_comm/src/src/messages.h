@@ -9,7 +9,9 @@
 
 //Command Definitions
 #define COMMAND_MOVE        0x1
-#define COMMAND_SENSORRQST  0x2
+#define COMMAND_SENSORRQST_SIDE  0x2a
+#define COMMAND_SENSORRQST_FRONT  0x2b
+#define COMMAND_SENSORRQST_VENTRIL  0x2c
 #define COMMAND_SIDE_DATA       0xa5
 #define COMMAND_FRONT_DATA      0xb5
 #define COMMAND_VENTRIL_DATA    0xc5

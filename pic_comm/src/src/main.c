@@ -412,7 +412,12 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    
+                    if ( msgbuffer[0] == 0xff )
+					{
+						
+					
+					
+					}
 					
                     break;
                 };
