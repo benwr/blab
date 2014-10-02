@@ -10952,10 +10952,10 @@ void blip2();
 void blip3();
 void blip4();
 
-# 11 "../src/my_uart.h"
+# 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[4];
+unsigned char data[6 + 2];
 
 
 unsigned char index;
@@ -10967,7 +10967,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 4 - 2 ];
+unsigned char data[ 6 + 2 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10976,25 +10976,25 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 40
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+# 43
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
-unsigned char receive_uart_message( unsigned char * message_ptr );
+unsigned char receive_uart_message();
 
 
 void uart_configure( );
 
 
+void uart_receive_interrupt_handler();
+
+
 void uart_transmit_interrupt_handler();
 
-# 55
+# 61
 unsigned char uart_get_byte();
 
-
-void uart_receive_byte();
-
-# 64
+# 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
 # 8 "../src/my_i2c.h"
@@ -11229,7 +11229,7 @@ break;
 case 30:
 case 31:
 {
-send_uart_message( length , msgbuffer );
+send_uart_message( msgbuffer );
 
 switch( msgbuffer[0] )
 {

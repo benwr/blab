@@ -70,8 +70,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SleepIfOkay `(v ~T0 @X0 0 ef ]
 "14 ../src/user_interrupts.h
 [v _timer1_int_handler `(v ~T0 @X0 0 ef ]
-"58 ../src/my_uart.h
-[v _uart_receive_byte `(v ~T0 @X0 0 ef ]
+"52 ../src/my_uart.h
+[v _uart_receive_interrupt_handler `(v ~T0 @X0 0 ef ]
 "9021 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S606 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S606 . TMR1IE TMR2IE CCP1IE SSP1IE TX1IE RC1IE ADIE PMPIE ]
@@ -86,7 +86,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S605 . . . . ]
 "9042
 [v _PIE1bits `VS605 ~T0 @X0 0 e@3997 ]
-"49 ../src/my_uart.h
+"55 ../src/my_uart.h
 [v _uart_transmit_interrupt_handler `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -8458,31 +8458,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 [; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;my_uart.h: 11: typedef struct
-[; ;my_uart.h: 12: {
-[; ;my_uart.h: 13: unsigned char data[4];
-[; ;my_uart.h: 16: unsigned char index;
-[; ;my_uart.h: 17: unsigned char size;
-[; ;my_uart.h: 18: unsigned char done;
-[; ;my_uart.h: 19: } uart_buffer_type;
-[; ;my_uart.h: 21: typedef struct
-[; ;my_uart.h: 22: {
-[; ;my_uart.h: 23: unsigned char header;
-[; ;my_uart.h: 24: unsigned char checksum;
-[; ;my_uart.h: 25: unsigned char data[ 4 - 2 ];
-[; ;my_uart.h: 27: unsigned char bytes_received;
-[; ;my_uart.h: 28: unsigned char checksum_error;
-[; ;my_uart.h: 29: unsigned char count_error;
-[; ;my_uart.h: 30: unsigned char byte_error;
-[; ;my_uart.h: 31: unsigned char acked;
-[; ;my_uart.h: 32: } uart_packet_type;
-[; ;my_uart.h: 40: unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
-[; ;my_uart.h: 43: unsigned char receive_uart_message( unsigned char * message_ptr );
-[; ;my_uart.h: 46: void uart_configure( );
-[; ;my_uart.h: 49: void uart_transmit_interrupt_handler();
-[; ;my_uart.h: 55: unsigned char uart_get_byte();
-[; ;my_uart.h: 58: void uart_receive_byte();
-[; ;my_uart.h: 64: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;my_uart.h: 14: typedef struct
+[; ;my_uart.h: 15: {
+[; ;my_uart.h: 16: unsigned char data[6 + 2];
+[; ;my_uart.h: 19: unsigned char index;
+[; ;my_uart.h: 20: unsigned char size;
+[; ;my_uart.h: 21: unsigned char done;
+[; ;my_uart.h: 22: } uart_buffer_type;
+[; ;my_uart.h: 24: typedef struct
+[; ;my_uart.h: 25: {
+[; ;my_uart.h: 26: unsigned char header;
+[; ;my_uart.h: 27: unsigned char checksum;
+[; ;my_uart.h: 28: unsigned char data[ 6 + 2 - 2 ];
+[; ;my_uart.h: 30: unsigned char bytes_received;
+[; ;my_uart.h: 31: unsigned char checksum_error;
+[; ;my_uart.h: 32: unsigned char count_error;
+[; ;my_uart.h: 33: unsigned char byte_error;
+[; ;my_uart.h: 34: unsigned char acked;
+[; ;my_uart.h: 35: } uart_packet_type;
+[; ;my_uart.h: 43: unsigned char send_uart_message( unsigned char * message_ptr );
+[; ;my_uart.h: 46: unsigned char receive_uart_message();
+[; ;my_uart.h: 49: void uart_configure( );
+[; ;my_uart.h: 52: void uart_receive_interrupt_handler();
+[; ;my_uart.h: 55: void uart_transmit_interrupt_handler();
+[; ;my_uart.h: 61: unsigned char uart_get_byte();
+[; ;my_uart.h: 70: unsigned char uart_num_bytes_in_recv_buffer();
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
 [; ;my_i2c.h: 9: unsigned char buffer[10];
 [; ;my_i2c.h: 10: unsigned char buflen;
@@ -8628,9 +8628,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "49
 [e :UE 1145 ]
 }
-[v F9224 `(v ~T0 @X0 1 tf ]
+[v F9222 `(v ~T0 @X0 1 tf ]
 "86
-[v _InterruptHandlerHigh `IF9224 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9222 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 81: interrupt
 [; ;interrupts.c: 86: void InterruptHandlerHigh() {
@@ -8671,9 +8671,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "119
 [e :UE 1148 ]
 }
-[v F9226 `(v ~T0 @X0 1 tf ]
+[v F9224 `(v ~T0 @X0 1 tf ]
 "131
-[v _InterruptHandlerLow `ILF9226 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9224 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 126: interrupt low_priority
 [; ;interrupts.c: 131: void InterruptHandlerLow() {
@@ -8700,9 +8700,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 144: PIR1bits.RCIF = 0;
 "144
 [e = . . _PIR1bits 1 3 -> -> 0 `i `uc ]
-[; ;interrupts.c: 148: uart_receive_byte();
+[; ;interrupts.c: 148: uart_receive_interrupt_handler();
 "148
-[e ( _uart_receive_byte ..  ]
+[e ( _uart_receive_interrupt_handler ..  ]
 "149
 }
 [e :U 1153 ]

@@ -1,9 +1,11 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"1 ../src/timer1_thread.h
-[s S1134 `ui 1 ]
-[n S1134 __timer1_thread_struct msgcount ]
-"89 ../src/messages.h
-[v _FromMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
+"4 ../src/timer1_thread.h
+[s S1137 `ui 1 ]
+[n S1137 __timer1_thread_struct msgcount ]
+"43 ../src/my_uart.h
+[v _send_uart_message `(uc ~T0 @X0 0 ef1`*uc ]
+"52 ../src/my_i2c.h
+[v _i2c_master_send `(uc ~T0 @X0 0 ef2`uc`*uc ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f46j50.h: 47: extern volatile unsigned char RPOR0 @ 0xEC6;
@@ -8361,61 +8363,148 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 [; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;timer1_thread.h: 1: typedef struct __timer1_thread_struct {
-[; ;timer1_thread.h: 3: unsigned int msgcount;
-[; ;timer1_thread.h: 4: } timer1_thread_struct;
-[; ;timer1_thread.h: 6: void init_timer1_lthread(timer1_thread_struct *);
-[; ;timer1_thread.h: 7: int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
-"6 ../src/timer1_thread.c
-[v _init_timer1_lthread `(v ~T0 @X0 1 ef1`*S1134 ]
+[; ;debug.h: 35: void debug_configure();
+[; ;debug.h: 36: void blip();
+[; ;debug.h: 37: void blip1();
+[; ;debug.h: 38: void blip2();
+[; ;debug.h: 39: void blip3();
+[; ;debug.h: 40: void blip4();
+[; ;my_i2c.h: 9: typedef struct __i2c_comm {
+[; ;my_i2c.h: 10: unsigned char buffer[10];
+[; ;my_i2c.h: 11: unsigned char buflen;
+[; ;my_i2c.h: 12: unsigned char bufind;
+[; ;my_i2c.h: 13: unsigned char outbuffer[10];
+[; ;my_i2c.h: 14: unsigned char outbufind;
+[; ;my_i2c.h: 15: unsigned char outbuflen;
+[; ;my_i2c.h: 16: unsigned char event_count;
+[; ;my_i2c.h: 17: unsigned char status;
+[; ;my_i2c.h: 18: unsigned char error_code;
+[; ;my_i2c.h: 19: unsigned char error_count;
+[; ;my_i2c.h: 20: unsigned char initiated;
+[; ;my_i2c.h: 21: unsigned char slave_addr;
+[; ;my_i2c.h: 22: } i2c_comm;
+[; ;my_i2c.h: 47: void init_i2c(i2c_comm *);
+[; ;my_i2c.h: 48: void i2c_int_handler(void);
+[; ;my_i2c.h: 49: void start_i2c_slave_reply(unsigned char,unsigned char *);
+[; ;my_i2c.h: 50: void i2c_configure_slave(unsigned char);
+[; ;my_i2c.h: 51: void i2c_configure_master(unsigned char);
+[; ;my_i2c.h: 52: unsigned char i2c_master_send(unsigned char,unsigned char *);
+[; ;my_i2c.h: 53: unsigned char i2c_master_recv(unsigned char);
+[; ;my_uart.h: 14: typedef struct
+[; ;my_uart.h: 15: {
+[; ;my_uart.h: 16: unsigned char data[6 + 2];
+[; ;my_uart.h: 19: unsigned char index;
+[; ;my_uart.h: 20: unsigned char size;
+[; ;my_uart.h: 21: unsigned char done;
+[; ;my_uart.h: 22: } uart_buffer_type;
+[; ;my_uart.h: 24: typedef struct
+[; ;my_uart.h: 25: {
+[; ;my_uart.h: 26: unsigned char header;
+[; ;my_uart.h: 27: unsigned char checksum;
+[; ;my_uart.h: 28: unsigned char data[ 6 + 2 - 2 ];
+[; ;my_uart.h: 30: unsigned char bytes_received;
+[; ;my_uart.h: 31: unsigned char checksum_error;
+[; ;my_uart.h: 32: unsigned char count_error;
+[; ;my_uart.h: 33: unsigned char byte_error;
+[; ;my_uart.h: 34: unsigned char acked;
+[; ;my_uart.h: 35: } uart_packet_type;
+[; ;my_uart.h: 43: unsigned char send_uart_message( unsigned char * message_ptr );
+[; ;my_uart.h: 46: unsigned char receive_uart_message();
+[; ;my_uart.h: 49: void uart_configure( );
+[; ;my_uart.h: 52: void uart_receive_interrupt_handler();
+[; ;my_uart.h: 55: void uart_transmit_interrupt_handler();
+[; ;my_uart.h: 61: unsigned char uart_get_byte();
+[; ;my_uart.h: 70: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;timer1_thread.h: 4: typedef struct __timer1_thread_struct {
+[; ;timer1_thread.h: 6: unsigned int msgcount;
+[; ;timer1_thread.h: 7: } timer1_thread_struct;
+[; ;timer1_thread.h: 9: void init_timer1_lthread(timer1_thread_struct *);
+[; ;timer1_thread.h: 10: int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
+"9 ../src/timer1_thread.c
+[v _init_timer1_lthread `(v ~T0 @X0 1 ef1`*S1137 ]
 {
-[; ;timer1_thread.c: 6: void init_timer1_lthread(timer1_thread_struct *tptr) {
+[; ;timer1_thread.c: 9: void init_timer1_lthread(timer1_thread_struct *tptr) {
 [e :U _init_timer1_lthread ]
-[v _tptr `*S1134 ~T0 @X0 1 r1 ]
+[v _tptr `*S1137 ~T0 @X0 1 r1 ]
 [f ]
-[; ;timer1_thread.c: 7: tptr->msgcount = 0;
-"7
+[; ;timer1_thread.c: 10: tptr->msgcount = 0;
+"10
 [e = . *U _tptr 0 -> -> 0 `i `ui ]
-[; ;timer1_thread.c: 8: }
-"8
-[e :UE 1135 ]
+[; ;timer1_thread.c: 11: }
+"11
+[e :UE 1138 ]
 }
-"14
-[v _timer1_lthread `(i ~T0 @X0 1 ef4`*S1134`i`i`*uc ]
+"17
+[v _timer1_lthread `(i ~T0 @X0 1 ef4`*S1137`i`i`*uc ]
 {
-[; ;timer1_thread.c: 14: int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
+[; ;timer1_thread.c: 17: int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
 [e :U _timer1_lthread ]
-[v _tptr `*S1134 ~T0 @X0 1 r1 ]
+[v _tptr `*S1137 ~T0 @X0 1 r1 ]
 [v _msgtype `i ~T0 @X0 1 r2 ]
 [v _length `i ~T0 @X0 1 r3 ]
 [v _msgbuffer `*uc ~T0 @X0 1 r4 ]
 [f ]
-"15
+"18
 [v _retval `c ~T0 @X0 1 a ]
-[; ;timer1_thread.c: 15: signed char retval;
-[; ;timer1_thread.c: 17: tptr->msgcount++;
-"17
-[e ++ . *U _tptr 0 -> -> 1 `i `ui ]
-[; ;timer1_thread.c: 20: if ((tptr->msgcount % 10) == 9) {
-"20
-[e $ ! == % . *U _tptr 0 -> -> 10 `i `ui -> -> 9 `i `ui 1137  ]
-{
-[; ;timer1_thread.c: 21: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
+[v F9220 `uc ~T0 @X0 -> 6 `i s ]
+[i F9220
+:U ..
 "21
-[e = _retval ( _FromMainHigh_sendmsg (3 , , -> -> # . *U _tptr 0 `ui `uc -> -> 20 `i `uc -> &U . *U _tptr 0 `*v ]
-[; ;timer1_thread.c: 22: if (retval < 0) {
-"22
-[e $ ! < -> _retval `i -> 0 `i 1138  ]
-{
-"24
-}
-[e :U 1138 ]
+-> -> 42 `i `uc
+-> -> 170 `i `uc
+-> -> 170 `i `uc
+-> -> 170 `i `uc
+-> -> 170 `i `uc
+-> -> 170 `i `uc
+..
+]
+[v _msg2 `uc ~T0 @X0 -> 6 `i a ]
+[; ;timer1_thread.c: 18: signed char retval;
+[; ;timer1_thread.c: 21: unsigned char msg2[6] = {0x2a,0xaa,0xaa,0xaa,0xaa,0xaa};
+[e = _msg2 F9220 ]
+[v F9222 `uc ~T0 @X0 -> 6 `i s ]
+[i F9222
+:U ..
+"23
+-> -> 43 `i `uc
+-> -> 168 `i `uc
+-> -> 168 `i `uc
+-> -> 168 `i `uc
+-> -> 168 `i `uc
+-> -> 168 `i `uc
+..
+]
+[v _msg3 `uc ~T0 @X0 -> 6 `i a ]
+[; ;timer1_thread.c: 23: unsigned char msg3[6] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8};
+[e = _msg3 F9222 ]
+[v F9224 `uc ~T0 @X0 -> 6 `i s ]
+[i F9224
+:U ..
 "25
-}
-[e :U 1137 ]
-[; ;timer1_thread.c: 24: }
-[; ;timer1_thread.c: 25: }
-[; ;timer1_thread.c: 26: }
-"26
-[e :UE 1136 ]
+-> -> 44 `i `uc
+-> -> 169 `i `uc
+-> -> 169 `i `uc
+-> -> 169 `i `uc
+-> -> 169 `i `uc
+-> -> 169 `i `uc
+..
+]
+[v _msg4 `uc ~T0 @X0 -> 6 `i a ]
+[; ;timer1_thread.c: 25: unsigned char msg4[6] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9};
+[e = _msg4 F9224 ]
+[; ;timer1_thread.c: 27: send_uart_message( msg2 );
+"27
+[e ( _send_uart_message (1 &U _msg2 ]
+[; ;timer1_thread.c: 29: i2c_master_send(6, msg2);
+"29
+[e ( _i2c_master_send (2 , -> -> 6 `i `uc &U _msg2 ]
+[; ;timer1_thread.c: 30: i2c_master_send(6, msg3);
+"30
+[e ( _i2c_master_send (2 , -> -> 6 `i `uc &U _msg3 ]
+[; ;timer1_thread.c: 31: i2c_master_send(6, msg4);
+"31
+[e ( _i2c_master_send (2 , -> -> 6 `i `uc &U _msg4 ]
+[; ;timer1_thread.c: 44: }
+"44
+[e :UE 1139 ]
 }

@@ -4,6 +4,7 @@
 #include "messages.h"
 #include "debug.h"
 
+
 #define MAXI2CBUF MSGLEN
 typedef struct __i2c_comm {
     unsigned char buffer[MAXI2CBUF];

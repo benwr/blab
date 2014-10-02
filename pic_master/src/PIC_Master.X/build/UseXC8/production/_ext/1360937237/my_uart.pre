@@ -10940,10 +10940,10 @@ void blip2();
 void blip3();
 void blip4();
 
-# 12 "../src/my_uart.h"
+# 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[6+2];
+unsigned char data[6 + 2];
 
 
 unsigned char index;
@@ -10955,7 +10955,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 6 - 2 ];
+unsigned char data[ 6 + 2 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10964,8 +10964,8 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 41
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+# 43
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
 unsigned char receive_uart_message();
@@ -10979,62 +10979,20 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 59
+# 61
 unsigned char uart_get_byte();
 
-# 68
+# 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 21 "../src/my_uart.c"
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr )
-{
-static unsigned char sent_counter = 0;
-
-if( (length + 2) > 6 )
-{
-return 0x01;
-}
-
-unsigned char uart_message[6];
-
-
-uart_message[0] = sent_counter++;
-
-
-unsigned char checksum = 0x00;
-int i;
-for(i=0;i<(length);i++)
-{
-uart_message[i+1] = message_ptr[i];
-checksum = checksum ^ message_ptr[i];
-}
-i++;
-
-
-uart_message[i] = checksum;
-
-unsigned char message_q_code = FromMainLow_sendmsg((length+2),31,(void *) uart_message );
-
-if( message_q_code == -1)
-{
-return 0x02;
-}
-
-
-
-
-PIE1bits.TX1IE = 1;
-return 0x00;
-}
-
-
+# 23 "../src/my_uart.c"
 unsigned char receive_uart_message( )
 {
 static uart_packet_type uart_recv_packet;
 
 unsigned char gotten_byte = RCREG1;
 
-if( uart_recv_packet.bytes_received < (6) )
+if( uart_recv_packet.bytes_received < (6 + 2) )
 {
 uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
 uart_recv_packet.bytes_received += 1;
@@ -11076,29 +11034,31 @@ RCSTA1bits.CREN = 1;
 
 }
 
-
-
-
+# 76
 void uart_receive_interrupt_handler()
 {
+blip1();
 
 static unsigned char * data;
 static unsigned char index = 0;
-static unsigned char new = 1;
+static unsigned char done = 0;
 static unsigned char received_counter = 0;
 
 
-if( index < 6+2 )
+if(!done)
 {
 data[index] = RCREG1;
 index++;
-new = 0;
+
 }
-else
+
+if( index >= 6 + 2 )
 {
+index = 0;
 received_counter++;
 if( received_counter != data[0] )
 {
+received_counter = data[0];
 return;
 
 }
@@ -11120,44 +11080,75 @@ for(i = 0; i < 6; i++)
 gooey_uart_center[i] = data[i+1];
 }
 
-unsigned char status = ToMainLow_sendmsg(6,31,(void *) gooey_uart_center );
+unsigned char status = ToMainLow_sendmsg(6 + 2,31,(void *) gooey_uart_center );
 if( status == -1 )
 {
+blip();
 
 }
 else
 {
-new = 1;
-index = 0;
+
+
 }
 }
 
-# 171
+# 138
+}
+
+
+
+unsigned char send_uart_message( unsigned char * message_ptr )
+{
+unsigned char message_q_code = FromMainLow_sendmsg(6,31,(void *) message_ptr );
+
+if( message_q_code == -1)
+{
+return 0x02;
+}
+
+PIE1bits.TX1IE = 1;
+return 0x00;
 }
 
 
 void uart_transmit_interrupt_handler()
 {
 static unsigned char done = 1;
-static unsigned char * data;
 static unsigned char index = 0;
+static unsigned char sent_counter = 0;
 
-unsigned char msgtype;;
+unsigned char * data;
+static unsigned char * message;
+
+unsigned char msgtype = 31;
+
 if( done )
 {
-signed char message_status = FromMainLow_recvmsg(4,&msgtype, (void*)data );
+signed char message_status = FromMainLow_recvmsg(6,&msgtype, (void*)data );
 if( message_status == -4)
 {
+
 PIE1bits.TX1IE = 0;
 }
 else if( message_status > 0 )
 {
+message[0] = sent_counter++;
+
+int i;
+for(i=0;i<6;i++)
+{
+message[i+1]=data[i];
+}
+message[7] = data[0] ^ data[1] ^ data[2] ^ data[3] ^ data[4] ^ data[5];
+
+
 index = 0;
 done = 0;
 
-TXREG1 = data[index];
+TXREG1 = message[index];
 index++;
-if( index >= 6 )
+if( index >= 6 + 2 )
 {
 done = 1;
 }
@@ -11177,9 +11168,9 @@ else if( message_status == -3 )
 }
 else
 {
-TXREG1 = data[index];
+TXREG1 = message[index];
 index++;
-if( index >= 6 )
+if( index >= 6 + 2 )
 {
 done = 1;
 }
@@ -11198,6 +11189,6 @@ signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte 
 
 return gotten_byte;
 
-# 252
+# 249
 }
 

@@ -7,6 +7,7 @@
 #include "my_i2c.h"
 
 static i2c_comm *ic_ptr;
+static unsigned char * need_sensor_data;
 
 // Configure for I2C Master mode -- the variable "slave_addr" should be stored in
 //   i2c_comm (as pointed to by ic_ptr) for later use.
@@ -249,21 +250,23 @@ void i2c_int_handler() {
 									{
 										ic_ptr->outbuffer[l] = sensor_bank_side[l];									
 									}
-								
+									break;								
 								}
 								case COMMAND_SENSORRQST_FRONT:
 								{
 									for(l = 0;l<I2C_DATA_SIZE;l++)
 									{
 										ic_ptr->outbuffer[l] = sensor_bank_front[l];									
-									}								
+									}	
+									break;										
 								}
 								case COMMAND_SENSORRQST_VENTRIL:
 								{
 									for(l = 0;l<I2C_DATA_SIZE;l++)
 									{
 										ic_ptr->outbuffer[l] = sensor_bank_ventril[l];									
-									}								
+									}	
+									break;	
 								}
 								default:
 								{
@@ -274,6 +277,7 @@ void i2c_int_handler() {
 									ic_ptr->outbuffer[3] = ic_ptr->buffer[3];
 									ic_ptr->outbuffer[4] = ic_ptr->buffer[4];
 									ic_ptr->outbuffer[5] = ic_ptr->buffer[5];
+									break;	
 								}
 							}
 							
@@ -354,8 +358,9 @@ void init_i2c(i2c_comm *ic) {
 // setup the PIC to operate as a slave
 // the address must include the R/W bit
 
-void i2c_configure_slave(unsigned char addr) {
+void i2c_configure_slave(unsigned char addr, unsigned char * ptr_thingy) {
 
+	need_sensor_data = ptr_thingy;
     // ensure the two lines are set for input (we are a slave)
 #ifdef __USE18F26J50
     //THIS CODE LOOKS WRONG, SHOULDN'T IT BE USING THE TRIS BITS???
@@ -445,7 +450,6 @@ void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * 
 		sensor_bank_ventril[1] == 0xff;
     }
 	
-	unsigned char need_data = 0xff;
-	signed char status =  ToMainHigh_sendmsg(1,MSGT_I2C_RQST,(void *) &need_data);
+	*need_sensor_data = 1; 
 	
 }

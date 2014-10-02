@@ -10903,7 +10903,7 @@ int in_low_int(void);
 
 int in_main(void);
 
-# 10 "../src/messages.h"
+# 21 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10917,7 +10917,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 54
 void init_queues(void);
 
 
@@ -10928,19 +10928,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 68
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 75
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 82
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 89
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -10952,10 +10952,10 @@ void blip2();
 void blip3();
 void blip4();
 
-# 11 "../src/my_uart.h"
+# 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[4];
+unsigned char data[6 + 2];
 
 
 unsigned char index;
@@ -10967,7 +10967,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 4 - 2 ];
+unsigned char data[ 6 + 2 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10976,31 +10976,32 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 40
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+# 43
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
-unsigned char receive_uart_message( unsigned char * message_ptr );
+unsigned char receive_uart_message();
 
 
 void uart_configure( );
 
 
+void uart_receive_interrupt_handler();
+
+
 void uart_transmit_interrupt_handler();
 
-# 55
+# 61
 unsigned char uart_get_byte();
 
-
-void uart_receive_byte();
-
-# 64
+# 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 8 "../src/my_i2c.h"
+# 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
 unsigned char buffer[10];
 unsigned char buflen;
+unsigned char bufind;
 unsigned char outbuffer[10];
 unsigned char outbufind;
 unsigned char outbuflen;
@@ -11008,11 +11009,11 @@ unsigned char event_count;
 unsigned char status;
 unsigned char error_code;
 unsigned char error_count;
-
+unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 42
+# 47
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
@@ -11029,7 +11030,7 @@ int data;
 
 int uart_lthread(uart_thread_struct *,int,int,unsigned char*);
 
-# 1 "../src/timer1_thread.h"
+# 4 "../src/timer1_thread.h"
 typedef struct __timer1_thread_struct {
 
 unsigned int msgcount;
@@ -11038,7 +11039,7 @@ unsigned int msgcount;
 void init_timer1_lthread(timer1_thread_struct *);
 int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
 
-# 1 "../src/timer0_thread.h"
+# 3 "../src/timer0_thread.h"
 typedef struct __timer0_thread_struct {
 
 int data;
@@ -11139,7 +11140,7 @@ IPR1bits.RCIP = 0;
 IPR1bits.SSPIP = 1;
 
 # 291
-i2c_configure_master(0x66);
+i2c_configure_master(0x4f);
 
 # 306
 PIE1bits.SSPIE = 1;
@@ -11155,30 +11156,36 @@ uart_configure();
 
 unsigned char msg[3] = {0x55,0xea,0x29};
 
-if ( send_uart_message( 2, msg ) == 0x02 )
-{
 
-}
-unsigned char msg2[3] = {0x11,0xaa,0x29};
-send_uart_message( 2, msg2 );
-unsigned char msg3[3] = {0x22,0xbb,0x29};
-send_uart_message( 2, msg3 );
-unsigned char msg4[3] = {0x33,0xcc,0x29};
-send_uart_message( 2, msg4 );
+unsigned char msg2[6] = {0x2a,0xaa,0xaa,0xaa,0xaa,0xaa};
+
+unsigned char msg3[6] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8};
+
+unsigned char msg4[6] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9};
 
 
-i2c_master_send(3, msg);
-i2c_master_send(3, msg2);
-i2c_master_send(3, msg3);
-i2c_master_send(3, msg4);
+
+i2c_master_send(6, msg2);
+
+
 
 unsigned char myByte1 = 0x54;
 unsigned char myByte2 = 0x45;
 
-# 387
+# 378
+unsigned char sensor_bank_side[6 + 2];
+unsigned char sensor_bank_front[6 + 2];
+unsigned char sensor_bank_ventril[6 + 2];
+
+# 389
 while (1) {
 
-# 404
+
+
+
+block_on_To_msgqueues();
+
+# 406
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11205,7 +11212,7 @@ break;
 case 42:
 {
 
-# 436
+# 438
 switch (last_reg_recvd) {
 case 0xaa:
 {
@@ -11255,13 +11262,47 @@ switch (msgtype)
 {
 case 11:
 {
+
 timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
 break;
 };
 case 30:
 case 31:
 {
+
 uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+
+
+switch( msgbuffer[0] )
+{
+
+case 0xa5:
+{
+
+
+break;
+}
+case 0xb5:
+{
+
+
+break;
+}
+case 0xc5:
+{
+
+
+break;
+}
+default:
+{
+
+break;
+}
+
+
+}
+
 break;
 };
 default:

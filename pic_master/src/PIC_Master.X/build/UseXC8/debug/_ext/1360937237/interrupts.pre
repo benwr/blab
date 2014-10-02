@@ -10916,7 +10916,7 @@ void timer0_int_handler(void);
 
 void timer1_int_handler(void);
 
-# 10 "../src/messages.h"
+# 21 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10930,7 +10930,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 54
 void init_queues(void);
 
 
@@ -10941,26 +10941,26 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 68
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 75
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 82
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 89
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 11 "../src/my_uart.h"
+# 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[4];
+unsigned char data[6 + 2];
 
 
 unsigned char index;
@@ -10972,7 +10972,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 4 - 2 ];
+unsigned char data[ 6 + 2 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10981,31 +10981,32 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 40
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+# 43
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
-unsigned char receive_uart_message( unsigned char * message_ptr );
+unsigned char receive_uart_message();
 
 
 void uart_configure( );
 
 
+void uart_receive_interrupt_handler();
+
+
 void uart_transmit_interrupt_handler();
 
-# 55
+# 61
 unsigned char uart_get_byte();
 
-
-void uart_receive_byte();
-
-# 64
+# 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 8 "../src/my_i2c.h"
+# 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
 unsigned char buffer[10];
 unsigned char buflen;
+unsigned char bufind;
 unsigned char outbuffer[10];
 unsigned char outbufind;
 unsigned char outbuflen;
@@ -11013,11 +11014,11 @@ unsigned char event_count;
 unsigned char status;
 unsigned char error_code;
 unsigned char error_count;
-
+unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 42
+# 47
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
@@ -11118,7 +11119,7 @@ PIR1bits.RCIF = 0;
 
 
 
-uart_receive_byte();
+uart_receive_interrupt_handler();
 }
 
 

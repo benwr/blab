@@ -3,6 +3,9 @@
 #include "messages.h"
 #include "timer1_thread.h"
 
+
+
+
 void init_timer1_lthread(timer1_thread_struct *tptr) {
     tptr->msgcount = 0;
 }
@@ -14,6 +17,20 @@ void init_timer1_lthread(timer1_thread_struct *tptr) {
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
     signed char retval;
 
+    
+    unsigned char msg2[6] = {0x2a,0xaa,0xaa,0xaa,0xaa,0xaa};
+
+    unsigned char msg3[6] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8};
+
+    unsigned char msg4[6] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9};
+
+    send_uart_message( msg2 );
+
+    i2c_master_send(6, msg2);
+    i2c_master_send(6, msg3);
+    i2c_master_send(6, msg4);
+
+    /*
     tptr->msgcount++;
     // Every tenth message we get from timer1 we
     // send something to the High Priority Interrupt
@@ -23,4 +40,5 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
             // We would handle the error here
         }
     }
+     * */
 }

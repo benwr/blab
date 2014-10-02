@@ -5,8 +5,10 @@
 #include "debug.h"
 
 
-#define UART_MESSAGE_LENGTH 6
-#define MAXUARTBUF UART_MESSAGE_LENGTH+2
+
+#define UART_DATA_LENGTH 6
+#define UART_MESSAGE_LENGTH UART_DATA_LENGTH + 2
+#define MAXUARTBUF UART_MESSAGE_LENGTH
 
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
 typedef struct
@@ -38,7 +40,7 @@ typedef struct
 #define SEND_UART_MESSAGE_BAD_LENGTH    0x01
 #define SEND_UART_MESSAGE_Q_FULL        0x02
 //Send a UART Packet
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 //Receive a UART Packet
 unsigned char receive_uart_message();

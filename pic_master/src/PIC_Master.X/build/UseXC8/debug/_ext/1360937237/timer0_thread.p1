@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"1 ../src/timer0_thread.h
-[s S1132 `i 1 ]
-[n S1132 __timer0_thread_struct data ]
+"3 ../src/timer0_thread.h
+[s S1135 `i 1 ]
+[n S1135 __timer0_thread_struct data ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f46j50.h: 47: extern volatile unsigned char RPOR0 @ 0xEC6;
@@ -8337,16 +8337,65 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 206: extern int printf(const char *, ...);
-[; ;timer0_thread.h: 1: typedef struct __timer0_thread_struct {
-[; ;timer0_thread.h: 3: int data;
-[; ;timer0_thread.h: 4: } timer0_thread_struct;
-[; ;timer0_thread.h: 6: int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
+[; ;messages.h: 21: typedef struct __msg {
+[; ;messages.h: 22: unsigned char full;
+[; ;messages.h: 23: unsigned char length;
+[; ;messages.h: 24: unsigned char msgtype;
+[; ;messages.h: 25: unsigned char data[10];
+[; ;messages.h: 26: } msg;
+[; ;messages.h: 28: typedef struct __msg_queue {
+[; ;messages.h: 29: msg queue[4];
+[; ;messages.h: 30: unsigned char cur_write_ind;
+[; ;messages.h: 31: unsigned char cur_read_ind;
+[; ;messages.h: 32: } msg_queue;
+[; ;messages.h: 54: void init_queues(void);
+[; ;messages.h: 58: void SleepIfOkay(void);
+[; ;messages.h: 62: void block_on_To_msgqueues(void);
+[; ;messages.h: 68: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 69: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 75: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 76: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 82: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;debug.h: 35: void debug_configure();
+[; ;debug.h: 36: void blip();
+[; ;debug.h: 37: void blip1();
+[; ;debug.h: 38: void blip2();
+[; ;debug.h: 39: void blip3();
+[; ;debug.h: 40: void blip4();
+[; ;my_i2c.h: 9: typedef struct __i2c_comm {
+[; ;my_i2c.h: 10: unsigned char buffer[10];
+[; ;my_i2c.h: 11: unsigned char buflen;
+[; ;my_i2c.h: 12: unsigned char bufind;
+[; ;my_i2c.h: 13: unsigned char outbuffer[10];
+[; ;my_i2c.h: 14: unsigned char outbufind;
+[; ;my_i2c.h: 15: unsigned char outbuflen;
+[; ;my_i2c.h: 16: unsigned char event_count;
+[; ;my_i2c.h: 17: unsigned char status;
+[; ;my_i2c.h: 18: unsigned char error_code;
+[; ;my_i2c.h: 19: unsigned char error_count;
+[; ;my_i2c.h: 20: unsigned char initiated;
+[; ;my_i2c.h: 21: unsigned char slave_addr;
+[; ;my_i2c.h: 22: } i2c_comm;
+[; ;my_i2c.h: 47: void init_i2c(i2c_comm *);
+[; ;my_i2c.h: 48: void i2c_int_handler(void);
+[; ;my_i2c.h: 49: void start_i2c_slave_reply(unsigned char,unsigned char *);
+[; ;my_i2c.h: 50: void i2c_configure_slave(unsigned char);
+[; ;my_i2c.h: 51: void i2c_configure_master(unsigned char);
+[; ;my_i2c.h: 52: unsigned char i2c_master_send(unsigned char,unsigned char *);
+[; ;my_i2c.h: 53: unsigned char i2c_master_recv(unsigned char);
+[; ;timer0_thread.h: 3: typedef struct __timer0_thread_struct {
+[; ;timer0_thread.h: 5: int data;
+[; ;timer0_thread.h: 6: } timer0_thread_struct;
+[; ;timer0_thread.h: 8: int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
 "9 ../src/timer0_thread.c
-[v _timer0_lthread `(i ~T0 @X0 1 ef4`*S1132`i`i`*uc ]
+[v _timer0_lthread `(i ~T0 @X0 1 ef4`*S1135`i`i`*uc ]
 {
 [; ;timer0_thread.c: 9: int timer0_lthread(timer0_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
 [e :U _timer0_lthread ]
-[v _tptr `*S1132 ~T0 @X0 1 r1 ]
+[v _tptr `*S1135 ~T0 @X0 1 r1 ]
 [v _msgtype `i ~T0 @X0 1 r2 ]
 [v _length `i ~T0 @X0 1 r3 ]
 [v _msgbuffer `*uc ~T0 @X0 1 r4 ]
@@ -8357,7 +8406,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;timer0_thread.c: 12: msgval = (unsigned int *) msgbuffer;
 "12
 [e = _msgval -> _msgbuffer `*ui ]
-[; ;timer0_thread.c: 16: }
-"16
-[e :UE 1133 ]
+[; ;timer0_thread.c: 17: }
+"17
+[e :UE 1136 ]
 }

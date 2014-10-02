@@ -351,30 +351,8 @@ void main(void) {
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-    unsigned char msg[3] = {0x55,0xea,0x29};
 
-    if ( send_uart_message( 2, msg ) == SEND_UART_MESSAGE_Q_FULL )
-    {
-        //blip();
-    }
-    unsigned char msg2[6] = {0x2a,0xaa,0xaa,0xaa,0xaa,0xaa};
-    
-    unsigned char msg3[6] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8};
-    
-    unsigned char msg4[6] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9};
-    
-    
 
-    
-    i2c_master_send(6, msg2);
-    send_uart_message( 2, msg2 );
-    i2c_master_send(6, msg3);
-    send_uart_message( 2, msg3 );
-    i2c_master_send(6, msg4);
-    send_uart_message( 2, msg4 );
-    i2c_master_send(6, msg4);
-
-    
 
     unsigned char myByte1 = 0x54;
     unsigned char myByte2 = 0x45;
@@ -401,7 +379,7 @@ void main(void) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
-        //block_on_To_msgqueues();
+        block_on_To_msgqueues();
 
                 
 
@@ -429,6 +407,11 @@ void main(void) {
                     break;
                 };
                 case MSGT_I2C_DATA:
+                {
+                    send_uart_message( msgbuffer );
+
+
+                }
                 case MSGT_I2C_DBG:
                 {
                     // Here is where you could handle debugging, if you wanted
@@ -494,12 +477,14 @@ void main(void) {
             {
                 case MSGT_TIMER1:
                 {
+                    
                     timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
                     break;
                 };
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
+                   
                     uart_lthread(&uthread_data, msgtype, length, msgbuffer);
 
 
