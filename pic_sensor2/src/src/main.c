@@ -196,7 +196,7 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
-    unsigned char i2c_need_data = 0;
+    unsigned char i2c_need_data = 1;
 
 #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -343,6 +343,7 @@ void main(void) {
     //unsigned short current_distance = 0x0000;
     LATBbits.LB7 = 0x1;
     LATBbits.LB7 = 0x0;
+    unsigned int cntr = 0;
     while (1) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
@@ -445,19 +446,19 @@ void main(void) {
                     sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
 
                     //unsigned char distance = (18924/( sensor_value - 17 ));
-                    unsigned char distance = rndSense(0);
+                    unsigned char distance = rndSense(cntr++);
                     ///myData.distance1 = (18924/( sensor_value - 17 ));
-                    fntmsgbuf[0] = SIDE_CMD;
-                    fntmsgbuf[1] = 0x73;
+                    fntmsgbuf[0] = FRONT_CMD;
+                    fntmsgbuf[1] = 0x00;
                     fntmsgbuf[2] = distance;
                     fntmsgbuf[3] = distance;
-                    fntmsgbuf[4] = 0x73;
-                    fntmsgbuf[5] = 0x73;
+                    fntmsgbuf[4] = 0xaa;
+                    fntmsgbuf[5] = 0xaa;
 
                     //signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
 
-                    sidmsgbuf[0] = FRONT_CMD;
-                    sidmsgbuf[1] = 0x73;
+                    sidmsgbuf[0] = SIDE_CMD;
+                    sidmsgbuf[1] = 0x00;
                     sidmsgbuf[2] = distance;
                     sidmsgbuf[3] = distance;
                     sidmsgbuf[4] = distance;
@@ -465,12 +466,12 @@ void main(void) {
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
 
-                    vntmsgbuf[0] != VENTRIL_CMD;
-                    vntmsgbuf[1] = 0x73;
+                    vntmsgbuf[0] = VENTRIL_CMD;
+                    vntmsgbuf[1] = 0x00;
                     vntmsgbuf[2] = distance;
                     vntmsgbuf[3] = distance;
                     vntmsgbuf[4] = distance;
-                    vntmsgbuf[5] = 0x73;
+                    vntmsgbuf[5] = 0xaa;
 
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);

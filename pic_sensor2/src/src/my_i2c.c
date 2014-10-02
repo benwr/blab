@@ -101,9 +101,9 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-	static unsigned char sensor_bank_side[I2C_DATA_SIZE];
-	static unsigned char sensor_bank_front[I2C_DATA_SIZE];
-	static unsigned char sensor_bank_ventril[I2C_DATA_SIZE];
+    static unsigned char sensor_bank_side[I2C_DATA_SIZE];
+    static unsigned char sensor_bank_front[I2C_DATA_SIZE];
+    static unsigned char sensor_bank_ventril[I2C_DATA_SIZE];
 
     unsigned char i2c_data;
     unsigned char data_read = 0;
@@ -422,7 +422,7 @@ void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * 
 	
 	int i;
 	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank_side );
-	if( length < 6 )
+    if( length < 6 )
     { 
 		sensor_bank_side[1] == 0x00;
        
