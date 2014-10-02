@@ -196,6 +196,7 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
+    unsigned char i2c_need_data = 0;
 
 #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -277,7 +278,7 @@ void main(void) {
     // They *are* changed in the timer interrupt handlers if those timers are
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
-    i2c_configure_slave(0x9E);
+    i2c_configure_slave(0x9E,&i2c_need_data);
 #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
@@ -322,10 +323,11 @@ void main(void) {
     
     init_registers();//Luke's code
     //[0] is the cmd/id, [1] is a recerved byte, [2-5] are sensor data values
-    unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
-    unsigned char sidmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
-    unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0, 0};
-   
+    unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0x32, 0, 0, 0};
+    unsigned char sidmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0x45, 0, 0};
+    unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0x54, 0};
+
+    
 
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
@@ -339,11 +341,27 @@ void main(void) {
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     //unsigned short current_distance = 0x0000;
+    LATBbits.LB7 = 0x1;
+    LATBbits.LB7 = 0x0;
     while (1) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
         block_on_To_msgqueues();
+        
+        if( i2c_need_data )
+        {
+
+        signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, sidmsgbuf);
+                        if( MsgQ_BStatus == MSGSEND_OKAY){
+                            MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
+
+                            if( MsgQ_BStatus == MSGSEND_OKAY){
+                                MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, vntmsgbuf);
+                            }
+                        }
+                        i2c_need_data = 0;
+        }
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -373,17 +391,7 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    if(msgbuffer[0] == 0xff){
-                        //LATBbits.LB6 ^= 0x1;
-                        signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, sidmsgbuf);
-                        if( MsgQ_BStatus == MSGSEND_OKAY){
-                            MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
-
-                            if( MsgQ_BStatus == MSGSEND_OKAY){
-                                MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, vntmsgbuf);
-                            }
-                        }
-                    }
+                    
                     /*
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
                     // I recommend that you handle it completely inside the i2c interrupt handler
@@ -436,19 +444,20 @@ void main(void) {
                     unsigned short sensor_value = msgbuffer[1];
                     sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
 
-                    unsigned char distance = (18924/( sensor_value - 17 ));
+                    //unsigned char distance = (18924/( sensor_value - 17 ));
+                    unsigned char distance = rndSense(0);
                     ///myData.distance1 = (18924/( sensor_value - 17 ));
                     fntmsgbuf[0] = SIDE_CMD;
-                    fntmsgbuf[1] = 0x00;
+                    fntmsgbuf[1] = 0x73;
                     fntmsgbuf[2] = distance;
                     fntmsgbuf[3] = distance;
-                    fntmsgbuf[4] = 0x00;
-                    fntmsgbuf[5] = 0x00;
+                    fntmsgbuf[4] = 0x73;
+                    fntmsgbuf[5] = 0x73;
 
                     //signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
 
                     sidmsgbuf[0] = FRONT_CMD;
-                    sidmsgbuf[1] = 0x00;
+                    sidmsgbuf[1] = 0x73;
                     sidmsgbuf[2] = distance;
                     sidmsgbuf[3] = distance;
                     sidmsgbuf[4] = distance;
@@ -457,11 +466,11 @@ void main(void) {
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
 
                     vntmsgbuf[0] != VENTRIL_CMD;
-                    vntmsgbuf[1] = 0x00;
+                    vntmsgbuf[1] = 0x73;
                     vntmsgbuf[2] = distance;
                     vntmsgbuf[3] = distance;
                     vntmsgbuf[4] = distance;
-                    vntmsgbuf[5] = 0x00;
+                    vntmsgbuf[5] = 0x73;
 
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
