@@ -18,28 +18,6 @@
 //static unsigned char receive_counter;
 
 
-
-//Receive a UART Packet
-unsigned char receive_uart_message(  )
-{
-    static uart_packet_type uart_recv_packet;
-
-    unsigned char gotten_byte = RCREG1;
-
-    if( uart_recv_packet.bytes_received < (UART_FRAME_LENGTH) )
-    {
-        uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
-        uart_recv_packet.bytes_received += 1;
-    }
-    else
-    {
-        //signed char err =  ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-
-    }
-
-    return 0x00; //change this
-}
-
 //Alex: Configure UART for transmit
 void uart_configure()
 {   
@@ -81,16 +59,48 @@ void uart_receive_interrupt_handler()
     static unsigned char done = 0;
     static unsigned char received_counter = 0;
     static unsigned char checksum = 0;
+    static unsigned char start_byte_bad = 0;
 
     if(!done)
     {
         data[index] = RCREG1;
-        if( ( index >= UART_HEADER_WIDTH ) && ( index < UART_DATA_LENGTH MSGLEN + UART_HEADER_WIDTH )  )
+        if( index == 0 )
+        {
+            if( data[0] != UART_HEADER_BYTE )   // No 0xff as start byte
+            {
+                if( !start_byte_bad )
+                {
+                    start_byte_bad = 1;
+                    unsigned char bad_start_id = received_counter;
+                    ToMainLow_sendmsg(1,MSGT_UART_BAD_START,(void *)&bad_start_id);
+                }
+                index = 0;
+                return;
+            }
+            else
+            {
+                start_byte_bad = 0;
+            }
+        }
+        else if( ( index >= UART_HEADER_WIDTH ) && ( index < UART_DATA_LENGTH + UART_HEADER_WIDTH )  )
         {
             checksum ^= data[index];
         }
-        index++;
+        else if( index >= UART_POS_FOOTER_BYTE )
+        {
+            if( data[UART_POS_FOOTER_BYTE] != UART_FOOTER_BYTE )    //No 0xfe as end byte
+            {
+                //Reset index because message needs to restart
+                index = 0;
 
+                //Send Error message to main to be sent to sender
+                unsigned char bad_end_id = received_counter;
+                ToMainLow_sendmsg(1,MSGT_UART_BAD_END,(void *)&bad_end_id);
+
+                return;
+            }
+        }
+        index++;
     }
     
     if( index >= UART_FRAME_LENGTH )
@@ -100,17 +110,20 @@ void uart_receive_interrupt_handler()
         index = 0;
         received_counter++;
 
-        if( received_counter != data[1] )
+        if( received_counter != data[UART_POS_COUNTER] )
         {
-            received_counter = data[1];
-            return;
-            //error handle this!
+            //Send Error message to main to be sent to sender
+            unsigned char bad_counter_id[2];
+            bad_counter_id[0] = received_counter;
+            bad_counter_id[1] = data[UART_POS_COUNTER];   //Format for bad counter in error message sent
+            ToMainLow_sendmsg(2,MSGT_UART_BAD_COUNTER,(void *)&bad_counter_id);
         }
 
         if( checksum != data[UART_FRAME_LENGTH - UART_FOOTER_WIDTH] )
         {
-            unsigned char bad_counter_id = received_counter;
-            ToMainLow_sendmsg(1,MSGT_UART_BAD_CHECKSUM,(void *)&bad_counter_id);
+            //Send Error message to main to be sent to sender
+            unsigned char bad_checksum_id = received_counter;
+            ToMainLow_sendmsg(1,MSGT_UART_BAD_CHECKSUM,(void *)&bad_checksum_id);
         }
 
         //send ack?

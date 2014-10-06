@@ -202,11 +202,11 @@ void i2c_int_handler() {
             
             if( ic_ptr->outbufind >= I2C_DATA_SIZE )
             {
-                unsigned char command_nibble = ic_ptr->outbuffer[0] >> 4;
+                unsigned char command_byte = ic_ptr->outbuffer[0] >> 4;
 
-                switch(command_nibble)  //Determine read_bit from command
+                switch(command_byte)  //Determine read_bit from command
                 {
-                    case COMMAND_SENSORRQST:
+                    case MSGID_SENSOR_STATUS:
                     {
                         read_bit = 1;
                         break;

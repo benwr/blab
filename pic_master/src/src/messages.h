@@ -14,6 +14,9 @@
 #define MSGID_UART_ACK              0x11
 
 #define MSGID_UART_BAD_CHECKSUM     0xf1
+#define MSGID_UART_BAD_COUNTER      0xf2
+#define MSGID_UART_BAD_START        0xf3
+#define MSGID_UART_BAD_END          0xf4
 //=========================
 
 

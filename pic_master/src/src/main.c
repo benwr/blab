@@ -480,8 +480,31 @@ void main(void) {
                 {
                     unsigned char uart_response[UART_DATA_LENGTH];
                     uart_response[0] = MSGID_UART_BAD_CHECKSUM; //Set Message ID
-                    uart_response[0] = msgbuffer[0];
+                    uart_response[1] = msgbuffer[0];
                     send_uart_message( uart_response );
+                }
+                case MSGT_UART_BAD_COUNTER:
+                {
+                    unsigned char uart_response[UART_DATA_LENGTH];
+                    uart_response[0] = MSGID_UART_BAD_COUNTER; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    uart_response[2] = msgbuffer[1];
+                    send_uart_message( uart_response );
+                }
+                case MSGT_UART_BAD_START:
+                {
+                    unsigned char uart_response[UART_DATA_LENGTH];
+                    uart_response[0] = MSGID_UART_BAD_START; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                }
+                case MSGT_UART_BAD_END:
+                {
+                    unsigned char uart_response[UART_DATA_LENGTH];
+                    uart_response[0] = MSGID_UART_BAD_END; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+
                 }
                 case MSGT_UART_DATA:
                 {

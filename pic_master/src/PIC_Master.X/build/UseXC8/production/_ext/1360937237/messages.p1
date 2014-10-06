@@ -1,9 +1,9 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"21 ../src/messages.h
+"25 ../src/messages.h
 [s S1131 `uc 1 `uc 1 `uc 1 `uc -> 14 `i ]
 [n S1131 __msg full length msgtype data ]
-"28
-[s S1132 `S1131 -> 4 `i `uc 1 `uc 1 ]
+"32
+[s S1132 `S1131 -> 8 `i `uc 1 `uc 1 ]
 [n S1132 __msg_queue queue cur_write_ind cur_read_ind ]
 "22 C:\Program Files (x86)\Microchip\xc8\v1.32\include\string.h
 [v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
@@ -8336,28 +8336,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.h: 16: int low_int_active(void);
 [; ;interrupts.h: 18: int in_low_int(void);
 [; ;interrupts.h: 21: int in_main(void);
-[; ;messages.h: 21: typedef struct __msg {
-[; ;messages.h: 22: unsigned char full;
-[; ;messages.h: 23: unsigned char length;
-[; ;messages.h: 24: unsigned char msgtype;
-[; ;messages.h: 25: unsigned char data[14];
-[; ;messages.h: 26: } msg;
-[; ;messages.h: 28: typedef struct __msg_queue {
-[; ;messages.h: 29: msg queue[4];
-[; ;messages.h: 30: unsigned char cur_write_ind;
-[; ;messages.h: 31: unsigned char cur_read_ind;
-[; ;messages.h: 32: } msg_queue;
-[; ;messages.h: 54: void init_queues(void);
-[; ;messages.h: 58: void SleepIfOkay(void);
-[; ;messages.h: 62: void block_on_To_msgqueues(void);
-[; ;messages.h: 68: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 69: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 75: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 76: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 82: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 25: typedef struct __msg {
+[; ;messages.h: 26: unsigned char full;
+[; ;messages.h: 27: unsigned char length;
+[; ;messages.h: 28: unsigned char msgtype;
+[; ;messages.h: 29: unsigned char data[14];
+[; ;messages.h: 30: } msg;
+[; ;messages.h: 32: typedef struct __msg_queue {
+[; ;messages.h: 33: msg queue[8];
+[; ;messages.h: 34: unsigned char cur_write_ind;
+[; ;messages.h: 35: unsigned char cur_read_ind;
+[; ;messages.h: 36: } msg_queue;
+[; ;messages.h: 58: void init_queues(void);
+[; ;messages.h: 62: void SleepIfOkay(void);
+[; ;messages.h: 66: void block_on_To_msgqueues(void);
+[; ;messages.h: 72: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 73: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 79: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 80: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 86: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 87: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 93: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 94: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;string.h: 22: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 23: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 24: extern void * memset(void *, int, size_t);
@@ -8400,11 +8400,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.c: 18: qptr->cur_read_ind = 0;
 "18
 [e = . *U _qptr 2 -> -> 0 `i `uc ]
-[; ;messages.c: 19: for (i = 0; i < 4; i++) {
+[; ;messages.c: 19: for (i = 0; i < 8; i++) {
 "19
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 4 `i 1134  ]
+[e $ < -> _i `i -> 8 `i 1134  ]
 [e $U 1135  ]
 [e :U 1134 ]
 {
@@ -8415,7 +8415,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "19
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 4 `i 1134  ]
+[e $ < -> _i `i -> 8 `i 1134  ]
 [e :U 1135 ]
 "21
 }
@@ -8471,9 +8471,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.c: 55: memcpy(qmsg->data, data, tlength);
 "55
 [e ( _memcpy (3 , , -> &U . *U _qmsg 3 `*v -> _data `*Cv _tlength ]
-[; ;messages.c: 56: qptr->cur_write_ind = (qptr->cur_write_ind + 1) % 4;
+[; ;messages.c: 56: qptr->cur_write_ind = (qptr->cur_write_ind + 1) % 8;
 "56
-[e = . *U _qptr 1 -> % + -> . *U _qptr 1 `i -> 1 `i -> 4 `i `uc ]
+[e = . *U _qptr 1 -> % + -> . *U _qptr 1 `i -> 1 `i -> 8 `i `uc ]
 [; ;messages.c: 59: qmsg->full = 1;
 "59
 [e = . *U _qmsg 0 -> -> 1 `i `uc ]
@@ -8532,9 +8532,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.c: 81: memcpy(data, qmsg->data, tlength);
 "81
 [e ( _memcpy (3 , , _data -> &U . *U _qmsg 3 `*Cv _tlength ]
-[; ;messages.c: 87: qptr->cur_read_ind = (qptr->cur_read_ind + 1) % 4;
+[; ;messages.c: 87: qptr->cur_read_ind = (qptr->cur_read_ind + 1) % 8;
 "87
-[e = . *U _qptr 2 -> % + -> . *U _qptr 2 `i -> 1 `i -> 4 `i `uc ]
+[e = . *U _qptr 2 -> % + -> . *U _qptr 2 `i -> 1 `i -> 8 `i `uc ]
 [; ;messages.c: 89: (*msgtype) = qmsg->msgtype;
 "89
 [e = *U _msgtype . *U _qmsg 2 ]

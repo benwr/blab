@@ -133,7 +133,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S567 . . ]
 "8341
 [v _TRISBbits `VS567 ~T0 @X0 0 e@3987 ]
-"89 ../src/messages.h
+"93 ../src/messages.h
 [v _FromMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 "12595 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [s S800 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -308,11 +308,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S874 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ]
 "13925
 [v _SSPSTATbits `VS874 ~T0 @X0 0 e@4039 ]
-"90 ../src/messages.h
+"94 ../src/messages.h
 [v _FromMainHigh_recvmsg `(c ~T0 @X0 0 ef3`uc`*uc`*v ]
 "14486 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _SSP1BUF `Vuc ~T0 @X0 0 e@4041 ]
-"75 ../src/messages.h
+"79 ../src/messages.h
 [v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 "40 ../src/debug.h
 [v _blip4 `(v ~T0 @X0 0 ef ]
@@ -8708,28 +8708,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-[; ;messages.h: 21: typedef struct __msg {
-[; ;messages.h: 22: unsigned char full;
-[; ;messages.h: 23: unsigned char length;
-[; ;messages.h: 24: unsigned char msgtype;
-[; ;messages.h: 25: unsigned char data[14];
-[; ;messages.h: 26: } msg;
-[; ;messages.h: 28: typedef struct __msg_queue {
-[; ;messages.h: 29: msg queue[4];
-[; ;messages.h: 30: unsigned char cur_write_ind;
-[; ;messages.h: 31: unsigned char cur_read_ind;
-[; ;messages.h: 32: } msg_queue;
-[; ;messages.h: 54: void init_queues(void);
-[; ;messages.h: 58: void SleepIfOkay(void);
-[; ;messages.h: 62: void block_on_To_msgqueues(void);
-[; ;messages.h: 68: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 69: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 75: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 76: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 82: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 83: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 89: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 25: typedef struct __msg {
+[; ;messages.h: 26: unsigned char full;
+[; ;messages.h: 27: unsigned char length;
+[; ;messages.h: 28: unsigned char msgtype;
+[; ;messages.h: 29: unsigned char data[14];
+[; ;messages.h: 30: } msg;
+[; ;messages.h: 32: typedef struct __msg_queue {
+[; ;messages.h: 33: msg queue[8];
+[; ;messages.h: 34: unsigned char cur_write_ind;
+[; ;messages.h: 35: unsigned char cur_read_ind;
+[; ;messages.h: 36: } msg_queue;
+[; ;messages.h: 58: void init_queues(void);
+[; ;messages.h: 62: void SleepIfOkay(void);
+[; ;messages.h: 66: void block_on_To_msgqueues(void);
+[; ;messages.h: 72: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 73: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 79: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 80: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 86: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 87: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 93: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 94: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
 [; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
@@ -9163,16 +9163,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 "204
 {
 "205
-[v _command_nibble `uc ~T0 @X0 1 a ]
-[; ;my_i2c.c: 205: unsigned char command_nibble = ic_ptr->outbuffer[0] >> 4;
-[e = _command_nibble -> >> -> *U + &U . *U _ic_ptr 3 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux `i -> 4 `i `uc ]
-[; ;my_i2c.c: 207: switch(command_nibble)
+[v _command_byte `uc ~T0 @X0 1 a ]
+[; ;my_i2c.c: 205: unsigned char command_byte = ic_ptr->outbuffer[0] >> 4;
+[e = _command_byte -> >> -> *U + &U . *U _ic_ptr 3 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _ic_ptr 3 `ui `ux `i -> 4 `i `uc ]
+[; ;my_i2c.c: 207: switch(command_byte)
 "207
 [e $U 1166  ]
 [; ;my_i2c.c: 208: {
 "208
 {
-[; ;my_i2c.c: 209: case 0x2:
+[; ;my_i2c.c: 209: case 0x02:
 "209
 [e :U 1167 ]
 [; ;my_i2c.c: 210: {
@@ -9208,7 +9208,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1165  ]
 "207
 [e :U 1166 ]
-[e [\ _command_nibble , $ -> -> 2 `i `uc 1167
+[e [\ _command_byte , $ -> -> 2 `i `uc 1167
  1168 ]
 "219
 [e :U 1165 ]

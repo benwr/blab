@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 21 "../src/messages.h"
+# 25 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10837,12 +10837,12 @@ unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
-msg queue[4];
+msg queue[8];
 unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 54
+# 58
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 68
+# 72
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 75
+# 79
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 82
+# 86
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 89
+# 93
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -11124,11 +11124,11 @@ ic_ptr->outbufind++;
 
 if( ic_ptr->outbufind >= 14 )
 {
-unsigned char command_nibble = ic_ptr->outbuffer[0] >> 4;
+unsigned char command_byte = ic_ptr->outbuffer[0] >> 4;
 
-switch(command_nibble)
+switch(command_byte)
 {
-case 0x2:
+case 0x02:
 {
 read_bit = 1;
 break;
