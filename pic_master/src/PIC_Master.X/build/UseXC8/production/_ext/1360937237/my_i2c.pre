@@ -10833,7 +10833,7 @@ typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
@@ -10940,12 +10940,12 @@ void blip2();
 void blip3();
 void blip4();
 
-# 8 "../src/my_i2c.h"
+# 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[10];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[10];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;
@@ -10956,7 +10956,7 @@ unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 46
+# 47
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
@@ -10985,7 +10985,7 @@ TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
 ic_ptr->slave_addr = slave_addr;
-ic_ptr->outbuflen = 6;
+ic_ptr->outbuflen = 14;
 ic_ptr->status = 0x5;
 
 SSP1CON1bits.SSPEN = 1;
@@ -11057,8 +11057,6 @@ ic_ptr->status = 0x6;
 # 126
 void i2c_int_handler() {
 
-blip1();
-
 unsigned char i2c_data;
 
 
@@ -11076,7 +11074,7 @@ switch(ic_ptr->status)
 case 0x5:
 {
 
-signed char len = FromMainHigh_recvmsg(6, &msg_to_send, (void*)ic_ptr->outbuffer);
+signed char len = FromMainHigh_recvmsg(14, &msg_to_send, (void*)ic_ptr->outbuffer);
 if( len == -4 )
 {
 
@@ -11087,7 +11085,6 @@ break;
 }
 else if( len == -3 )
 {
-blip();
 break;
 }
 else
@@ -11110,9 +11107,8 @@ break;
 }
 case 0x6:
 {
-blip2();
 
-# 194
+# 190
 SSP1BUF = ((ic_ptr->slave_addr) << 1);
 
 
@@ -11123,11 +11119,10 @@ break;
 }
 case 0xa:
 {
-blip3();
 SSP1BUF = ic_ptr->outbuffer[ic_ptr->outbufind];
 ic_ptr->outbufind++;
 
-if( ic_ptr->outbufind >= 6 )
+if( ic_ptr->outbufind >= 14 )
 {
 unsigned char command_nibble = ic_ptr->outbuffer[0] >> 4;
 
@@ -11174,7 +11169,14 @@ break;
 }
 case 0xe:
 {
-blip4();
+if( SSP1CON2bits.ACKSTAT )
+{
+SSP1CON2bits.PEN = 1;
+ic_ptr->outbufind = 0;
+ic_ptr->outbufind = 0;
+ic_ptr->status = 0x5;
+break;
+}
 
 SSP1CON2bits.RCEN = 1;
 
@@ -11188,7 +11190,7 @@ ic_ptr->buffer[ic_ptr->bufind] = SSP1BUF;
 ic_ptr->bufind++;
 
 
-if( ic_ptr->bufind >= 6 )
+if( ic_ptr->bufind >= 14 )
 {
 signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, 40 , ic_ptr->buffer);
 ic_ptr->status = 0xb;
@@ -11237,11 +11239,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 325
+# 327
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 334
+# 336
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11250,11 +11252,11 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 355
+# 357
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 365
+# 367
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 

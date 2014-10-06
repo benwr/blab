@@ -10908,7 +10908,7 @@ typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
@@ -10952,10 +10952,10 @@ void blip2();
 void blip3();
 void blip4();
 
-# 11 "../src/my_uart.h"
+# 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[4];
+unsigned char data[14 + 2];
 
 
 unsigned char index;
@@ -10967,7 +10967,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 4 - 2 ];
+unsigned char data[ 14 + 2 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10976,33 +10976,33 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 40
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+# 43
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
-unsigned char receive_uart_message( unsigned char * message_ptr );
+unsigned char receive_uart_message();
 
 
 void uart_configure( );
 
 
+void uart_receive_interrupt_handler();
+
+
 void uart_transmit_interrupt_handler();
 
-# 55
+# 61
 unsigned char uart_get_byte();
 
-
-void uart_receive_byte();
-
-# 64
+# 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
 # 8 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[10];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[10];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;
@@ -11017,7 +11017,7 @@ unsigned char slave_addr;
 void init_i2c(i2c_comm *ic);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
-void i2c_configure_slave(unsigned char);
+void i2c_configure_slave(unsigned char,unsigned char * ptr_thingy);
 void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
@@ -11101,19 +11101,20 @@ signed char length;
 unsigned char msgtype;
 unsigned char last_reg_recvd;
 i2c_comm ic;
-unsigned char msgbuffer[10 + 1];
+unsigned char msgbuffer[14 + 1];
 unsigned char i;
 uart_thread_struct uthread_data;
 timer1_thread_struct t1thread_data;
 timer0_thread_struct t0thread_data;
+unsigned char need_sensor_data = 1;
 
-# 214
+# 215
 OSCCON = 0xE0;
 
-# 222
+# 223
 OSCTUNEbits.PLLEN = 1;
 
-# 237
+# 238
 init_i2c(&ic);
 
 
@@ -11127,13 +11128,13 @@ init_queues();
 TRISB = 0x0;
 LATB = 0x0;
 
-# 261
+# 262
 OpenTimer0(0b11111111 & 0b10111111 & 0b11011111 & 0b11110110);
 
-# 268
+# 269
 OpenTimer1(0b11111111 & 0b10011111 & 0b11111111 & 0b11111111 & 0b11111011 & 0b11111111,0x0);
 
-# 277
+# 278
 IPR1bits.TMR1IP = 0;
 
 IPR1bits.RCIP = 0;
@@ -11141,33 +11142,41 @@ IPR1bits.RCIP = 0;
 
 IPR1bits.SSPIP = 1;
 
-# 291
-i2c_configure_slave(0x9E);
+# 292
+i2c_configure_slave(0x9E,&need_sensor_data);
 
-# 306
+# 307
 PIE1bits.SSPIE = 1;
 
-# 331
+# 332
 debug_configure();
 blip();
 blip1();
 blip2();
 blip3();
 
-# 344
+# 345
 enable_interrupts();
 
-# 357
+# 358
 uart_configure();
 
 unsigned char myByte1 = 0x44;
 unsigned char myByte2 = 0x44;
 
-# 373
+# 374
 while (1) {
 
-# 390
-length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
+# 381
+if( need_sensor_data )
+{
+
+
+need_sensor_data = 0;
+}
+
+# 396
+length = ToMainHigh_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
 if (length != -4) {
@@ -11210,7 +11219,7 @@ break;
 }
 
 
-length = ToMainLow_recvmsg(10, &msgtype, (void *) msgbuffer);
+length = ToMainLow_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
 if (length != -4) {
@@ -11229,7 +11238,7 @@ break;
 case 30:
 case 31:
 {
-send_uart_message( length , msgbuffer );
+send_uart_message( msgbuffer );
 
 switch( msgbuffer[0] )
 {

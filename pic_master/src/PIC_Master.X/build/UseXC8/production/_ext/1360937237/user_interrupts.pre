@@ -10909,7 +10909,7 @@ typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
@@ -10945,10 +10945,10 @@ signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 12 "../src/my_uart.h"
+# 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[6+2];
+unsigned char data[14 + 4];
 
 
 unsigned char index;
@@ -10960,7 +10960,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 6 - 2 ];
+unsigned char data[ 14 + 4 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10969,8 +10969,8 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 41
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
+# 43
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
 unsigned char receive_uart_message();
@@ -10984,18 +10984,23 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 59
+# 61
 unsigned char uart_get_byte();
 
-# 68
+# 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 8 "../src/my_i2c.h"
+
+
+
+unsigned char * uart_frame_message( unsigned char * inner );
+
+# 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[10];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[10];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;
@@ -11006,7 +11011,7 @@ unsigned char initiated;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 46
+# 47
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
@@ -11040,9 +11045,10 @@ ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
 void timer1_int_handler() {
 
 
+
 unsigned int result;
 
-# 51
+# 52
 result = ReadTimer1();
 ToMainLow_sendmsg(0, 11, (void *) 0);
 

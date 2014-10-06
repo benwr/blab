@@ -196,6 +196,7 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
+    unsigned char need_sensor_data = 1;
 
     #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -288,7 +289,7 @@ void main(void) {
     // They *are* changed in the timer interrupt handlers if those timers are
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
-    i2c_configure_slave(0x9E);
+    i2c_configure_slave(0x9E,&need_sensor_data);
     #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
@@ -377,7 +378,12 @@ void main(void) {
         // an idle mode)
         //block_on_To_msgqueues();
 
-                
+         if( need_sensor_data )
+		{
+			
+			
+			need_sensor_data = 0;		
+		}		 
 
         
 
@@ -449,9 +455,9 @@ void main(void) {
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
-                    send_uart_message( length , msgbuffer );
+                    send_uart_message( msgbuffer );
 					
-					switch( msgbuffer[0] )
+                    switch( msgbuffer[0] )
                     {
                         
                         case COMMAND_SIDE_DATA:

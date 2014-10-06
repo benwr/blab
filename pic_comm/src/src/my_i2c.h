@@ -20,7 +20,7 @@ typedef struct __i2c_comm {
     unsigned char slave_addr;
 } i2c_comm;
 
-#define I2C_DATA_SIZE 6
+#define I2C_DATA_SIZE MSGLEN
 
 #define I2C_IDLE 0x5
 #define I2C_STARTED 0x6
@@ -46,7 +46,7 @@ typedef struct __i2c_comm {
 void init_i2c(i2c_comm *ic);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
-void i2c_configure_slave(unsigned char);
+void i2c_configure_slave(unsigned char,unsigned char * ptr_thingy);
 void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);

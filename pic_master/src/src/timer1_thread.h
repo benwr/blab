@@ -1,3 +1,6 @@
+#include "my_i2c.h"
+#include "my_uart.h"
+
 typedef struct __timer1_thread_struct {
     // "persistent" data for this "lthread" would go here
     unsigned int msgcount;
