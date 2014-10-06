@@ -101,9 +101,11 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-    static unsigned char sensor_bank_side[I2C_DATA_SIZE];
-    static unsigned char sensor_bank_front[I2C_DATA_SIZE];
-    static unsigned char sensor_bank_ventril[I2C_DATA_SIZE];
+    static unsigned char sensor_bank[I2C_DATA_SIZE];
+    //static unsigned char sensor_bank_front[I2C_DATA_SIZE];
+    //static unsigned char sensor_bank_ventril[I2C_DATA_SIZE];
+
+    LATBbits.LB7 ^= 0x1;
 
     unsigned char i2c_data;
     unsigned char data_read = 0;
@@ -134,6 +136,7 @@ void i2c_int_handler() {
         switch (ic_ptr->status) {
             case I2C_IDLE:
             {
+                LATBbits.LB5 ^= 0x1;
                 // ignore anything except a start
                 if (SSPSTATbits.S == 1) {
                     handle_start(data_read);
@@ -168,7 +171,7 @@ void i2c_int_handler() {
                         if (SSPSTATbits.R_W == 0) { // slave write
                             ic_ptr->status = I2C_RCV_DATA;
                         } else { // slave read
-							blip3();																											//WEIRD
+							//blip3();																											//WEIRD
                             ic_ptr->status = I2C_SLAVE_SEND;
                             msg_to_send = 1;
                             // don't let the clock stretching bit be let go
@@ -187,15 +190,16 @@ void i2c_int_handler() {
             }
             case I2C_SLAVE_SEND:
             {
-				blip4();
+				//blip4();
+               // LATBbits.LB7 ^= 0x1;
 				
                 if (ic_ptr->outbufind < I2C_DATA_SIZE) {
-					blip4();
+					//blip4();
                     SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
                     ic_ptr->outbufind++;
                     data_written = 1;
                 } else {
-					blip3();
+					//blip3();
                     // we have nothing left to send
                     ic_ptr->status = I2C_IDLE;
                 }
@@ -203,7 +207,8 @@ void i2c_int_handler() {
             }
             case I2C_RCV_DATA:
             {
-				blip2();
+				//blip2();
+                LATBbits.LB6 ^= 0x1;
                 // we expect either data or a stop bit or a (if a restart, an addr)
                 if (SSPSTATbits.P == 1) {
                     // we need to check to see if we also read data
@@ -218,81 +223,79 @@ void i2c_int_handler() {
                             ic_ptr->error_count++;
                             ic_ptr->error_code = I2C_ERR_NODATA;
                             ic_ptr->status = I2C_IDLE;
+                            //LATBbits.LB4 ^= 0x1;
                         }
                     } else {
                         msg_ready = 1;
                     }
                     ic_ptr->status = I2C_IDLE;
+                    //LATBbits.LB4 ^= 0x1;
                 } 
-				else if (data_read) 
-				{
-																																	//here
+                else if (data_read)
+                {
+                    //LATBbits.LB7 ^= 0x1;
+                                //here
                     ic_ptr->event_count++;
+                    //
                     if (SSP1STATbits.D_A == 1) {
                         ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
                         ic_ptr->buflen++;
                     } 
-					else /* a restart */ 
-					{
+                    else /* a restart *//////////////////////////////////////////////
+                    {
+                        //LATBbits.LB7 ^= 0x1;
                         if (SSPSTATbits.R_W == 1) 
-						{
-																																	blip();
+                        {
+                           // blip();
                             ic_ptr->status = I2C_SLAVE_SEND;
 							
-							switch( ic_ptr->buffer[0] )
-							{
-								int l;
-								case COMMAND_SENSORRQST_SIDE:
-								{
-									for(l = 0;l<I2C_DATA_SIZE;l++)
-									{
-										ic_ptr->outbuffer[l] = sensor_bank_side[l];									
-									}
-                                                                        break;
-								
-								}
-								case COMMAND_SENSORRQST_FRONT:
-								{
-									for(l = 0;l<I2C_DATA_SIZE;l++)
-									{
-										ic_ptr->outbuffer[l] = sensor_bank_front[l];									
-									}
-                                                                        break;
-								}
-								case COMMAND_SENSORRQST_VENTRIL:
-								{
-									for(l = 0;l<I2C_DATA_SIZE;l++)
-									{
-										ic_ptr->outbuffer[l] = sensor_bank_ventril[l];									
-									}
-                                                                        break;
-								}
-								default:
-								{
-									//Oh shit
-									ic_ptr->outbuffer[0] = ic_ptr->buffer[0];
-									ic_ptr->outbuffer[1] = ic_ptr->buffer[1];
-									ic_ptr->outbuffer[2] = ic_ptr->buffer[2];
-									ic_ptr->outbuffer[3] = ic_ptr->buffer[3];
-									ic_ptr->outbuffer[4] = ic_ptr->buffer[4];
-									ic_ptr->outbuffer[5] = ic_ptr->buffer[5];
-                                                                        break;
-								}
-							}
+                                switch( ic_ptr->buffer[0] )
+                                {
+                                        int l;
+                                        case MSGID_SENSOR_STATUS:
+                                        {
+                                                for(l = 0;l<I2C_DATA_SIZE;l++)
+                                                {
+                                                        ic_ptr->outbuffer[l] = sensor_bank[l];
+                                                }
+                                                break;
+
+                                        }
+                                        default:
+                                        {
+                                                ic_ptr->outbuffer[0] = ic_ptr->buffer[0];
+                                                ic_ptr->outbuffer[1] = ic_ptr->buffer[1];
+                                                ic_ptr->outbuffer[2] = ic_ptr->buffer[2];
+                                                ic_ptr->outbuffer[3] = ic_ptr->buffer[3];
+                                                ic_ptr->outbuffer[4] = ic_ptr->buffer[4];
+                                                ic_ptr->outbuffer[5] = ic_ptr->buffer[5];
+                                                ic_ptr->outbuffer[6] = ic_ptr->buffer[6];
+                                                ic_ptr->outbuffer[7] = ic_ptr->buffer[7];
+                                                ic_ptr->outbuffer[8] = ic_ptr->buffer[8];
+                                                ic_ptr->outbuffer[9] = ic_ptr->buffer[9];
+                                                ic_ptr->outbuffer[10] = ic_ptr->buffer[10];
+                                                ic_ptr->outbuffer[11] = ic_ptr->buffer[11];
+                                                ic_ptr->outbuffer[12] = ic_ptr->buffer[12];
+                                                ic_ptr->outbuffer[13] = ic_ptr->buffer[13];
+                                                break;
+                                        }
+                                }
 							
-							ic_ptr->outbuflen = 6;
-							ic_ptr->outbufind = 0;
+                            ic_ptr->outbuflen = I2C_DATA_SIZE;
+                            ic_ptr->outbufind = 0;
                             msg_ready = 1;
                             msg_to_send = 1;
                             // don't let the clock stretching bit be let go
                             data_read = 0;
-							ic_ptr->outbufind = 0;
-							SSPBUF = ic_ptr->outbuffer[0];
-							ic_ptr->outbufind++;
-							SSPCON1bits.CKP = 1; 
+                            ic_ptr->outbufind = 0;
+                            SSPBUF = ic_ptr->outbuffer[0];
+                            ic_ptr->outbufind++;
+                            SSPCON1bits.CKP = 1;
+
+                            //LATBbits.LB7 ^= 0x1;/////////////////////////////////////////////////////
                         } 
-						else 
-						{ /* bad to recv an address again, we aren't ready */
+                        else
+                        { /* bad to recv an address again, we aren't ready */
                             ic_ptr->error_count++;
                             ic_ptr->error_code = I2C_ERR_NODATA;
                             ic_ptr->status = I2C_IDLE;
@@ -315,13 +318,13 @@ void i2c_int_handler() {
 	
 
     // must check if the message is too long, if
-    if ((ic_ptr->buflen > MAXI2CBUF - 2) && (!msg_ready)) {
+    if ((ic_ptr->buflen > MAXI2CBUF) && (!msg_ready)) {
         ic_ptr->status = I2C_IDLE;
         ic_ptr->error_count++;
         ic_ptr->error_code = I2C_ERR_MSGTOOLONG;
     }
 
-    retrieve_sensor_values( sensor_bank_side , sensor_bank_front , sensor_bank_ventril );
+    retrieve_sensor_values( sensor_bank);
 
     if (msg_ready) {
         ic_ptr->buffer[ic_ptr->buflen] = ic_ptr->event_count;
@@ -416,46 +419,26 @@ void i2c_configure_slave(unsigned char addr, unsigned char * need_data_ptr) {
 }
 
 
-void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * sensor_bank_front , unsigned char * sensor_bank_ventril )
+void retrieve_sensor_values( unsigned char * sensor_bank )
 {
-	unsigned char msgtype = MSGT_I2C_DATA;
-	
-	int i;
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank_side );
-    if( length < 6 )
+    unsigned char msgtype = MSGT_I2C_DATA;
+
+    //int i;
+    signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank );
+    if( length < I2C_DATA_SIZE )
     { 
-		sensor_bank_side[1] == 0x00;
+        sensor_bank[1] == 0x00;
        
     }
     else 
     {
-		sensor_bank_side[1] == 0xff;
+        sensor_bank[1] == 0xff;
     }
-	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank_front );
-	if( length < 6 )
-    { 
-		sensor_bank_front[1] == 0x00;
-    }
-    else 
-    {
-		sensor_bank_front[1] == 0xff;
-    }
-	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank_ventril );
-	if( length < 6 )
-    { 
-		sensor_bank_ventril[1] == 0x00;
-    }
-    else 
-    {
-		sensor_bank_ventril[1] == 0xff;
-    }
-	
-	unsigned char need_data = 0xff;
-        //LATBbits.LB7 ^= 0x1;
 
-        *i2c_need_data_ptr = 1;
+	
+    //unsigned char need_data = 0xff;
+    //LATBbits.LB7 ^= 0x1;
 
+    *i2c_need_data_ptr = 1;
 
 }
