@@ -2,17 +2,18 @@
 #define __messages
 
 // The maximum length (in bytes) of a message
-#define MSGLEN 10
+#define MSGLEN 14
 
 // The maximum number of messages in a single queue
-#define MSGQUEUELEN 4
+#define MSGQUEUELEN 8
 
 //Command Definitions
-#define COMMAND_MOVE        0x1
-#define COMMAND_SENSORRQST  0x2
-#define COMMAND_SIDE_DATA       0xa5
-#define COMMAND_FRONT_DATA      0xb5
-#define COMMAND_VENTRIL_DATA    0xc5
+#define MSGID_MOVE                  0x01
+#define MSGID_SENSOR_STATUS         0x02
+
+#define MSGID_UART_ACK              0x11
+
+#define MSGID_UART_BAD_CHECKSUM     0xf1
 //=========================
 
 

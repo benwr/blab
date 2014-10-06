@@ -363,10 +363,9 @@ void main(void) {
     // Here is how it looks: printf("Hello\r\n");
 
 
-    unsigned char sensor_bank_side[UART_MESSAGE_LENGTH];
-    unsigned char sensor_bank_front[UART_MESSAGE_LENGTH];
-    unsigned char sensor_bank_ventril[UART_MESSAGE_LENGTH];
-
+    unsigned char sensor_bank_side[UART_FRAME_LENGTH];
+    unsigned char sensor_bank_front[UART_FRAME_LENGTH];
+    unsigned char sensor_bank_ventril[UART_FRAME_LENGTH];
 
 
     // loop forever
@@ -379,11 +378,7 @@ void main(void) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
-        block_on_To_msgqueues();
-
-                
-
-        
+        //block_on_To_msgqueues();
 
 
         // At this point, one or both of the queues has a message.  It
@@ -409,8 +404,6 @@ void main(void) {
                 case MSGT_I2C_DATA:
                 {
                     send_uart_message( msgbuffer );
-
-
                 }
                 case MSGT_I2C_DBG:
                 {
@@ -458,6 +451,7 @@ void main(void) {
                 default:
                 {
                     // Your code should handle this error
+
                     break;
                 };
             };
@@ -482,6 +476,13 @@ void main(void) {
                     break;
                 };
                 case MSGT_OVERRUN:
+                case MSGT_UART_BAD_CHECKSUM:
+                {
+                    unsigned char uart_response[UART_DATA_LENGTH];
+                    uart_response[0] = MSGID_UART_BAD_CHECKSUM; //Set Message ID
+                    uart_response[0] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                }
                 case MSGT_UART_DATA:
                 {
                    
@@ -491,24 +492,7 @@ void main(void) {
                     switch( msgbuffer[0] )
                     {
                         
-                        case COMMAND_SIDE_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
-                        case COMMAND_FRONT_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
-                        case COMMAND_VENTRIL_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
+                        
                         default:
                         {
 

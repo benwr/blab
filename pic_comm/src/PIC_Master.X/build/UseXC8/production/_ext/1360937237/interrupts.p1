@@ -8440,7 +8440,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 22: unsigned char full;
 [; ;messages.h: 23: unsigned char length;
 [; ;messages.h: 24: unsigned char msgtype;
-[; ;messages.h: 25: unsigned char data[10];
+[; ;messages.h: 25: unsigned char data[14];
 [; ;messages.h: 26: } msg;
 [; ;messages.h: 28: typedef struct __msg_queue {
 [; ;messages.h: 29: msg queue[4];
@@ -8460,7 +8460,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 90: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;my_uart.h: 14: typedef struct
 [; ;my_uart.h: 15: {
-[; ;my_uart.h: 16: unsigned char data[6 + 2];
+[; ;my_uart.h: 16: unsigned char data[14 + 2];
 [; ;my_uart.h: 19: unsigned char index;
 [; ;my_uart.h: 20: unsigned char size;
 [; ;my_uart.h: 21: unsigned char done;
@@ -8469,7 +8469,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 25: {
 [; ;my_uart.h: 26: unsigned char header;
 [; ;my_uart.h: 27: unsigned char checksum;
-[; ;my_uart.h: 28: unsigned char data[ 6 + 2 - 2 ];
+[; ;my_uart.h: 28: unsigned char data[ 14 + 2 - 2 ];
 [; ;my_uart.h: 30: unsigned char bytes_received;
 [; ;my_uart.h: 31: unsigned char checksum_error;
 [; ;my_uart.h: 32: unsigned char count_error;
@@ -8484,10 +8484,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 61: unsigned char uart_get_byte();
 [; ;my_uart.h: 70: unsigned char uart_num_bytes_in_recv_buffer();
 [; ;my_i2c.h: 8: typedef struct __i2c_comm {
-[; ;my_i2c.h: 9: unsigned char buffer[10];
+[; ;my_i2c.h: 9: unsigned char buffer[14];
 [; ;my_i2c.h: 10: unsigned char buflen;
 [; ;my_i2c.h: 11: unsigned char bufind;
-[; ;my_i2c.h: 12: unsigned char outbuffer[10];
+[; ;my_i2c.h: 12: unsigned char outbuffer[14];
 [; ;my_i2c.h: 13: unsigned char outbufind;
 [; ;my_i2c.h: 14: unsigned char outbuflen;
 [; ;my_i2c.h: 15: unsigned char event_count;
@@ -8500,7 +8500,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_i2c.h: 46: void init_i2c(i2c_comm *ic);
 [; ;my_i2c.h: 47: void i2c_int_handler(void);
 [; ;my_i2c.h: 48: void start_i2c_slave_reply(unsigned char,unsigned char *);
-[; ;my_i2c.h: 49: void i2c_configure_slave(unsigned char);
+[; ;my_i2c.h: 49: void i2c_configure_slave(unsigned char,unsigned char * ptr_thingy);
 [; ;my_i2c.h: 50: void i2c_configure_master(unsigned char);
 [; ;my_i2c.h: 51: unsigned char i2c_master_send(unsigned char,unsigned char *);
 [; ;my_i2c.h: 52: unsigned char i2c_master_recv(unsigned char);
@@ -8628,9 +8628,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "49
 [e :UE 1145 ]
 }
-[v F9222 `(v ~T0 @X0 1 tf ]
+[v F9223 `(v ~T0 @X0 1 tf ]
 "86
-[v _InterruptHandlerHigh `IF9222 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9223 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 81: interrupt
 [; ;interrupts.c: 86: void InterruptHandlerHigh() {
@@ -8671,9 +8671,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "119
 [e :UE 1148 ]
 }
-[v F9224 `(v ~T0 @X0 1 tf ]
+[v F9225 `(v ~T0 @X0 1 tf ]
 "131
-[v _InterruptHandlerLow `ILF9224 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9225 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 126: interrupt low_priority
 [; ;interrupts.c: 131: void InterruptHandlerLow() {

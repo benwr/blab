@@ -10908,7 +10908,7 @@ typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
@@ -10955,7 +10955,7 @@ void blip4();
 # 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[6 + 2];
+unsigned char data[14 + 4];
 
 
 unsigned char index;
@@ -10967,7 +10967,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 6 + 2 - 2 ];
+unsigned char data[ 14 + 4 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10997,12 +10997,17 @@ unsigned char uart_get_byte();
 # 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
+
+
+
+unsigned char * uart_frame_message( unsigned char * inner );
+
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[10];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[10];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;
@@ -11099,7 +11104,7 @@ signed char length;
 unsigned char msgtype;
 unsigned char last_reg_recvd;
 i2c_comm ic;
-unsigned char msgbuffer[10 + 1];
+unsigned char msgbuffer[14 + 1];
 unsigned char i;
 uart_thread_struct uthread_data;
 timer1_thread_struct t1thread_data;
@@ -11161,20 +11166,15 @@ unsigned char myByte1 = 0x54;
 unsigned char myByte2 = 0x45;
 
 # 366
-unsigned char sensor_bank_side[6 + 2];
-unsigned char sensor_bank_front[6 + 2];
-unsigned char sensor_bank_ventril[6 + 2];
+unsigned char sensor_bank_side[14 + 4];
+unsigned char sensor_bank_front[14 + 4];
+unsigned char sensor_bank_ventril[14 + 4];
 
-# 377
+# 376
 while (1) {
 
-
-
-
-block_on_To_msgqueues();
-
-# 394
-length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
+# 389
+length = ToMainHigh_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
 if (length != -4) {
@@ -11205,7 +11205,7 @@ break;
 case 42:
 {
 
-# 431
+# 426
 switch (last_reg_recvd) {
 case 0xaa:
 {
@@ -11242,7 +11242,7 @@ break;
 }
 
 
-length = ToMainLow_recvmsg(10, &msgtype, (void *) msgbuffer);
+length = ToMainLow_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
 if (length != -4) {

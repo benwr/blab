@@ -1,6 +1,6 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "25 ../src/my_uart.h
-[s S1135 `uc 1 `uc 1 `uc - + -> 6 `i -> 2 `i -> 2 `i `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[s S1135 `uc 1 `uc 1 `uc - + -> 14 `i -> 2 `i -> 2 `i `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
 [n S1135 . header checksum data bytes_received checksum_error count_error byte_error acked ]
 "10715 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _RCREG1 `Vuc ~T0 @X0 0 e@4015 ]
@@ -8472,7 +8472,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 22: unsigned char full;
 [; ;messages.h: 23: unsigned char length;
 [; ;messages.h: 24: unsigned char msgtype;
-[; ;messages.h: 25: unsigned char data[10];
+[; ;messages.h: 25: unsigned char data[14];
 [; ;messages.h: 26: } msg;
 [; ;messages.h: 28: typedef struct __msg_queue {
 [; ;messages.h: 29: msg queue[4];
@@ -8528,7 +8528,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 40: void blip4();
 [; ;my_uart.h: 14: typedef struct
 [; ;my_uart.h: 15: {
-[; ;my_uart.h: 16: unsigned char data[6 + 2];
+[; ;my_uart.h: 16: unsigned char data[14 + 2];
 [; ;my_uart.h: 19: unsigned char index;
 [; ;my_uart.h: 20: unsigned char size;
 [; ;my_uart.h: 21: unsigned char done;
@@ -8537,7 +8537,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 25: {
 [; ;my_uart.h: 26: unsigned char header;
 [; ;my_uart.h: 27: unsigned char checksum;
-[; ;my_uart.h: 28: unsigned char data[ 6 + 2 - 2 ];
+[; ;my_uart.h: 28: unsigned char data[ 14 + 2 - 2 ];
 [; ;my_uart.h: 30: unsigned char bytes_received;
 [; ;my_uart.h: 31: unsigned char checksum_error;
 [; ;my_uart.h: 32: unsigned char count_error;
@@ -8566,9 +8566,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.c: 25: static uart_packet_type uart_recv_packet;
 [; ;my_uart.c: 27: unsigned char gotten_byte = RCREG1;
 [e = _gotten_byte _RCREG1 ]
-[; ;my_uart.c: 29: if( uart_recv_packet.bytes_received < (6 + 2) )
+[; ;my_uart.c: 29: if( uart_recv_packet.bytes_received < (14 + 2) )
 "29
-[e $ ! < -> . F9173 3 `i + -> 6 `i -> 2 `i 1137  ]
+[e $ ! < -> . F9173 3 `i + -> 14 `i -> 2 `i 1137  ]
 [; ;my_uart.c: 30: {
 "30
 {
@@ -8699,9 +8699,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 1141 ]
 [; ;my_uart.c: 91: }
-[; ;my_uart.c: 93: if( index >= 6 + 2 )
+[; ;my_uart.c: 93: if( index >= 14 + 2 )
 "93
-[e $ ! >= -> F9176 `i + -> 6 `i -> 2 `i 1142  ]
+[e $ ! >= -> F9176 `i + -> 14 `i -> 2 `i 1142  ]
 [; ;my_uart.c: 94: {
 "94
 {
@@ -8740,17 +8740,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 1144 ]
 "113
-[v _gooey_uart_center `uc ~T0 @X0 -> 6 `i a ]
+[v _gooey_uart_center `uc ~T0 @X0 -> 14 `i a ]
 "115
 [v _i `i ~T0 @X0 1 a ]
 [; ;my_uart.c: 108: }
-[; ;my_uart.c: 113: unsigned char gooey_uart_center[6];
+[; ;my_uart.c: 113: unsigned char gooey_uart_center[14];
 [; ;my_uart.c: 115: int i;
-[; ;my_uart.c: 116: for(i = 0; i < 6; i++)
+[; ;my_uart.c: 116: for(i = 0; i < 14; i++)
 "116
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 6 `i 1145  ]
+[e $ < _i -> 14 `i 1145  ]
 [e $U 1146  ]
 "117
 [e :U 1145 ]
@@ -8763,15 +8763,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "116
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 6 `i 1145  ]
+[e $ < _i -> 14 `i 1145  ]
 [e :U 1146 ]
 "119
 }
 "121
 [v _status `uc ~T0 @X0 1 a ]
 [; ;my_uart.c: 119: }
-[; ;my_uart.c: 121: unsigned char status = ToMainLow_sendmsg(6 + 2,31,(void *) gooey_uart_center );
-[e = _status -> ( _ToMainLow_sendmsg (3 , , -> + -> 6 `i -> 2 `i `uc -> -> 31 `i `uc -> &U _gooey_uart_center `*v `uc ]
+[; ;my_uart.c: 121: unsigned char status = ToMainLow_sendmsg(14 + 2,31,(void *) gooey_uart_center );
+[e = _status -> ( _ToMainLow_sendmsg (3 , , -> + -> 14 `i -> 2 `i `uc -> -> 31 `i `uc -> &U _gooey_uart_center `*v `uc ]
 [; ;my_uart.c: 122: if( status == -1 )
 "122
 [e $ ! == -> _status `i -U -> 1 `i 1148  ]
@@ -8816,8 +8816,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 "144
 [v _message_q_code `uc ~T0 @X0 1 a ]
-[; ;my_uart.c: 144: unsigned char message_q_code = FromMainLow_sendmsg(6,31,(void *) message_ptr );
-[e = _message_q_code -> ( _FromMainLow_sendmsg (3 , , -> -> 6 `i `uc -> -> 31 `i `uc -> _message_ptr `*v `uc ]
+[; ;my_uart.c: 144: unsigned char message_q_code = FromMainLow_sendmsg(14,31,(void *) message_ptr );
+[e = _message_q_code -> ( _FromMainLow_sendmsg (3 , , -> -> 14 `i `uc -> -> 31 `i `uc -> _message_ptr `*v `uc ]
 [; ;my_uart.c: 146: if( message_q_code == -1)
 "146
 [e $ ! == -> _message_q_code `i -U -> 1 `i 1151  ]
@@ -8887,8 +8887,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 "169
 [v _message_status `c ~T0 @X0 1 a ]
-[; ;my_uart.c: 169: signed char message_status = FromMainLow_recvmsg(6,&msgtype, (void*)data );
-[e = _message_status ( _FromMainLow_recvmsg (3 , , -> -> 6 `i `uc &U _msgtype -> _data `*v ]
+[; ;my_uart.c: 169: signed char message_status = FromMainLow_recvmsg(14,&msgtype, (void*)data );
+[e = _message_status ( _FromMainLow_recvmsg (3 , , -> -> 14 `i `uc &U _msgtype -> _data `*v ]
 [; ;my_uart.c: 170: if( message_status == -4)
 "170
 [e $ ! == -> _message_status `i -U -> 4 `i 1154  ]
@@ -8915,11 +8915,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "179
 [v _i `i ~T0 @X0 1 a ]
 [; ;my_uart.c: 179: int i;
-[; ;my_uart.c: 180: for(i=0;i<6;i++)
+[; ;my_uart.c: 180: for(i=0;i<14;i++)
 "180
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 6 `i 1157  ]
+[e $ < _i -> 14 `i 1157  ]
 [e $U 1158  ]
 "181
 [e :U 1157 ]
@@ -8932,7 +8932,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "180
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 6 `i 1157  ]
+[e $ < _i -> 14 `i 1157  ]
 [e :U 1158 ]
 "183
 }
@@ -8952,9 +8952,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.c: 191: index++;
 "191
 [e ++ F9187 -> -> 1 `i `uc ]
-[; ;my_uart.c: 192: if( index >= 6 + 2 )
+[; ;my_uart.c: 192: if( index >= 14 + 2 )
 "192
-[e $ ! >= -> F9187 `i + -> 6 `i -> 2 `i 1160  ]
+[e $ ! >= -> F9187 `i + -> 14 `i -> 2 `i 1160  ]
 [; ;my_uart.c: 193: {
 "193
 {
@@ -9022,9 +9022,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.c: 213: index++;
 "213
 [e ++ F9187 -> -> 1 `i `uc ]
-[; ;my_uart.c: 214: if( index >= 6 + 2 )
+[; ;my_uart.c: 214: if( index >= 14 + 2 )
 "214
-[e $ ! >= -> F9187 `i + -> 6 `i -> 2 `i 1168  ]
+[e $ ! >= -> F9187 `i + -> 14 `i -> 2 `i 1168  ]
 [; ;my_uart.c: 215: {
 "215
 {

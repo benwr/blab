@@ -5,10 +5,11 @@
 #include "debug.h"
 
 
-
-#define UART_DATA_LENGTH 6
-#define UART_MESSAGE_LENGTH UART_DATA_LENGTH + 2
-#define MAXUARTBUF UART_MESSAGE_LENGTH
+#define UART_HEADER_WIDTH 2
+#define UART_FOOTER_WIDTH 2
+#define UART_DATA_LENGTH MSGLEN
+#define UART_FRAME_LENGTH (UART_DATA_LENGTH + UART_HEADER_WIDTH + UART_FOOTER_WIDTH)
+#define MAXUARTBUF UART_FRAME_LENGTH
 
 //Buffer to hold uart messages waiting to be transmitted or messages just recieved
 typedef struct
@@ -25,8 +26,8 @@ typedef struct
 {
     unsigned char header;
     unsigned char checksum;
-    unsigned char data[ UART_MESSAGE_LENGTH - 2 ];
-    //const unsigned char data_length = UART_MESSAGE_LENGTH - 2;
+    unsigned char data[ UART_FRAME_LENGTH - 2 ];
+    //const unsigned char data_length = UART_FRAME_LENGTH - 2;
     unsigned char bytes_received;
     unsigned char checksum_error;
     unsigned char count_error;
@@ -71,5 +72,7 @@ unsigned char uart_num_bytes_in_recv_buffer();
 
 //void init_uart_recv(uart_comm *);
 //void uart_recv_int_handler(void);
+
+unsigned char * uart_frame_message( unsigned char * inner );
 
 #endif

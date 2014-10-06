@@ -125,8 +125,6 @@ void handle_start(unsigned char data_read) {
 
 void i2c_int_handler() {
     
-    blip1();
-
     unsigned char i2c_data;
     //unsigned char length;
     //unsigned char data_read = 0;
@@ -155,7 +153,6 @@ void i2c_int_handler() {
             }
             else if( len == MSGBUFFER_TOOSMALL )
             {
-                blip();
                 break;
             }
             else
@@ -178,7 +175,6 @@ void i2c_int_handler() {
         }
         case I2C_STARTED:
         {
-            blip2();
 
             /*
             if( SSP1STATbits.BF )       //Check if I2C hardware buffer ready to accept input
@@ -200,8 +196,7 @@ void i2c_int_handler() {
             break;
         }
         case I2C_MASTER_DATA_SEND:
-        {            
-            blip3();
+        {
             SSP1BUF = ic_ptr->outbuffer[ic_ptr->outbufind];
             ic_ptr->outbufind++;
             
@@ -252,7 +247,14 @@ void i2c_int_handler() {
         }
         case I2C_MASTER_RECEIVE:
         {
-            blip4();
+            if( SSP1CON2bits.ACKSTAT )  //Check for ACK bit
+            {
+                SSP1CON2bits.PEN = 1;
+                ic_ptr->outbufind = 0;
+                ic_ptr->outbufind = 0;
+                ic_ptr->status = I2C_IDLE;
+                break;
+            }
             
             SSP1CON2bits.RCEN = 1;
 

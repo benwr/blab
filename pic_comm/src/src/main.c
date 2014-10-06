@@ -196,7 +196,7 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
-	unsigned char need_sensor_data = 1;
+    unsigned char need_sensor_data = 1;
 
     #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet

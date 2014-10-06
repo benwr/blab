@@ -360,7 +360,7 @@ void init_i2c(i2c_comm *ic) {
 
 void i2c_configure_slave(unsigned char addr, unsigned char * ptr_thingy) {
 
-	need_sensor_data = ptr_thingy;
+    need_sensor_data = ptr_thingy;
     // ensure the two lines are set for input (we are a slave)
 #ifdef __USE18F26J50
     //THIS CODE LOOKS WRONG, SHOULDN'T IT BE USING THE TRIS BITS???

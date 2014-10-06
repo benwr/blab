@@ -10921,7 +10921,7 @@ typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
@@ -10960,7 +10960,7 @@ signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 # 14 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[6 + 2];
+unsigned char data[14 + 4];
 
 
 unsigned char index;
@@ -10972,7 +10972,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 6 + 2 - 2 ];
+unsigned char data[ 14 + 4 - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -11002,12 +11002,17 @@ unsigned char uart_get_byte();
 # 70
 unsigned char uart_num_bytes_in_recv_buffer();
 
+
+
+
+unsigned char * uart_frame_message( unsigned char * inner );
+
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[10];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[10];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;
