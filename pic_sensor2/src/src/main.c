@@ -323,9 +323,11 @@ void main(void) {
     
     init_registers();//Luke's code
     //[0] is the cmd/id, [1] is a recerved byte, [2-5] are sensor data values
-    unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0x32, 0, 0, 0};
-    unsigned char sidmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0x45, 0, 0};
-    unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0, 0, 0, 0x54, 0};
+    unsigned char snsmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0};
+    unsigned char updateMask [UPDATE_MASK_SIZE] = {0x00, 0x00};
+    //unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0};
+    //unsigned char sidmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0};
+    //unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0};
 
     
 
@@ -341,10 +343,12 @@ void main(void) {
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     //unsigned short current_distance = 0x0000;
+    //To Indicate the start of the while loop.
     LATBbits.LB7 = 0x1;
     LATBbits.LB7 = 0x0;
     unsigned int cntr = 0;
     while (1) {
+        
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
@@ -352,8 +356,16 @@ void main(void) {
         
         if( i2c_need_data )
         {
-
-        signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, sidmsgbuf);
+            signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
+            
+            if(MsgQ_BStatus != MSGSEND_OKAY)
+            {
+                //Error. Message note ok.
+            }
+            
+            //First MS2 code. Luke Lapham:
+            /*
+            signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, sidmsgbuf);
                         if( MsgQ_BStatus == MSGSEND_OKAY){
                             MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
 
@@ -361,7 +373,8 @@ void main(void) {
                                 MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, vntmsgbuf);
                             }
                         }
-                        i2c_need_data = 0;
+             * */
+            i2c_need_data = 0;
         }
 
         // At this point, one or both of the queues has a message.  It
@@ -446,10 +459,51 @@ void main(void) {
                     sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
 
                     //unsigned char distance = (18924/( sensor_value - 17 ));
-                    unsigned char distance = rndSense(cntr++);
+                    unsigned char FLUltra = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | FL_ULTRA_UPDATE;
+                    unsigned char FRUltra = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | FR_ULTRA_UPDATE;
+                    unsigned char LSFIR = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | LSF_IR_UPDATE;
+                    unsigned char LSRIR = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | LSR_IR_UPDATE;
+                    unsigned char RSFIR = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | RSF_IR_UPDATE;
+                    unsigned char RSRIR = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | RSR_IR_UPDATE;
+                    unsigned char FLine = rndSense(cntr++);
+                    updateMask[0] = updateMask[0] | F_LINE_UPDATE;
+                    unsigned char RLine = rndSense(cntr++);
+                    updateMask[1] = updateMask[1] | R_Line_UPDATE;
+                    unsigned char RFID = rndSense(cntr++);
+                    updateMask[1] = updateMask[1] | RFID_UPDATE;
                     ///myData.distance1 = (18924/( sensor_value - 17 ));
-                    fntmsgbuf[0] = FRONT_CMD;
-                    fntmsgbuf[1] = 0x00;
+                    
+                    
+                    snsmsgbuf[0] = SENSER_CMD;
+                    snsmsgbuf[1] = updateMask[0];
+                    snsmsgbuf[2] = updateMask[1];
+                    snsmsgbuf[3] = FLUltra;
+                    snsmsgbuf[4] = FRUltra;
+                    snsmsgbuf[5] = LSFIR;
+                    snsmsgbuf[6] = LSRIR;
+                    snsmsgbuf[7] = RSFIR;
+                    snsmsgbuf[8] = RSRIR;
+                    snsmsgbuf[9] = FLine;
+                    snsmsgbuf[10] = RLine;
+                    snsmsgbuf[11] = RFID;
+
+                    signed char MsgQB_Status = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
+
+                    /*
+                    if(fntmsgbuf[2] == distance)
+                      fntmsgbuf[1] = fntmsgbuf[1] & 0x7f;
+                    else
+                        fntmsgbuf[1] = fntmsgbuf[1] | 0x80;
+                    if(fntmsgbuf[3] == distance)
+                        fntmsgbuf[2] = fntmsgbuf[2] & 0xbf;
+                    else
+                        fntmsgbuf[1] = fntmsgbuf[1] | 0x40;
                     fntmsgbuf[2] = distance;
                     fntmsgbuf[3] = distance;
                     fntmsgbuf[4] = 0xaa;
@@ -472,7 +526,7 @@ void main(void) {
                     vntmsgbuf[3] = distance;
                     vntmsgbuf[4] = distance;
                     vntmsgbuf[5] = 0xaa;
-
+                    */
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
                 };
