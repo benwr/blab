@@ -22,7 +22,8 @@ char rndSense(unsigned int index);
 #endif	/* ADCONFIG_H */
 
 
-#define SENSER_CMD 0x02
+#define SENSER_CMD MSGID_SENSOR_STATUS
+#define SENSOR_RESPONSE MSGID_SENSOR_RESPOND
 //#define SIDE_CMD 0xa5
 //#define FRONT_CMD 0xb5
 //#define VENTRIL_CMD 0xc5
