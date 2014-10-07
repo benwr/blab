@@ -2,10 +2,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "4 ../src/timer1_thread.h
 [s S1137 `ui 1 ]
 [n S1137 __timer1_thread_struct msgcount ]
-"57 ../src/my_uart.h
-[v _send_uart_message `(uc ~T0 @X0 0 ef1`*uc ]
 "52 ../src/my_i2c.h
 [v _i2c_master_send `(uc ~T0 @X0 0 ef2`uc`*uc ]
+"93 ../src/messages.h
+[v _FromMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f46j50.h: 47: extern volatile unsigned char RPOR0 @ 0xEC6;
@@ -8450,7 +8450,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [i F9221
 :U ..
 "21
--> -> 42 `i `uc
+-> -> 2 `i `uc
 -> -> 255 `i `uc
 -> -> 255 `i `uc
 -> -> 254 `i `uc
@@ -8468,13 +8468,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _msg2 `uc ~T0 @X0 -> 14 `i a ]
 [; ;timer1_thread.c: 18: signed char retval;
-[; ;timer1_thread.c: 21: unsigned char msg2[14] = {0x2a,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[; ;timer1_thread.c: 21: unsigned char msg2[14] = {0x02,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
 [e = _msg2 F9221 ]
 [v F9223 `uc ~T0 @X0 -> 14 `i s ]
 [i F9223
 :U ..
 "23
--> -> 43 `i `uc
+-> -> 1 `i `uc
 -> -> 168 `i `uc
 -> -> 168 `i `uc
 -> -> 168 `i `uc
@@ -8491,13 +8491,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg3 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 23: unsigned char msg3[14] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[; ;timer1_thread.c: 23: unsigned char msg3[14] = {0x01,0xa8,0xa8,0xa8,0xa8,0xa8,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
 [e = _msg3 F9223 ]
 [v F9225 `uc ~T0 @X0 -> 14 `i s ]
 [i F9225
 :U ..
 "25
--> -> 44 `i `uc
+-> -> 2 `i `uc
 -> -> 169 `i `uc
 -> -> 169 `i `uc
 -> -> 169 `i `uc
@@ -8514,11 +8514,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg4 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 25: unsigned char msg4[14] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[; ;timer1_thread.c: 25: unsigned char msg4[14] = {0x02,0xa9,0xa9,0xa9,0xa9,0xa9,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
 [e = _msg4 F9225 ]
-[; ;timer1_thread.c: 27: send_uart_message( msg2 );
-"27
-[e ( _send_uart_message (1 &U _msg2 ]
 [; ;timer1_thread.c: 29: i2c_master_send(14, msg2);
 "29
 [e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg2 ]
@@ -8528,6 +8525,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;timer1_thread.c: 31: i2c_master_send(14, msg4);
 "31
 [e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg4 ]
+[; ;timer1_thread.c: 34: tptr->msgcount++;
+"34
+[e ++ . *U _tptr 0 -> -> 1 `i `ui ]
+[; ;timer1_thread.c: 37: if ((tptr->msgcount % 10) == 9) {
+"37
+[e $ ! == % . *U _tptr 0 -> -> 10 `i `ui -> -> 9 `i `ui 1140  ]
+{
+[; ;timer1_thread.c: 38: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
+"38
+[e = _retval ( _FromMainHigh_sendmsg (3 , , -> -> # . *U _tptr 0 `ui `uc -> -> 20 `i `uc -> &U . *U _tptr 0 `*v ]
+[; ;timer1_thread.c: 39: if (retval < 0) {
+"39
+[e $ ! < -> _retval `i -> 0 `i 1141  ]
+{
+"41
+}
+[e :U 1141 ]
+"42
+}
+[e :U 1140 ]
+[; ;timer1_thread.c: 41: }
+[; ;timer1_thread.c: 42: }
 [; ;timer1_thread.c: 44: }
 "44
 [e :UE 1139 ]

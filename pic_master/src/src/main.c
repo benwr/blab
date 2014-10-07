@@ -378,7 +378,7 @@ void main(void) {
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
-        //block_on_To_msgqueues();
+        block_on_To_msgqueues();
 
 
         // At this point, one or both of the queues has a message.  It
@@ -456,6 +456,8 @@ void main(void) {
                 };
             };
         }
+
+        
 
         // Check the low priority queue
         length = ToMainLow_recvmsg(MSGLEN, &msgtype, (void *) msgbuffer);

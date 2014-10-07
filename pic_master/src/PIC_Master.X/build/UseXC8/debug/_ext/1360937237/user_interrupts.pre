@@ -10904,21 +10904,21 @@ void timer0_int_handler(void);
 
 void timer1_int_handler(void);
 
-# 21 "../src/messages.h"
+# 25 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[12];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
-msg queue[4];
+msg queue[8];
 unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 54
+# 58
 void init_queues(void);
 
 
@@ -10929,26 +10929,26 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 68
+# 72
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 75
+# 79
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 82
+# 86
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 89
+# 93
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 14 "../src/my_uart.h"
+# 28 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[14 + 4];
+unsigned char data[(14 + 2 + 2)];
 
 
 unsigned char index;
@@ -10960,7 +10960,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 14 + 4 - 2 ];
+unsigned char data[ (14 + 2 + 2) - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10969,11 +10969,8 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 43
+# 57
 unsigned char send_uart_message( unsigned char * message_ptr );
-
-
-unsigned char receive_uart_message();
 
 
 void uart_configure( );
@@ -10984,10 +10981,10 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 61
+# 72
 unsigned char uart_get_byte();
 
-# 70
+# 81
 unsigned char uart_num_bytes_in_recv_buffer();
 
 
@@ -10997,10 +10994,10 @@ unsigned char * uart_frame_message( unsigned char * inner );
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[12];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[12];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;

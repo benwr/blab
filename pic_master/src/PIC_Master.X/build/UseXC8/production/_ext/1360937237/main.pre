@@ -11170,6 +11170,11 @@ unsigned char sensor_bank_ventril[(14 + 2 + 2)];
 # 376
 while (1) {
 
+
+
+
+block_on_To_msgqueues();
+
 # 389
 length = ToMainHigh_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
@@ -11236,6 +11241,8 @@ break;
 };
 };
 }
+
+
 
 
 length = ToMainLow_recvmsg(14, &msgtype, (void *) msgbuffer);

@@ -11135,7 +11135,6 @@ return 0x00;
 
 void uart_transmit_interrupt_handler()
 {
-blip1();
 static unsigned char done = 1;
 static unsigned char index = 0;
 static unsigned char sent_counter = 0;
@@ -11147,16 +11146,13 @@ unsigned char msgtype = 31;
 
 if( done )
 {
-blip2();
 signed char message_status = FromMainLow_recvmsg(14,&msgtype, (void*)data );
 if( message_status == -4)
 {
-blip();
 PIE1bits.TX1IE = 0;
 }
 else if( message_status > 0 )
 {
-blip3();
 message = uart_frame_message( data );
 index = 0;
 done = 0;
@@ -11183,7 +11179,6 @@ else if( message_status == -3 )
 }
 else
 {
-blip4();
 TXREG1 = message[index];
 index++;
 if( index >= (14 + 2 + 2) )
@@ -11205,10 +11200,10 @@ signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte 
 
 return gotten_byte;
 
-# 262
+# 257
 }
 
-# 370
+# 365
 unsigned char * uart_frame_message( unsigned char * inner )
 {
 static unsigned char sent_counter = 0;

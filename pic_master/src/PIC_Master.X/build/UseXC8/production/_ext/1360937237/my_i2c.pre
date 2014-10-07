@@ -10994,20 +10994,23 @@ SSP1CON1bits.SSPEN = 1;
 
 # 47
 unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
+
 if( FromMainHigh_sendmsg(length,40,(void *)msg) == -1 )
 {
 return -1;
 }
-
-if( SSP1STATbits.R_nW == 0 )
+else
 {
-SSP1CON2bits.SEN = 1;
+
 }
+
+PIR1bits.SSP1IF = 1;
+
 
 return(0);
 }
 
-# 74
+# 77
 unsigned char i2c_master_recv(unsigned char length) {
 
 return(0);
@@ -11054,8 +11057,9 @@ ic_ptr->status = 0x6;
 }
 }
 
-# 126
+# 129
 void i2c_int_handler() {
+blip();
 
 unsigned char i2c_data;
 
@@ -11073,42 +11077,45 @@ switch(ic_ptr->status)
 {
 case 0x5:
 {
-
+blip1();
 signed char len = FromMainHigh_recvmsg(14, &msg_to_send, (void*)ic_ptr->outbuffer);
 if( len == -4 )
 {
+blip3();
 
-
-
-
-break;
+# 158
 }
 else if( len == -3 )
 {
-break;
-}
-else
-{
-ic_ptr->outbuflen = len;
 
-if(SSP1STATbits.S)
-{
-ic_ptr->status = 0x6;
 }
 else
 {
+ic_ptr->outbufind = 0;
+ic_ptr->bufind = 0;
+ic_ptr->outbuflen = len;
 SSP1CON2bits.SEN = 1;
 ic_ptr->status = 0x6;
-break;
-}
-}
 
+}
+break;
 
 }
 case 0x6:
 {
+if( SSP1STATbits.S == 0 )
+{
+ic_ptr->status = 0x5;
 
-# 190
+break;
+}
+else if( SSP1STATbits.BF == 1 )
+{
+ic_ptr->status = 0x5;
+
+break;
+}
+
 SSP1BUF = ((ic_ptr->slave_addr) << 1);
 
 
@@ -11119,12 +11126,17 @@ break;
 }
 case 0xa:
 {
+if( SSP1STATbits.BF == 1 )
+{
+break;
+}
+
 SSP1BUF = ic_ptr->outbuffer[ic_ptr->outbufind];
 ic_ptr->outbufind++;
 
 if( ic_ptr->outbufind >= 14 )
 {
-unsigned char command_byte = ic_ptr->outbuffer[0] >> 4;
+unsigned char command_byte = ic_ptr->outbuffer[0];
 
 switch(command_byte)
 {
@@ -11162,6 +11174,19 @@ break;
 }
 case 0xd:
 {
+if( SSP1STATbits.S == 0 )
+{
+ic_ptr->status = 0x5;
+
+break;
+}
+else if( SSP1STATbits.BF == 1 )
+{
+ic_ptr->status = 0x5;
+
+break;
+}
+
 SSP1BUF = ((ic_ptr->slave_addr) << 1)|1;
 
 ic_ptr->status = 0xe;
@@ -11169,10 +11194,10 @@ break;
 }
 case 0xe:
 {
+blip3();
 if( SSP1CON2bits.ACKSTAT )
 {
 SSP1CON2bits.PEN = 1;
-ic_ptr->outbufind = 0;
 ic_ptr->outbufind = 0;
 ic_ptr->status = 0x5;
 break;
@@ -11186,6 +11211,12 @@ break;
 }
 case 0x8:
 {
+blip2();
+if( SSP1STATbits.BF == 0 )
+{
+break;
+}
+
 ic_ptr->buffer[ic_ptr->bufind] = SSP1BUF;
 ic_ptr->bufind++;
 
@@ -11239,11 +11270,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 327
+# 351
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 336
+# 360
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11252,11 +11283,11 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 357
+# 381
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 367
+# 391
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 

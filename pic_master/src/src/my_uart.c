@@ -173,7 +173,6 @@ unsigned char send_uart_message( unsigned char * message_ptr )
 //Handle uart transmit handler
 void uart_transmit_interrupt_handler()
 {
-    blip1();
     static unsigned char done = 1;    
     static unsigned char index = 0;
     static unsigned char sent_counter = 0;
@@ -185,16 +184,13 @@ void uart_transmit_interrupt_handler()
 
     if( done )
     {
-        blip2();
         signed char message_status =  FromMainLow_recvmsg(UART_DATA_LENGTH,&msgtype, (void*)data );
         if( message_status == MSGQUEUE_EMPTY)
         {
-            blip();
             PIE1bits.TX1IE = 0;
         }
         else if( message_status > 0 )
         {
-            blip3();
             message = uart_frame_message( data );
             index = 0;
             done = 0;  
@@ -221,7 +217,6 @@ void uart_transmit_interrupt_handler()
     }
     else
     {
-        blip4();
         TXREG1 = message[index];
         index++;
         if( index >= UART_FRAME_LENGTH )
