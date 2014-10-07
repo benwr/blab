@@ -40,6 +40,7 @@ void init_registers(void)
     TRISBbits.TRISB7 = 0x0;//RB7 output PIN
     TRISBbits.TRISB6 = 0x0;//RB6 output PIN
     TRISBbits.TRISB5 = 0x0;//RB5 output PIN
+    TRISBbits.TRISB4 = 0x0;//RB4 output PIN
     //#endif
     ADCON1bits.VCFG1 = 0x0;//VSS voltage Reference configuration bit (Vref-)
     ADCON1bits.VCFG0 = 0x0; //Vdd Voltage Reference configuration bit (Vref+)
@@ -69,10 +70,10 @@ void a_to_d_converter_handler(void) {
 #ifdef __USE18F45J10
      //LATBbits.LB5 ^= 0x1;
 #endif
-    //mybytes = mybytes | (ADRESH<<8);
-    //mybytes = mybytes | ADRESL;
+    mybytes = mybytes | (ADRESH<<8);
+    mybytes = mybytes | ADRESL;
 
-    mybytes = rndSense(fake_sensor_cntr++);
+    //mybytes = rndSense(fake_sensor_cntr++);
 
 
     signed char output = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_CONVERTER_COMPLETE, &mybytes);

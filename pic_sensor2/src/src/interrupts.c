@@ -90,7 +90,7 @@ void InterruptHandlerHigh() {
         // clear the interrupt flag
         PIR1bits.SSPIF = 0;
 
-        LATBbits.LB5 ^= 0x1;
+        //LATBbits.LB5 ^= 0x1;
         // call the handler
         i2c_int_handler();
     }

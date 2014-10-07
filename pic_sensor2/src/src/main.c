@@ -323,12 +323,8 @@ void main(void) {
     
     init_registers();//Luke's code
     //[0] is the cmd/id, [1] is a recerved byte, [2-5] are sensor data values
-    unsigned char snsmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0};
     unsigned char updateMask [UPDATE_MASK_SIZE] = {0x00, 0x00};
-    //unsigned char fntmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0};
-    //unsigned char sidmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0};
-    //unsigned char vntmsgbuf [SENS_CMD_SIZE] = {0, 0xff, 0, 0, 0, 0};
-
+    unsigned char snsmsgbuf [SENS_CMD_SIZE] = {SENSOR_RESPONSE, 0x00, 0x00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0};
     
 
     // printf() is available, but is not advisable.  It goes to the UART pin
@@ -363,17 +359,6 @@ void main(void) {
                 //Error. Message note ok.
             }
             
-            //First MS2 code. Luke Lapham:
-            /*
-            signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, sidmsgbuf);
-                        if( MsgQ_BStatus == MSGSEND_OKAY){
-                            MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, fntmsgbuf);
-
-                            if( MsgQ_BStatus == MSGSEND_OKAY){
-                                MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, vntmsgbuf);
-                            }
-                        }
-             * */
             i2c_need_data = 0;
         }
 
@@ -480,7 +465,7 @@ void main(void) {
                     ///myData.distance1 = (18924/( sensor_value - 17 ));
                     
                     
-                    snsmsgbuf[0] = SENSER_CMD;
+                    //snsmsgbuf[0] = SENSER_CMD;
                     snsmsgbuf[1] = updateMask[0];
                     snsmsgbuf[2] = updateMask[1];
                     snsmsgbuf[3] = FLUltra;
@@ -495,6 +480,9 @@ void main(void) {
 
                     signed char MsgQB_Status = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
 
+                    //Reset the update mask to signafy that the current values are now old.
+                    updateMask[0] = 0x00;
+                    updateMask[1] = 0x00;
                     /*
                     if(fntmsgbuf[2] == distance)
                       fntmsgbuf[1] = fntmsgbuf[1] & 0x7f;
