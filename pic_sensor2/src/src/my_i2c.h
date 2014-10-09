@@ -2,7 +2,7 @@
 #define __my_i2c_h
 
 #include "messages.h"
-//#include "debug.h"
+#include "debug.h"
 
 #define MAXI2CBUF MSGLEN
 typedef struct __i2c_comm {
@@ -46,11 +46,11 @@ typedef struct __i2c_comm {
 void init_i2c(i2c_comm *ic);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
-void i2c_configure_slave(unsigned char);
+void i2c_configure_slave(unsigned char, unsigned char * );
 void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-void retrieve_sensor_values( unsigned char * sensor_bank );
+void retrieve_sensor_values( unsigned char * sensor_bank);
 
 #endif

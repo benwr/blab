@@ -196,7 +196,7 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
-    //unsigned char i2c_need_data = 1;
+    unsigned char i2c_need_data = 1;
 
 #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -278,7 +278,7 @@ void main(void) {
     // They *are* changed in the timer interrupt handlers if those timers are
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
-    i2c_configure_slave(0x9E);
+    i2c_configure_slave(0x9E,&i2c_need_data);
 #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
@@ -350,15 +350,17 @@ void main(void) {
         // an idle mode)
         block_on_To_msgqueues();
         
-       
-        signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
-
-        if(MsgQ_BStatus != MSGSEND_OKAY)
+        if( i2c_need_data )
         {
-            //Error. Message note ok.
-        }
+            signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
             
-        
+            if(MsgQ_BStatus != MSGSEND_OKAY)
+            {
+                //Error. Message note ok.
+            }
+            
+            i2c_need_data = 0;
+        }
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -388,11 +390,6 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    signed char MsgQB_Status = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
-
-                    //Reset the update mask to signafy that the current values are now old.
-                    updateMask[0] = 0x00;
-                    updateMask[1] = 0x00;
                     
                     /*
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
@@ -482,7 +479,11 @@ void main(void) {
                     snsmsgbuf[10] = RLine;
                     snsmsgbuf[11] = RFID;
 
-                    
+                    signed char MsgQB_Status = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
+
+                    //Reset the update mask to signafy that the current values are now old.
+                    updateMask[0] = 0x00;
+                    updateMask[1] = 0x00;
                     /*
                     if(fntmsgbuf[2] == distance)
                       fntmsgbuf[1] = fntmsgbuf[1] & 0x7f;
