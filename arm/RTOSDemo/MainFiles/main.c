@@ -124,12 +124,14 @@
 #include "partest.h"
 
 // Include file for MTJ's LCD & i2cTemp tasks
+#include "configuration.h"
 #include "vtUtilities.h"
 #include "lcdTask.h"
-#include "i2cTemp.h"
+#include "localization.h"
 #include "vtI2C.h"
 #include "myTimers.h"
-#include "conductor.h"
+#include "sensorimotor.h"
+
 
 /* syscalls initialization -- *must* occur first */
 #include "syscalls.h"
@@ -143,18 +145,6 @@ tick hook). */
 #define mainCHECK_DELAY ((portTickType)5000 / portTICK_RATE_MS)
 
 /* Task priorities. */
-#define mainQUEUE_POLL_PRIORITY (tskIDLE_PRIORITY)
-#define mainSEM_TEST_PRIORITY (tskIDLE_PRIORITY)
-#define mainBLOCK_Q_PRIORITY (tskIDLE_PRIORITY)
-#define mainUIP_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainINTEGER_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainGEN_QUEUE_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainFLASH_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainLCD_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainI2CTEMP_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainUSB_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainI2CMONITOR_TASK_PRIORITY (tskIDLE_PRIORITY)
-#define mainCONDUCTOR_TASK_PRIORITY (tskIDLE_PRIORITY)
 
 /* The WEB server has a larger stack as it utilises stack hungry string
 handling library calls. */
@@ -195,12 +185,12 @@ static char *pcStatusMessage = mainPASS_STATUS_MESSAGE;
 #if USE_MTJ_V4Temp_Sensor == 1
 // data structure required for one I2C task
 static vtI2CStruct vtI2C0;
-static vtI2CStruct vtI2C1;
-static vtI2CStruct vtI2C2;
+//static vtI2CStruct vtI2C1;
+//static vtI2CStruct vtI2C2;
 // data structure required for one temperature sensor task
-static vtTempStruct tempSensorData;
+static struct localizationParams localization;
 // data structure required for conductor task
-static vtConductorStruct conductorData;
+static struct SensorimotorParams sensorimotorParams;
 #endif
 
 #if USE_MTJ_LCD == 1
@@ -272,17 +262,17 @@ int main(void)
 // Now, start up the task that is going to handle the temperature sensor
 // sampling (it will talk to the I2C task and LCD task using their APIs)
 #if USE_MTJ_LCD == 1
-  vStarti2cTempTask(
-      &tempSensorData, mainI2CTEMP_TASK_PRIORITY, &vtI2C0, &vtLCDdata);
+  startLocalizationTask(
+      &localization, mainI2CTEMP_TASK_PRIORITY, &vtI2C0, &vtLCDdata);
 #else
-  vStarti2cTempTask(&tempSensorData, mainI2CTEMP_TASK_PRIORITY, &vtI2C0, NULL);
+  startLocalizationTask(&localization, mainI2CTEMP_TASK_PRIORITY, &vtI2C0, NULL);
 #endif
   // Here we set up a timer that will send messages to the Temperature sensing
   // task.  The timer will determine how often the sensor is sampled
-  startTimerForTemperature(&tempSensorData);
+  startTimerForTemperature(&localization);
   // start up a "conductor" task that will move messages around
-  vStartConductorTask(
-      &conductorData, mainCONDUCTOR_TASK_PRIORITY, &vtI2C0, &tempSensorData);
+  startSensorimotorTask(
+      &sensorimotorParams, SENSORIMOTOR_TASK_PRIORITY, &vtI2C0, &localization);
 #endif
 
 /* Create the USB task. MTJ: This routine has been modified from the original

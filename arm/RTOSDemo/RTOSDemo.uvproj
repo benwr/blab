@@ -321,6 +321,11 @@
               <FileType>1</FileType>
               <FilePath>../FreeRTOS/Source/timers.c</FilePath>
             </File>
+            <File>
+              <FileName>localization.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/localization.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -357,9 +362,9 @@
               <FilePath>.\MainFiles/myTimers.c</FilePath>
             </File>
             <File>
-              <FileName>conductor.c</FileName>
+              <FileName>sensorimotor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\MainFiles/conductor.c</FilePath>
+              <FilePath>.\MainFiles/sensorimotor.c</FilePath>
             </File>
           </Files>
         </Group>

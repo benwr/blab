@@ -14,6 +14,7 @@
 #include "vtUtilities.h"
 #include "LCDtask.h"
 #include "string.h"
+#include "configuration.h"
 
 // I have set this to a larger stack size because of (a) using printf() and (b)
 // the depth of function calls for some of the LCD operations. I actually
@@ -49,7 +50,7 @@ typedef struct __vtLCDMsg
 {
   LCDMsgType msgType;
   uint8_t length;                // Length of the message to be printed
-  uint8_t buf[vtLCDMaxLen + 1];  // On the way in, message to be sent, on the
+  unsigned char buf[LCD_MAX_LEN + 1];  // On the way in, message to be sent, on the
                                  // way
                                  // out, message received (if any)
 } vtLCDMsg;
@@ -92,7 +93,7 @@ portBASE_TYPE SendLCDTimerMsg(vtLCDStruct *lcdData,
   }
   vtLCDMsg lcdBuffer;
   lcdBuffer.length = sizeof(ticksElapsed);
-  if (lcdBuffer.length > vtLCDMaxLen) {
+  if (lcdBuffer.length > LCD_MAX_LEN) {
     // no room for this message
     VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
   }
@@ -111,13 +112,13 @@ portBASE_TYPE SendLCDPrintMsg(vtLCDStruct *lcdData,
   }
   vtLCDMsg lcdBuffer;
 
-  if (length > vtLCDMaxLen) {
+  if (length > LCD_MAX_LEN) {
     // no room for this message
     VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
   }
-  lcdBuffer.length = strnlen(pString, vtLCDMaxLen);
+  lcdBuffer.length = strnlen(pString, LCD_MAX_LEN);
   lcdBuffer.msgType = LCDMsgTypePrint;
-  strncpy((unsigned char *)lcdBuffer.buf, pString, vtLCDMaxLen);
+  strncpy((unsigned char *)lcdBuffer.buf, pString, LCD_MAX_LEN);
   return (xQueueSend(lcdData->inQ, (void *)(&lcdBuffer), ticksToBlock));
 }
 
@@ -131,13 +132,13 @@ portBASE_TYPE SendLCDPointMsg(vtLCDStruct *lcdData,
   }
   vtLCDMsg lcdBuffer;
 
-  if (length > vtLCDMaxLen) {
+  if (length > LCD_MAX_LEN) {
     // no room for this message
     VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
   }
-  lcdBuffer.length = strnlen(pString, vtLCDMaxLen);
+  lcdBuffer.length = strnlen(pString, LCD_MAX_LEN);
   lcdBuffer.msgType = LCDMsgTypePoint;
-  strncpy((char *)lcdBuffer.buf, pString, vtLCDMaxLen);
+  strncpy((char *)lcdBuffer.buf, pString, LCD_MAX_LEN);
   return (xQueueSend(lcdData->inQ, (void *)(&lcdBuffer), ticksToBlock));
 }
 

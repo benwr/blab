@@ -40,7 +40,7 @@ void LCDTimerCallback(xTimerHandle pxTimer)
     if (SendLCDTimerMsg(ptr, lcdWRITE_RATE_BASE, 0) == errQUEUE_FULL) {
       // Here is where you would do something if you wanted to handle the queue
       // being full
-      VT_HANDLE_FATAL_ERROR(0);
+      //VT_HANDLE_FATAL_ERROR(0);
     }
   }
 }
@@ -81,28 +81,28 @@ void TempTimerCallback(xTimerHandle pxTimer)
     //   Temperature structure as the "timer ID" so that I could access
     //   that structure here -- which I need to do to get the
     //   address of the message queue to send to
-    vtTempStruct *ptr = (vtTempStruct *)pvTimerGetTimerID(pxTimer);
+    struct localizationParams *ptr = (struct localizationParams *)pvTimerGetTimerID(pxTimer);
     // Make this non-blocking *but* be aware that if the queue is full, this
     // routine
     // will not care, so if you care, you need to check something
-    if (SendTempTimerMsg(ptr, tempWRITE_RATE_BASE, 0) == errQUEUE_FULL) {
+    if (sendLocalizationTimerMessage(ptr, tempWRITE_RATE_BASE, 0) == errQUEUE_FULL) {
       // Here is where you would do something if you wanted to handle the queue
       // being full
-      VT_HANDLE_FATAL_ERROR(0);
+      //VT_HANDLE_FATAL_ERROR(0);
     }
   }
 }
 
-void startTimerForTemperature(vtTempStruct *vtTempdata)
+void startTimerForTemperature(struct localizationParams * localization)
 {
-  if (sizeof(long) != sizeof(vtTempStruct *)) {
+  if (sizeof(long) != sizeof(struct localizationParams *)) {
     VT_HANDLE_FATAL_ERROR(0);
   }
   xTimerHandle TempTimerHandle =
-      xTimerCreate((const signed char *)"Temp Timer",
+      xTimerCreate((const signed char *) "Localization Timer",
                    16 * tempWRITE_RATE_BASE / tempI2C_RATE,
                    pdTRUE,
-                   (void *)vtTempdata,
+                   (void *) localization,
                    TempTimerCallback);
   if (TempTimerHandle == NULL) {
     VT_HANDLE_FATAL_ERROR(0);

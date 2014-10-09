@@ -33,3 +33,15 @@ pic_master/src/PIC_Master.X/nbproject/Makefile-UseXC8.mk
 pic_master/src/PIC_Master.X/nbproject/private/configurations.xml
 
 pic_master/src/PIC_Master.X/nbproject/project.xml
+
+*.swp
+
+*.elf
+
+pic_master/src/PIC_Master.X/nbproject/private/private.xml
+
+arm/RTOSDemo/ObjectFiles/RTOSDemo.elf
+
+arm/RTOSDemo/MainFiles/.i2cTemp.c.swp
+
+*.swp
