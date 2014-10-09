@@ -2,10 +2,26 @@
 #define __messages
 
 // The maximum length (in bytes) of a message
-#define MSGLEN 10
+#define MSGLEN 14
 
 // The maximum number of messages in a single queue
 #define MSGQUEUELEN 4
+
+//Command Definitions
+#define MSGID_MOVE                  0x01
+#define MSGID_SENSOR_STATUS         0x02
+#define MSGID_SENSOR_RESPOND        0x03
+
+#define MSGID_UART_ACK              0x11
+
+#define MSGID_UART_BAD_CHECKSUM     0xf1
+#define MSGID_UART_BAD_COUNTER      0xf2
+#define MSGID_UART_BAD_START        0xf3
+#define MSGID_UART_BAD_END          0xf4
+//=========================
+
+
+
 
 typedef struct __msg {
     unsigned char full;

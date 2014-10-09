@@ -11,7 +11,7 @@ typedef struct __i2c_comm {
     unsigned char bufind;
     unsigned char outbuffer[MAXI2CBUF];
     unsigned char outbufind;
-    unsigned char outbuflen;    
+    unsigned char outbuflen;
     unsigned char event_count;
     unsigned char status;
     unsigned char error_code;
@@ -20,7 +20,7 @@ typedef struct __i2c_comm {
     unsigned char slave_addr;
 } i2c_comm;
 
-#define I2C_DATA_SIZE 6
+#define I2C_DATA_SIZE MSGLEN
 
 #define I2C_IDLE 0x5
 #define I2C_STARTED 0x6
@@ -51,6 +51,6 @@ void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-void retrieve_sensor_values( unsigned char * sensor_bank_1 , unsigned char * sensor_bank_2 , unsigned char * sensor_bank_3 );
+void retrieve_sensor_values( unsigned char * sensor_bank );
 
 #endif

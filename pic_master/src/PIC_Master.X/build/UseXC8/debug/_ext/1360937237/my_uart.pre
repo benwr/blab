@@ -10828,21 +10828,21 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 10 "../src/messages.h"
+# 25 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
-msg queue[4];
+msg queue[8];
 unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 43
+# 58
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 57
+# 72
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 64
+# 79
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 71
+# 86
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 78
+# 93
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -10939,11 +10939,13 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
-# 11 "../src/my_uart.h"
+# 28 "../src/my_uart.h"
 typedef struct
 {
-unsigned char data[4];
+unsigned char data[(14 + 2 + 2)];
 
 
 unsigned char index;
@@ -10955,7 +10957,7 @@ typedef struct
 {
 unsigned char header;
 unsigned char checksum;
-unsigned char data[ 4 - 2 ];
+unsigned char data[ (14 + 2 + 2) - 2 ];
 
 unsigned char bytes_received;
 unsigned char checksum_error;
@@ -10964,89 +10966,30 @@ unsigned char byte_error;
 unsigned char acked;
 } uart_packet_type;
 
-# 40
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr );
-
-
-unsigned char receive_uart_message( unsigned char * message_ptr );
+# 57
+unsigned char send_uart_message( unsigned char * message_ptr );
 
 
 void uart_configure( );
 
 
+void uart_receive_interrupt_handler();
+
+
 void uart_transmit_interrupt_handler();
 
-# 55
+# 72
 unsigned char uart_get_byte();
 
-
-void uart_receive_byte();
-
-# 64
+# 81
 unsigned char uart_num_bytes_in_recv_buffer();
 
-# 21 "../src/my_uart.c"
-unsigned char send_uart_message( unsigned char length , unsigned char * message_ptr )
-{
-static unsigned char sent_counter = 0;
-
-if( (length + 2) > 4 )
-{
-return 0x01;
-}
-
-unsigned char uart_message[4];
-
-
-uart_message[0] = sent_counter++;
-
-
-unsigned char checksum = 0x00;
-int i;
-for(i=0;i<(length);i++)
-{
-uart_message[i+1] = message_ptr[i];
-checksum = checksum ^ message_ptr[i];
-}
-i++;
-
-
-uart_message[i] = checksum;
-
-unsigned char message_q_code = FromMainLow_sendmsg((length+2),31,(void *) uart_message );
-
-if( message_q_code == -1)
-{
-return 0x02;
-}
 
 
 
+unsigned char * uart_frame_message( unsigned char * inner );
 
-PIE1bits.TX1IE = 1;
-return 0x00;
-}
-
-
-unsigned char receive_uart_message( unsigned char * message_ptr )
-{
-static uart_packet_type uart_recv_packet;
-
-if( uart_recv_packet.bytes_received == 0 )
-{
-uart_recv_packet.header = uart_get_byte();
-uart_recv_packet.bytes_received += 1;
-}
-else if( uart_recv_packet.bytes_received < (4 - 1) )
-{
-uart_recv_packet.data[ uart_recv_packet.bytes_received - 1 ];
-uart_recv_packet.bytes_received += 1;
-}
-
-return 0x00;
-}
-
-
+# 22 "../src/my_uart.c"
 void uart_configure()
 {
 TRISCbits.TRISC7 = 1;
@@ -11071,32 +11014,180 @@ PIE1bits.RC1IE = 1;
 TXSTA1bits.TXEN = 1;
 RCSTA1bits.CREN = 1;
 
-# 128
+
 }
 
-# 153
+# 54
+void uart_receive_interrupt_handler()
+{
+
+static unsigned char * data;
+static unsigned char index = 0;
+static unsigned char done = 0;
+static unsigned char received_counter = 0;
+static unsigned char checksum = 0;
+static unsigned char start_byte_bad = 0;
+static unsigned char error = 0;
+
+if(!done)
+{
+data[index] = RCREG1;
+if(error)
+{
+
+}
+if( index == 0 )
+{
+if( data[0] != 0xff )
+{
+if( !start_byte_bad )
+{
+start_byte_bad = 1;
+unsigned char bad_start_id = received_counter;
+ToMainLow_sendmsg(1,34,(void *)&bad_start_id);
+
+}
+index = 0;
+return;
+}
+else
+{
+start_byte_bad = 0;
+}
+}
+else if( ( index >= 2 ) && ( index < 14 + 2 ) )
+{
+checksum ^= data[index];
+}
+else if( index >= (14 + 2 + 2) - 1 )
+{
+if( data[(14 + 2 + 2) - 1] != 0xfe )
+{
+
+index = 0;
+
+
+unsigned char bad_end_id = received_counter;
+ToMainLow_sendmsg(1,35,(void *)&bad_end_id);
+error = 1;
+}
+}
+index++;
+}
+
+if( index >= (14 + 2 + 2) )
+{
+
+
+index = 0;
+
+
+
+if( received_counter != data[1] )
+{
+
+unsigned char bad_counter_id[2];
+bad_counter_id[0] = received_counter;
+bad_counter_id[1] = data[1];
+ToMainLow_sendmsg(2,33,(void *)&bad_counter_id);
+error = 1;
+}
+
+
+
+if( checksum != data[(14 + 2 + 2) - 2] )
+{
+
+unsigned char bad_checksum_id = received_counter;
+ToMainLow_sendmsg(1,32,(void *)&bad_checksum_id);
+error = 1;
+}
+
+if( !error )
+{
+
+
+
+
+unsigned char gooey_uart_center[14];
+
+int i;
+for(i = 0; i < 14; i++)
+{
+gooey_uart_center[i] = data[i+2];
+}
+
+unsigned char msg_id = gooey_uart_center[0];
+
+if( ( msg_id != 0x11 ) && ( msg_id != 0xf1 ) && ( msg_id != 0xf2 ) && ( msg_id != 0xf3 ) && ( msg_id != 0xf4 ) )
+{
+unsigned char message_count = received_counter;
+unsigned char status = ToMainLow_sendmsg(1,36,(void*)&message_count );
+}
+
+
+unsigned char status = ToMainLow_sendmsg(14,31,(void *) gooey_uart_center );
+
+if( status == -1 )
+{
+
+}
+else
+{
+
+
+}
+}
+
+received_counter++;
+error = 0;
+}
+
+# 183
+}
+
+
+
+unsigned char send_uart_message( unsigned char * message_ptr )
+{
+unsigned char message_q_code = FromMainLow_sendmsg(14,31,(void *) message_ptr );
+
+if( message_q_code == -1)
+{
+return 0x02;
+}
+
+PIE1bits.TX1IE = 1;
+return 0x00;
+}
+
+
 void uart_transmit_interrupt_handler()
 {
 static unsigned char done = 1;
-static unsigned char * data;
 static unsigned char index = 0;
 
-unsigned char msgtype;;
+unsigned char * data;
+static unsigned char * message;
+
+unsigned char msgtype = 31;
+
 if( done )
 {
-signed char message_status = FromMainLow_recvmsg(4,&msgtype, (void*)data );
+signed char message_status = FromMainLow_recvmsg(14,&msgtype, (void*)data );
 if( message_status == -4)
 {
 PIE1bits.TX1IE = 0;
 }
 else if( message_status > 0 )
 {
+message = uart_frame_message( data );
 index = 0;
 done = 0;
 
-TXREG1 = data[index];
+TXREG1 = message[index];
 index++;
-if( index >= 4 )
+if( index >= (14 + 2 + 2) )
 {
 done = 1;
 }
@@ -11116,9 +11207,9 @@ else if( message_status == -3 )
 }
 else
 {
-TXREG1 = data[index];
+TXREG1 = message[index];
 index++;
-if( index >= 4 )
+if( index >= (14 + 2 + 2) )
 {
 done = 1;
 }
@@ -11137,17 +11228,35 @@ signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte 
 
 return gotten_byte;
 
-# 231
+# 283
 }
 
-
-
-
-void uart_receive_byte()
+# 391
+unsigned char * uart_frame_message( unsigned char * inner )
 {
-unsigned char gotten_byte = RCREG1;
-signed char message_status = ToMainLow_sendmsg(1,31,(void *) &gotten_byte );
+static unsigned char sent_counter = 0;
 
-# 252
+static unsigned char outer[(14 + 2 + 2)];
+
+outer[0] = 0xff;
+outer[1] = sent_counter++;
+outer[(14 + 2 + 2)-1] = 0xfe;
+
+unsigned char checksum = 0;
+unsigned char i;
+for(i=0;i<14;i++)
+{
+if( inner[i] == 0xff || inner[i] == 0xfe )
+{
+outer[i+2] = 0xfd;
 }
+else
+{
+outer[i+2] = inner[i];
+}
+checksum ^= inner[i];
+}
+outer[(14 + 2 + 2)-2] = checksum;
 
+return outer;
+}

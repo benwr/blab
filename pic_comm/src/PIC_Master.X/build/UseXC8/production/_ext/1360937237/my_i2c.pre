@@ -10828,21 +10828,21 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 21 "../src/messages.h"
+# 25 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
 unsigned char msgtype;
-unsigned char data[10];
+unsigned char data[14];
 } msg;
 
 typedef struct __msg_queue {
-msg queue[4];
+msg queue[8];
 unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 54
+# 58
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 68
+# 72
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 75
+# 79
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 82
+# 86
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 89
+# 93
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -10939,13 +10939,15 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 8 "../src/my_i2c.h"
 typedef struct __i2c_comm {
-unsigned char buffer[10];
+unsigned char buffer[14];
 unsigned char buflen;
 unsigned char bufind;
-unsigned char outbuffer[10];
+unsigned char outbuffer[14];
 unsigned char outbufind;
 unsigned char outbuflen;
 unsigned char event_count;
@@ -10965,10 +10967,11 @@ void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-void retrieve_sensor_values( unsigned char * sensor_bank_1 , unsigned char * sensor_bank_2 , unsigned char * sensor_bank_3 );
+void retrieve_sensor_values( unsigned char * sensor_bank );
 
 # 9 "../src/my_i2c.c"
 static i2c_comm *ic_ptr;
+static unsigned char * need_sensor_data;
 
 
 
@@ -10977,13 +10980,13 @@ void i2c_configure_master(unsigned char slave_addr) {
 
 }
 
-# 30
+# 31
 unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
 
 return(0);
 }
 
-# 48
+# 49
 unsigned char i2c_master_recv(unsigned char length) {
 
 return(0);
@@ -11032,13 +11035,11 @@ ic_ptr->status = 0x6;
 }
 }
 
-# 102
+# 103
 void i2c_int_handler() {
 blip1();
 
-static unsigned char sensor_bank_side[6];
-static unsigned char sensor_bank_front[6];
-static unsigned char sensor_bank_ventril[6];
+
 
 unsigned char i2c_data;
 unsigned char data_read = 0;
@@ -11047,6 +11048,7 @@ unsigned char msg_ready = 0;
 unsigned char msg_to_send = 0;
 unsigned char overrun_error = 0;
 unsigned char error_buf[3];
+unsigned char need_data = 1;
 
 
 if (SSPCON1bits.SSPOV == 1) {
@@ -11124,7 +11126,7 @@ case 0x8:
 {
 blip4();
 
-if (ic_ptr->outbufind < 6) {
+if (ic_ptr->outbufind < 14) {
 blip4();
 SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
 ic_ptr->outbufind++;
@@ -11158,51 +11160,36 @@ ic_ptr->status = 0x5;
 msg_ready = 1;
 }
 ic_ptr->status = 0x5;
-} else if (data_read) {
+}
+else if (data_read)
+{
 
 ic_ptr->event_count++;
-if (SSPSTATbits.D_A == 1) {
+if (SSP1STATbits.D_A == 1) {
 ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
 ic_ptr->buflen++;
-} else {
-if (SSPSTATbits.R_W == 1) {
-blip();
+}
+else
+{
+if (SSPSTATbits.R_W == 1)
+{
+
 ic_ptr->status = 0x8;
 
 switch( ic_ptr->buffer[0] )
 {
 int l;
-case 0x2a:
-{
-for(l = 0;l<6;l++)
-{
-ic_ptr->outbuffer[l] = sensor_bank_side[l];
-}
 
-}
-case 0x2b:
-{
-for(l = 0;l<6;l++)
-{
-ic_ptr->outbuffer[l] = sensor_bank_front[l];
-}
-}
-case 0x2c:
-{
-for(l = 0;l<6;l++)
-{
-ic_ptr->outbuffer[l] = sensor_bank_ventril[l];
-}
-}
 default:
 {
 
-ic_ptr->outbuffer[0] = 0x55;
-ic_ptr->outbuffer[1] = 0x56;
-ic_ptr->outbuffer[2] = 0x57;
-ic_ptr->outbuffer[3] = 0x58;
-ic_ptr->outbuffer[4] = 0x59;
-ic_ptr->outbuffer[5] = 0x5a;
+ic_ptr->outbuffer[0] = ic_ptr->buffer[0];
+ic_ptr->outbuffer[1] = ic_ptr->buffer[1];
+ic_ptr->outbuffer[2] = ic_ptr->buffer[2];
+ic_ptr->outbuffer[3] = ic_ptr->buffer[3];
+ic_ptr->outbuffer[4] = ic_ptr->buffer[4];
+ic_ptr->outbuffer[5] = ic_ptr->buffer[5];
+break;
 }
 }
 
@@ -11215,8 +11202,10 @@ data_read = 0;
 ic_ptr->outbufind = 0;
 SSPBUF = ic_ptr->outbuffer[0];
 ic_ptr->outbufind++;
-SSPCON1bits.CKP = 1;
-} else {
+
+}
+else
+{
 ic_ptr->error_count++;
 ic_ptr->error_code = 0x6;
 ic_ptr->status = 0x5;
@@ -11239,7 +11228,7 @@ SSPCON1bits.CKP = 1;
 
 
 
-if ((ic_ptr->buflen > 10 - 2) && (!msg_ready)) {
+if ((ic_ptr->buflen > 14 - 2) && (!msg_ready)) {
 ic_ptr->status = 0x5;
 ic_ptr->error_count++;
 ic_ptr->error_code = 0x7;
@@ -11258,11 +11247,30 @@ ic_ptr->error_count = 0;
 }
 if (msg_to_send) {
 
+start_i2c_slave_reply(14, ic_ptr->outbuffer);
+
 ToMainHigh_sendmsg(0, 42, (void *) ic_ptr->buffer);
+need_data = 1;
 msg_to_send = 0;
 }
 
-retrieve_sensor_values( sensor_bank_side , sensor_bank_front , sensor_bank_ventril );
+if(need_data)
+{
+unsigned char msg_type;
+unsigned char length = FromMainHigh_recvmsg( 14 , &msg_type , (void *)ic_ptr->outbuffer );
+if( length == -4 )
+{
+
+}
+else if( length < 0 )
+{
+
+}
+else
+{
+need_data = 0;
+}
+}
 
 
 }
@@ -11283,11 +11291,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 359
+# 365
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 368
+# 374
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11296,54 +11304,34 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 389
+# 395
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 399
+# 405
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 
 }
 
 
-void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * sensor_bank_front , unsigned char * sensor_bank_ventril )
+void retrieve_sensor_values( unsigned char * sensor_bank )
 {
-unsigned char * msgtype;
+unsigned char msgtype = 40;
 
 int i;
-signed char length = FromMainHigh_recvmsg( 6 , msgtype , (void *)sensor_bank_side );
-if( length < 6 )
+signed char length = FromMainHigh_recvmsg( 14 , &msgtype , (void *)sensor_bank);
+if( length < 14 )
 {
-sensor_bank_side[1] == 0x00;
 
 }
 else
 {
-sensor_bank_side[1] == 0xff;
+
 }
 
-signed char length = FromMainHigh_recvmsg( 6 , msgtype , (void *)sensor_bank_front );
-if( length < 6 )
-{
-sensor_bank_front[1] == 0x00;
-}
-else
-{
-sensor_bank_front[1] == 0xff;
-}
 
-signed char length = FromMainHigh_recvmsg( 6 , msgtype , (void *)sensor_bank_ventril );
-if( length < 6 )
-{
-sensor_bank_ventril[1] == 0x00;
-}
-else
-{
-sensor_bank_ventril[1] == 0xff;
-}
 
-unsigned char need_data = 0xff;
-signed char status = ToMainHigh_sendmsg(1,42,(void *) &need_data);
+*need_sensor_data = 1;
 
 }

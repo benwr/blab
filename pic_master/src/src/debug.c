@@ -3,7 +3,8 @@
 void debug_configure()
 {
     TRISD = 0x00;
-
+    TRISBbits.TRISB0=0;
+    TRISBbits.TRISB1=0;
 
 }
 
@@ -40,4 +41,14 @@ void blip4()
     LATDbits.LD7 = 0;
     LATDbits.LD7 = 1;
     LATDbits.LD7 = 0;
+}
+
+void blink0()
+{
+    LATBbits.LB0 ^= 1;
+}
+
+void blink1()
+{
+    LATBbits.LB1 ^= 1;
 }

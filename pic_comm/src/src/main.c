@@ -377,9 +377,14 @@ void main(void) {
         // an idle mode)
         //block_on_To_msgqueues();
 
-                
+        unsigned char motor_data[I2C_DATA_SIZE];
 
-        
+        //fill motor data with junk....for now
+        unsigned char poop;
+        for(poop=0;poop<I2C_DATA_SIZE;poop++)
+        {
+                motor_data[poop]=0x55;
+        }
 
 
         // At this point, one or both of the queues has a message.  It
@@ -412,14 +417,10 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    if ( msgbuffer[0] == 0xff )
-					{
-						
-					
-					
-					}
-					
+                    FromMainHigh_sendmsg(I2C_DATA_SIZE,MSGT_I2C_DATA,(void *) motor_data);
+
                     break;
+
                 };
                 default:
                 {
@@ -439,6 +440,12 @@ void main(void) {
         } 
         else
         {
+            unsigned char uart_response[UART_DATA_LENGTH];
+            int jjj;
+            for(jjj=0;jjj<UART_DATA_LENGTH;jjj++)
+            {
+                uart_response[jjj] = 0;
+            }
             switch (msgtype)
             {
                 case MSGT_TIMER1:
@@ -447,31 +454,51 @@ void main(void) {
                     break;
                 };
                 case MSGT_OVERRUN:
+                {}
+                case MSGT_UART_BAD_CHECKSUM:
+                {
+                    uart_response[0] = MSGID_UART_BAD_CHECKSUM; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+                }
+                case MSGT_UART_BAD_COUNTER:
+                {
+                    uart_response[0] = MSGID_UART_BAD_COUNTER; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    uart_response[2] = msgbuffer[1];
+                    send_uart_message( uart_response );
+                    break;
+                }
+                case MSGT_UART_BAD_START:
+                {
+                    uart_response[0] = MSGID_UART_BAD_START; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+                }
+                case MSGT_UART_BAD_END:
+                {
+                    uart_response[0] = MSGID_UART_BAD_END; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+
+                }
+                case MSGT_UART_ACK_DATA:
+                {
+                    uart_response[0] = MSGID_UART_ACK; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+
+                }
                 case MSGT_UART_DATA:
                 {
-                    send_uart_message( length , msgbuffer );
 					
-					switch( msgbuffer[0] )
+                    switch( msgbuffer[0] )
                     {
                         
-                        case COMMAND_SIDE_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
-                        case COMMAND_FRONT_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
-                        case COMMAND_VENTRIL_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
                         default:
                         {
 

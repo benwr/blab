@@ -294,11 +294,7 @@ void main(void) {
     // sure this PIC does not have the same address and configure the
     // temperature sensor address bits and then just stay in an infinite loop
     i2c_configure_slave(0x9A);
-    #ifdef __USE18F2680
-    LATBbits.LATB1 = 1;
-    LATBbits.LATB0 = 1;
-    LATBbits.LATB2 = 1;
-    #endif
+  
     for (;;);
     #endif
 
@@ -351,30 +347,8 @@ void main(void) {
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-    unsigned char msg[3] = {0x55,0xea,0x29};
 
-    if ( send_uart_message( 2, msg ) == SEND_UART_MESSAGE_Q_FULL )
-    {
-        //blip();
-    }
-    unsigned char msg2[6] = {0x2a,0xaa,0xaa,0xaa,0xaa,0xaa};
-    
-    unsigned char msg3[6] = {0x2b,0xa8,0xa8,0xa8,0xa8,0xa8};
-    
-    unsigned char msg4[6] = {0x2c,0xa9,0xa9,0xa9,0xa9,0xa9};
-    
-    
 
-    
-    i2c_master_send(6, msg2);
-    send_uart_message( 2, msg2 );
-    i2c_master_send(6, msg3);
-    send_uart_message( 2, msg3 );
-    i2c_master_send(6, msg4);
-    send_uart_message( 2, msg4 );
-    i2c_master_send(6, msg4);
-
-    
 
     unsigned char myByte1 = 0x54;
     unsigned char myByte2 = 0x45;
@@ -385,11 +359,9 @@ void main(void) {
     // Here is how it looks: printf("Hello\r\n");
 
 
-    unsigned char sensor_bank_side[UART_MESSAGE_LENGTH];
-    unsigned char sensor_bank_front[UART_MESSAGE_LENGTH];
-    unsigned char sensor_bank_ventril[UART_MESSAGE_LENGTH];
-
-
+    unsigned char sensor_bank_side[UART_FRAME_LENGTH];
+    unsigned char sensor_bank_front[UART_FRAME_LENGTH];
+    unsigned char sensor_bank_ventril[UART_FRAME_LENGTH];
 
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
@@ -397,15 +369,10 @@ void main(void) {
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     while (1) {
-
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
-        //block_on_To_msgqueues();
-
-                
-
-        
+        block_on_To_msgqueues();
 
 
         // At this point, one or both of the queues has a message.  It
@@ -429,6 +396,9 @@ void main(void) {
                     break;
                 };
                 case MSGT_I2C_DATA:
+                {
+                    send_uart_message( msgbuffer );
+                }
                 case MSGT_I2C_DBG:
                 {
                     // Here is where you could handle debugging, if you wanted
@@ -475,10 +445,13 @@ void main(void) {
                 default:
                 {
                     // Your code should handle this error
+
                     break;
                 };
             };
         }
+
+        
 
         // Check the low priority queue
         length = ToMainLow_recvmsg(MSGLEN, &msgtype, (void *) msgbuffer);
@@ -490,40 +463,71 @@ void main(void) {
         } 
         else
         {
+            unsigned char uart_response[UART_DATA_LENGTH];
+            int jjj;
+            for(jjj=0;jjj<UART_DATA_LENGTH;jjj++)
+            {
+                uart_response[jjj] = 0;
+            }
             switch (msgtype)
             {
+
                 case MSGT_TIMER1:
                 {
+                    
                     timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
                     break;
                 };
                 case MSGT_OVERRUN:
+                {}
+                case MSGT_UART_BAD_CHECKSUM:
+                {                    
+                    uart_response[0] = MSGID_UART_BAD_CHECKSUM; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+                }
+                case MSGT_UART_BAD_COUNTER:
+                {
+                    uart_response[0] = MSGID_UART_BAD_COUNTER; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    uart_response[2] = msgbuffer[1];
+                    send_uart_message( uart_response );
+                    break;
+                }
+                case MSGT_UART_BAD_START:
+                {
+                    uart_response[0] = MSGID_UART_BAD_START; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+                }
+                case MSGT_UART_BAD_END:
+                {
+                    uart_response[0] = MSGID_UART_BAD_END; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+
+                }
+                case MSGT_UART_ACK_DATA:
+                {
+                    uart_response[0] = MSGID_UART_ACK; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
+
+                }
                 case MSGT_UART_DATA:
                 {
-                    uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+                   
+                    //uart_lthread(&uthread_data, msgtype, length, msgbuffer);
 
 
                     switch( msgbuffer[0] )
                     {
                         
-                        case COMMAND_SIDE_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
-                        case COMMAND_FRONT_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
-                        case COMMAND_VENTRIL_DATA:
-                        {
-                            //Copy msgbuffer over
-                            
-                            break;
-                        }
+                        
                         default:
                         {
 

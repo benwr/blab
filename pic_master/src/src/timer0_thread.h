@@ -1,3 +1,5 @@
+#include "my_i2c.h"
+
 typedef struct __timer0_thread_struct {
     // "persistent" data for this "lthread" would go here
     int data;

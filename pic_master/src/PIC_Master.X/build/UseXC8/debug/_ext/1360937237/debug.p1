@@ -1,6 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "8450 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f46j50.h
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
+"8330
+[s S569 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S569 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
+"8329
+[u S568 `S569 1 ]
+[n S568 . . ]
+"8341
+[v _TRISBbits `VS568 ~T0 @X0 0 e@3987 ]
 "7858
 [s S537 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S537 . LATD0 LATD1 LATD2 LATD3 LATD4 LATD5 LATD6 LATD7 ]
@@ -33,6 +41,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S536 . . . . . . . . . . ]
 "7900
 [v _LATDbits `VS536 ~T0 @X0 0 e@3980 ]
+"7599
+[s S517 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S517 . LATB0 LATB1 LATB2 LATB3 LATB4 LATB5 LATB6 LATB7 ]
+"7609
+[s S518 :1 `uc 1 ]
+[n S518 . LB0 ]
+"7612
+[s S519 :1 `uc 1 :1 `uc 1 ]
+[n S519 . . LB1 ]
+"7616
+[s S520 :2 `uc 1 :1 `uc 1 ]
+[n S520 . . LB2 ]
+"7620
+[s S521 :3 `uc 1 :1 `uc 1 ]
+[n S521 . . LB3 ]
+"7624
+[s S522 :4 `uc 1 :1 `uc 1 ]
+[n S522 . . LB4 ]
+"7628
+[s S523 :5 `uc 1 :1 `uc 1 ]
+[n S523 . . LB5 ]
+"7632
+[s S524 :6 `uc 1 :1 `uc 1 ]
+[n S524 . . LB6 ]
+"7636
+[s S525 :7 `uc 1 :1 `uc 1 ]
+[n S525 . . LB7 ]
+"7598
+[u S516 `S517 1 `S518 1 `S519 1 `S520 1 `S521 1 `S522 1 `S523 1 `S524 1 `S525 1 ]
+[n S516 . . . . . . . . . . ]
+"7641
+[v _LATBbits `VS516 ~T0 @X0 0 e@3978 ]
 [; ;stdio.h: 8: typedef int ptrdiff_t;
 [; ;stdio.h: 9: typedef unsigned size_t;
 [; ;stdio.h: 10: typedef unsigned short wchar_t;
@@ -8374,6 +8414,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
+[; ;debug.h: 41: void blink0();
+[; ;debug.h: 42: void blink1();
 "3 ../src/debug.c
 [v _debug_configure `(v ~T0 @X0 1 ef ]
 "4
@@ -8385,112 +8427,148 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.c: 5: TRISD = 0x00;
 "5
 [e = _TRISD -> -> 0 `i `uc ]
-[; ;debug.c: 8: }
-"8
+[; ;debug.c: 6: TRISBbits.TRISB0=0;
+"6
+[e = . . _TRISBbits 0 0 -> -> 0 `i `uc ]
+[; ;debug.c: 7: TRISBbits.TRISB1=0;
+"7
+[e = . . _TRISBbits 0 1 -> -> 0 `i `uc ]
+[; ;debug.c: 9: }
+"9
 [e :UE 1132 ]
 }
-"10
-[v _blip `(v ~T0 @X0 1 ef ]
 "11
+[v _blip `(v ~T0 @X0 1 ef ]
+"12
 {
-[; ;debug.c: 10: void blip()
-[; ;debug.c: 11: {
+[; ;debug.c: 11: void blip()
+[; ;debug.c: 12: {
 [e :U _blip ]
 [f ]
-[; ;debug.c: 12: LATDbits.LD2 = 0;
-"12
-[e = . . _LATDbits 3 1 -> -> 0 `i `uc ]
-[; ;debug.c: 13: LATDbits.LD2 = 1;
+[; ;debug.c: 13: LATDbits.LD2 = 0;
 "13
-[e = . . _LATDbits 3 1 -> -> 1 `i `uc ]
-[; ;debug.c: 14: LATDbits.LD2 = 0;
-"14
 [e = . . _LATDbits 3 1 -> -> 0 `i `uc ]
-[; ;debug.c: 15: }
+[; ;debug.c: 14: LATDbits.LD2 = 1;
+"14
+[e = . . _LATDbits 3 1 -> -> 1 `i `uc ]
+[; ;debug.c: 15: LATDbits.LD2 = 0;
 "15
+[e = . . _LATDbits 3 1 -> -> 0 `i `uc ]
+[; ;debug.c: 16: }
+"16
 [e :UE 1133 ]
 }
-"17
-[v _blip1 `(v ~T0 @X0 1 ef ]
 "18
+[v _blip1 `(v ~T0 @X0 1 ef ]
+"19
 {
-[; ;debug.c: 17: void blip1()
-[; ;debug.c: 18: {
+[; ;debug.c: 18: void blip1()
+[; ;debug.c: 19: {
 [e :U _blip1 ]
 [f ]
-[; ;debug.c: 19: LATDbits.LD4 = 0;
-"19
-[e = . . _LATDbits 5 1 -> -> 0 `i `uc ]
-[; ;debug.c: 20: LATDbits.LD4 = 1;
+[; ;debug.c: 20: LATDbits.LD4 = 0;
 "20
-[e = . . _LATDbits 5 1 -> -> 1 `i `uc ]
-[; ;debug.c: 21: LATDbits.LD4 = 0;
-"21
 [e = . . _LATDbits 5 1 -> -> 0 `i `uc ]
-[; ;debug.c: 22: }
+[; ;debug.c: 21: LATDbits.LD4 = 1;
+"21
+[e = . . _LATDbits 5 1 -> -> 1 `i `uc ]
+[; ;debug.c: 22: LATDbits.LD4 = 0;
 "22
+[e = . . _LATDbits 5 1 -> -> 0 `i `uc ]
+[; ;debug.c: 23: }
+"23
 [e :UE 1134 ]
 }
-"24
-[v _blip2 `(v ~T0 @X0 1 ef ]
 "25
+[v _blip2 `(v ~T0 @X0 1 ef ]
+"26
 {
-[; ;debug.c: 24: void blip2()
-[; ;debug.c: 25: {
+[; ;debug.c: 25: void blip2()
+[; ;debug.c: 26: {
 [e :U _blip2 ]
 [f ]
-[; ;debug.c: 26: LATDbits.LD5 = 0;
-"26
-[e = . . _LATDbits 6 1 -> -> 0 `i `uc ]
-[; ;debug.c: 27: LATDbits.LD5 = 1;
+[; ;debug.c: 27: LATDbits.LD5 = 0;
 "27
-[e = . . _LATDbits 6 1 -> -> 1 `i `uc ]
-[; ;debug.c: 28: LATDbits.LD5 = 0;
-"28
 [e = . . _LATDbits 6 1 -> -> 0 `i `uc ]
-[; ;debug.c: 29: }
+[; ;debug.c: 28: LATDbits.LD5 = 1;
+"28
+[e = . . _LATDbits 6 1 -> -> 1 `i `uc ]
+[; ;debug.c: 29: LATDbits.LD5 = 0;
 "29
+[e = . . _LATDbits 6 1 -> -> 0 `i `uc ]
+[; ;debug.c: 30: }
+"30
 [e :UE 1135 ]
 }
-"31
-[v _blip3 `(v ~T0 @X0 1 ef ]
 "32
+[v _blip3 `(v ~T0 @X0 1 ef ]
+"33
 {
-[; ;debug.c: 31: void blip3()
-[; ;debug.c: 32: {
+[; ;debug.c: 32: void blip3()
+[; ;debug.c: 33: {
 [e :U _blip3 ]
 [f ]
-[; ;debug.c: 33: LATDbits.LD6 = 0;
-"33
-[e = . . _LATDbits 7 1 -> -> 0 `i `uc ]
-[; ;debug.c: 34: LATDbits.LD6 = 1;
+[; ;debug.c: 34: LATDbits.LD6 = 0;
 "34
-[e = . . _LATDbits 7 1 -> -> 1 `i `uc ]
-[; ;debug.c: 35: LATDbits.LD6 = 0;
-"35
 [e = . . _LATDbits 7 1 -> -> 0 `i `uc ]
-[; ;debug.c: 36: }
+[; ;debug.c: 35: LATDbits.LD6 = 1;
+"35
+[e = . . _LATDbits 7 1 -> -> 1 `i `uc ]
+[; ;debug.c: 36: LATDbits.LD6 = 0;
 "36
+[e = . . _LATDbits 7 1 -> -> 0 `i `uc ]
+[; ;debug.c: 37: }
+"37
 [e :UE 1136 ]
 }
-"38
-[v _blip4 `(v ~T0 @X0 1 ef ]
 "39
+[v _blip4 `(v ~T0 @X0 1 ef ]
+"40
 {
-[; ;debug.c: 38: void blip4()
-[; ;debug.c: 39: {
+[; ;debug.c: 39: void blip4()
+[; ;debug.c: 40: {
 [e :U _blip4 ]
 [f ]
-[; ;debug.c: 40: LATDbits.LD7 = 0;
-"40
-[e = . . _LATDbits 8 1 -> -> 0 `i `uc ]
-[; ;debug.c: 41: LATDbits.LD7 = 1;
+[; ;debug.c: 41: LATDbits.LD7 = 0;
 "41
-[e = . . _LATDbits 8 1 -> -> 1 `i `uc ]
-[; ;debug.c: 42: LATDbits.LD7 = 0;
-"42
 [e = . . _LATDbits 8 1 -> -> 0 `i `uc ]
-[; ;debug.c: 43: }
+[; ;debug.c: 42: LATDbits.LD7 = 1;
+"42
+[e = . . _LATDbits 8 1 -> -> 1 `i `uc ]
+[; ;debug.c: 43: LATDbits.LD7 = 0;
 "43
+[e = . . _LATDbits 8 1 -> -> 0 `i `uc ]
+[; ;debug.c: 44: }
+"44
 [e :UE 1137 ]
+}
+"46
+[v _blink0 `(v ~T0 @X0 1 ef ]
+"47
+{
+[; ;debug.c: 46: void blink0()
+[; ;debug.c: 47: {
+[e :U _blink0 ]
+[f ]
+[; ;debug.c: 48: LATBbits.LB0 ^= 1;
+"48
+[e =^ . . _LATBbits 1 0 -> -> 1 `i `uc ]
+[; ;debug.c: 49: }
+"49
+[e :UE 1138 ]
+}
+"51
+[v _blink1 `(v ~T0 @X0 1 ef ]
+"52
+{
+[; ;debug.c: 51: void blink1()
+[; ;debug.c: 52: {
+[e :U _blink1 ]
+[f ]
+[; ;debug.c: 53: LATBbits.LB1 ^= 1;
+"53
+[e =^ . . _LATBbits 2 1 -> -> 1 `i `uc ]
+[; ;debug.c: 54: }
+"54
+[e :UE 1139 ]
 }
