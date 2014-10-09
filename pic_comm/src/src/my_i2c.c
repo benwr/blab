@@ -321,7 +321,7 @@ void i2c_int_handler() {
 	if(need_data)
 	{
 		unsigned char msg_type;
-		unsigned char length = FromMainHigh_recvmsg( I2C_DATA_SIZE , &msg_type , (void *)ic_ptr->outbuffer );
+		signed char length = FromMainHigh_recvmsg( I2C_DATA_SIZE , &msg_type , (void *)ic_ptr->outbuffer );
 		if( length == MSGQUEUE_EMPTY )
 		{
 			//Don't do anything

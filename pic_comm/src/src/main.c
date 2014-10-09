@@ -186,7 +186,6 @@ The PIC selected is not supported or the preprocessor directives are wrong.
 
 
 void main(void) {
-    char c;
     signed char length;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
@@ -356,9 +355,6 @@ void main(void) {
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-    unsigned char myByte1 = 0x44;
-    unsigned char myByte2 = 0x44;
-
     // printf() is available, but is not advisable.  It goes to the UART pin
     // on the PIC and then you must hook something up to that to view it.
     // It is also slow and is blocking, so it will perturb your code's operation
@@ -370,22 +366,20 @@ void main(void) {
     // that should get them.  Although the subroutines are not threads, but
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
+
+    unsigned char motor_data[I2C_DATA_SIZE];
+            //fill motor data with junk....for now
+    unsigned char poop;
+    for(poop=0; poop < I2C_DATA_SIZE; poop++)
+    {
+        motor_data[poop] = 0x50 + poop;
+    }
     while (1) {
 
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
         //block_on_To_msgqueues();
-
-        unsigned char motor_data[I2C_DATA_SIZE];
-
-        //fill motor data with junk....for now
-        unsigned char poop;
-        for(poop=0;poop<I2C_DATA_SIZE;poop++)
-        {
-                motor_data[poop]=0x55;
-        }
-
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -440,6 +434,16 @@ void main(void) {
         } 
         else
         {
+
+            //static unsigned char motor_counter = 0;
+
+            motor_data[0] = 0x02;
+            motor_data[1] = msgbuffer[2];
+            motor_data[2] = msgbuffer[3];
+            motor_data[3] = msgbuffer[4];
+            //motor_data[3] = motor_counter;
+            //motor_counter++;
+
             unsigned char uart_response[UART_DATA_LENGTH];
             int jjj;
             for(jjj=0;jjj<UART_DATA_LENGTH;jjj++)
@@ -467,6 +471,8 @@ void main(void) {
                     uart_response[0] = MSGID_UART_BAD_COUNTER; //Set Message ID
                     uart_response[1] = msgbuffer[0];
                     uart_response[2] = msgbuffer[1];
+                    motor_data[1] = 0x00;
+                    motor_data[2] = 0x00;
                     send_uart_message( uart_response );
                     break;
                 }
@@ -495,18 +501,17 @@ void main(void) {
                 }
                 case MSGT_UART_DATA:
                 {
-					
+                   /*
                     switch( msgbuffer[0] )
                     {
                         
                         default:
                         {
-
                             break;
                         }
 
 
-                    }
+                    }*/
 					
                     break;
                 };

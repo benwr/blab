@@ -153,7 +153,7 @@ static portTASK_FUNCTION(localizationTask, pvParameters)
         }
 
         // Based on the message type, we decide on an action to take
-        uint8_t lcdValue[1] = {getValue(&messageBuffer, 2)};
+        uint8_t lcdValue[1] = {getValue(&messageBuffer, 0)};
 
         int i;
         switch (messageBuffer.type) {

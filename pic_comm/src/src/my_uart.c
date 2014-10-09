@@ -151,7 +151,7 @@ void uart_receive_interrupt_handler()
             }
 
             //Send actual data gotten to main
-            unsigned char status = ToMainLow_sendmsg(UART_DATA_LENGTH,MSGT_UART_DATA,(void *) gooey_uart_center );
+            signed char status = ToMainLow_sendmsg(UART_DATA_LENGTH,MSGT_UART_DATA,(void *) gooey_uart_center );
 
             if( status == MSGQUEUE_FULL )
             {
@@ -178,7 +178,7 @@ void uart_receive_interrupt_handler()
 //Send a UART Packet
 unsigned char send_uart_message( unsigned char * message_ptr )
 {
-    unsigned char message_q_code = FromMainLow_sendmsg(UART_DATA_LENGTH,MSGT_UART_DATA,(void *) message_ptr );
+    signed char message_q_code = FromMainLow_sendmsg(UART_DATA_LENGTH,MSGT_UART_DATA,(void *) message_ptr );
 
     if( message_q_code == MSGQUEUE_FULL)
     {
