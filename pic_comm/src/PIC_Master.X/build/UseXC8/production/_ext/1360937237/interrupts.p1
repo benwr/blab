@@ -8501,11 +8501,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_i2c.h: 46: void init_i2c(i2c_comm *ic);
 [; ;my_i2c.h: 47: void i2c_int_handler(void);
 [; ;my_i2c.h: 48: void start_i2c_slave_reply(unsigned char,unsigned char *);
-[; ;my_i2c.h: 49: void i2c_configure_slave(unsigned char,unsigned char * ptr_thingy);
+[; ;my_i2c.h: 49: void i2c_configure_slave(unsigned char);
 [; ;my_i2c.h: 50: void i2c_configure_master(unsigned char);
 [; ;my_i2c.h: 51: unsigned char i2c_master_send(unsigned char,unsigned char *);
 [; ;my_i2c.h: 52: unsigned char i2c_master_recv(unsigned char);
-[; ;my_i2c.h: 54: void retrieve_sensor_values( unsigned char * sensor_bank_1 , unsigned char * sensor_bank_2 , unsigned char * sensor_bank_3 );
+[; ;my_i2c.h: 54: void retrieve_sensor_values( unsigned char * sensor_bank );
 "14 ../src/interrupts.c
 [v _enable_interrupts `(v ~T0 @X0 1 ef ]
 {
@@ -8629,9 +8629,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "49
 [e :UE 1145 ]
 }
-[v F9226 `(v ~T0 @X0 1 tf ]
+[v F9223 `(v ~T0 @X0 1 tf ]
 "86
-[v _InterruptHandlerHigh `IF9226 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9223 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 81: interrupt
 [; ;interrupts.c: 86: void InterruptHandlerHigh() {
@@ -8672,9 +8672,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "119
 [e :UE 1148 ]
 }
-[v F9228 `(v ~T0 @X0 1 tf ]
+[v F9225 `(v ~T0 @X0 1 tf ]
 "131
-[v _InterruptHandlerLow `ILF9228 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9225 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 126: interrupt low_priority
 [; ;interrupts.c: 131: void InterruptHandlerLow() {

@@ -10962,12 +10962,12 @@ unsigned char slave_addr;
 void init_i2c(i2c_comm *ic);
 void i2c_int_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
-void i2c_configure_slave(unsigned char,unsigned char * ptr_thingy);
+void i2c_configure_slave(unsigned char);
 void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-void retrieve_sensor_values( unsigned char * sensor_bank_1 , unsigned char * sensor_bank_2 , unsigned char * sensor_bank_3 );
+void retrieve_sensor_values( unsigned char * sensor_bank );
 
 # 9 "../src/my_i2c.c"
 static i2c_comm *ic_ptr;
@@ -11039,9 +11039,7 @@ ic_ptr->status = 0x6;
 void i2c_int_handler() {
 blip1();
 
-static unsigned char sensor_bank_side[14];
-static unsigned char sensor_bank_front[14];
-static unsigned char sensor_bank_ventril[14];
+
 
 unsigned char i2c_data;
 unsigned char data_read = 0;
@@ -11050,6 +11048,7 @@ unsigned char msg_ready = 0;
 unsigned char msg_to_send = 0;
 unsigned char overrun_error = 0;
 unsigned char error_buf[3];
+unsigned char need_data = 1;
 
 
 if (SSPCON1bits.SSPOV == 1) {
@@ -11174,7 +11173,7 @@ else
 {
 if (SSPSTATbits.R_W == 1)
 {
-blip();
+
 ic_ptr->status = 0x8;
 
 switch( ic_ptr->buffer[0] )
@@ -11203,7 +11202,7 @@ data_read = 0;
 ic_ptr->outbufind = 0;
 SSPBUF = ic_ptr->outbuffer[0];
 ic_ptr->outbufind++;
-SSPCON1bits.CKP = 1;
+
 }
 else
 {
@@ -11248,11 +11247,30 @@ ic_ptr->error_count = 0;
 }
 if (msg_to_send) {
 
+start_i2c_slave_reply(14, ic_ptr->outbuffer);
+
 ToMainHigh_sendmsg(0, 42, (void *) ic_ptr->buffer);
+need_data = 1;
 msg_to_send = 0;
 }
 
-retrieve_sensor_values( sensor_bank_side , sensor_bank_front , sensor_bank_ventril );
+if(need_data)
+{
+unsigned char msg_type;
+unsigned char length = FromMainHigh_recvmsg( 14 , &msg_type , (void *)ic_ptr->outbuffer );
+if( length == -4 )
+{
+
+}
+else if( length < 0 )
+{
+
+}
+else
+{
+need_data = 0;
+}
+}
 
 
 }
@@ -11271,15 +11289,13 @@ ic_ptr->error_count = 0;
 
 
 
-void i2c_configure_slave(unsigned char addr, unsigned char * ptr_thingy) {
+void i2c_configure_slave(unsigned char addr) {
 
-need_sensor_data = ptr_thingy;
-
-# 348
+# 365
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 357
+# 374
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11288,30 +11304,30 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 378
+# 395
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 388
+# 405
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 
 }
 
 
-void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * sensor_bank_front , unsigned char * sensor_bank_ventril )
+void retrieve_sensor_values( unsigned char * sensor_bank )
 {
 unsigned char msgtype = 40;
 
 int i;
-signed char length = FromMainHigh_recvmsg( 14 , &msgtype , (void *)sensor_bank_side );
-if( length < 6 )
+signed char length = FromMainHigh_recvmsg( 14 , &msgtype , (void *)sensor_bank);
+if( length < 14 )
 {
-sensor_bank_side[1] == 0x00;
+
 }
 else
 {
-sensor_bank_side[1] == 0xff;
+
 }
 
 
