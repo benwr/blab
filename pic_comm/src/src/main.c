@@ -463,6 +463,8 @@ void main(void) {
                 {
                     uart_response[0] = MSGID_UART_BAD_CHECKSUM; //Set Message ID
                     uart_response[1] = msgbuffer[0];
+                    motor_data[1] = 0x00;
+                    motor_data[2] = 0x00;
                     send_uart_message( uart_response );
                     break;
                 }
@@ -480,6 +482,8 @@ void main(void) {
                 {
                     uart_response[0] = MSGID_UART_BAD_START; //Set Message ID
                     uart_response[1] = msgbuffer[0];
+                    motor_data[1] = 0x00;
+                    motor_data[2] = 0x00;
                     send_uart_message( uart_response );
                     break;
                 }
@@ -487,6 +491,8 @@ void main(void) {
                 {
                     uart_response[0] = MSGID_UART_BAD_END; //Set Message ID
                     uart_response[1] = msgbuffer[0];
+                    motor_data[1] = 0x00;
+                    motor_data[2] = 0x00;
                     send_uart_message( uart_response );
                     break;
 
@@ -517,6 +523,8 @@ void main(void) {
                 };
                 default:
                 {
+                    motor_data[1] = 0x00;
+                    motor_data[2] = 0x00;
                     // Your code should handle this error
                     break;
                 };

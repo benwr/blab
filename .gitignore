@@ -243,3 +243,5 @@ pic_comm/src/PIC_Master.X/dist/UseXC8/production/PIC_Master.X.production.sdb
 pic_comm/src/PIC_Master.X/dist/UseXC8/production/PIC_Master.X.production.sym
 
 pic_comm/src/PIC_Master.X/l.obj
+
+pic_comm/src/PIC_Master.X/funclist
