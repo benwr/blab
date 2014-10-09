@@ -9,8 +9,8 @@
 
 //Command Definitions
 #define MSGID_MOVE                  0x01
-#define MSGID_SENSOR_STATUS         0x02
-#define MSGID_SENSOR_RESPOND        0x03
+#define MSGID_SENSOR_STATUS         0x04
+#define MSGID_SENSOR_RESPOND        0x05
 
 #define MSGID_UART_ACK              0x11
 
