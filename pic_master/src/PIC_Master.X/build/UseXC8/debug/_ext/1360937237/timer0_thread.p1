@@ -8365,6 +8365,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
+[; ;debug.h: 41: void blink0();
+[; ;debug.h: 42: void blink1();
 [; ;my_i2c.h: 9: typedef struct __i2c_comm {
 [; ;my_i2c.h: 10: unsigned char buffer[14];
 [; ;my_i2c.h: 11: unsigned char buflen;

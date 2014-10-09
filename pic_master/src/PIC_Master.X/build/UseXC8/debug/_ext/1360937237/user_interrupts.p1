@@ -8352,6 +8352,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
+[; ;debug.h: 41: void blink0();
+[; ;debug.h: 42: void blink1();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 25: typedef struct __msg {

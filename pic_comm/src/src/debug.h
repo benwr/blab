@@ -38,6 +38,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 
 #endif

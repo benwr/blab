@@ -10939,6 +10939,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
@@ -11059,7 +11061,7 @@ ic_ptr->status = 0x6;
 
 # 129
 void i2c_int_handler() {
-blip();
+
 
 unsigned char i2c_data;
 
@@ -11077,13 +11079,11 @@ switch(ic_ptr->status)
 {
 case 0x5:
 {
-blip1();
 signed char len = FromMainHigh_recvmsg(14, &msg_to_send, (void*)ic_ptr->outbuffer);
 if( len == -4 )
 {
-blip3();
 
-# 158
+# 156
 }
 else if( len == -3 )
 {
@@ -11194,7 +11194,6 @@ break;
 }
 case 0xe:
 {
-blip3();
 if( SSP1CON2bits.ACKSTAT )
 {
 SSP1CON2bits.PEN = 1;
@@ -11211,7 +11210,6 @@ break;
 }
 case 0x8:
 {
-blip2();
 if( SSP1STATbits.BF == 0 )
 {
 break;
@@ -11241,13 +11239,10 @@ break;
 
 case 0xb:
 {
-blip4();
 SSP1CON2bits.PEN = 1;
 ic_ptr->outbufind = 0;
 ic_ptr->outbufind = 0;
 ic_ptr->status = 0x5;
-
-
 }
 }
 
@@ -11270,11 +11265,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 351
+# 344
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 360
+# 353
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11283,11 +11278,11 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 381
+# 374
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 391
+# 384
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 

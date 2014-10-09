@@ -10939,6 +10939,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 28 "../src/my_uart.h"
 typedef struct
@@ -11025,10 +11027,15 @@ static unsigned char done = 0;
 static unsigned char received_counter = 0;
 static unsigned char checksum = 0;
 static unsigned char start_byte_bad = 0;
+static unsigned char error = 0;
 
 if(!done)
 {
 data[index] = RCREG1;
+if(error)
+{
+
+}
 if( index == 0 )
 {
 if( data[0] != 0xff )
@@ -11038,6 +11045,7 @@ if( !start_byte_bad )
 start_byte_bad = 1;
 unsigned char bad_start_id = received_counter;
 ToMainLow_sendmsg(1,34,(void *)&bad_start_id);
+
 }
 index = 0;
 return;
@@ -11061,8 +11069,7 @@ index = 0;
 
 unsigned char bad_end_id = received_counter;
 ToMainLow_sendmsg(1,35,(void *)&bad_end_id);
-
-return;
+error = 1;
 }
 }
 index++;
@@ -11073,7 +11080,8 @@ if( index >= (14 + 2 + 2) )
 
 
 index = 0;
-received_counter++;
+
+
 
 if( received_counter != data[1] )
 {
@@ -11082,14 +11090,21 @@ unsigned char bad_counter_id[2];
 bad_counter_id[0] = received_counter;
 bad_counter_id[1] = data[1];
 ToMainLow_sendmsg(2,33,(void *)&bad_counter_id);
+error = 1;
 }
+
+
 
 if( checksum != data[(14 + 2 + 2) - 2] )
 {
 
 unsigned char bad_checksum_id = received_counter;
 ToMainLow_sendmsg(1,32,(void *)&bad_checksum_id);
+error = 1;
 }
+
+if( !error )
+{
 
 
 
@@ -11102,7 +11117,17 @@ for(i = 0; i < 14; i++)
 gooey_uart_center[i] = data[i+2];
 }
 
-unsigned char status = ToMainLow_sendmsg((14 + 2 + 2),31,(void *) gooey_uart_center );
+unsigned char msg_id = gooey_uart_center[0];
+
+if( ( msg_id != 0x11 ) && ( msg_id != 0xf1 ) && ( msg_id != 0xf2 ) && ( msg_id != 0xf3 ) && ( msg_id != 0xf4 ) )
+{
+unsigned char message_count = received_counter;
+unsigned char status = ToMainLow_sendmsg(1,36,(void*)&message_count );
+}
+
+
+unsigned char status = ToMainLow_sendmsg(14,31,(void *) gooey_uart_center );
+
 if( status == -1 )
 {
 
@@ -11114,7 +11139,11 @@ else
 }
 }
 
-# 156
+received_counter++;
+error = 0;
+}
+
+# 183
 }
 
 
@@ -11137,7 +11166,6 @@ void uart_transmit_interrupt_handler()
 {
 static unsigned char done = 1;
 static unsigned char index = 0;
-static unsigned char sent_counter = 0;
 
 unsigned char * data;
 static unsigned char * message;
@@ -11200,10 +11228,10 @@ signed char message_status = ToMainLow_recvmsg(1,&msgtype,(void *) &gotten_byte 
 
 return gotten_byte;
 
-# 257
+# 283
 }
 
-# 365
+# 391
 unsigned char * uart_frame_message( unsigned char * inner )
 {
 static unsigned char sent_counter = 0;

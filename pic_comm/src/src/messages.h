@@ -5,17 +5,21 @@
 #define MSGLEN 14
 
 // The maximum number of messages in a single queue
-#define MSGQUEUELEN 4
+#define MSGQUEUELEN 8
 
 //Command Definitions
-#define COMMAND_MOVE        0x1
-#define COMMAND_SENSORRQST_SIDE  0x2a
-#define COMMAND_SENSORRQST_FRONT  0x2b
-#define COMMAND_SENSORRQST_VENTRIL  0x2c
-#define COMMAND_SIDE_DATA       0xa5
-#define COMMAND_FRONT_DATA      0xb5
-#define COMMAND_VENTRIL_DATA    0xc5
+#define MSGID_MOVE                  0x01
+#define MSGID_SENSOR_STATUS         0x02
+
+#define MSGID_UART_ACK              0x11
+
+#define MSGID_UART_BAD_CHECKSUM     0xf1
+#define MSGID_UART_BAD_COUNTER      0xf2
+#define MSGID_UART_BAD_START        0xf3
+#define MSGID_UART_BAD_END          0xf4
 //=========================
+
+
 
 
 typedef struct __msg {

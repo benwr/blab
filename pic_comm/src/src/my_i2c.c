@@ -244,31 +244,8 @@ void i2c_int_handler() {
 							switch( ic_ptr->buffer[0] )
 							{
 								int l;
-								case COMMAND_SENSORRQST_SIDE:
-								{
-									for(l = 0;l<I2C_DATA_SIZE;l++)
-									{
-										ic_ptr->outbuffer[l] = sensor_bank_side[l];									
-									}
-									break;								
-								}
-								case COMMAND_SENSORRQST_FRONT:
-								{
-									for(l = 0;l<I2C_DATA_SIZE;l++)
-									{
-										ic_ptr->outbuffer[l] = sensor_bank_front[l];									
-									}	
-									break;										
-								}
-								case COMMAND_SENSORRQST_VENTRIL:
-								{
-									for(l = 0;l<I2C_DATA_SIZE;l++)
-									{
-										ic_ptr->outbuffer[l] = sensor_bank_ventril[l];									
-									}	
-									break;	
-								}
-								default:
+								// ADD cases here for different message ids
+                                                                default:
 								{
 									//Oh shit
 									ic_ptr->outbuffer[0] = ic_ptr->buffer[0];
@@ -416,39 +393,20 @@ void i2c_configure_slave(unsigned char addr, unsigned char * ptr_thingy) {
 
 void retrieve_sensor_values( unsigned char * sensor_bank_side , unsigned char * sensor_bank_front , unsigned char * sensor_bank_ventril )
 {
-	unsigned char * msgtype;
+    unsigned char msgtype = MSGT_I2C_DATA;
 	
-	int i;
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_side );
-	if( length < 6 )
+    int i;
+    signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank_side );
+    if( length < 6 )
     { 
-		sensor_bank_side[1] == 0x00;
-       
+        sensor_bank_side[1] == 0x00;
     }
     else 
     {
-		sensor_bank_side[1] == 0xff;
+	sensor_bank_side[1] == 0xff;
     }
 	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_front );
-	if( length < 6 )
-    { 
-		sensor_bank_front[1] == 0x00;
-    }
-    else 
-    {
-		sensor_bank_front[1] == 0xff;
-    }
 	
-	signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , msgtype , (void *)sensor_bank_ventril );
-	if( length < 6 )
-    { 
-		sensor_bank_ventril[1] == 0x00;
-    }
-    else 
-    {
-		sensor_bank_ventril[1] == 0xff;
-    }
 	
 	*need_sensor_data = 1; 
 	

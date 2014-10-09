@@ -68,8 +68,6 @@ void uart_transmit_interrupt_handler();
 //Alex: Return 1 if UART send buffer is empty, other wise 0
 //int uart_send_buffer_empty();
 
-//Alex: Remove byte from uart receive queue
-unsigned char uart_get_byte();
 
 //Alex: Receive a byte from the uart hardware recieve buffer; interrupt should call this only
 //void uart_receive_byte();
@@ -83,6 +81,6 @@ unsigned char uart_num_bytes_in_recv_buffer();
 //void init_uart_recv(uart_comm *);
 //void uart_recv_int_handler(void);
 
-unsigned char * uart_frame_message( unsigned char * inner );
+void uart_frame_message( unsigned char * inner , unsigned char * outer );
 
 #endif

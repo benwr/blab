@@ -10939,6 +10939,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
@@ -11030,6 +11032,8 @@ tptr->msgcount = 0;
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
 signed char retval;
 
+blink0();
+
 
 unsigned char msg2[14] = {0x02,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
 
@@ -11043,5 +11047,16 @@ i2c_master_send(14, msg2);
 i2c_master_send(14, msg3);
 i2c_master_send(14, msg4);
 
-# 44
+
+
+tptr->msgcount++;
+
+
+if ((tptr->msgcount % 10) == 9) {
+retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
+if (retval < 0) {
+
+}
+}
+
 }

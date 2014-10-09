@@ -10898,6 +10898,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 12 "../src/user_interrupts.h"
 void timer0_int_handler(void);

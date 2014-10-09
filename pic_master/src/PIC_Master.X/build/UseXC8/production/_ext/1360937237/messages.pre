@@ -10913,7 +10913,80 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 14 "../src/messages.c"
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 23 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
+extern int errno;
+
+# 54
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 17 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\conio.h"
+extern int errno;
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 31
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 99 "C:\Program Files (x86)\Microchip\xc8\v1.32\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 191
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 35 "../src/debug.h"
+void debug_configure();
+void blip();
+void blip1();
+void blip2();
+void blip3();
+void blip4();
+void blink0();
+void blink1();
+
+# 15 "../src/messages.c"
 void init_queue(msg_queue *qptr) {
 unsigned char i;
 
@@ -10930,7 +11003,7 @@ unsigned char slot;
 msg *qmsg;
 size_t tlength = length;
 
-# 38
+# 39
 slot = qptr->cur_write_ind;
 qmsg = &(qptr->queue[slot]);
 
@@ -10942,7 +11015,7 @@ return (-1);
 qmsg->length = length;
 qmsg->msgtype = msgtype;
 
-# 55
+# 56
 memcpy(qmsg->data, data, tlength);
 qptr->cur_write_ind = (qptr->cur_write_ind + 1) % 8;
 
@@ -10971,7 +11044,7 @@ return (-3);
 tlength = qmsg->length;
 memcpy(data, qmsg->data, tlength);
 
-# 87
+# 88
 qptr->cur_read_ind = (qptr->cur_read_ind + 1) % 8;
 
 (*msgtype) = qmsg->msgtype;
@@ -10983,63 +11056,63 @@ return (-4);
 }
 }
 
-# 101
+# 102
 static msg_queue ToMainLow_MQ;
 
 signed char ToMainLow_sendmsg(unsigned char length, unsigned char msgtype, void *data) {
 
-# 109
+# 110
 return (send_msg(&ToMainLow_MQ, length, msgtype, data));
 }
 
 signed char ToMainLow_recvmsg(unsigned char maxlength, unsigned char *msgtype, void *data) {
 
-# 118
+# 119
 return (recv_msg(&ToMainLow_MQ, maxlength, msgtype, data));
 }
 
-# 124
+# 125
 static msg_queue ToMainHigh_MQ;
 
 signed char ToMainHigh_sendmsg(unsigned char length, unsigned char msgtype, void *data) {
 
-# 132
+# 133
 return (send_msg(&ToMainHigh_MQ, length, msgtype, data));
 }
 
 signed char ToMainHigh_recvmsg(unsigned char maxlength, unsigned char *msgtype, void *data) {
 
-# 141
+# 142
 return (recv_msg(&ToMainHigh_MQ, maxlength, msgtype, data));
 }
 
-# 148
+# 149
 static msg_queue FromMainLow_MQ;
 
 signed char FromMainLow_sendmsg(unsigned char length, unsigned char msgtype, void *data) {
 
-# 156
+# 157
 return (send_msg(&FromMainLow_MQ, length, msgtype, data));
 }
 
 signed char FromMainLow_recvmsg(unsigned char maxlength, unsigned char *msgtype, void *data) {
 
-# 165
+# 166
 return (recv_msg(&FromMainLow_MQ, maxlength, msgtype, data));
 }
 
-# 172
+# 173
 static msg_queue FromMainHigh_MQ;
 
 signed char FromMainHigh_sendmsg(unsigned char length, unsigned char msgtype, void *data) {
 
-# 180
+# 181
 return (send_msg(&FromMainHigh_MQ, length, msgtype, data));
 }
 
 signed char FromMainHigh_recvmsg(unsigned char maxlength, unsigned char *msgtype, void *data) {
 
-# 189
+# 190
 return (recv_msg(&FromMainHigh_MQ, maxlength, msgtype, data));
 }
 
@@ -11058,11 +11131,11 @@ void enter_sleep_mode(void) {
 OSCCONbits.IDLEN = 1;
 
 
-# 212
+# 213
 #asm
     SLEEP
 #endasm 
-# 214
+# 215
 
 
  }
@@ -11110,23 +11183,19 @@ if (!in_main()) {
 return;
 }
 
-# 263
 MQ_Main_Willing_to_block = 1;
 while (1) {
 if (check_msg(&ToMainHigh_MQ)) {
 MQ_Main_Willing_to_block = 0;
 
-# 270
 return;
 }
 if (check_msg(&ToMainLow_MQ)) {
 MQ_Main_Willing_to_block = 0;
 
-# 277
 return;
 }
 Delay1KTCYx(10);
 
-# 283
 }
 }

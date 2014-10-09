@@ -47,7 +47,7 @@ void i2c_configure_master(unsigned char slave_addr)
 unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
     
     if( FromMainHigh_sendmsg(length,MSGT_I2C_DATA,(void *)msg) == MSGQUEUE_FULL )
-    {        
+    {
         return MSGQUEUE_FULL;
     }
     else
@@ -127,8 +127,8 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-    blip();
-    
+
+
     unsigned char i2c_data;
     //unsigned char length;
     //unsigned char data_read = 0;
@@ -145,11 +145,9 @@ void i2c_int_handler() {
     {
         case I2C_IDLE:
         {
-            blip1();
             signed char len = FromMainHigh_recvmsg(I2C_DATA_SIZE, &msg_to_send, (void*)ic_ptr->outbuffer);
             if( len == MSGQUEUE_EMPTY )
             {
-                blip3();
                 //ic_ptr->error_code=I2C_ERR_NODATA;
                 //ToMainHigh_sendmsg(0,MSGT_I2C_MASTER_SEND_FAILED,(void *)&ic_ptr->error_code);
                 //ic_ptr->status = I2C_IDLE;
@@ -265,7 +263,6 @@ void i2c_int_handler() {
         }
         case I2C_MASTER_RECEIVE:
         {
-            blip3();
             if( SSP1CON2bits.ACKSTAT )  //Check for ACK bit
             {
                 SSP1CON2bits.PEN = 1;
@@ -282,7 +279,6 @@ void i2c_int_handler() {
         }
         case I2C_SLAVE_SEND:
         {
-            blip2();
             if( SSP1STATbits.BF == 0 )   //Check for SSP1BUF empty 
             {
                 break;
@@ -312,13 +308,10 @@ void i2c_int_handler() {
         
         case I2C_MASTER_DATA_STOP:
         {
-            blip4();
             SSP1CON2bits.PEN = 1;
             ic_ptr->outbufind = 0;
             ic_ptr->outbufind = 0;
-            ic_ptr->status = I2C_IDLE;
-
-            
+            ic_ptr->status = I2C_IDLE;            
         }
     }
 

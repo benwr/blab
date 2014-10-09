@@ -10898,6 +10898,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 12 "../src/user_interrupts.h"
 void timer0_int_handler(void);
@@ -10981,16 +10983,13 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 72
-unsigned char uart_get_byte();
-
-# 81
+# 79
 unsigned char uart_num_bytes_in_recv_buffer();
 
 
 
 
-unsigned char * uart_frame_message( unsigned char * inner );
+void uart_frame_message( unsigned char * inner , unsigned char * outer );
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
@@ -11025,7 +11024,8 @@ void timer0_int_handler() {
 unsigned int val;
 int length, msgtype;
 
-# 28
+
+
 WriteTimer0(0);
 
 length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
@@ -11041,11 +11041,9 @@ ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
 
 void timer1_int_handler() {
 
-
-
 unsigned int result;
 
-# 52
+# 47
 result = ReadTimer1();
 ToMainLow_sendmsg(0, 11, (void *) 0);
 

@@ -8352,6 +8352,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
+[; ;debug.h: 41: void blink0();
+[; ;debug.h: 42: void blink1();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 25: typedef struct __msg {
@@ -8398,9 +8400,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 60: void uart_configure( );
 [; ;my_uart.h: 63: void uart_receive_interrupt_handler();
 [; ;my_uart.h: 66: void uart_transmit_interrupt_handler();
-[; ;my_uart.h: 72: unsigned char uart_get_byte();
-[; ;my_uart.h: 81: unsigned char uart_num_bytes_in_recv_buffer();
-[; ;my_uart.h: 86: unsigned char * uart_frame_message( unsigned char * inner );
+[; ;my_uart.h: 79: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;my_uart.h: 84: void uart_frame_message( unsigned char * inner , unsigned char * outer );
 [; ;my_i2c.h: 9: typedef struct __i2c_comm {
 [; ;my_i2c.h: 10: unsigned char buffer[14];
 [; ;my_i2c.h: 11: unsigned char buflen;
@@ -8435,46 +8436,46 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _msgtype `i ~T0 @X0 1 a ]
 [; ;user_interrupts.c: 20: unsigned int val;
 [; ;user_interrupts.c: 21: int length, msgtype;
-[; ;user_interrupts.c: 28: WriteTimer0(0);
-"28
+[; ;user_interrupts.c: 25: WriteTimer0(0);
+"25
 [e ( _WriteTimer0 (1 -> -> 0 `i `ui ]
-[; ;user_interrupts.c: 30: length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
-"30
+[; ;user_interrupts.c: 27: length = FromMainHigh_recvmsg(sizeof(val), (unsigned char *)&msgtype, (void *) &val);
+"27
 [e = _length -> ( _FromMainHigh_recvmsg (3 , , -> -> # _val `ui `uc -> &U _msgtype `*uc -> &U _val `*v `i ]
-[; ;user_interrupts.c: 31: if (length == sizeof (val)) {
-"31
+[; ;user_interrupts.c: 28: if (length == sizeof (val)) {
+"28
 [e $ ! == -> _length `ui -> # _val `ui 1138  ]
 {
-[; ;user_interrupts.c: 32: ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
-"32
+[; ;user_interrupts.c: 29: ToMainHigh_sendmsg(sizeof (val), 10, (void *) &val);
+"29
 [e ( _ToMainHigh_sendmsg (3 , , -> -> # _val `ui `uc -> -> 10 `i `uc -> &U _val `*v ]
-"33
+"30
 }
 [e :U 1138 ]
+[; ;user_interrupts.c: 30: }
 [; ;user_interrupts.c: 33: }
-[; ;user_interrupts.c: 36: }
-"36
+"33
 [e :UE 1137 ]
 }
-"41
+"38
 [v _timer1_int_handler `(v ~T0 @X0 1 ef ]
 {
-[; ;user_interrupts.c: 41: void timer1_int_handler() {
+[; ;user_interrupts.c: 38: void timer1_int_handler() {
 [e :U _timer1_int_handler ]
 [f ]
-"45
+"40
 [v _result `ui ~T0 @X0 1 a ]
-[; ;user_interrupts.c: 45: unsigned int result;
-[; ;user_interrupts.c: 52: result = ReadTimer1();
-"52
+[; ;user_interrupts.c: 40: unsigned int result;
+[; ;user_interrupts.c: 47: result = ReadTimer1();
+"47
 [e = _result ( _ReadTimer1 ..  ]
-[; ;user_interrupts.c: 53: ToMainLow_sendmsg(0, 11, (void *) 0);
-"53
+[; ;user_interrupts.c: 48: ToMainLow_sendmsg(0, 11, (void *) 0);
+"48
 [e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 11 `i `uc -> -> 0 `i `*v ]
-[; ;user_interrupts.c: 56: WriteTimer1(0);
-"56
+[; ;user_interrupts.c: 51: WriteTimer1(0);
+"51
 [e ( _WriteTimer1 (1 -> -> 0 `i `ui ]
-[; ;user_interrupts.c: 58: }
-"58
+[; ;user_interrupts.c: 53: }
+"53
 [e :UE 1139 ]
 }

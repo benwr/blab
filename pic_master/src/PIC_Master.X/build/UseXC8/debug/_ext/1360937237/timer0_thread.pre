@@ -10939,6 +10939,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {

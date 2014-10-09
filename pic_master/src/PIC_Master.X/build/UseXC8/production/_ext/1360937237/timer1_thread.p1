@@ -2,6 +2,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "4 ../src/timer1_thread.h
 [s S1137 `ui 1 ]
 [n S1137 __timer1_thread_struct msgcount ]
+"41 ../src/debug.h
+[v _blink0 `(v ~T0 @X0 0 ef ]
+"57 ../src/my_uart.h
+[v _send_uart_message `(uc ~T0 @X0 0 ef1`*uc ]
 "52 ../src/my_i2c.h
 [v _i2c_master_send `(uc ~T0 @X0 0 ef2`uc`*uc ]
 "93 ../src/messages.h
@@ -8369,6 +8373,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
+[; ;debug.h: 41: void blink0();
+[; ;debug.h: 42: void blink1();
 [; ;my_i2c.h: 9: typedef struct __i2c_comm {
 [; ;my_i2c.h: 10: unsigned char buffer[14];
 [; ;my_i2c.h: 11: unsigned char buflen;
@@ -8412,9 +8418,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 60: void uart_configure( );
 [; ;my_uart.h: 63: void uart_receive_interrupt_handler();
 [; ;my_uart.h: 66: void uart_transmit_interrupt_handler();
-[; ;my_uart.h: 72: unsigned char uart_get_byte();
-[; ;my_uart.h: 81: unsigned char uart_num_bytes_in_recv_buffer();
-[; ;my_uart.h: 86: unsigned char * uart_frame_message( unsigned char * inner );
+[; ;my_uart.h: 79: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;my_uart.h: 84: void uart_frame_message( unsigned char * inner , unsigned char * outer );
 [; ;timer1_thread.h: 4: typedef struct __timer1_thread_struct {
 [; ;timer1_thread.h: 6: unsigned int msgcount;
 [; ;timer1_thread.h: 7: } timer1_thread_struct;
@@ -8446,10 +8451,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 "18
 [v _retval `c ~T0 @X0 1 a ]
-[v F9221 `uc ~T0 @X0 -> 14 `i s ]
-[i F9221
-:U ..
+[; ;timer1_thread.c: 18: signed char retval;
+[; ;timer1_thread.c: 21: blink0();
 "21
+[e ( _blink0 ..  ]
+[v F9223 `uc ~T0 @X0 -> 14 `i s ]
+[i F9223
+:U ..
+"24
 -> -> 2 `i `uc
 -> -> 255 `i `uc
 -> -> 255 `i `uc
@@ -8467,13 +8476,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg2 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 18: signed char retval;
-[; ;timer1_thread.c: 21: unsigned char msg2[14] = {0x02,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
-[e = _msg2 F9221 ]
-[v F9223 `uc ~T0 @X0 -> 14 `i s ]
-[i F9223
+[; ;timer1_thread.c: 24: unsigned char msg2[14] = {0x02,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[e = _msg2 F9223 ]
+[v F9225 `uc ~T0 @X0 -> 14 `i s ]
+[i F9225
 :U ..
-"23
+"26
 -> -> 1 `i `uc
 -> -> 168 `i `uc
 -> -> 168 `i `uc
@@ -8491,12 +8499,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg3 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 23: unsigned char msg3[14] = {0x01,0xa8,0xa8,0xa8,0xa8,0xa8,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
-[e = _msg3 F9223 ]
-[v F9225 `uc ~T0 @X0 -> 14 `i s ]
-[i F9225
+[; ;timer1_thread.c: 26: unsigned char msg3[14] = {0x01,0xa8,0xa8,0xa8,0xa8,0xa8,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[e = _msg3 F9225 ]
+[v F9227 `uc ~T0 @X0 -> 14 `i s ]
+[i F9227
 :U ..
-"25
+"28
 -> -> 2 `i `uc
 -> -> 169 `i `uc
 -> -> 169 `i `uc
@@ -8514,40 +8522,43 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _msg4 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 25: unsigned char msg4[14] = {0x02,0xa9,0xa9,0xa9,0xa9,0xa9,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
-[e = _msg4 F9225 ]
-[; ;timer1_thread.c: 29: i2c_master_send(14, msg2);
-"29
+[; ;timer1_thread.c: 28: unsigned char msg4[14] = {0x02,0xa9,0xa9,0xa9,0xa9,0xa9,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[e = _msg4 F9227 ]
+[; ;timer1_thread.c: 32: send_uart_message( msg2 );
+"32
+[e ( _send_uart_message (1 &U _msg2 ]
+[; ;timer1_thread.c: 35: i2c_master_send(14, msg2);
+"35
 [e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg2 ]
-[; ;timer1_thread.c: 30: i2c_master_send(14, msg3);
-"30
+[; ;timer1_thread.c: 36: i2c_master_send(14, msg3);
+"36
 [e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg3 ]
-[; ;timer1_thread.c: 31: i2c_master_send(14, msg4);
-"31
-[e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg4 ]
-[; ;timer1_thread.c: 34: tptr->msgcount++;
-"34
-[e ++ . *U _tptr 0 -> -> 1 `i `ui ]
-[; ;timer1_thread.c: 37: if ((tptr->msgcount % 10) == 9) {
+[; ;timer1_thread.c: 37: i2c_master_send(14, msg4);
 "37
+[e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg4 ]
+[; ;timer1_thread.c: 41: tptr->msgcount++;
+"41
+[e ++ . *U _tptr 0 -> -> 1 `i `ui ]
+[; ;timer1_thread.c: 44: if ((tptr->msgcount % 10) == 9) {
+"44
 [e $ ! == % . *U _tptr 0 -> -> 10 `i `ui -> -> 9 `i `ui 1140  ]
 {
-[; ;timer1_thread.c: 38: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
-"38
+[; ;timer1_thread.c: 45: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
+"45
 [e = _retval ( _FromMainHigh_sendmsg (3 , , -> -> # . *U _tptr 0 `ui `uc -> -> 20 `i `uc -> &U . *U _tptr 0 `*v ]
-[; ;timer1_thread.c: 39: if (retval < 0) {
-"39
+[; ;timer1_thread.c: 46: if (retval < 0) {
+"46
 [e $ ! < -> _retval `i -> 0 `i 1141  ]
 {
-"41
+"48
 }
 [e :U 1141 ]
-"42
+"49
 }
 [e :U 1140 ]
-[; ;timer1_thread.c: 41: }
-[; ;timer1_thread.c: 42: }
-[; ;timer1_thread.c: 44: }
-"44
+[; ;timer1_thread.c: 48: }
+[; ;timer1_thread.c: 49: }
+[; ;timer1_thread.c: 51: }
+"51
 [e :UE 1139 ]
 }

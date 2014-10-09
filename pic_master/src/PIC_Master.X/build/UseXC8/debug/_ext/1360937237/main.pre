@@ -10951,6 +10951,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 28 "../src/my_uart.h"
 typedef struct
@@ -11167,12 +11169,10 @@ unsigned char sensor_bank_side[(14 + 2 + 2)];
 unsigned char sensor_bank_front[(14 + 2 + 2)];
 unsigned char sensor_bank_ventril[(14 + 2 + 2)];
 
-# 376
+# 375
 while (1) {
 
-
-
-
+# 381
 block_on_To_msgqueues();
 
 # 389
@@ -11243,6 +11243,8 @@ break;
 }
 
 
+
+
 length = ToMainLow_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11252,8 +11254,15 @@ if (length != -4) {
 }
 else
 {
+unsigned char uart_response[14];
+int jjj;
+for(jjj=0;jjj<14;jjj++)
+{
+uart_response[jjj] = 0;
+}
 switch (msgtype)
 {
+
 case 11:
 {
 
@@ -11263,38 +11272,46 @@ break;
 case 30:
 case 32:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf1;
 uart_response[1] = msgbuffer[0];
 send_uart_message( uart_response );
+break;
 }
 case 33:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf2;
 uart_response[1] = msgbuffer[0];
 uart_response[2] = msgbuffer[1];
 send_uart_message( uart_response );
+break;
 }
 case 34:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf3;
 uart_response[1] = msgbuffer[0];
 send_uart_message( uart_response );
+break;
 }
 case 35:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf4;
 uart_response[1] = msgbuffer[0];
 send_uart_message( uart_response );
+break;
+
+}
+case 36:
+{
+uart_response[0] = 0x11;
+uart_response[1] = msgbuffer[0];
+send_uart_message( uart_response );
+break;
 
 }
 case 31:
 {
 
-uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+
 
 
 switch( msgbuffer[0] )

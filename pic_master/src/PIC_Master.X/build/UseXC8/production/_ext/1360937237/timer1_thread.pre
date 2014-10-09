@@ -10939,6 +10939,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
@@ -11001,16 +11003,13 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 72
-unsigned char uart_get_byte();
-
-# 81
+# 79
 unsigned char uart_num_bytes_in_recv_buffer();
 
 
 
 
-unsigned char * uart_frame_message( unsigned char * inner );
+void uart_frame_message( unsigned char * inner , unsigned char * outer );
 
 # 4 "../src/timer1_thread.h"
 typedef struct __timer1_thread_struct {
@@ -11031,6 +11030,9 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
 signed char retval;
 
 
+blink0();
+
+
 unsigned char msg2[14] = {0x02,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
 
 unsigned char msg3[14] = {0x01,0xa8,0xa8,0xa8,0xa8,0xa8,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
@@ -11039,9 +11041,13 @@ unsigned char msg4[14] = {0x02,0xa9,0xa9,0xa9,0xa9,0xa9,0xff,0xff,0xfe,0xfe,0xaa
 
 
 
+send_uart_message( msg2 );
+
+
 i2c_master_send(14, msg2);
 i2c_master_send(14, msg3);
 i2c_master_send(14, msg4);
+
 
 
 tptr->msgcount++;

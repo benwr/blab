@@ -8434,6 +8434,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;debug.h: 38: void blip2();
 [; ;debug.h: 39: void blip3();
 [; ;debug.h: 40: void blip4();
+[; ;debug.h: 41: void blink0();
+[; ;debug.h: 42: void blink1();
 [; ;user_interrupts.h: 12: void timer0_int_handler(void);
 [; ;user_interrupts.h: 14: void timer1_int_handler(void);
 [; ;messages.h: 25: typedef struct __msg {
@@ -8480,9 +8482,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 60: void uart_configure( );
 [; ;my_uart.h: 63: void uart_receive_interrupt_handler();
 [; ;my_uart.h: 66: void uart_transmit_interrupt_handler();
-[; ;my_uart.h: 72: unsigned char uart_get_byte();
-[; ;my_uart.h: 81: unsigned char uart_num_bytes_in_recv_buffer();
-[; ;my_uart.h: 86: unsigned char * uart_frame_message( unsigned char * inner );
+[; ;my_uart.h: 79: unsigned char uart_num_bytes_in_recv_buffer();
+[; ;my_uart.h: 84: void uart_frame_message( unsigned char * inner , unsigned char * outer );
 [; ;my_i2c.h: 9: typedef struct __i2c_comm {
 [; ;my_i2c.h: 10: unsigned char buffer[14];
 [; ;my_i2c.h: 11: unsigned char buflen;
@@ -8627,9 +8628,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "49
 [e :UE 1145 ]
 }
-[v F9219 `(v ~T0 @X0 1 tf ]
+[v F9221 `(v ~T0 @X0 1 tf ]
 "86
-[v _InterruptHandlerHigh `IF9219 ~T0 @X0 1 e ]
+[v _InterruptHandlerHigh `IF9221 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 81: interrupt
 [; ;interrupts.c: 86: void InterruptHandlerHigh() {
@@ -8670,9 +8671,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "119
 [e :UE 1148 ]
 }
-[v F9221 `(v ~T0 @X0 1 tf ]
+[v F9223 `(v ~T0 @X0 1 tf ]
 "131
-[v _InterruptHandlerLow `ILF9221 ~T0 @X0 1 e ]
+[v _InterruptHandlerLow `ILF9223 ~T0 @X0 1 e ]
 {
 [; ;interrupts.c: 126: interrupt low_priority
 [; ;interrupts.c: 131: void InterruptHandlerLow() {

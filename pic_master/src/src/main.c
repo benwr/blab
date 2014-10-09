@@ -294,11 +294,7 @@ void main(void) {
     // sure this PIC does not have the same address and configure the
     // temperature sensor address bits and then just stay in an infinite loop
     i2c_configure_slave(0x9A);
-    #ifdef __USE18F2680
-    LATBbits.LATB1 = 1;
-    LATBbits.LATB0 = 1;
-    LATBbits.LATB2 = 1;
-    #endif
+  
     for (;;);
     #endif
 
@@ -367,14 +363,12 @@ void main(void) {
     unsigned char sensor_bank_front[UART_FRAME_LENGTH];
     unsigned char sensor_bank_ventril[UART_FRAME_LENGTH];
 
-
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
     // that should get them.  Although the subroutines are not threads, but
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     while (1) {
-
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
@@ -469,8 +463,15 @@ void main(void) {
         } 
         else
         {
+            unsigned char uart_response[UART_DATA_LENGTH];
+            int jjj;
+            for(jjj=0;jjj<UART_DATA_LENGTH;jjj++)
+            {
+                uart_response[jjj] = 0;
+            }
             switch (msgtype)
             {
+
                 case MSGT_TIMER1:
                 {
                     
@@ -478,40 +479,49 @@ void main(void) {
                     break;
                 };
                 case MSGT_OVERRUN:
+                {}
                 case MSGT_UART_BAD_CHECKSUM:
-                {
-                    unsigned char uart_response[UART_DATA_LENGTH];
+                {                    
                     uart_response[0] = MSGID_UART_BAD_CHECKSUM; //Set Message ID
                     uart_response[1] = msgbuffer[0];
                     send_uart_message( uart_response );
+                    break;
                 }
                 case MSGT_UART_BAD_COUNTER:
                 {
-                    unsigned char uart_response[UART_DATA_LENGTH];
                     uart_response[0] = MSGID_UART_BAD_COUNTER; //Set Message ID
                     uart_response[1] = msgbuffer[0];
                     uart_response[2] = msgbuffer[1];
                     send_uart_message( uart_response );
+                    break;
                 }
                 case MSGT_UART_BAD_START:
                 {
-                    unsigned char uart_response[UART_DATA_LENGTH];
                     uart_response[0] = MSGID_UART_BAD_START; //Set Message ID
                     uart_response[1] = msgbuffer[0];
                     send_uart_message( uart_response );
+                    break;
                 }
                 case MSGT_UART_BAD_END:
                 {
-                    unsigned char uart_response[UART_DATA_LENGTH];
                     uart_response[0] = MSGID_UART_BAD_END; //Set Message ID
                     uart_response[1] = msgbuffer[0];
                     send_uart_message( uart_response );
+                    break;
+
+                }
+                case MSGT_UART_ACK_DATA:
+                {
+                    uart_response[0] = MSGID_UART_ACK; //Set Message ID
+                    uart_response[1] = msgbuffer[0];
+                    send_uart_message( uart_response );
+                    break;
 
                 }
                 case MSGT_UART_DATA:
                 {
                    
-                    uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+                    //uart_lthread(&uthread_data, msgtype, length, msgbuffer);
 
 
                     switch( msgbuffer[0] )

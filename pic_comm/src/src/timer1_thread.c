@@ -13,6 +13,8 @@ void init_timer1_lthread(timer1_thread_struct *tptr) {
 
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
     signed char retval;
+	
+	blink0();	//Make LED0 blink
 
     tptr->msgcount++;
     // Every tenth message we get from timer1 we

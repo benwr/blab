@@ -10951,6 +10951,8 @@ void blip1();
 void blip2();
 void blip3();
 void blip4();
+void blink0();
+void blink1();
 
 # 28 "../src/my_uart.h"
 typedef struct
@@ -10988,16 +10990,13 @@ void uart_receive_interrupt_handler();
 
 void uart_transmit_interrupt_handler();
 
-# 72
-unsigned char uart_get_byte();
-
-# 81
+# 79
 unsigned char uart_num_bytes_in_recv_buffer();
 
 
 
 
-unsigned char * uart_frame_message( unsigned char * inner );
+void uart_frame_message( unsigned char * inner , unsigned char * outer );
 
 # 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
@@ -11144,16 +11143,16 @@ IPR1bits.SSPIP = 1;
 # 291
 i2c_configure_master(0x4f);
 
-# 306
+# 302
 PIE1bits.SSPIE = 1;
 
-# 332
+# 328
 debug_configure();
 
-# 342
+# 338
 enable_interrupts();
 
-# 352
+# 348
 uart_configure();
 
 
@@ -11162,20 +11161,19 @@ uart_configure();
 unsigned char myByte1 = 0x54;
 unsigned char myByte2 = 0x45;
 
-# 366
+# 362
 unsigned char sensor_bank_side[(14 + 2 + 2)];
 unsigned char sensor_bank_front[(14 + 2 + 2)];
 unsigned char sensor_bank_ventril[(14 + 2 + 2)];
 
-# 376
+# 371
 while (1) {
-
 
 
 
 block_on_To_msgqueues();
 
-# 389
+# 383
 length = ToMainHigh_recvmsg(14, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -11205,7 +11203,7 @@ break;
 case 42:
 {
 
-# 424
+# 418
 switch (last_reg_recvd) {
 case 0xaa:
 {
@@ -11254,8 +11252,15 @@ if (length != -4) {
 }
 else
 {
+unsigned char uart_response[14];
+int jjj;
+for(jjj=0;jjj<14;jjj++)
+{
+uart_response[jjj] = 0;
+}
 switch (msgtype)
 {
+
 case 11:
 {
 
@@ -11263,40 +11268,49 @@ timer1_lthread(&t1thread_data, msgtype, length, msgbuffer);
 break;
 };
 case 30:
+{}
 case 32:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf1;
 uart_response[1] = msgbuffer[0];
 send_uart_message( uart_response );
+break;
 }
 case 33:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf2;
 uart_response[1] = msgbuffer[0];
 uart_response[2] = msgbuffer[1];
 send_uart_message( uart_response );
+break;
 }
 case 34:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf3;
 uart_response[1] = msgbuffer[0];
 send_uart_message( uart_response );
+break;
 }
 case 35:
 {
-unsigned char uart_response[14];
 uart_response[0] = 0xf4;
 uart_response[1] = msgbuffer[0];
 send_uart_message( uart_response );
+break;
+
+}
+case 36:
+{
+uart_response[0] = 0x11;
+uart_response[1] = msgbuffer[0];
+send_uart_message( uart_response );
+break;
 
 }
 case 31:
 {
 
-uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+
 
 
 switch( msgbuffer[0] )
