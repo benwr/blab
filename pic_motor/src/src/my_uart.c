@@ -36,7 +36,7 @@ void uart_configure()
     SPBRGH = 0x00;
     SPBRG= 0xCF;
     #endif  //Alex: End definitions for the Mk 3
-    #endif
+	#endif
 
     TXSTA1bits.SYNC = 0; //Alex: Set Asynchronous mode
     RCSTA1bits.SPEN = 1; //Alex: Enable UART module 1..or something
@@ -53,8 +53,8 @@ void uart_configure()
 
 }
 
-
-
+#ifdef __USE18F46J50  //Alex: Begin definitions for the Mk 4
+#endif  //Alex: End definitions for the Mk IV
 
 
 //Handle receive interrupt

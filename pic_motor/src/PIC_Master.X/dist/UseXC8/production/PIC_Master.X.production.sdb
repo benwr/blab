@@ -1,0 +1,1451 @@
+[p LITE_MODE AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F45J10 ]
+[d frameptr 4065 ]
+"3 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/debug.c
+[v _debug_configure debug_configure `(v  1 e 0 0 ]
+"11
+[v _blip blip `(v  1 e 0 0 ]
+"18
+[v _blip1 blip1 `(v  1 e 0 0 ]
+[v i2_blip1 blip1 `(v  1 e 0 0 ]
+"25
+[v _blip2 blip2 `(v  1 e 0 0 ]
+[v i2_blip2 blip2 `(v  1 e 0 0 ]
+"32
+[v _blip3 blip3 `(v  1 e 0 0 ]
+[v i2_blip3 blip3 `(v  1 e 0 0 ]
+"39
+[v _blip4 blip4 `(v  1 e 0 0 ]
+"46
+[v _blink0 blink0 `(v  1 e 0 0 ]
+"51
+[v _blink1 blink1 `(v  1 e 0 0 ]
+"14 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/interrupts.c
+[v _enable_interrupts enable_interrupts `(v  1 e 0 0 ]
+"25
+[v _in_high_int in_high_int `(i  1 e 2 0 ]
+"29
+[v _low_int_active low_int_active `(i  1 e 2 0 ]
+"33
+[v _in_low_int in_low_int `(i  1 e 2 0 ]
+"43
+[v _in_main in_main `(i  1 e 2 0 ]
+"86
+[v _InterruptHandlerHigh InterruptHandlerHigh `II(v  1 e 0 0 ]
+"131
+[v _InterruptHandlerLow InterruptHandlerLow `IIL(v  1 e 0 0 ]
+"188 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/main.c
+[v _main main `(v  1 e 0 0 ]
+"14 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _init_queue init_queue `(v  1 e 0 0 ]
+"24
+[v _send_msg send_msg `(c  1 e 1 0 ]
+[v i1_send_msg send_msg `(c  1 e 1 0 ]
+[v i2_send_msg send_msg `(c  1 e 1 0 ]
+"63
+[v _recv_msg recv_msg `(c  1 e 1 0 ]
+[v i1_recv_msg recv_msg `(c  1 e 1 0 ]
+[v i2_recv_msg recv_msg `(c  1 e 1 0 ]
+"103
+[v _ToMainLow_sendmsg ToMainLow_sendmsg `(c  1 e 1 0 ]
+"112
+[v _ToMainLow_recvmsg ToMainLow_recvmsg `(c  1 e 1 0 ]
+"126
+[v _ToMainHigh_sendmsg ToMainHigh_sendmsg `(c  1 e 1 0 ]
+"135
+[v _ToMainHigh_recvmsg ToMainHigh_recvmsg `(c  1 e 1 0 ]
+"150
+[v _FromMainLow_sendmsg FromMainLow_sendmsg `(c  1 e 1 0 ]
+"159
+[v _FromMainLow_recvmsg FromMainLow_recvmsg `(c  1 e 1 0 ]
+"174
+[v _FromMainHigh_sendmsg FromMainHigh_sendmsg `(c  1 e 1 0 ]
+"183
+[v _FromMainHigh_recvmsg FromMainHigh_recvmsg `(c  1 e 1 0 ]
+"194
+[v _init_queues init_queues `(v  1 e 0 0 ]
+"202
+[v _enter_sleep_mode enter_sleep_mode `(v  1 e 0 0 ]
+"220
+[v _check_msg check_msg `(uc  1 e 1 0 ]
+"226
+[v _SleepIfOkay SleepIfOkay `(v  1 e 0 0 ]
+"256
+[v _block_on_To_msgqueues block_on_To_msgqueues `(v  1 e 0 0 ]
+"15 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_i2c.c
+[v _i2c_configure_master i2c_configure_master `(v  1 e 0 0 ]
+"31
+[v _i2c_master_send i2c_master_send `(uc  1 e 1 0 ]
+"49
+[v _i2c_master_recv i2c_master_recv `(uc  1 e 1 0 ]
+"54
+[v _start_i2c_slave_reply start_i2c_slave_reply `(v  1 e 0 0 ]
+"72
+[v _handle_start handle_start `(v  1 e 0 0 ]
+"103
+[v _i2c_int_handler i2c_int_handler `(v  1 e 0 0 ]
+"345
+[v _init_i2c init_i2c `(v  1 e 0 0 ]
+"356
+[v _i2c_configure_slave i2c_configure_slave `(v  1 e 0 0 ]
+"411
+[v _retrieve_sensor_values retrieve_sensor_values `(v  1 e 0 0 ]
+"22 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_uart.c
+[v _uart_configure uart_configure `(v  1 e 0 0 ]
+"61
+[v _uart_receive_interrupt_handler uart_receive_interrupt_handler `(v  1 e 0 0 ]
+"186
+[v _send_uart_message send_uart_message `(uc  1 e 1 0 ]
+"200
+[v _uart_transmit_interrupt_handler uart_transmit_interrupt_handler `(v  1 e 0 0 ]
+"368
+[v _uart_frame_message uart_frame_message `(v  1 e 0 0 ]
+"9 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/timer0_thread.c
+[v _timer0_lthread timer0_lthread `(i  1 e 2 0 ]
+"7 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/timer1_thread.c
+[v _init_timer1_lthread init_timer1_lthread `(v  1 e 0 0 ]
+"15
+[v _timer1_lthread timer1_lthread `(i  1 e 2 0 ]
+"9 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/uart_thread.c
+[v _uart_lthread uart_lthread `(i  1 e 2 0 ]
+"16 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/user_interrupts.c
+[v _timer0_int_handler timer0_int_handler `(v  1 e 0 0 ]
+"38
+[v _timer1_int_handler timer1_int_handler `(v  1 e 0 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\abdiv.c
+[v ___abdiv __abdiv `(c  1 e 1 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\abmod.c
+[v ___abmod __abmod `(c  1 e 1 0 ]
+"31 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\abtofl.c
+[v ___abtofl __abtofl `(d  1 e 3 0 ]
+"33 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\abtoft.c
+[v ___abtoft __abtoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\almod.c
+[v ___almod __almod `(l  1 e 4 0 ]
+"36 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\altofl.c
+[v ___altofl __altofl `(d  1 e 3 0 ]
+"42 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\altoft.c
+[v ___altoft __altoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\atdiv.c
+[v ___atdiv __atdiv `(m  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\atmod.c
+[v ___atmod __atmod `(m  1 e 3 0 ]
+"37 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\attofl.c
+[v ___attofl __attofl `(d  1 e 3 0 ]
+"37 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\attoft.c
+[v ___attoft __attoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+[v i1___awmod __awmod `(i  1 e 2 0 ]
+[v i2___awmod __awmod `(i  1 e 2 0 ]
+"31 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awtofl.c
+[v ___awtofl __awtofl `(d  1 e 3 0 ]
+"32 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awtoft.c
+[v ___awtoft __awtoft `(f  1 e 3 0 ]
+"63 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\double.c
+[v ___flpack __flpack `(d  1 e 3 0 ]
+"88 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\fladd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"49 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\fldiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\flge.c
+[v ___flge __flge `(b  1 e 0 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\flmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\flneg.c
+[v ___flneg __flneg `(d  1 e 3 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"20 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\flsub.c
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"43 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\fltol.c
+[v ___fltol __fltol `(l  1 e 4 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"49 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ftneg.c
+[v ___ftneg __ftneg `(f  1 e 3 0 ]
+"20 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lbdiv.c
+[v ___lbdiv __lbdiv `(uc  1 e 1 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lbmod.c
+[v ___lbmod __lbmod `(uc  1 e 1 0 ]
+"27 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lbtofl.c
+[v ___lbtofl __lbtofl `(d  1 e 3 0 ]
+"27 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lbtoft.c
+[v ___lbtoft __lbtoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"30 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lltofl.c
+[v ___lltofl __lltofl `(d  1 e 3 0 ]
+"35 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lltoft.c
+[v ___lltoft __lltoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ltdiv.c
+[v ___ltdiv __ltdiv `(um  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\ltmod.c
+[v ___ltmod __ltmod `(um  1 e 3 0 ]
+"30 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lttofl.c
+[v ___lttofl __lttofl `(d  1 e 3 0 ]
+"30 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lttoft.c
+[v ___lttoft __lttoft `(f  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"28 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwtofl.c
+[v ___lwtofl __lwtofl `(d  1 e 3 0 ]
+"28 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+"11 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c
+[v _memcpy memcpy `(*.39v  1 e 2 0 ]
+[v i1_memcpy memcpy `(*.39v  1 e 2 0 ]
+[v i2_memcpy memcpy `(*.39v  1 e 2 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\Umul24.c
+[v ___tmul __tmul `(um  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\Umul8.c
+[v ___bmul __bmul `(uc  1 e 1 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asfladd.c
+[v ___asfladd __asfladd `(d  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asfldiv.c
+[v ___asfldiv __asfldiv `(d  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asflmul.c
+[v ___asflmul __asflmul `(d  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asflsub.c
+[v ___asflsub __asflsub `(d  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asftadd.c
+[v ___asftadd __asftadd `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asftdiv.c
+[v ___asftdiv __asftdiv `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asftmul.c
+[v ___asftmul __asftmul `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\asftsub.c
+[v ___asftsub __asftsub `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\aslmul.c
+[v ___aslmul __aslmul `(ul  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\d1ktcyx.c
+[v _Delay1KTCYx Delay1KTCYx `(v  1 e 0 0 ]
+"18 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c
+[v _OpenTimer0 OpenTimer0 `(v  1 e 0 0 ]
+"16 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c
+[v _WriteTimer0 WriteTimer0 `(v  1 e 0 0 ]
+"16 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c
+[v _OpenTimer1 OpenTimer1 `(v  1 e 0 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c
+[v _ReadTimer1 ReadTimer1 `(ui  1 e 2 0 ]
+"14 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c
+[v _WriteTimer1 WriteTimer1 `(v  1 e 0 0 ]
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+"101 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v _ToMainLow_MQ ToMainLow_MQ `S541  1 s 87 ToMainLow_MQ ]
+"124
+[v _ToMainHigh_MQ ToMainHigh_MQ `S541  1 s 87 ToMainHigh_MQ ]
+"148
+[v _FromMainLow_MQ FromMainLow_MQ `S541  1 s 87 FromMainLow_MQ ]
+"172
+[v _FromMainHigh_MQ FromMainHigh_MQ `S541  1 s 87 FromMainHigh_MQ ]
+"192
+[v _MQ_Main_Willing_to_block MQ_Main_Willing_to_block `uc  1 s 1 MQ_Main_Willing_to_block ]
+[s S311 __i2c_comm 38 `[14]uc 1 buffer 14 0 `uc 1 buflen 1 14 `uc 1 bufind 1 15 `[14]uc 1 outbuffer 14 16 `uc 1 outbufind 1 30 `uc 1 outbuflen 1 31 `uc 1 event_count 1 32 `uc 1 status 1 33 `uc 1 error_code 1 34 `uc 1 error_count 1 35 `uc 1 initiated 1 36 `uc 1 slave_addr 1 37 ]
+"9 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_i2c.c
+[v _ic_ptr ic_ptr `*.39S311  1 s 2 ic_ptr ]
+"10
+[v _need_sensor_data need_sensor_data `*.39uc  1 s 2 need_sensor_data ]
+"2068 C:\Program Files (x86)\Microchip\xc8\v1.32\include\pic18f45j10.h
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+[s S1938 . 1 `uc 1 LATD0 1 0 :1:0 
+`uc 1 LATD1 1 0 :1:1 
+`uc 1 LATD2 1 0 :1:2 
+`uc 1 LATD3 1 0 :1:3 
+`uc 1 LATD4 1 0 :1:4 
+`uc 1 LATD5 1 0 :1:5 
+`uc 1 LATD6 1 0 :1:6 
+`uc 1 LATD7 1 0 :1:7 
+]
+"2116
+[s S1947 . 1 `uc 1 LD0 1 0 :1:0 
+]
+[s S1949 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 LD1 1 0 :1:1 
+]
+[s S1952 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 LD2 1 0 :1:2 
+]
+[s S1955 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 LD3 1 0 :1:3 
+]
+[s S1958 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 LD4 1 0 :1:4 
+]
+[s S1961 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 LD5 1 0 :1:5 
+]
+[s S1964 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 LD6 1 0 :1:6 
+]
+[s S1967 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 LD7 1 0 :1:7 
+]
+[u S1970 . 1 `S1938 1 . 1 0 `S1947 1 . 1 0 `S1949 1 . 1 0 `S1952 1 . 1 0 `S1955 1 . 1 0 `S1958 1 . 1 0 `S1961 1 . 1 0 `S1964 1 . 1 0 `S1967 1 . 1 0 ]
+[v _LATBbits LATBbits `VES1970  1 e 1 @3978 ]
+"2380
+[v _LATDbits LATDbits `VES1970  1 e 1 @3980 ]
+"2725
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+[s S1252 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"2757
+[s S1261 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+[u S1270 . 1 `S1252 1 . 1 0 `S1261 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES1270  1 e 1 @3987 ]
+"2978
+[v _TRISCbits TRISCbits `VES1270  1 e 1 @3988 ]
+"3167
+[v _TRISD TRISD `VEuc  1 e 1 @3989 ]
+[s S331 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 PLLEN 1 0 :1:6 
+]
+"3562
+[u S334 . 1 `S331 1 . 1 0 ]
+[v _OSCTUNEbits OSCTUNEbits `VES334  1 e 1 @3995 ]
+[s S173 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSP1IF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 PSPIF 1 0 :1:7 
+]
+"3594
+[s S182 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TX1IF 1 0 :1:4 
+`uc 1 RC1IF 1 0 :1:5 
+]
+[u S187 . 1 `S173 1 . 1 0 `S182 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES187  1 e 1 @3997 ]
+"3676
+[v _PIR1bits PIR1bits `VES187  1 e 1 @3998 ]
+"3758
+[v _IPR1bits IPR1bits `VES187  1 e 1 @3999 ]
+[s S1651 . 1 `uc 1 RX9D 1 0 :1:0 
+`uc 1 OERR 1 0 :1:1 
+`uc 1 FERR 1 0 :1:2 
+`uc 1 ADDEN 1 0 :1:3 
+`uc 1 CREN 1 0 :1:4 
+`uc 1 SREN 1 0 :1:5 
+`uc 1 RX9 1 0 :1:6 
+`uc 1 SPEN 1 0 :1:7 
+]
+"4301
+[s S1660 . 1 `uc 1 RCD8 1 0 :1:0 
+`uc 1 . 1 0 :2:1 
+`uc 1 ADEN 1 0 :1:3 
+`uc 1 . 1 0 :2:4 
+`uc 1 RC9 1 0 :1:6 
+]
+[s S1666 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 NOT_RC8 1 0 :1:6 
+]
+[s S1669 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 nRC8 1 0 :1:6 
+]
+[s S1672 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 RC8_9 1 0 :1:6 
+]
+[s S1675 . 1 `uc 1 RX9D1 1 0 :1:0 
+`uc 1 OERR1 1 0 :1:1 
+`uc 1 FERR1 1 0 :1:2 
+`uc 1 ADDEN1 1 0 :1:3 
+`uc 1 CREN1 1 0 :1:4 
+`uc 1 SREN1 1 0 :1:5 
+`uc 1 RX91 1 0 :1:6 
+`uc 1 SPEN1 1 0 :1:7 
+]
+[s S1684 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 SRENA 1 0 :1:5 
+]
+[u S1687 . 1 `S1651 1 . 1 0 `S1660 1 . 1 0 `S1666 1 . 1 0 `S1669 1 . 1 0 `S1672 1 . 1 0 `S1675 1 . 1 0 `S1684 1 . 1 0 ]
+[v _RCSTA1bits RCSTA1bits `VES1687  1 e 1 @4011 ]
+[s S1586 . 1 `uc 1 TX9D 1 0 :1:0 
+`uc 1 TRMT 1 0 :1:1 
+`uc 1 BRGH 1 0 :1:2 
+`uc 1 SENDB 1 0 :1:3 
+`uc 1 SYNC 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 TX9 1 0 :1:6 
+`uc 1 CSRC 1 0 :1:7 
+]
+"4603
+[s S1595 . 1 `uc 1 TXD8 1 0 :1:0 
+`uc 1 . 1 0 :5:1 
+`uc 1 TX8_9 1 0 :1:6 
+]
+[s S1599 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 NOT_TX8 1 0 :1:6 
+]
+[s S1602 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 nTX8 1 0 :1:6 
+]
+[s S1605 . 1 `uc 1 TX9D1 1 0 :1:0 
+`uc 1 TRMT1 1 0 :1:1 
+`uc 1 BRGH1 1 0 :1:2 
+`uc 1 SENDB1 1 0 :1:3 
+`uc 1 SYNC1 1 0 :1:4 
+`uc 1 TXEN1 1 0 :1:5 
+`uc 1 TX91 1 0 :1:6 
+`uc 1 CSRC1 1 0 :1:7 
+]
+[u S1614 . 1 `S1586 1 . 1 0 `S1595 1 . 1 0 `S1599 1 . 1 0 `S1602 1 . 1 0 `S1605 1 . 1 0 ]
+[v _TXSTA1bits TXSTA1bits `VES1614  1 e 1 @4012 ]
+"4712
+[v _TXREG1 TXREG1 `VEuc  1 e 1 @4013 ]
+"4723
+[v _RCREG1 RCREG1 `VEuc  1 e 1 @4014 ]
+"4729
+[v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
+"4740
+[v _SPBRGH SPBRGH `VEuc  1 e 1 @4016 ]
+[s S1551 . 1 `uc 1 ABDEN 1 0 :1:0 
+`uc 1 WUE 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 BRG16 1 0 :1:3 
+`uc 1 SCKP 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 RCMT 1 0 :1:6 
+`uc 1 ABDOVF 1 0 :1:7 
+]
+"5167
+[s S1560 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 RCIDL 1 0 :1:6 
+]
+[s S1563 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 W4E 1 0 :1:1 
+]
+[u S1566 . 1 `S1551 1 . 1 0 `S1560 1 . 1 0 `S1563 1 . 1 0 ]
+[v _BAUDCONbits BAUDCONbits `VES1566  1 e 1 @4024 ]
+"5886
+[v _SSPCON2 SSPCON2 `VEuc  1 e 1 @4037 ]
+[s S1296 . 1 `uc 1 SEN 1 0 :1:0 
+`uc 1 RSEN 1 0 :1:1 
+`uc 1 PEN 1 0 :1:2 
+`uc 1 RCEN 1 0 :1:3 
+`uc 1 ACKEN 1 0 :1:4 
+`uc 1 ACKDT 1 0 :1:5 
+`uc 1 ACKSTAT 1 0 :1:6 
+`uc 1 GCEN 1 0 :1:7 
+]
+"5979
+[s S1305 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 ACKDT1 1 0 :1:5 
+]
+[s S1308 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 ACKEN1 1 0 :1:4 
+]
+[s S1311 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 ACKSTAT1 1 0 :1:6 
+]
+[s S1314 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 ADMSK1 1 0 :1:1 
+]
+[s S1317 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 ADMSK11 1 0 :1:1 
+]
+[s S1320 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 ADMSK2 1 0 :1:2 
+]
+[s S1323 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 ADMSK21 1 0 :1:2 
+]
+[s S1326 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 ADMSK3 1 0 :1:3 
+]
+[s S1329 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 ADMSK31 1 0 :1:3 
+]
+[s S1332 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 ADMSK4 1 0 :1:4 
+]
+[s S1335 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 ADMSK41 1 0 :1:4 
+]
+[s S1338 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 ADMSK5 1 0 :1:5 
+]
+[s S1341 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 ADMSK51 1 0 :1:5 
+]
+[s S1344 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 GCEN1 1 0 :1:7 
+]
+[s S1347 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 PEN1 1 0 :1:2 
+]
+[s S1350 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 RCEN1 1 0 :1:3 
+]
+[s S1353 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 RSEN1 1 0 :1:1 
+]
+[s S1356 . 1 `uc 1 SEN1 1 0 :1:0 
+]
+[u S1358 . 1 `S1296 1 . 1 0 `S1305 1 . 1 0 `S1308 1 . 1 0 `S1311 1 . 1 0 `S1314 1 . 1 0 `S1317 1 . 1 0 `S1320 1 . 1 0 `S1323 1 . 1 0 `S1326 1 . 1 0 `S1329 1 . 1 0 `S1332 1 . 1 0 `S1335 1 . 1 0 `S1338 1 . 1 0 `S1341 1 . 1 0 `S1344 1 . 1 0 `S1347 1 . 1 0 `S1350 1 . 1 0 `S1353 1 . 1 0 `S1356 1 . 1 0 ]
+[v _SSPCON2bits SSPCON2bits `VES1358  1 e 1 @4037 ]
+"6329
+[v _SSPCON1 SSPCON1 `VEuc  1 e 1 @4038 ]
+[s S709 . 1 `uc 1 SSPM 1 0 :4:0 
+`uc 1 CKP 1 0 :1:4 
+`uc 1 SSPEN 1 0 :1:5 
+`uc 1 SSPOV 1 0 :1:6 
+`uc 1 WCOL 1 0 :1:7 
+]
+"6385
+[s S715 . 1 `uc 1 SSPM0 1 0 :1:0 
+`uc 1 SSPM1 1 0 :1:1 
+`uc 1 SSPM2 1 0 :1:2 
+`uc 1 SSPM3 1 0 :1:3 
+]
+[s S720 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 CKP1 1 0 :1:4 
+]
+[s S723 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 SSPEN1 1 0 :1:5 
+]
+[s S726 . 1 `uc 1 SSPM01 1 0 :1:0 
+]
+[s S728 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 SSPM11 1 0 :1:1 
+]
+[s S731 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 SSPM21 1 0 :1:2 
+]
+[s S734 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 SSPM31 1 0 :1:3 
+]
+[s S737 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 SSPOV1 1 0 :1:6 
+]
+[s S740 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 WCOL1 1 0 :1:7 
+]
+[u S743 . 1 `S709 1 . 1 0 `S715 1 . 1 0 `S720 1 . 1 0 `S723 1 . 1 0 `S726 1 . 1 0 `S728 1 . 1 0 `S731 1 . 1 0 `S734 1 . 1 0 `S737 1 . 1 0 `S740 1 . 1 0 ]
+[v _SSPCON1bits SSPCON1bits `VES743  1 e 1 @4038 ]
+"6608
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @4039 ]
+[s S789 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_NOT_W 1 0 :1:2 
+]
+"6746
+[s S792 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 D_NOT_A 1 0 :1:5 
+]
+[s S795 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+[s S810 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D_A 1 0 :1:5 
+]
+[s S815 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 I2C_READ 1 0 :1:2 
+`uc 1 I2C_START 1 0 :1:3 
+`uc 1 I2C_STOP 1 0 :1:4 
+`uc 1 I2C_DAT 1 0 :1:5 
+]
+[s S821 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nW 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nA 1 0 :1:5 
+]
+[s S826 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_WRITE 1 0 :1:2 
+]
+[s S829 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 NOT_ADDRESS 1 0 :1:5 
+]
+[s S832 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nWRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nADDRESS 1 0 :1:5 
+]
+[s S837 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 READ_WRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 DATA_ADDRESS 1 0 :1:5 
+]
+[s S842 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D 1 0 :1:5 
+]
+[s S847 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 DA 1 0 :1:5 
+]
+[s S850 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 RW 1 0 :1:2 
+]
+[s S853 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 START 1 0 :1:3 
+]
+[s S856 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 STOP 1 0 :1:4 
+]
+[s S859 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_W 1 0 :1:2 
+]
+[s S862 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 NOT_A 1 0 :1:5 
+]
+[s S865 . 1 `uc 1 BF1 1 0 :1:0 
+]
+[s S867 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 CKE1 1 0 :1:6 
+]
+[s S870 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 DA1 1 0 :1:5 
+]
+[s S873 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 RW1 1 0 :1:2 
+]
+[s S876 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 SMP1 1 0 :1:7 
+]
+[s S879 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 START1 1 0 :1:3 
+]
+[s S882 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 STOP1 1 0 :1:4 
+]
+[s S885 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 UA1 1 0 :1:1 
+]
+[u S888 . 1 `S789 1 . 1 0 `S792 1 . 1 0 `S795 1 . 1 0 `S789 1 . 1 0 `S792 1 . 1 0 `S810 1 . 1 0 `S815 1 . 1 0 `S821 1 . 1 0 `S826 1 . 1 0 `S829 1 . 1 0 `S832 1 . 1 0 `S837 1 . 1 0 `S842 1 . 1 0 `S847 1 . 1 0 `S850 1 . 1 0 `S853 1 . 1 0 `S856 1 . 1 0 `S859 1 . 1 0 `S862 1 . 1 0 `S865 1 . 1 0 `S867 1 . 1 0 `S870 1 . 1 0 `S873 1 . 1 0 `S876 1 . 1 0 `S879 1 . 1 0 `S882 1 . 1 0 `S885 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES888  1 e 1 @4039 ]
+"7077
+[v _SSP1STATbits SSP1STATbits `VES888  1 e 1 @4039 ]
+"7281
+[v _SSPADD SSPADD `VEuc  1 e 1 @4040 ]
+"7586
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @4041 ]
+"7809
+[v _T1CON T1CON `VEuc  1 e 1 @4045 ]
+[s S2212 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_T1SYNC 1 0 :1:2 
+]
+"7848
+[s S2215 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 TMR1CS 1 0 :1:1 
+`uc 1 nT1SYNC 1 0 :1:2 
+`uc 1 T1OSCEN 1 0 :1:3 
+`uc 1 T1CKPS 1 0 :2:4 
+`uc 1 T1RUN 1 0 :1:6 
+`uc 1 RD16 1 0 :1:7 
+]
+[s S2223 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+]
+[s S2229 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1INSYNC 1 0 :1:2 
+]
+[s S2232 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 SOSCEN 1 0 :1:3 
+]
+[s S2235 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 T1RD16 1 0 :1:7 
+]
+[u S2238 . 1 `S2212 1 . 1 0 `S2215 1 . 1 0 `S2223 1 . 1 0 `S2229 1 . 1 0 `S2232 1 . 1 0 `S2235 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES2238  1 e 1 @4045 ]
+"7928
+[v _TMR1L TMR1L `VEuc  1 e 1 @4046 ]
+"7934
+[v _TMR1H TMR1H `VEuc  1 e 1 @4047 ]
+[s S21 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+]
+"7982
+[s S23 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 NOT_POR 1 0 :1:1 
+]
+[s S26 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_PD 1 0 :1:2 
+]
+[s S29 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 NOT_TO 1 0 :1:3 
+]
+[s S32 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 NOT_RI 1 0 :1:4 
+]
+[s S35 . 1 `uc 1 nBOR 1 0 :1:0 
+`uc 1 nPOR 1 0 :1:1 
+`uc 1 nPD 1 0 :1:2 
+`uc 1 nTO 1 0 :1:3 
+`uc 1 nRI 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 IPEN 1 0 :1:7 
+]
+[s S43 . 1 `uc 1 BOR 1 0 :1:0 
+`uc 1 POR 1 0 :1:1 
+`uc 1 PD 1 0 :1:2 
+`uc 1 TO 1 0 :1:3 
+`uc 1 RI 1 0 :1:4 
+]
+[u S49 . 1 `S21 1 . 1 0 `S23 1 . 1 0 `S26 1 . 1 0 `S29 1 . 1 0 `S32 1 . 1 0 `S35 1 . 1 0 `S43 1 . 1 0 ]
+[v _RCONbits RCONbits `VES49  1 e 1 @4048 ]
+"8093
+[v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
+[s S552 . 1 `uc 1 SCS 1 0 :2:0 
+`uc 1 . 1 0 :1:2 
+`uc 1 OSTS 1 0 :1:3 
+`uc 1 . 1 0 :3:4 
+`uc 1 IDLEN 1 0 :1:7 
+]
+"8111
+[s S558 . 1 `uc 1 SCS0 1 0 :1:0 
+`uc 1 SCS1 1 0 :1:1 
+]
+[u S561 . 1 `S552 1 . 1 0 `S558 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES561  1 e 1 @4051 ]
+"8140
+[v _T0CON T0CON `VEuc  1 e 1 @4053 ]
+[s S2167 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"8160
+[s S2174 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+]
+[u S2178 . 1 `S2167 1 . 1 0 `S2174 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES2178  1 e 1 @4053 ]
+"8215
+[v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
+"8221
+[v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
+[s S86 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"8680
+[s S95 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S104 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[s S113 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S122 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[u S126 . 1 `S86 1 . 1 0 `S95 1 . 1 0 `S104 1 . 1 0 `S113 1 . 1 0 `S122 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES126  1 e 1 @4082 ]
+"188 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/main.c
+[v _main main `(v  1 e 0 0 ]
+{
+"442
+[v main@uart_response uart_response `[14]uc  1 a 14 57 ]
+"443
+[v main@jjj jjj `i  1 a 2 71 ]
+"381
+[v main@motor_data motor_data `[14]uc  1 a 14 22 ]
+"384
+[v main@poop poop `uc  1 a 1 73 ]
+[s S311 __i2c_comm 38 `[14]uc 1 buffer 14 0 `uc 1 buflen 1 14 `uc 1 bufind 1 15 `[14]uc 1 outbuffer 14 16 `uc 1 outbufind 1 30 `uc 1 outbuflen 1 31 `uc 1 event_count 1 32 `uc 1 status 1 33 `uc 1 error_code 1 34 `uc 1 error_count 1 35 `uc 1 initiated 1 36 `uc 1 slave_addr 1 37 ]
+"193
+[v main@ic ic `S311  1 a 38 78 ]
+"194
+[v main@msgbuffer msgbuffer `[15]uc  1 a 15 40 ]
+[s S326 __timer1_thread_struct 2 `ui 1 msgcount 2 0 ]
+"197
+[v main@t1thread_data t1thread_data `S326  1 a 2 74 ]
+[s S328 __timer0_thread_struct 2 `i 1 data 2 0 ]
+"198
+[v main@t0thread_data t0thread_data `S328  1 a 2 55 ]
+"191
+[v main@msgtype msgtype `uc  1 a 1 77 ]
+"190
+[v main@length length `c  1 a 1 76 ]
+"361
+[v main@myByte2 myByte2 `uc  1 a 1 39 ]
+"360
+[v main@myByte1 myByte1 `uc  1 a 1 38 ]
+"199
+[v main@need_sensor_data need_sensor_data `uc  1 a 1 37 ]
+"192
+[v main@last_reg_recvd last_reg_recvd `uc  1 a 1 36 ]
+"521
+} 0
+"22 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_uart.c
+[v _uart_configure uart_configure `(v  1 e 0 0 ]
+{
+"54
+} 0
+"15 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/timer1_thread.c
+[v _timer1_lthread timer1_lthread `(i  1 e 2 0 ]
+{
+"16
+[v timer1_lthread@retval retval `c  1 a 1 68 ]
+[s S326 __timer1_thread_struct 2 `ui 1 msgcount 2 0 ]
+"15
+[v timer1_lthread@tptr tptr `*.39S326  1 p 2 14 ]
+[v timer1_lthread@msgtype msgtype `i  1 p 2 16 ]
+[v timer1_lthread@length length `i  1 p 2 18 ]
+[v timer1_lthread@msgbuffer msgbuffer `*.39uc  1 p 2 20 ]
+"29
+} 0
+"46 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/debug.c
+[v _blink0 blink0 `(v  1 e 0 0 ]
+{
+"49
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwmod@counter counter `uc  1 a 1 60 ]
+"8
+[v ___lwmod@dividend dividend `ui  1 p 2 56 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 58 ]
+"26
+} 0
+"174 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _FromMainHigh_sendmsg FromMainHigh_sendmsg `(c  1 e 1 0 ]
+{
+[v FromMainHigh_sendmsg@length length `uc  1 a 1 wreg ]
+[v FromMainHigh_sendmsg@length length `uc  1 a 1 wreg ]
+[v FromMainHigh_sendmsg@msgtype msgtype `uc  1 p 1 11 ]
+[v FromMainHigh_sendmsg@data data `*.39v  1 p 2 12 ]
+"180
+[v FromMainHigh_sendmsg@length length `uc  1 a 1 67 ]
+"181
+} 0
+"9 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/timer0_thread.c
+[v _timer0_lthread timer0_lthread `(i  1 e 2 0 ]
+{
+"10
+[v timer0_lthread@msgval msgval `*.39ui  1 a 2 64 ]
+[s S328 __timer0_thread_struct 2 `i 1 data 2 0 ]
+"9
+[v timer0_lthread@tptr tptr `*.39S328  1 p 2 56 ]
+[v timer0_lthread@msgtype msgtype `i  1 p 2 58 ]
+[v timer0_lthread@length length `i  1 p 2 60 ]
+[v timer0_lthread@msgbuffer msgbuffer `*.39uc  1 p 2 62 ]
+"16
+} 0
+"186 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_uart.c
+[v _send_uart_message send_uart_message `(uc  1 e 1 0 ]
+{
+"188
+[v send_uart_message@message_q_code message_q_code `uc  1 a 1 68 ]
+"186
+[v send_uart_message@message_ptr message_ptr `*.39uc  1 p 2 14 ]
+"197
+} 0
+"150 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _FromMainLow_sendmsg FromMainLow_sendmsg `(c  1 e 1 0 ]
+{
+[v FromMainLow_sendmsg@length length `uc  1 a 1 wreg ]
+[v FromMainLow_sendmsg@length length `uc  1 a 1 wreg ]
+[v FromMainLow_sendmsg@msgtype msgtype `uc  1 p 1 11 ]
+[v FromMainLow_sendmsg@data data `*.39v  1 p 2 12 ]
+"156
+[v FromMainLow_sendmsg@length length `uc  1 a 1 67 ]
+"157
+} 0
+"24
+[v _send_msg send_msg `(c  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+"27
+[v send_msg@qmsg qmsg `*.39S536  1 a 2 9 ]
+"28
+[v send_msg@tlength tlength `ui  1 a 2 6 ]
+"25
+[v send_msg@slot slot `uc  1 a 1 8 ]
+"24
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v send_msg@qptr qptr `*.39S541  1 p 2 0 ]
+[v send_msg@length length `uc  1 p 1 2 ]
+[v send_msg@msgtype msgtype `uc  1 p 1 3 ]
+[v send_msg@data data `*.39v  1 p 2 4 ]
+"61
+} 0
+"7 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/timer1_thread.c
+[v _init_timer1_lthread init_timer1_lthread `(v  1 e 0 0 ]
+{
+[s S326 __timer1_thread_struct 2 `ui 1 msgcount 2 0 ]
+[v init_timer1_lthread@tptr tptr `*.39S326  1 p 2 56 ]
+"9
+} 0
+"194 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _init_queues init_queues `(v  1 e 0 0 ]
+{
+"200
+} 0
+"14
+[v _init_queue init_queue `(v  1 e 0 0 ]
+{
+"15
+[v init_queue@i i `uc  1 a 1 58 ]
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+"14
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v init_queue@qptr qptr `*.39S541  1 p 2 56 ]
+"22
+} 0
+"345 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_i2c.c
+[v _init_i2c init_i2c `(v  1 e 0 0 ]
+{
+[s S311 __i2c_comm 38 `[14]uc 1 buffer 14 0 `uc 1 buflen 1 14 `uc 1 bufind 1 15 `[14]uc 1 outbuffer 14 16 `uc 1 outbufind 1 30 `uc 1 outbuflen 1 31 `uc 1 event_count 1 32 `uc 1 status 1 33 `uc 1 error_code 1 34 `uc 1 error_count 1 35 `uc 1 initiated 1 36 `uc 1 slave_addr 1 37 ]
+[v init_i2c@ic ic `*.39S311  1 p 2 56 ]
+"351
+} 0
+"356
+[v _i2c_configure_slave i2c_configure_slave `(v  1 e 0 0 ]
+{
+[v i2c_configure_slave@addr addr `uc  1 a 1 wreg ]
+[v i2c_configure_slave@addr addr `uc  1 a 1 wreg ]
+"368
+[v i2c_configure_slave@addr addr `uc  1 a 1 56 ]
+"408
+} 0
+"14 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/interrupts.c
+[v _enable_interrupts enable_interrupts `(v  1 e 0 0 ]
+{
+"23
+} 0
+"3 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/debug.c
+[v _debug_configure debug_configure `(v  1 e 0 0 ]
+{
+"9
+} 0
+"32
+[v _blip3 blip3 `(v  1 e 0 0 ]
+{
+"37
+} 0
+"25
+[v _blip2 blip2 `(v  1 e 0 0 ]
+{
+"30
+} 0
+"18
+[v _blip1 blip1 `(v  1 e 0 0 ]
+{
+"23
+} 0
+"11
+[v _blip blip `(v  1 e 0 0 ]
+{
+"16
+} 0
+"112 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _ToMainLow_recvmsg ToMainLow_recvmsg `(c  1 e 1 0 ]
+{
+[v ToMainLow_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v ToMainLow_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v ToMainLow_recvmsg@msgtype msgtype `*.39uc  1 p 2 12 ]
+[v ToMainLow_recvmsg@data data `*.39v  1 p 2 14 ]
+"118
+[v ToMainLow_recvmsg@maxlength maxlength `uc  1 a 1 68 ]
+"119
+} 0
+"135
+[v _ToMainHigh_recvmsg ToMainHigh_recvmsg `(c  1 e 1 0 ]
+{
+[v ToMainHigh_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v ToMainHigh_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v ToMainHigh_recvmsg@msgtype msgtype `*.39uc  1 p 2 12 ]
+[v ToMainHigh_recvmsg@data data `*.39v  1 p 2 14 ]
+"141
+[v ToMainHigh_recvmsg@maxlength maxlength `uc  1 a 1 68 ]
+"142
+} 0
+"63
+[v _recv_msg recv_msg `(c  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+"68
+[v recv_msg@qmsg qmsg `*.39S536  1 a 2 10 ]
+"69
+[v recv_msg@tlength tlength `ui  1 a 2 8 ]
+"64
+[v recv_msg@slot slot `uc  1 a 1 7 ]
+"63
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v recv_msg@qptr qptr `*.39S541  1 p 2 0 ]
+[v recv_msg@maxlength maxlength `uc  1 p 1 2 ]
+[v recv_msg@msgtype msgtype `*.39uc  1 p 2 3 ]
+[v recv_msg@data data `*.39v  1 p 2 5 ]
+"96
+} 0
+"11 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c
+[v _memcpy memcpy `(*.39v  1 e 2 0 ]
+{
+"20
+[v memcpy@s s `*.39Cuc  1 a 2 64 ]
+"18
+[v memcpy@d d `*.39uc  1 a 2 62 ]
+"11
+[v memcpy@d1 d1 `*.39v  1 p 2 56 ]
+[v memcpy@s1 s1 `*.39Cv  1 p 2 58 ]
+[v memcpy@n n `ui  1 p 2 60 ]
+"32
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"11
+[v ___awmod@sign sign `uc  1 a 1 61 ]
+[v ___awmod@counter counter `uc  1 a 1 60 ]
+"8
+[v ___awmod@dividend dividend `i  1 p 2 56 ]
+[v ___awmod@divisor divisor `i  1 p 2 58 ]
+"35
+} 0
+"16 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1open.c
+[v _OpenTimer1 OpenTimer1 `(v  1 e 0 0 ]
+{
+[v OpenTimer1@config config `uc  1 a 1 wreg ]
+[v OpenTimer1@config config `uc  1 a 1 wreg ]
+"18
+[v OpenTimer1@config config `uc  1 a 1 56 ]
+"36
+} 0
+"18 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0open.c
+[v _OpenTimer0 OpenTimer0 `(v  1 e 0 0 ]
+{
+[v OpenTimer0@config config `uc  1 a 1 wreg ]
+[v OpenTimer0@config config `uc  1 a 1 wreg ]
+"20
+[v OpenTimer0@config config `uc  1 a 1 56 ]
+"31
+} 0
+"131 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/interrupts.c
+[v _InterruptHandlerLow InterruptHandlerLow `IIL(v  1 e 0 0 ]
+{
+"165
+} 0
+"200 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_uart.c
+[v _uart_transmit_interrupt_handler uart_transmit_interrupt_handler `(v  1 e 0 0 ]
+{
+"213
+[v uart_transmit_interrupt_handler@message_status message_status `c  1 a 1 44 ]
+"206
+[v uart_transmit_interrupt_handler@data data `[14]uc  1 a 14 29 ]
+"209
+[v uart_transmit_interrupt_handler@msgtype msgtype `uc  1 a 1 43 ]
+"203
+[v uart_transmit_interrupt_handler@done done `uc  1 s 1 done ]
+"204
+[v uart_transmit_interrupt_handler@index index `uc  1 s 1 index ]
+"207
+[v uart_transmit_interrupt_handler@message message `[18]uc  1 s 18 message ]
+"259
+} 0
+"368
+[v _uart_frame_message uart_frame_message `(v  1 e 0 0 ]
+{
+"377
+[v uart_frame_message@i i `uc  1 a 1 7 ]
+"376
+[v uart_frame_message@checksum checksum `uc  1 a 1 6 ]
+"368
+[v uart_frame_message@inner inner `*.39uc  1 p 2 0 ]
+[v uart_frame_message@outer outer `*.39uc  1 p 2 2 ]
+"370
+[v uart_frame_message@sent_counter sent_counter `uc  1 s 1 sent_counter ]
+"391
+} 0
+"159 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _FromMainLow_recvmsg FromMainLow_recvmsg `(c  1 e 1 0 ]
+{
+[v FromMainLow_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v FromMainLow_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v FromMainLow_recvmsg@msgtype msgtype `*.39uc  1 p 2 24 ]
+[v FromMainLow_recvmsg@data data `*.39v  1 p 2 26 ]
+"165
+[v FromMainLow_recvmsg@maxlength maxlength `uc  1 a 1 28 ]
+"166
+} 0
+"63
+[v i1_recv_msg recv_msg `(c  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+[v i1recv_msg@qmsg recv_msg `*.39S536  1 a 2 22 ]
+[v i1recv_msg@tlength recv_msg `ui  1 a 2 20 ]
+[v i1recv_msg@slot recv_msg `uc  1 a 1 19 ]
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v i1recv_msg@qptr qptr `*.39S541  1 p 2 10 ]
+[v i1recv_msg@maxlength maxlength `uc  1 p 1 12 ]
+[v i1recv_msg@msgtype msgtype `*.39uc  1 p 2 13 ]
+[v i1recv_msg@data data `*.39v  1 p 2 15 ]
+"96
+} 0
+"61 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_uart.c
+[v _uart_receive_interrupt_handler uart_receive_interrupt_handler `(v  1 e 0 0 ]
+{
+"86
+[v uart_receive_interrupt_handler@bad_start_id bad_start_id `uc  1 a 1 47 ]
+"156
+[v uart_receive_interrupt_handler@message_count message_count `uc  1 a 1 50 ]
+"157
+[v uart_receive_interrupt_handler@status status `uc  1 a 1 42 ]
+"106
+[v uart_receive_interrupt_handler@bad_end_id bad_end_id `uc  1 a 1 48 ]
+"152
+[v uart_receive_interrupt_handler@msg_id msg_id `uc  1 a 1 51 ]
+"161
+[v uart_receive_interrupt_handler@status_1822 status `uc  1 a 1 43 ]
+"141
+[v uart_receive_interrupt_handler@bad_checksum_id bad_checksum_id `uc  1 a 1 49 ]
+"121
+[v uart_receive_interrupt_handler@bad_counter_id bad_counter_id `[2]uc  1 a 2 44 ]
+"129
+[v uart_receive_interrupt_handler@gooey_uart_center gooey_uart_center `[14]uc  1 a 14 28 ]
+"131
+[v uart_receive_interrupt_handler@i i `i  1 a 2 52 ]
+"130
+[v uart_receive_interrupt_handler@checksum checksum `uc  1 a 1 46 ]
+"64
+[v uart_receive_interrupt_handler@frame frame `[18]uc  1 s 18 frame ]
+"65
+[v uart_receive_interrupt_handler@index index `uc  1 s 1 index ]
+"66
+[v uart_receive_interrupt_handler@done done `uc  1 s 1 done ]
+"67
+[v uart_receive_interrupt_handler@received_counter received_counter `uc  1 s 1 received_counter ]
+"69
+[v uart_receive_interrupt_handler@start_byte_bad start_byte_bad `uc  1 s 1 start_byte_bad ]
+"70
+[v uart_receive_interrupt_handler@error error `uc  1 s 1 error ]
+"182
+} 0
+"38 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/user_interrupts.c
+[v _timer1_int_handler timer1_int_handler `(v  1 e 0 0 ]
+{
+"42
+[v timer1_int_handler@result result `ui  1 a 2 26 ]
+"55
+} 0
+"14 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1write.c
+[v _WriteTimer1 WriteTimer1 `(v  1 e 0 0 ]
+{
+[u S2201 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+"16
+[v WriteTimer1@timer timer `S2201  1 a 2 2 ]
+"14
+[v WriteTimer1@timer1 timer1 `ui  1 p 2 0 ]
+"22
+} 0
+"103 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _ToMainLow_sendmsg ToMainLow_sendmsg `(c  1 e 1 0 ]
+{
+[v ToMainLow_sendmsg@length length `uc  1 a 1 wreg ]
+[v ToMainLow_sendmsg@length length `uc  1 a 1 wreg ]
+[v ToMainLow_sendmsg@msgtype msgtype `uc  1 p 1 22 ]
+[v ToMainLow_sendmsg@data data `*.39v  1 p 2 23 ]
+"109
+[v ToMainLow_sendmsg@length length `uc  1 a 1 25 ]
+"110
+} 0
+"24
+[v i1_send_msg send_msg `(c  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+[v i1send_msg@qmsg send_msg `*.39S536  1 a 2 20 ]
+[v i1send_msg@tlength send_msg `ui  1 a 2 17 ]
+[v i1send_msg@slot send_msg `uc  1 a 1 19 ]
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v i1send_msg@qptr qptr `*.39S541  1 p 2 10 ]
+[v i1send_msg@length length `uc  1 p 1 12 ]
+[v i1send_msg@msgtype msgtype `uc  1 p 1 13 ]
+[v i1send_msg@data data `*.39v  1 p 2 14 ]
+"61
+} 0
+"11 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c
+[v i1_memcpy memcpy `(*.39v  1 e 2 0 ]
+{
+[v i1memcpy@s memcpy `*.39Cuc  1 a 2 8 ]
+[v i1memcpy@d memcpy `*.39uc  1 a 2 6 ]
+[v i1memcpy@d1 d1 `*.39v  1 p 2 0 ]
+[v i1memcpy@s1 s1 `*.39Cv  1 p 2 2 ]
+[v i1memcpy@n n `ui  1 p 2 4 ]
+"32
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awmod.c
+[v i1___awmod __awmod `(i  1 e 2 0 ]
+{
+[v i1___awmod@sign __awmod `uc  1 a 1 5 ]
+[v i1___awmod@counter __awmod `uc  1 a 1 4 ]
+[v i1___awmod@dividend dividend `i  1 p 2 0 ]
+[v i1___awmod@divisor divisor `i  1 p 2 2 ]
+"35
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t1read.c
+[v _ReadTimer1 ReadTimer1 `(ui  1 e 2 0 ]
+{
+[u S2201 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+"17
+[v ReadTimer1@timer timer `S2201  1 a 2 2 ]
+"23
+} 0
+"86 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/interrupts.c
+[v _InterruptHandlerHigh InterruptHandlerHigh `II(v  1 e 0 0 ]
+{
+"119
+} 0
+"16 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/user_interrupts.c
+[v _timer0_int_handler timer0_int_handler `(v  1 e 0 0 ]
+{
+"20
+[v timer0_int_handler@val val `ui  1 a 2 33 ]
+"21
+[v timer0_int_handler@msgtype msgtype `i  1 a 2 31 ]
+[v timer0_int_handler@length length `i  1 a 2 29 ]
+"33
+} 0
+"16 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\pic18\plib\Timers\t0write.c
+[v _WriteTimer0 WriteTimer0 `(v  1 e 0 0 ]
+{
+[u S2201 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+"18
+[v WriteTimer0@timer timer `S2201  1 a 2 2 ]
+"16
+[v WriteTimer0@timer0 timer0 `ui  1 p 2 0 ]
+"24
+} 0
+"103 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_i2c.c
+[v _i2c_int_handler i2c_int_handler `(v  1 e 0 0 ]
+{
+"323
+[v i2c_int_handler@msg_type msg_type `uc  1 a 1 39 ]
+"324
+[v i2c_int_handler@length length `uc  1 a 1 30 ]
+"114
+[v i2c_int_handler@error_buf error_buf `[3]uc  1 a 3 31 ]
+"109
+[v i2c_int_handler@data_read data_read `uc  1 a 1 41 ]
+"111
+[v i2c_int_handler@msg_ready msg_ready `uc  1 a 1 40 ]
+"112
+[v i2c_int_handler@msg_to_send msg_to_send `uc  1 a 1 38 ]
+"108
+[v i2c_int_handler@i2c_data i2c_data `uc  1 a 1 37 ]
+"115
+[v i2c_int_handler@need_data need_data `uc  1 a 1 36 ]
+"113
+[v i2c_int_handler@overrun_error overrun_error `uc  1 a 1 35 ]
+"110
+[v i2c_int_handler@data_written data_written `uc  1 a 1 34 ]
+"340
+} 0
+"32 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/debug.c
+[v i2_blip3 blip3 `(v  1 e 0 0 ]
+{
+"37
+} 0
+"25
+[v i2_blip2 blip2 `(v  1 e 0 0 ]
+{
+"30
+} 0
+"18
+[v i2_blip1 blip1 `(v  1 e 0 0 ]
+{
+"23
+} 0
+"54 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/my_i2c.c
+[v _start_i2c_slave_reply start_i2c_slave_reply `(v  1 e 0 0 ]
+{
+[v start_i2c_slave_reply@length length `uc  1 a 1 wreg ]
+[v start_i2c_slave_reply@length length `uc  1 a 1 wreg ]
+[v start_i2c_slave_reply@msg msg `*.39uc  1 p 2 0 ]
+"56
+[v start_i2c_slave_reply@length length `uc  1 a 1 4 ]
+"68
+} 0
+"72
+[v _handle_start handle_start `(v  1 e 0 0 ]
+{
+[v handle_start@data_read data_read `uc  1 a 1 wreg ]
+[v handle_start@data_read data_read `uc  1 a 1 wreg ]
+[v handle_start@data_read data_read `uc  1 a 1 0 ]
+"95
+} 0
+"39 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/debug.c
+[v _blip4 blip4 `(v  1 e 0 0 ]
+{
+"44
+} 0
+"126 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _ToMainHigh_sendmsg ToMainHigh_sendmsg `(c  1 e 1 0 ]
+{
+[v ToMainHigh_sendmsg@length length `uc  1 a 1 wreg ]
+[v ToMainHigh_sendmsg@length length `uc  1 a 1 wreg ]
+[v ToMainHigh_sendmsg@msgtype msgtype `uc  1 p 1 22 ]
+[v ToMainHigh_sendmsg@data data `*.39v  1 p 2 23 ]
+"132
+[v ToMainHigh_sendmsg@length length `uc  1 a 1 25 ]
+"133
+} 0
+"24
+[v i2_send_msg send_msg `(c  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+[v i2send_msg@qmsg send_msg `*.39S536  1 a 2 20 ]
+[v i2send_msg@tlength send_msg `ui  1 a 2 17 ]
+[v i2send_msg@slot send_msg `uc  1 a 1 19 ]
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v i2send_msg@qptr qptr `*.39S541  1 p 2 10 ]
+[v i2send_msg@length length `uc  1 p 1 12 ]
+[v i2send_msg@msgtype msgtype `uc  1 p 1 13 ]
+[v i2send_msg@data data `*.39v  1 p 2 14 ]
+"61
+} 0
+"183
+[v _FromMainHigh_recvmsg FromMainHigh_recvmsg `(c  1 e 1 0 ]
+{
+[v FromMainHigh_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v FromMainHigh_recvmsg@maxlength maxlength `uc  1 a 1 wreg ]
+[v FromMainHigh_recvmsg@msgtype msgtype `*.39uc  1 p 2 24 ]
+[v FromMainHigh_recvmsg@data data `*.39v  1 p 2 26 ]
+"189
+[v FromMainHigh_recvmsg@maxlength maxlength `uc  1 a 1 28 ]
+"190
+} 0
+"63
+[v i2_recv_msg recv_msg `(c  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+[v i2recv_msg@qmsg recv_msg `*.39S536  1 a 2 22 ]
+[v i2recv_msg@tlength recv_msg `ui  1 a 2 20 ]
+[v i2recv_msg@slot recv_msg `uc  1 a 1 19 ]
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v i2recv_msg@qptr qptr `*.39S541  1 p 2 10 ]
+[v i2recv_msg@maxlength maxlength `uc  1 p 1 12 ]
+[v i2recv_msg@msgtype msgtype `*.39uc  1 p 2 13 ]
+[v i2recv_msg@data data `*.39v  1 p 2 15 ]
+"96
+} 0
+"11 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\memcpy.c
+[v i2_memcpy memcpy `(*.39v  1 e 2 0 ]
+{
+[v i2memcpy@s memcpy `*.39Cuc  1 a 2 8 ]
+[v i2memcpy@d memcpy `*.39uc  1 a 2 6 ]
+[v i2memcpy@d1 d1 `*.39v  1 p 2 0 ]
+[v i2memcpy@s1 s1 `*.39Cv  1 p 2 2 ]
+[v i2memcpy@n n `ui  1 p 2 4 ]
+"32
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.32\sources\common\awmod.c
+[v i2___awmod __awmod `(i  1 e 2 0 ]
+{
+[v i2___awmod@sign __awmod `uc  1 a 1 5 ]
+[v i2___awmod@counter __awmod `uc  1 a 1 4 ]
+[v i2___awmod@dividend dividend `i  1 p 2 0 ]
+[v i2___awmod@divisor divisor `i  1 p 2 2 ]
+"35
+} 0
+"226 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _SleepIfOkay SleepIfOkay `(v  1 e 0 0 ]
+{
+"252
+} 0
+"33 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/interrupts.c
+[v _in_low_int in_low_int `(i  1 e 2 0 ]
+{
+"41
+} 0
+"25
+[v _in_high_int in_high_int `(i  1 e 2 0 ]
+{
+"27
+} 0
+"202 C:\Users\alex\Documents\VI\School\Embedded\blab\pic_motor\src/src/messages.c
+[v _enter_sleep_mode enter_sleep_mode `(v  1 e 0 0 ]
+{
+"216
+} 0
+"220
+[v _check_msg check_msg `(uc  1 e 1 0 ]
+{
+[s S536 __msg 17 `uc 1 full 1 0 `uc 1 length 1 1 `uc 1 msgtype 1 2 `[14]uc 1 data 14 3 ]
+[s S541 __msg_queue 87 `[5]S536 1 queue 85 0 `uc 1 cur_write_ind 1 85 `uc 1 cur_read_ind 1 86 ]
+[v check_msg@qptr qptr `*.39S541  1 p 2 0 ]
+"222
+} 0
