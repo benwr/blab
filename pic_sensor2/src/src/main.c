@@ -482,38 +482,7 @@ void main(void) {
                     //Reset the update mask to signafy that the current values are now old.
                     updateMask[0] = 0x00;
                     updateMask[1] = 0x00;
-                    /*
-                    if(fntmsgbuf[2] == distance)
-                      fntmsgbuf[1] = fntmsgbuf[1] & 0x7f;
-                    else
-                        fntmsgbuf[1] = fntmsgbuf[1] | 0x80;
-                    if(fntmsgbuf[3] == distance)
-                        fntmsgbuf[2] = fntmsgbuf[2] & 0xbf;
-                    else
-                        fntmsgbuf[1] = fntmsgbuf[1] | 0x40;
-                    fntmsgbuf[2] = distance;
-                    fntmsgbuf[3] = distance;
-                    fntmsgbuf[4] = 0xaa;
-                    fntmsgbuf[5] = 0xaa;
-
-                    //signed char MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
-
-                    sidmsgbuf[0] = SIDE_CMD;
-                    sidmsgbuf[1] = 0x00;
-                    sidmsgbuf[2] = distance;
-                    sidmsgbuf[3] = distance;
-                    sidmsgbuf[4] = distance;
-                    sidmsgbuf[5] = distance;
-
-                    //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
-
-                    vntmsgbuf[0] = VENTRIL_CMD;
-                    vntmsgbuf[1] = 0x00;
-                    vntmsgbuf[2] = distance;
-                    vntmsgbuf[3] = distance;
-                    vntmsgbuf[4] = distance;
-                    vntmsgbuf[5] = 0xaa;
-                    */
+                    
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
                 };
