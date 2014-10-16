@@ -3,6 +3,8 @@
 
 typedef struct __timer1_thread_struct {
     // "persistent" data for this "lthread" would go here
+    unsigned char move_msg[UART_DATA_LENGTH];
+    unsigned char new_move_msg;
     unsigned int msgcount;
 } timer1_thread_struct;
 

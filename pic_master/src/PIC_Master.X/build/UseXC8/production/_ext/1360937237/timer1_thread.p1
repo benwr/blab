@@ -4,11 +4,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1137 __timer1_thread_struct msgcount ]
 "41 ../src/debug.h
 [v _blink0 `(v ~T0 @X0 0 ef ]
-"57 ../src/my_uart.h
-[v _send_uart_message `(uc ~T0 @X0 0 ef1`*uc ]
-"52 ../src/my_i2c.h
-[v _i2c_master_send `(uc ~T0 @X0 0 ef2`uc`*uc ]
-"93 ../src/messages.h
+"98 ../src/messages.h
 [v _FromMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -8345,28 +8341,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 206: extern int printf(const char *, ...);
-[; ;messages.h: 25: typedef struct __msg {
-[; ;messages.h: 26: unsigned char full;
-[; ;messages.h: 27: unsigned char length;
-[; ;messages.h: 28: unsigned char msgtype;
-[; ;messages.h: 29: unsigned char data[14];
-[; ;messages.h: 30: } msg;
-[; ;messages.h: 32: typedef struct __msg_queue {
-[; ;messages.h: 33: msg queue[8];
-[; ;messages.h: 34: unsigned char cur_write_ind;
-[; ;messages.h: 35: unsigned char cur_read_ind;
-[; ;messages.h: 36: } msg_queue;
-[; ;messages.h: 58: void init_queues(void);
-[; ;messages.h: 62: void SleepIfOkay(void);
-[; ;messages.h: 66: void block_on_To_msgqueues(void);
-[; ;messages.h: 72: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 73: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 79: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 80: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 86: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 87: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 93: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 94: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 30: typedef struct __msg {
+[; ;messages.h: 31: unsigned char full;
+[; ;messages.h: 32: unsigned char length;
+[; ;messages.h: 33: unsigned char msgtype;
+[; ;messages.h: 34: unsigned char data[14];
+[; ;messages.h: 35: } msg;
+[; ;messages.h: 37: typedef struct __msg_queue {
+[; ;messages.h: 38: msg queue[8];
+[; ;messages.h: 39: unsigned char cur_write_ind;
+[; ;messages.h: 40: unsigned char cur_read_ind;
+[; ;messages.h: 41: } msg_queue;
+[; ;messages.h: 63: void init_queues(void);
+[; ;messages.h: 67: void SleepIfOkay(void);
+[; ;messages.h: 71: void block_on_To_msgqueues(void);
+[; ;messages.h: 77: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 78: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 84: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 85: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 91: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 92: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 98: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 99: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;debug.h: 35: void debug_configure();
 [; ;debug.h: 36: void blip();
 [; ;debug.h: 37: void blip1();
@@ -8452,14 +8448,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 "18
 [v _retval `c ~T0 @X0 1 a ]
 [; ;timer1_thread.c: 18: signed char retval;
-[; ;timer1_thread.c: 21: blink0();
-"21
+[; ;timer1_thread.c: 19: blink0();
+"19
 [e ( _blink0 ..  ]
 [v F9223 `uc ~T0 @X0 -> 14 `i s ]
 [i F9223
 :U ..
 "24
--> -> 2 `i `uc
+-> -> 4 `i `uc
 -> -> 255 `i `uc
 -> -> 255 `i `uc
 -> -> 254 `i `uc
@@ -8475,90 +8471,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 69 `i `uc
 ..
 ]
-[v _msg2 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 24: unsigned char msg2[14] = {0x02,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
-[e = _msg2 F9223 ]
-[v F9225 `uc ~T0 @X0 -> 14 `i s ]
-[i F9225
-:U ..
-"26
--> -> 1 `i `uc
--> -> 168 `i `uc
--> -> 168 `i `uc
--> -> 168 `i `uc
--> -> 168 `i `uc
--> -> 168 `i `uc
--> -> 255 `i `uc
--> -> 255 `i `uc
--> -> 254 `i `uc
--> -> 254 `i `uc
--> -> 170 `i `uc
--> -> 17 `i `uc
--> -> 51 `i `uc
--> -> 69 `i `uc
-..
-]
-[v _msg3 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 26: unsigned char msg3[14] = {0x01,0xa8,0xa8,0xa8,0xa8,0xa8,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
-[e = _msg3 F9225 ]
-[v F9227 `uc ~T0 @X0 -> 14 `i s ]
-[i F9227
-:U ..
-"28
--> -> 2 `i `uc
--> -> 169 `i `uc
--> -> 169 `i `uc
--> -> 169 `i `uc
--> -> 169 `i `uc
--> -> 169 `i `uc
--> -> 255 `i `uc
--> -> 255 `i `uc
--> -> 254 `i `uc
--> -> 254 `i `uc
--> -> 170 `i `uc
--> -> 17 `i `uc
--> -> 51 `i `uc
--> -> 69 `i `uc
-..
-]
-[v _msg4 `uc ~T0 @X0 -> 14 `i a ]
-[; ;timer1_thread.c: 28: unsigned char msg4[14] = {0x02,0xa9,0xa9,0xa9,0xa9,0xa9,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
-[e = _msg4 F9227 ]
-[; ;timer1_thread.c: 32: send_uart_message( msg2 );
-"32
-[e ( _send_uart_message (1 &U _msg2 ]
-[; ;timer1_thread.c: 35: i2c_master_send(14, msg2);
-"35
-[e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg2 ]
-[; ;timer1_thread.c: 36: i2c_master_send(14, msg3);
-"36
-[e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg3 ]
-[; ;timer1_thread.c: 37: i2c_master_send(14, msg4);
-"37
-[e ( _i2c_master_send (2 , -> -> 14 `i `uc &U _msg4 ]
-[; ;timer1_thread.c: 41: tptr->msgcount++;
-"41
+[v _sensor_request `uc ~T0 @X0 -> 14 `i a ]
+[; ;timer1_thread.c: 24: unsigned char sensor_request[14] = {0x04,0xff,0xff,0xfe,0xfe,0xaa,0xff,0xff,0xfe,0xfe,0xaa,0x11,0x33,0x45};
+[e = _sensor_request F9223 ]
+[; ;timer1_thread.c: 29: tptr->msgcount++;
+"29
 [e ++ . *U _tptr 0 -> -> 1 `i `ui ]
-[; ;timer1_thread.c: 44: if ((tptr->msgcount % 10) == 9) {
-"44
+[; ;timer1_thread.c: 32: if ((tptr->msgcount % 10) == 9) {
+"32
 [e $ ! == % . *U _tptr 0 -> -> 10 `i `ui -> -> 9 `i `ui 1140  ]
 {
-[; ;timer1_thread.c: 45: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
-"45
+[; ;timer1_thread.c: 33: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
+"33
 [e = _retval ( _FromMainHigh_sendmsg (3 , , -> -> # . *U _tptr 0 `ui `uc -> -> 20 `i `uc -> &U . *U _tptr 0 `*v ]
-[; ;timer1_thread.c: 46: if (retval < 0) {
-"46
+[; ;timer1_thread.c: 34: if (retval < 0) {
+"34
 [e $ ! < -> _retval `i -> 0 `i 1141  ]
 {
-"48
+"36
 }
 [e :U 1141 ]
-"49
+"37
 }
 [e :U 1140 ]
-[; ;timer1_thread.c: 48: }
-[; ;timer1_thread.c: 49: }
-[; ;timer1_thread.c: 51: }
-"51
+[; ;timer1_thread.c: 36: }
+[; ;timer1_thread.c: 37: }
+[; ;timer1_thread.c: 39: }
+"39
 [e :UE 1139 ]
 }

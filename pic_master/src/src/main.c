@@ -326,6 +326,11 @@ void main(void) {
     // Alex: Set registers for debug output
     #ifdef DEBUG_MODE
     debug_configure();
+    blip();
+    blip1();
+    blip2();
+    blip3();
+    blip4();
     #endif
 
     //uart_send_byte( 0x50 );
@@ -347,7 +352,14 @@ void main(void) {
     //Alex: Configure UART for transmit and recieve
     uart_configure();
 
-
+    //Initialize snesor data
+    unsigned char sensor_data[MSGLEN];
+    sensor_data[0] = MSGID_STATUS_RESPONSE;
+    unsigned char z;
+    for(z=1;z<MSGLEN;z++)
+    {
+        sensor_data[z] = 0x00;
+    }
 
 
     unsigned char myByte1 = 0x54;
@@ -358,10 +370,6 @@ void main(void) {
     // It is also slow and is blocking, so it will perturb your code's operation
     // Here is how it looks: printf("Hello\r\n");
 
-
-    unsigned char sensor_bank_side[UART_FRAME_LENGTH];
-    unsigned char sensor_bank_front[UART_FRAME_LENGTH];
-    unsigned char sensor_bank_ventril[UART_FRAME_LENGTH];
 
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
@@ -415,31 +423,7 @@ void main(void) {
                     //
                     // The last byte received is the "register" that is trying to be read
                     // The response is dependent on the register.
-                    switch (last_reg_recvd) {
-                        case 0xaa:
-                        {
-                            length = 2 ;
-                            msgbuffer[0] = myByte1;
-                            msgbuffer[1] = myByte2;
-                            break;
-                        }
-                        case 0xa8:
-                        {
-                            
-                            length = 1;
-                            msgbuffer[0] = 0x3A;
-                            break;
-                            
-                        }
-                        case 0xa9:
-                        {                           
-                            length = 1;
-                            msgbuffer[0] = 0x55;
-                            break;
 
-                        }
-                    };
-                    //start_i2c_slave_reply(length, msgbuffer);
                     break;
                 };
                 default:
@@ -526,11 +510,26 @@ void main(void) {
 
                     switch( msgbuffer[0] )
                     {
-                        
-                        
+                        case MSGID_STATUS_REQUEST:
+                        {
+                            send_uart_message( sensor_data );
+                            break;
+                        }
+                        case MSGID_MOVE:
+                        {
+                            // Copy msgbuffer over for timer 1 to deal with
+                            for(i=0;i<UART_DATA_LENGTH;i++)
+                            {
+                                t1thread_data.move_msg[i] = msgbuffer[i];
+                            }
+
+                            t1thread_data.new_move_msg = 1;
+                            
+                            break;
+                        }                        
                         default:
                         {
-
+                            
                             break;
                         }
 

@@ -9,7 +9,7 @@
 
 //static uart_comm *uc_ptr;
 
-
+#ifdef __USE18F46J50  //Alex: Begin definitions for the Mk 4
 //static uart_packet_type * m_uart_send_buffer;
 //static uart_buffer_type * m_uart_receive_buffer;
 
@@ -28,15 +28,8 @@ void uart_configure()
     TXSTA1bits.BRGH = 1;   //Alex: Set the high resolution baud rate
 
     //Alex: Set Baud rate speed generator thingys
-    #ifdef __USE18F46J50  //Alex: Begin definitions for the Mk 4    
     SPBRGH1 = 0x00;
-    SPBRG1 = 0xCF;   
-    #else  //Alex: End definitions for the Mk 4
-    #ifdef __USE18F45J10  //Alex: Begin definitions for the Mk 3
-    SPBRGH = 0x00;
-    SPBRG= 0xCF;
-    #endif  //Alex: End definitions for the Mk 3
-    #endif
+    SPBRG1 = 0xCF;
 
     TXSTA1bits.SYNC = 0; //Alex: Set Asynchronous mode
     RCSTA1bits.SPEN = 1; //Alex: Enable UART module 1..or something
@@ -54,12 +47,14 @@ void uart_configure()
 }
 
 
-
+#endif  //Alex: End definitions for the Mk IV
 
 
 //Handle receive interrupt
 void uart_receive_interrupt_handler()
 {
+    blip();
+
     //static unsigned char done = 1;
     static unsigned char frame[UART_FRAME_LENGTH];
     static unsigned char index = 0;
@@ -71,6 +66,7 @@ void uart_receive_interrupt_handler()
 
     if(!done)
     {
+        blip1();
         frame[index] = RCREG1;
         if(error)
         {
@@ -113,6 +109,7 @@ void uart_receive_interrupt_handler()
 
     if( index >= UART_FRAME_LENGTH )
     {
+        blip2();
         index = 0;
 
         if( received_counter != frame[UART_POS_COUNTER] )
@@ -122,6 +119,10 @@ void uart_receive_interrupt_handler()
             bad_counter_id[0] = received_counter;
             bad_counter_id[1] = frame[UART_POS_COUNTER];   //Format for bad counter in error message sent
             ToMainLow_sendmsg(2,MSGT_UART_BAD_COUNTER,(void *)&bad_counter_id);
+
+            //Reset counter
+            received_counter = frame[UART_POS_COUNTER];
+
             error = 1;
         }
 
@@ -138,8 +139,11 @@ void uart_receive_interrupt_handler()
         if( checksum != frame[UART_FRAME_LENGTH - UART_FOOTER_WIDTH] )
         {
             //Send Error message to main to be sent to sender
-            unsigned char bad_checksum_id = received_counter;
-            ToMainLow_sendmsg(1,MSGT_UART_BAD_CHECKSUM,(void *)&bad_checksum_id);
+            unsigned char bad_checksum_message[3];
+            bad_checksum_message[0] = received_counter;
+            bad_checksum_message[1] = frame[UART_FRAME_LENGTH - UART_FOOTER_WIDTH];
+            bad_checksum_message[2] = checksum;
+            ToMainLow_sendmsg(3,MSGT_UART_BAD_CHECKSUM,(void *)&bad_checksum_message);
             error = 1;
         }
 
@@ -147,8 +151,8 @@ void uart_receive_interrupt_handler()
 
 
         if( !error )
-        {
-
+        {            
+            
             unsigned char msg_id = gooey_uart_center[0];
             //Send ACK info to main
             if( ( msg_id != MSGID_UART_ACK ) && ( msg_id != MSGID_UART_BAD_CHECKSUM ) && ( msg_id != MSGID_UART_BAD_COUNTER ) && ( msg_id != MSGID_UART_BAD_START ) && ( msg_id != MSGID_UART_BAD_END ) )
@@ -169,6 +173,10 @@ void uart_receive_interrupt_handler()
 
 
             }
+        }
+        else
+        {
+            blip3();
         }
 
         received_counter++;

@@ -1,8 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"25 ../src/messages.h
+"30 ../src/messages.h
 [s S1131 `uc 1 `uc 1 `uc 1 `uc -> 14 `i ]
 [n S1131 __msg full length msgtype data ]
-"32
+"37
 [s S1132 `S1131 -> 8 `i `uc 1 `uc 1 ]
 [n S1132 __msg_queue queue cur_write_ind cur_read_ind ]
 "22 C:\Program Files (x86)\Microchip\xc8\v1.32\include\string.h
@@ -8336,28 +8336,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupts.h: 16: int low_int_active(void);
 [; ;interrupts.h: 18: int in_low_int(void);
 [; ;interrupts.h: 21: int in_main(void);
-[; ;messages.h: 25: typedef struct __msg {
-[; ;messages.h: 26: unsigned char full;
-[; ;messages.h: 27: unsigned char length;
-[; ;messages.h: 28: unsigned char msgtype;
-[; ;messages.h: 29: unsigned char data[14];
-[; ;messages.h: 30: } msg;
-[; ;messages.h: 32: typedef struct __msg_queue {
-[; ;messages.h: 33: msg queue[8];
-[; ;messages.h: 34: unsigned char cur_write_ind;
-[; ;messages.h: 35: unsigned char cur_read_ind;
-[; ;messages.h: 36: } msg_queue;
-[; ;messages.h: 58: void init_queues(void);
-[; ;messages.h: 62: void SleepIfOkay(void);
-[; ;messages.h: 66: void block_on_To_msgqueues(void);
-[; ;messages.h: 72: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 73: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 79: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 80: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 86: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 87: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
-[; ;messages.h: 93: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
-[; ;messages.h: 94: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 30: typedef struct __msg {
+[; ;messages.h: 31: unsigned char full;
+[; ;messages.h: 32: unsigned char length;
+[; ;messages.h: 33: unsigned char msgtype;
+[; ;messages.h: 34: unsigned char data[14];
+[; ;messages.h: 35: } msg;
+[; ;messages.h: 37: typedef struct __msg_queue {
+[; ;messages.h: 38: msg queue[8];
+[; ;messages.h: 39: unsigned char cur_write_ind;
+[; ;messages.h: 40: unsigned char cur_read_ind;
+[; ;messages.h: 41: } msg_queue;
+[; ;messages.h: 63: void init_queues(void);
+[; ;messages.h: 67: void SleepIfOkay(void);
+[; ;messages.h: 71: void block_on_To_msgqueues(void);
+[; ;messages.h: 77: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 78: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 84: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 85: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 91: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 92: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 98: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 99: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;string.h: 22: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 23: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 24: extern void * memset(void *, int, size_t);

@@ -9,7 +9,12 @@
 
 //Command Definitions
 #define MSGID_MOVE                  0x01
-#define MSGID_SENSOR_STATUS         0x02
+#define MSGID_STATUS_REQUEST        0x02
+#define MSGID_STATUS_RESPONSE       0x03
+#define MSGID_SENSOR_REQUEST        0x04
+#define MSGID_SENSOR_RESPONSE       0x05
+#define MSGID_MOTOR_REQUEST         0x06
+#define MSGID_MOTOR_RESPONSE        0x07
 
 #define MSGID_UART_ACK              0x11
 

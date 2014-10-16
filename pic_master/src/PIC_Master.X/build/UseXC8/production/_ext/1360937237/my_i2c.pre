@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 25 "../src/messages.h"
+# 30 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10842,7 +10842,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 58
+# 63
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 72
+# 77
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 79
+# 84
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 86
+# 91
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 93
+# 98
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -11061,7 +11061,8 @@ ic_ptr->status = 0x6;
 
 # 129
 void i2c_int_handler() {
-
+LATDbits.LD7 = 0;
+LATDbits.LD7 = 1;
 
 unsigned char i2c_data;
 
@@ -11083,7 +11084,7 @@ signed char len = FromMainHigh_recvmsg(14, &msg_to_send, (void*)ic_ptr->outbuffe
 if( len == -4 )
 {
 
-# 156
+# 157
 }
 else if( len == -3 )
 {
@@ -11140,7 +11141,12 @@ unsigned char command_byte = ic_ptr->outbuffer[0];
 
 switch(command_byte)
 {
-case 0x02:
+case 0x04:
+{
+read_bit = 1;
+break;
+}
+case 0x06:
 {
 read_bit = 1;
 break;
@@ -11221,12 +11227,12 @@ ic_ptr->bufind++;
 
 if( ic_ptr->bufind >= 14 )
 {
-signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, 40 , ic_ptr->buffer);
+signed char err = ToMainHigh_sendmsg(14, 40 , ic_ptr->buffer);
 ic_ptr->status = 0xb;
 }
 else if(SSP1STATbits.P)
 {
-signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, 40 , ic_ptr->buffer);
+signed char err = ToMainHigh_sendmsg(14, 40 , ic_ptr->buffer);
 ic_ptr->status = 0xb;
 }
 else
@@ -11241,11 +11247,14 @@ case 0xb:
 {
 SSP1CON2bits.PEN = 1;
 ic_ptr->outbufind = 0;
-ic_ptr->outbufind = 0;
-ic_ptr->status = 0x5;
-}
-}
 
+
+ic_ptr->status = 0x5;
+break;
+}
+}
+LATDbits.LD7 = 1;
+LATDbits.LD7 = 0;
 }
 
 
@@ -11265,11 +11274,11 @@ ic_ptr->error_count = 0;
 
 void i2c_configure_slave(unsigned char addr) {
 
-# 344
+# 353
 TRISBbits.TRISB4 = 1;
 TRISBbits.TRISB5 = 1;
 
-# 353
+# 362
 SSPADD = addr;
 
 SSPSTAT = 0x0;
@@ -11278,11 +11287,11 @@ SSPCON2 = 0x0;
 SSPCON1 |= 0x0E;
 SSPSTAT |= 0b10000000;
 
-# 374
+# 383
 PORTBbits.SCL1 = 1;
 PORTBbits.SDA1 = 1;
 
-# 384
+# 393
 SSPCON2bits.SEN = 1;
 SSPCON1 |= 0b00100000;
 

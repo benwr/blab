@@ -13,7 +13,7 @@ static i2c_comm *ic_ptr;
 
 void i2c_configure_master(unsigned char slave_addr)
 {
-    
+
     SSP1CON1bits.SSPM = 0x8;    //Put in master mode
 
     SSP1STATbits.SMP = 1;       //Put slew rate in standard for normal speed I2C clock
@@ -29,7 +29,7 @@ void i2c_configure_master(unsigned char slave_addr)
     ic_ptr->status = I2C_IDLE;
 
     SSP1CON1bits.SSPEN = 1;     //Activate I2C
-    
+
 }
 
 // Sending in I2C Master mode [slave write]
@@ -45,19 +45,19 @@ void i2c_configure_master(unsigned char slave_addr)
 //   the structure to which ic_ptr points [there is already a suitable buffer there].
 
 unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
-    
+
     if( FromMainHigh_sendmsg(length,MSGT_I2C_DATA,(void *)msg) == MSGQUEUE_FULL )
     {
         return MSGQUEUE_FULL;
     }
     else
     {
-        
+
     }
 
     PIR1bits.SSP1IF = 1;   //Enable Start Condition; Start the I2C Message
-    
-    
+
+
     return(0);
 }
 
@@ -91,7 +91,7 @@ void start_i2c_slave_reply(unsigned char length, unsigned char *msg) {
     SSPBUF = ic_ptr->outbuffer[0];
     // we must be ready to go at this point, because we'll be releasing the I2C
     // peripheral which will soon trigger an interrupt
-    SSPCON1bits.CKP = 1; 
+    SSPCON1bits.CKP = 1;
 
 }
 
@@ -127,7 +127,8 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-
+    LATDbits.LD7 = 0;
+    LATDbits.LD7 = 1;
 
     unsigned char i2c_data;
     //unsigned char length;
@@ -139,7 +140,7 @@ void i2c_int_handler() {
     //unsigned char error_buf[3];
     unsigned char read_bit = 1;        //I2C read/~write bit
 
-    
+
 
     switch(ic_ptr->status)
     {
@@ -151,24 +152,24 @@ void i2c_int_handler() {
                 //ic_ptr->error_code=I2C_ERR_NODATA;
                 //ToMainHigh_sendmsg(0,MSGT_I2C_MASTER_SEND_FAILED,(void *)&ic_ptr->error_code);
                 //ic_ptr->status = I2C_IDLE;
-                
-                
+
+
             }
             else if( len == MSGBUFFER_TOOSMALL )
             {
-                
+
             }
             else
             {
                 ic_ptr->outbufind = 0;
                 ic_ptr->bufind = 0;
-                ic_ptr->outbuflen = len;                
+                ic_ptr->outbuflen = len;
                 SSP1CON2bits.SEN = 1;       //Enable Start Condition; Start the I2C Message
                 ic_ptr->status = I2C_STARTED;
-                
+
             }
             break;
-            
+
         }
         case I2C_STARTED:
         {
@@ -190,7 +191,7 @@ void i2c_int_handler() {
 
             ic_ptr->status = I2C_MASTER_DATA_SEND;
             ic_ptr->outbufind = 0;
-            
+
             break;
         }
         case I2C_MASTER_DATA_SEND:
@@ -202,14 +203,19 @@ void i2c_int_handler() {
 
             SSP1BUF = ic_ptr->outbuffer[ic_ptr->outbufind];
             ic_ptr->outbufind++;
-            
+
             if( ic_ptr->outbufind >= I2C_DATA_SIZE )
             {
                 unsigned char command_byte = ic_ptr->outbuffer[0];
 
                 switch(command_byte)  //Determine read_bit from command
                 {
-                    case MSGID_SENSOR_STATUS:
+                    case MSGID_SENSOR_REQUEST:
+                    {
+                        read_bit = 1;
+                        break;
+                    }
+                    case MSGID_MOTOR_REQUEST:
                     {
                         read_bit = 1;
                         break;
@@ -235,7 +241,7 @@ void i2c_int_handler() {
         }
         case I2C_MASTER_RESTART:
         {
-            
+
             SSP1CON2bits.RSEN = 1;
 
             ic_ptr->status = I2C_MASTER_ADDRESS_RESEND;
@@ -279,7 +285,7 @@ void i2c_int_handler() {
         }
         case I2C_SLAVE_SEND:
         {
-            if( SSP1STATbits.BF == 0 )   //Check for SSP1BUF empty 
+            if( SSP1STATbits.BF == 0 )   //Check for SSP1BUF empty
             {
                 break;
             }
@@ -290,12 +296,12 @@ void i2c_int_handler() {
 
             if( ic_ptr->bufind >= I2C_DATA_SIZE )
             {
-                signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, MSGT_I2C_DATA , ic_ptr->buffer);
+                signed char err = ToMainHigh_sendmsg(I2C_DATA_SIZE, MSGT_I2C_DATA , ic_ptr->buffer);
                 ic_ptr->status = I2C_MASTER_DATA_STOP;
             }
             else if(SSP1STATbits.P)  //look for stop bit
             {
-                signed char err = ToMainHigh_sendmsg(ic_ptr->bufind + 1, MSGT_I2C_DATA , ic_ptr->buffer);
+                signed char err = ToMainHigh_sendmsg(I2C_DATA_SIZE, MSGT_I2C_DATA , ic_ptr->buffer);
                 ic_ptr->status = I2C_MASTER_DATA_STOP;
             }
             else
@@ -305,16 +311,19 @@ void i2c_int_handler() {
                 break;
             }
         }
-        
+
         case I2C_MASTER_DATA_STOP:
         {
             SSP1CON2bits.PEN = 1;
             ic_ptr->outbufind = 0;
-            ic_ptr->outbufind = 0;
-            ic_ptr->status = I2C_IDLE;            
+            //int g;
+            //for(g=0;g<500;g++);
+            ic_ptr->status = I2C_IDLE;
+            break;
         }
     }
-
+    LATDbits.LD7 = 1;
+    LATDbits.LD7 = 0;
 }
 
 // set up the data structures for this i2c code
@@ -361,7 +370,7 @@ void i2c_configure_slave(unsigned char addr) {
 #ifdef I2C_V3
     I2C1_SCL = 1;
     I2C1_SDA = 1;
-#else 
+#else
 #ifdef I2C_V1
     I2C_SCL = 1;
     I2C_SDA = 1;
@@ -379,7 +388,7 @@ void i2c_configure_slave(unsigned char addr) {
 #endif
 #endif
 #endif
-    
+
     // enable clock-stretching
     SSPCON2bits.SEN = 1;
     SSPCON1 |= SSPENB;

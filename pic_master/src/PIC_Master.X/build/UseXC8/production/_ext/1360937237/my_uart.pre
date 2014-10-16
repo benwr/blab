@@ -10828,7 +10828,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 25 "../src/messages.h"
+# 30 "../src/messages.h"
 typedef struct __msg {
 unsigned char full;
 unsigned char length;
@@ -10842,7 +10842,7 @@ unsigned char cur_write_ind;
 unsigned char cur_read_ind;
 } msg_queue;
 
-# 58
+# 63
 void init_queues(void);
 
 
@@ -10853,19 +10853,19 @@ void SleepIfOkay(void);
 
 void block_on_To_msgqueues(void);
 
-# 72
+# 77
 signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 79
+# 84
 signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
-# 86
+# 91
 signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
 
-# 93
+# 98
 signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 
@@ -11017,6 +11017,8 @@ RCSTA1bits.CREN = 1;
 # 54
 void uart_receive_interrupt_handler()
 {
+blip();
+
 
 static unsigned char frame[(14 + 2 + 2)];
 static unsigned char index = 0;
@@ -11028,6 +11030,7 @@ static unsigned char error = 0;
 
 if(!done)
 {
+blip1();
 frame[index] = RCREG1;
 if(error)
 {
@@ -11070,6 +11073,7 @@ index++;
 
 if( index >= (14 + 2 + 2) )
 {
+blip2();
 index = 0;
 
 if( received_counter != frame[1] )
@@ -11079,6 +11083,10 @@ unsigned char bad_counter_id[2];
 bad_counter_id[0] = received_counter;
 bad_counter_id[1] = frame[1];
 ToMainLow_sendmsg(2,33,(void *)&bad_counter_id);
+
+
+received_counter = frame[1];
+
 error = 1;
 }
 
@@ -11095,8 +11103,11 @@ checksum ^= gooey_uart_center[i];
 if( checksum != frame[(14 + 2 + 2) - 2] )
 {
 
-unsigned char bad_checksum_id = received_counter;
-ToMainLow_sendmsg(1,32,(void *)&bad_checksum_id);
+unsigned char bad_checksum_message[3];
+bad_checksum_message[0] = received_counter;
+bad_checksum_message[1] = frame[(14 + 2 + 2) - 2];
+bad_checksum_message[2] = checksum;
+ToMainLow_sendmsg(3,32,(void *)&bad_checksum_message);
 error = 1;
 }
 
@@ -11127,12 +11138,16 @@ else
 
 }
 }
+else
+{
+blip3();
+}
 
 received_counter++;
 error = 0;
 }
 
-# 175
+# 190
 }
 
 
@@ -11212,7 +11227,7 @@ done = 1;
 
 }
 
-# 361
+# 376
 void uart_frame_message( unsigned char * inner , unsigned char * outer )
 {
 static unsigned char sent_counter = 0;
