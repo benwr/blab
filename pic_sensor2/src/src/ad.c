@@ -44,12 +44,11 @@ void init_registers(void)
     //#endif
     ADCON1bits.VCFG1 = 0x0;//VSS voltage Reference configuration bit (Vref-)
     ADCON1bits.VCFG0 = 0x0; //Vdd Voltage Reference configuration bit (Vref+)
-    ADCON1bits.PCFG = 0x8;// Turns on AN0 - AN6
+    ADCON1bits.PCFG = 0x6;// Turns on AN0 - AN8
 
-    ADCON0bits.CHS = 0x0;// Sets Select bit AN0
+    ADCON0bits.CHS = 0x2;// Sets Select bit AN2
 
-    ADCON2bits.ADFM = 1;//Right Justified
-    ADCON2bits.ACQT = 0x7;//20 TAD
+    ADCON2bits.ACQT = 0x2;//4 TAD
     ADCON2bits.ADCS = 0x6;//Fosc/64
 
     ADCON0bits.ADON = 0x1;// A/D converter module is enabled
@@ -57,15 +56,11 @@ void init_registers(void)
     PIR1bits.ADIF = 0x0;
     PIE1bits.ADIE = 0x1;//Enables the A/D interrupt
     INTCONbits.GIE = 0x1;//Enables all unmasked interrupts
-
-
     #endif
 }
 
 void a_to_d_converter_handler(void) {
     unsigned short mybytes = 0x0000;
-    static unsigned char AtoDCntr = 0;
-    signed char MsgQState;
 
 #ifdef __USE18F26J50
     #ifdef DEBUG
@@ -79,65 +74,16 @@ void a_to_d_converter_handler(void) {
     mybytes = mybytes | ADRESL;
 
     //mybytes = rndSense(fake_sensor_cntr++);
-    //You set the CHS bit to the next channel at the end of each case.
-    switch(AtoDCntr)
-    {
-        case LB_IR_SENSER:
-        {
-            MsgQState = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_TO_MAIN_LB_IR, &mybytes);
-            ADCON0bits.CHS = 0x1;
-            ADCON0bits.GO_NOT_DONE = 0x1;
-            break;
-        }
-        case LF_IR_SENSER:
-        {
-            MsgQState = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_TO_MAIN_LF_IR, &mybytes);
-            ADCON0bits.CHS = 0x2;
-            ADCON0bits.GO_NOT_DONE = 0x1;
-            break;
-        }
-        case RB_IR_SENSER:
-        {
-            MsgQState = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_TO_MAIN_RB_IR, &mybytes);
-            ADCON0bits.CHS = 0x3;
-            ADCON0bits.GO_NOT_DONE = 0x1;
-            break;
-        }
-        case RF_IR_SENSER:
-        {
-            MsgQState = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_TO_MAIN_RF_IR, &mybytes);
 
-            ADCON0bits.CHS = 0x0;// Sets Select bit AN2
-            ADCON0bits.GO_NOT_DONE = 0x0;
-            break;
-        }
-        /*
-        case FL_US_SENSER:
-        {
-            break;
-        }
-        case FR_US_SENSER:
-        {
-            ADCON0bits.CHS = 0x2;// Sets Select bit AN2
-            ADCON0bits.GO_NOT_DONE = 0x0;
-            break;
-        }
-         * */
-        default:
-            //error! Getting here should be impossible.
-            break;
-    }//end switch.
 
-    //signed char output = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_CONVERTER_COMPLETE, &mybytes);
+    signed char output = ToMainHigh_sendmsg(MSGSIZE, MSGT_AD_CONVERTER_COMPLETE, &mybytes);
 
-    //ADCON0bits.GO_NOT_DONE = 0x0;
-    AtoDCntr = (AtoDCntr + 1) % 4;
+    ADCON0bits.GO_NOT_DONE = 0x0;
+    //ADCON0 = ADCON0 ^ 0x02;//xor to set the second to last bit to zero
 }
 
 char rndSense(unsigned int index){
-    //char myArray[10] = {0x31, 0x32, 0x33, 0x34, 0x35,
-    //                  0x36, 0x37, 0x38, 0x39, 0x30};
-    char myArray[10] = {0xee, 0xee, 0xee, 0xee, 0xee,
-                        0xee, 0xee, 0xee, 0xee, 0xee};
+    char myArray[10] = {0x31, 0x32, 0x33, 0x34, 0x35,
+                        0x36, 0x37, 0x38, 0x39, 0x30};
     return myArray[index % 10];
 }

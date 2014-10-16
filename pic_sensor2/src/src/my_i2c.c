@@ -101,9 +101,8 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-    LATBbits.LB7 = 0x0;
-    LATBbits.LB7 = 0x1;
 
+    //LATBbits.LB7 ^= 0x1;
     //static unsigned char sensor_bank[I2C_DATA_SIZE];
 
     unsigned char i2c_data;
@@ -189,14 +188,14 @@ void i2c_int_handler() {
             }
             case I2C_SLAVE_SEND:
             {
-                //LATBbits.LB6 ^= 0x1;
+                LATBbits.LB6 ^= 0x1;
                 if (ic_ptr->outbufind < I2C_DATA_SIZE) {
                     
                     SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
                     ic_ptr->outbufind++;
                     data_written = 1;
                 } else {
-                    //LATBbits.LB5 ^= 0x1;
+                    LATBbits.LB5 ^= 0x1;
                     // we have nothing left to send
                     ic_ptr->status = I2C_IDLE;
                 }
@@ -321,7 +320,7 @@ void i2c_int_handler() {
         ic_ptr->error_count = 0;
     }
     if (msg_to_send) {
-        //LATBbits.LB4 ^= 0x1;
+        
         start_i2c_slave_reply(I2C_DATA_SIZE, ic_ptr->outbuffer);
         // send to the queue to *ask* for the data to be sent out
         ToMainHigh_sendmsg(0, MSGT_I2C_RQST, (void *) ic_ptr->buffer);
@@ -331,11 +330,11 @@ void i2c_int_handler() {
 
     if(need_data)
     {
-        //LATBbits.LB4 ^= 0x1;
+        LATBbits.LB4 ^= 0x1;
         unsigned char msg_type;
         signed char length = FromMainHigh_recvmsg( I2C_DATA_SIZE , &msg_type , (void *)ic_ptr->outbuffer );
         if( length == MSGQUEUE_EMPTY ){
-            //LATBbits.LB7 ^= 0x1;
+            LATBbits.LB7 ^= 0x1;
                 //Don't do anything
         }
         else if( length < 0 ){
@@ -416,7 +415,7 @@ void i2c_configure_slave(unsigned char addr) {
     SSPCON1 |= SSPENB;
     // end of i2c configure
 }
-/*
+
 void retrieve_sensor_values( unsigned char * sensor_bank )
 {
     unsigned char msgtype = MSGT_I2C_DATA;
@@ -424,7 +423,6 @@ void retrieve_sensor_values( unsigned char * sensor_bank )
     int i;
     signed char length =  FromMainHigh_recvmsg( I2C_DATA_SIZE , &msgtype , (void *)sensor_bank);
 
-    *need_sensor_data = 1;
+	*need_sensor_data = 1;
 
 }
- * */
