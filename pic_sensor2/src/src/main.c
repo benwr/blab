@@ -203,7 +203,7 @@ void main(void) {
     OSCTUNEbits.PLLEN = 1; // 4x the clock speed in the previous line
 #else
 #ifdef __USE18F45J10
-    OSCCON = 0x83; // see datasheeet
+    OSCCON = 0x82; // see datasheeet
     OSCTUNEbits.PLLEN = 0; // Makes the clock exceed the PIC's rated speed if the PLL is on
 #else
 #ifdef __USE18F26J50
@@ -322,7 +322,7 @@ void main(void) {
     
     init_registers();//Luke's code
     //[0] is the cmd/id, [1] is a recerved byte, [2-5] are sensor data values
-    unsigned char updateMask [UPDATE_MASK_SIZE] = {0x00, 0x00};
+    //unsigned char updateMask [UPDATE_MASK_SIZE] = {0x00, 0x00};
     unsigned char snsmsgbuf [SENS_CMD_SIZE] = {SENSOR_RESPONSE, 0x00, 0x00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0};
     
 
@@ -331,12 +331,7 @@ void main(void) {
     // It is also slow and is blocking, so it will perturb your code's operation
     // Here is how it looks: printf("Hello\r\n");
 
-    LATBbits.LB4 = 1;
-    LATBbits.LB4 = 0;
-    LATBbits.LB4 = 1;
-    LATBbits.LB4 = 0;
-    LATBbits.LB4 = 1;
-    LATBbits.LB4 = 0;
+
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
     // that should get them.  Although the subroutines are not threads, but
@@ -344,8 +339,8 @@ void main(void) {
     // structure them properly.
     //unsigned short current_distance = 0x0000;
     //To Indicate the start of the while loop.
-    //LATBbits.LB7 = 0x1;
-    //LATBbits.LB7 = 0x0;
+    LATBbits.LB7 = 0x1;
+    LATBbits.LB7 = 0x0;
     unsigned int cntr = 0;
     while (1) {
         
@@ -354,16 +349,16 @@ void main(void) {
         // an idle mode)
         block_on_To_msgqueues();
         
-        
+       /*
         signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
+        //Reset the update mask to signafy that the current values are now old.
+        snsmsgbuf[MSG_BUF_MASK1] = 0x00;
+        snsmsgbuf[MSG_BUF_MASK2] = 0x00;
 
         if(MsgQ_BStatus != MSGSEND_OKAY)
         {
             //Error. Message note ok.
-        }
-
-
-        
+        }*/
 
         // At this point, one or both of the queues has a message.  It
         // makes sense to check the high-priority messages first -- in fact,
@@ -393,7 +388,15 @@ void main(void) {
                 };
                 case MSGT_I2C_RQST:
                 {
-                    
+                    signed char MsgQ_BStatus = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
+                    //Reset the update mask to signafy that the current values are now old.
+                    snsmsgbuf[MSG_BUF_MASK1] = 0x00;
+                    snsmsgbuf[MSG_BUF_MASK2] = 0x00;
+
+                    if(MsgQ_BStatus != MSGSEND_OKAY)
+                    {
+                        //Error. Message note ok.
+                    }
                     /*
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
                     // I recommend that you handle it completely inside the i2c interrupt handler
@@ -429,6 +432,46 @@ void main(void) {
                     */
                     break;
                 };
+                case MSGT_AD_TO_MAIN_LB_IR:
+                {
+                    unsigned short sensor_value = ( msgbuffer[1] << 8 ) | msgbuffer[0];
+                    unsigned char distance = (18924/( sensor_value - 17 ));
+
+                    unsigned char LSBIR = distance;
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | LSB_IR_UPDATE;
+                    snsmsgbuf[LEFT_BACK_IR] = LSBIR;
+                    break;
+                }
+                case MSGT_AD_TO_MAIN_LF_IR:
+                {
+                    unsigned short sensor_value = ( msgbuffer[1] << 8 ) | msgbuffer[0];
+                    unsigned char distance = (18924/( sensor_value - 17 ));
+
+                    unsigned char LSFIR = distance;
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | LSF_IR_UPDATE;
+                    snsmsgbuf[LEFT_FRONT_IR] = LSFIR;
+                    break;
+                }
+                case MSGT_AD_TO_MAIN_RB_IR:
+                {
+                    unsigned short sensor_value = ( msgbuffer[1] << 8 ) | msgbuffer[0];
+                    unsigned char distance = (18924/( sensor_value - 17 ));
+
+                    unsigned char RSBIR = distance;
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | RSB_IR_UPDATE;
+                    snsmsgbuf[RIGHT_BACK_IR] = RSBIR;
+                    break;
+                }
+                case MSGT_AD_TO_MAIN_RF_IR:
+                {
+                    unsigned short sensor_value = ( msgbuffer[1] << 8 ) | msgbuffer[0];
+                    unsigned char distance = (18924/( sensor_value - 17 ));
+
+                    unsigned char RSFIR = distance;
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | RSF_IR_UPDATE;
+                    snsmsgbuf[RIGHT_FRONT_IR] = RSFIR;
+                    break;
+                }
                 case MSGT_AD_CONVERTER_COMPLETE:
                 {
                 #ifdef __USE18F26J50
@@ -443,50 +486,70 @@ void main(void) {
                 //#endif
                 #endif
 
-                    unsigned short sensor_value = msgbuffer[1];
-                    sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
+                    //unsigned short sensor_value = msgbuffer[1];
+                    //sensor_value = ( sensor_value << 8 ) | msgbuffer[0];
 
-                    unsigned char distance = (18924/( sensor_value - 17 ));
+                    //unsigned char distance = (18924/( sensor_value - 17 ));
 
-                    unsigned char FLUltra = rndSense(cntr++);
+                    /*
+                    unsigned char FLUltra = distance;
                     updateMask[0] = updateMask[0] | FL_ULTRA_UPDATE;
-                    unsigned char FRUltra = rndSense(cntr++);
+                    unsigned char FRUltra = distance;
                     updateMask[0] = updateMask[0] | FR_ULTRA_UPDATE;
-                    unsigned char LSFIR = rndSense(cntr++);
-                    updateMask[0] = updateMask[0] | LSF_IR_UPDATE;
-                    unsigned char LSRIR = rndSense(cntr++);
-                    updateMask[0] = updateMask[0] | LSR_IR_UPDATE;
-                    unsigned char RSFIR = rndSense(cntr++);
-                    updateMask[0] = updateMask[0] | RSF_IR_UPDATE;
-                    unsigned char RSRIR = rndSense(cntr++);
-                    updateMask[0] = updateMask[0] | RSR_IR_UPDATE;
-                    unsigned char FLine = rndSense(cntr++);
+                    //unsigned char LSFIR = distance;
+                    //updateMask[0] = updateMask[0] | LSF_IR_UPDATE;
+                    //unsigned char LSBIR = distance;
+                    //updateMask[0] = updateMask[0] | LSB_IR_UPDATE;
+                    //unsigned char RSFIR = distance;
+                    //updateMask[0] = updateMask[0] | RSF_IR_UPDATE;
+                    //unsigned char RSBIR = distance;
+                    //updateMask[0] = updateMask[0] | RSB_IR_UPDATE;
+                    unsigned char FLine = distance;
                     updateMask[0] = updateMask[0] | F_LINE_UPDATE;
-                    unsigned char RLine = rndSense(cntr++);
-                    updateMask[1] = updateMask[1] | R_Line_UPDATE;
-                    unsigned char RFID = rndSense(cntr++);
+                    unsigned char BLine = distance;
+                    updateMask[1] = updateMask[1] | B_Line_UPDATE;
+                    unsigned char RFID = distance;
                     updateMask[1] = updateMask[1] | RFID_UPDATE;
+                    ///myData.distance1 = (18924/( sensor_value - 17 ));
+                    */
+                    unsigned char FLUltra = rndSense(cntr++);
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | FL_ULTRA_UPDATE;
+                    unsigned char FRUltra = rndSense(cntr++);
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | FR_ULTRA_UPDATE;
+                    //unsigned char LSFIR = rndSense(cntr++);
+                    //unsigned char LSFIR = distance;
+                    //updateMask[0] = updateMask[0] | LSF_IR_UPDATE;
+                    //unsigned char LSRIR = rndSense(cntr++);
+                    //updateMask[0] = updateMask[0] | LSR_IR_UPDATE;
+                    //unsigned char RSFIR = rndSense(cntr++);
+                    //updateMask[0] = updateMask[0] | RSF_IR_UPDATE;
+                    //unsigned char RSRIR = rndSense(cntr++);
+                    //updateMask[0] = updateMask[0] | RSB_IR_UPDATE;
+                    unsigned char FLine = rndSense(cntr++);
+                    snsmsgbuf[MSG_BUF_MASK1] = snsmsgbuf[MSG_BUF_MASK1] | F_LINE_UPDATE;
+                    unsigned char BLine = rndSense(cntr++);
+                    snsmsgbuf[MSG_BUF_MASK2] = snsmsgbuf[MSG_BUF_MASK2] | B_Line_UPDATE;
+                    unsigned char RFID = rndSense(cntr++);
+                    snsmsgbuf[MSG_BUF_MASK2] = snsmsgbuf[MSG_BUF_MASK2] | RFID_UPDATE;
                     ///myData.distance1 = (18924/( sensor_value - 17 ));
                     
                     
                     //snsmsgbuf[0] = SENSER_CMD;
-                    snsmsgbuf[1] = updateMask[0];
-                    snsmsgbuf[2] = updateMask[1];
-                    snsmsgbuf[3] = FLUltra;
-                    snsmsgbuf[4] = FRUltra;
-                    snsmsgbuf[5] = LSFIR;
-                    snsmsgbuf[6] = LSRIR;
-                    snsmsgbuf[7] = RSFIR;
-                    snsmsgbuf[8] = RSRIR;
-                    snsmsgbuf[9] = FLine;
-                    snsmsgbuf[10] = RLine;
-                    snsmsgbuf[11] = RFID;
+                    snsmsgbuf[FRONT_LEFT_ULTRA] = FLUltra;
+                    snsmsgbuf[FRONT_RIGHT_ULTRA] = FRUltra;
+                    //snsmsgbuf[LEFT_FRONT_IR] = LSFIR;
+                    //snsmsgbuf[LEFT_BACK_IR] = LSBIR;
+                    //snsmsgbuf[RIGHT_FRONT_IR] = RSFIR;
+                    //snsmsgbuf[RIGHT_BACK_IR] = RSBIR;
+                    snsmsgbuf[FRONT_LINE] = FLine;
+                    snsmsgbuf[BACK_LINE] = BLine;
+                    snsmsgbuf[RFID_POSSITION] = RFID;
 
-                    signed char MsgQB_Status = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
+                    //signed char MsgQB_Status = FromMainHigh_sendmsg(SENS_CMD_SIZE, MSGT_I2C_DATA, snsmsgbuf);
 
-                    //Reset the update mask to signafy that the current values are now old.
-                    updateMask[0] = 0x00;
-                    updateMask[1] = 0x00;
+                    ////Reset the update mask to signafy that the current values are now old.
+                    //updateMask[0] = 0x00;
+                    //updateMask[1] = 0x00;
                     
 
                     //MsgQ_BStatus = FromMainHigh_sendmsg(6, MSGT_I2C_DATA, mymsgbuf);
