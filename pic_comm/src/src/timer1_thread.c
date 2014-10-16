@@ -1,5 +1,6 @@
 #include "maindefs.h"
 #include <stdio.h>
+#include "my_uart.h"
 #include "messages.h"
 #include "timer1_thread.h"
 
@@ -24,5 +25,9 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
         if (retval < 0) {
             // We would handle the error here
         }
+
+        unsigned char message [UART_DATA_LENGTH] =  {MSGID_SENSOR_STATUS,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        send_uart_message(message);
     }
 }

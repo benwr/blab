@@ -101,7 +101,6 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-	blip1();
 
 	//static unsigned char sensor_bank[I2C_DATA_SIZE];
 
@@ -169,7 +168,6 @@ void i2c_int_handler() {
                         if (SSPSTATbits.R_W == 0) { // slave write
                             ic_ptr->status = I2C_RCV_DATA;
                         } else { // slave read
-							blip3();																											//WEIRD
                             ic_ptr->status = I2C_SLAVE_SEND;
                             msg_to_send = 1;
                             // don't let the clock stretching bit be let go
@@ -196,7 +194,6 @@ void i2c_int_handler() {
                     ic_ptr->outbufind++;
                     data_written = 1;
                 } else {
-					blip3();
                     // we have nothing left to send
                     ic_ptr->status = I2C_IDLE;
                 }
@@ -204,7 +201,6 @@ void i2c_int_handler() {
             }
             case I2C_RCV_DATA:
             {
-				blip2();
                 // we expect either data or a stop bit or a (if a restart, an addr)
                 if (SSPSTATbits.P == 1) {
                     // we need to check to see if we also read data

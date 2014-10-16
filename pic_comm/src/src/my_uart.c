@@ -99,6 +99,7 @@ void uart_receive_interrupt_handler()
                 unsigned char bad_end_id = received_counter;
                 ToMainLow_sendmsg(1,MSGT_UART_BAD_END,(void *)&bad_end_id);
                 error = 1;
+                blip2();
             }
         }
         index++;
@@ -106,6 +107,7 @@ void uart_receive_interrupt_handler()
 
     if( index >= UART_FRAME_LENGTH )
     {
+        
         index = 0;
 
         if( received_counter != frame[UART_POS_COUNTER] )
@@ -115,8 +117,11 @@ void uart_receive_interrupt_handler()
             bad_counter_id[0] = received_counter;
             bad_counter_id[1] = frame[UART_POS_COUNTER];   //Format for bad counter in error message sent
             ToMainLow_sendmsg(2,MSGT_UART_BAD_COUNTER,(void *)&bad_counter_id);
+            received_counter = frame[UART_POS_COUNTER];
             error = 1;
+            blip1();
         }
+
 
         //Fill data for sending to main -- also generate checksum
         unsigned char gooey_uart_center[UART_DATA_LENGTH];
@@ -134,13 +139,14 @@ void uart_receive_interrupt_handler()
             unsigned char bad_checksum_id = received_counter;
             ToMainLow_sendmsg(1,MSGT_UART_BAD_CHECKSUM,(void *)&bad_checksum_id);
             error = 1;
+            blip();
         }
-
 
 
 
         if( !error )
         {
+
 
             unsigned char msg_id = gooey_uart_center[0];
             //Send ACK info to main
@@ -250,51 +256,6 @@ void uart_transmit_interrupt_handler()
 
 
 }
-
-
-
-
-//Alex: Receive a byte into uart receive buffer from the uart hardware recieve buffer; interrupt should call this only
-/*
-void uart_receive_byte()
-{
-
-    signed char message_status = ToMainLow_sendmsg(1,MSGT_UART_DATA,(void *) &gotten_byte );
-
-
-    /*
-    if( uart_receive_buffer.size >= MAXUARTBUF )
-    {
-        PIE1bits.RC1IE = 0; // Turn off interrupts if Receive buffer is full
-        return;
-    }
-    uart_receive_buffer.buffer[uart_receive_buffer.last_item] = RCREG1;
-    uart_receive_buffer.last_item = (uart_receive_buffer.last_item + 1) % MAXUARTBUF;
-    uart_receive_buffer.size += 1;
-
-}
-*/
-
-/*
-int uart_receive_buffer_empty()
-{
-    if( uart_receive_buffer.size == 0 )
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
- * */
-
-/*
-unsigned char uart_num_bytes_in_recv_buffer()
-{
-    return uart_receive_buffer.size;
-}
-*/
 
 
 

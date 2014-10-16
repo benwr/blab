@@ -507,7 +507,7 @@ void main(void) {
                 }
                 case MSGT_UART_DATA:
                 {
-                   /*
+
                     switch( msgbuffer[0] )
                     {
                         
@@ -517,7 +517,7 @@ void main(void) {
                         }
 
 
-                    }*/
+                    }
 					
                     break;
                 };
