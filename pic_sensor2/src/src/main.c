@@ -203,7 +203,7 @@ void main(void) {
     OSCTUNEbits.PLLEN = 1; // 4x the clock speed in the previous line
 #else
 #ifdef __USE18F45J10
-    OSCCON = 0x82; // see datasheeet
+    OSCCON = 0x83; // see datasheeet
     OSCTUNEbits.PLLEN = 0; // Makes the clock exceed the PIC's rated speed if the PLL is on
 #else
 #ifdef __USE18F26J50
@@ -331,7 +331,12 @@ void main(void) {
     // It is also slow and is blocking, so it will perturb your code's operation
     // Here is how it looks: printf("Hello\r\n");
 
-
+    LATBbits.LB4 = 1;
+    LATBbits.LB4 = 0;
+    LATBbits.LB4 = 1;
+    LATBbits.LB4 = 0;
+    LATBbits.LB4 = 1;
+    LATBbits.LB4 = 0;
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
     // that should get them.  Although the subroutines are not threads, but
@@ -339,8 +344,8 @@ void main(void) {
     // structure them properly.
     //unsigned short current_distance = 0x0000;
     //To Indicate the start of the while loop.
-    LATBbits.LB7 = 0x1;
-    LATBbits.LB7 = 0x0;
+    //LATBbits.LB7 = 0x1;
+    //LATBbits.LB7 = 0x0;
     unsigned int cntr = 0;
     while (1) {
         

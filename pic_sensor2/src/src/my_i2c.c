@@ -101,7 +101,9 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
-    LATBbits.LB7 ^= 0x1;
+    LATBbits.LB7 = 0x0;
+    LATBbits.LB7 = 0x1;
+
     //static unsigned char sensor_bank[I2C_DATA_SIZE];
 
     unsigned char i2c_data;
@@ -343,6 +345,8 @@ void i2c_int_handler() {
                 need_data = 0;
         }
     }
+    LATBbits.LB7 = 0x1;
+    LATBbits.LB7 = 0x0;
 }
 
 // set up the data structures for this i2c code

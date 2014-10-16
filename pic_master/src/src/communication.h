@@ -25,7 +25,7 @@ typedef struct
 
 
 
-void send_uart_message( unsigned char * message_ptr );
+//void send_uart_message( unsigned char * message_ptr );
 
 
 

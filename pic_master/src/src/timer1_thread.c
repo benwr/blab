@@ -19,7 +19,7 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
     blink0();
 
     unsigned char sensor_request[14];
-    sensor_request[0]=0x02;
+    sensor_request[0]=0x04;
 
     i2c_master_send(14,sensor_request);
 
