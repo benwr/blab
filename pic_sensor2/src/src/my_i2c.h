@@ -24,7 +24,7 @@ typedef struct __i2c_comm {
 
 #define I2C_IDLE 0x5
 #define I2C_STARTED 0x6
-#define	I2C_RCV_DATA 0x7
+#define I2C_RCV_DATA 0x7
 #define I2C_SLAVE_SEND 0x8
 #define I2C_MASTER_ADDRESS_SEND 0x9
 #define I2C_MASTER_DATA_SEND 0xa
@@ -40,7 +40,7 @@ typedef struct __i2c_comm {
 #define I2C_ERR_NODATA 0x6
 #define I2C_ERR_MSGTOOLONG 0x7
 #define I2C_ERR_MSG_TRUNC 0x8
-#define I2C_ERR_NO_ACK 0x9          //No Ack received from slave
+#define I2C_ERR_NO_ACK 0x9 //No Ack received from slave
 
 
 void init_i2c(i2c_comm *ic);
@@ -51,6 +51,6 @@ void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
 unsigned char i2c_master_recv(unsigned char);
 
-void retrieve_sensor_values( unsigned char * sensor_bank );
+//void retrieve_sensor_values( unsigned char * sensor_bank );
 
 #endif
